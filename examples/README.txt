@@ -1,0 +1,42 @@
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+#   PRELIMINARY OPERATIONS   # 
+
+
+Dependencies for running examples:
+
+For running these examples you will need some packages installed. 
+To facilitate the task a pre-made conda environment is available here under the name:
+
+pyRTX_env.yml
+
+---------------------------------------
+To create the environment run:
+>> conda env create -f pyRTX_env.yml
+
+To activate the environment run:
+>> conda activate py38
+---------------------------------------
+
+This environment supports the kernels 'Native' and 'Embree' in the RTXhandler (see 
+line 108 in the maven_test example). 
+The installation of Embree v3 is more complicate and will be released in the next 
+future.
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+#    EXAMPLES DESCRIPTION    # 
+
+- maven_test.py
+This example shows the general pipeline for performing a simple raytracing task
+
+- maven_test_packets.py
+Same as maven_test but employing the 'multiple packets' approach to subdivide the sun rays in multiple
+sectors. This is done to avoid the segmentation fault that happens when ray tracing with too many rays 
+
+
+- lro_test_w_classes.py
+Show the capability of the object-oriented part of the code by computing the SRP on LRO
+based on the mission SPICE kernels
+
+
+
