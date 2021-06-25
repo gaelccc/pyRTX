@@ -19,7 +19,7 @@ class Planet():
 		self.sunFixedFrame = sunFixedFrame
 		conversion_factor = constants.unit_conversions[units]
 		if fromFile is None:
-			self.base_shape = tm.creation.icosphere(subdivisions = 5, radius = radius)
+			self.base_shape = tm.creation.icosphere(subdivisions = 6, radius = radius)
 			self.bodyFrame = bodyFrame
 		else:
 			self.base_shape = tm.load_mesh(fromFile)
@@ -39,7 +39,7 @@ class Planet():
 		if targetFrame is None:
 			targetFrame = self.bodyFrame
 		newShape = copy.deepcopy(self.base_shape)
-		if rotate is not None and self.fromFile is not None:
+		if rotate is not None:  
 			tmatrix = sp.pxform(rotate, targetFrame, epoch)	
 			tmatrix = self.pxform_convert(tmatrix)
 			newShape.apply_transform(tmatrix)
