@@ -231,7 +231,13 @@ def getSunAngles(scName = None, scFrame = None, epoch = None):
 	
 
 def epochRange(startEpoch = None, duration = None, step = 100):
-	startEp = sp.str2et(startEpoch)
+	if isinstance(startEpoch, str):
+		startEp = sp.str2et(startEpoch)
+	elif isinstance(startEpoch, float):
+		startEp = startEpoch
+	else:
+		raise ValueError('startEpoch argument must be str or float')
+	
 	endEp = startEp + duration
 
 	epochList = np.linspace(startEp, endEp, num = int(np.ceil((endEp - startEp)/step)))
