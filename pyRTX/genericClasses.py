@@ -11,7 +11,7 @@ from analysis_utils import TiffInterpolator
 
 
 class Planet():
-	def __init__(self, fromFile = None, radius = 0, name = '', bodyFrame = '', sunFixedFrame = '', units = 'km'):
+	def __init__(self, fromFile = None, radius = 0, name = '', bodyFrame = '', sunFixedFrame = '', units = 'km', subdivs = 6):
 		
 
 		self.name = name
@@ -19,7 +19,7 @@ class Planet():
 		self.sunFixedFrame = sunFixedFrame
 		conversion_factor = constants.unit_conversions[units]
 		if fromFile is None:
-			self.base_shape = tm.creation.icosphere(subdivisions = 6, radius = radius)
+			self.base_shape = tm.creation.icosphere(subdivisions = subdivs, radius = radius)
 			self.bodyFrame = bodyFrame
 		else:
 			self.base_shape = tm.load_mesh(fromFile)
@@ -68,7 +68,8 @@ class Planet():
 
 		if self.name == '':
 			raise Error('You must provide a name for the planet')
-		mesh = self.mesh(epoch = epoch)
+		#mesh = self.mesh(epoch = epoch) # The following line should be perfectly equivalent
+		mesh = self.base_shape
 		sc_pos = sp.spkezr(spacecraft_name, epoch, self.bodyFrame, 'LT+S', self.name)
 	
 
@@ -80,17 +81,12 @@ class Planet():
 
 		sc_pos = -centers + sc_pos[0][0:3]
 		sc_pos = block_normalize(sc_pos)
-		#sc_pos = sp.vhat(sc_pos[0][0:3])
 
-		#angles = np.dot(N, sc_pos)
 		angles = np.sum(np.multiply(N, sc_pos), axis = 1)
 		idxs = np.where(angles > 0)
 
 
 
-		#visibleFaces = F[idxs]
-		#visibleCenters = centers[idxs]
-		#visibleNormals = N[idxs]
 
 		return  idxs[0]
 
@@ -128,7 +124,8 @@ class Planet():
 		visible_ids = self._is_visible(spacecraft_name, epoch)
 		visibleTemps = self.getFaceTemperatures(epoch)[visible_ids]
 		
-		return self._is_visible(spacecraft_name, epoch), visibleTemps
+		#return self._is_visible(spacecraft_name, epoch), visibleTemps
+		return visible_ids, visibleTemps
 	
 	def getFaceTemperatures(self, epoch):
 		"""
@@ -164,7 +161,7 @@ class Planet():
 		"""
 
 		rotated_mesh = self.mesh(epoch = epoch, rotate = self.bodyFrame, targetFrame = self.sunFixedFrame, translate = None)
-		self.temp_rotated_debug = rotated_mesh
+		##self.temp_rotated_debug = rotated_mesh not used
 		V = rotated_mesh.vertices
 		F = rotated_mesh.faces, 
 		N = rotated_mesh.face_normals
@@ -173,7 +170,8 @@ class Planet():
 		return V, F, N, C
 
 	def getScPosSunFixed(self,epoch, spacecraft_name):
-		sc_pos = sp.spkezr(spacecraft_name, epoch, self.sunFixedFrame, 'LT+S', self.name)
+		correction = 'CN'
+		sc_pos = sp.spkezr(spacecraft_name, epoch, self.sunFixedFrame, correction, self.name)
 
 		return sc_pos[0][0:3]
 

@@ -75,7 +75,6 @@ def srp_core(flux, indexes_tri, indexes_ray, N, S, norm_factor, mesh_obj, materi
 	force: np.array of SRP force
 	"""
 
-	#c = 299792458
 	c = constants.c
 	if isinstance(materials, str) and materials == 'None':
 		rho_s = 0.1  #Hardcoded and used just for the dummy case in which the materials are not provided
@@ -92,6 +91,7 @@ def srp_core(flux, indexes_tri, indexes_ray, N, S, norm_factor, mesh_obj, materi
 	s = S[indexes_ray]
 	n = N[indexes_tri]
 	r = reflected(s,n)
+
 
 	aa = flux[indexes_ray]*dA/c 
 

@@ -102,7 +102,7 @@ class SunShadow():
 
 	def compute(self, epochs):
 
-
+		
 
 		if not isinstance(epochs, (list, np.ndarray)):
 			epochs = [epochs]
@@ -125,7 +125,9 @@ class SunShadow():
 
 
 
-			tic2 = timeit.default_timer()
+
+
+
 			if self.limbDarkening is not None:
 				betas= compute_beta(-newCoord, origin, self.sunRadius)
 				pixelIntensities = compute_pixel_intensities(betas)
@@ -147,27 +149,35 @@ class SunShadow():
 			shape = self.shape.mesh(translate = bodyPos[i][0:3], epoch = epoch, rotate = self.spacecraft.base_frame)
 
 
-			tic_a = timeit.default_timer()
+
 
 			_, index_ray, _, _, _, _ = utils_rt.RTXkernel(shape, ray_origins, dirs, kernel = 'Embree', bounces = 1, errorMsg = False)
 
+			
 			if np.shape(index_ray)[0] == 1:
 				index_ray = index_ray[0]
 
 			numerator = len(index_ray)
 			denominator = len(ray_origins)
 
+			# Repeated block!
+			#if self.limbDarkening is not None:
+			#	betas= compute_beta(-newCoord, origin, self.sunRadius)
+			#	pixelIntensities = compute_pixel_intensities(betas)
+			#	sum_of_weights= np.sum(pixelIntensities)
+
+			#	numerator = np.sum(pixelIntensities[index_ray])/sum_of_weights
+			#	denominator = 1
+
 
 			if self.limbDarkening is not None:
-				betas= compute_beta(-newCoord, origin, self.sunRadius)
-				pixelIntensities = compute_pixel_intensities(betas)
-				sum_of_weights= np.sum(pixelIntensities)
-
 				numerator = np.sum(pixelIntensities[index_ray])/sum_of_weights
 				denominator = 1
+				
 
 
 			ratios.append(1-numerator/denominator)
+
 
 		return ratios
 
