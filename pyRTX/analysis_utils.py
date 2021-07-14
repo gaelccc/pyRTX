@@ -107,7 +107,7 @@ class LookupTableND():
 
 	def interpolator(self, vals):
 		
-		return interpolate.interpn(self.axes,self.values, vals) 
+		return interpolate.interpn(self.axes,self.values, vals, method = 'linear') 
 
 
 	def set_interpType(self, interpType):

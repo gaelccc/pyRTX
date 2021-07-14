@@ -39,21 +39,25 @@ class Drag():
 		self.CD = CD
 
 	
-	def compute(self,epoch):
+	def compute(self,epoch, frame = ''):
 		"""
 		Compute the drag at epoch in the spacecraft body frame
 		"""
 
 		st = sp.spkezr(self.scName, epoch, 'IAU_%s' %self.body.upper(), 'LT+S', self.body)
-		st_r = sp.spkezr(self.scName, epoch, self.scFrame, 'LT+S', self.body)
-		_, dir1, dir2 = sp.recrad(-st_r[0][3:6])
+		rot = sp.pxform('IAU_%s' %self.body.upper(), self.scFrame, epoch)
+		st_r = rot@st[0][0:3]
+		vel_r = rot@st[0][3:6]
 
+		_, dir1, dir2 = sp.recrad(-vel_r)
 		h = np.linalg.norm(st[0][0:3])
-		v = st[0][3:6]
-		unitv = st_r[0][0:3]/np.linalg.norm(st_r[0][0:3])
+		unitv = vel_r/np.linalg.norm(vel_r)
 		rho = self.density(h)
 
-		drag = 0.5*rho*self.CD*np.linalg.norm(v)**2*unitv*self.LUT[dir1, dir2]
-		
+		drag = - 0.5*rho*self.CD*np.linalg.norm(vel_r)**2*unitv*self.LUT[dir1, dir2]
 
-		return drag, v
+
+		if frame != '' and frame.lower() != self.scFrame:
+			rot = sp.pxform(self.scFrame, frame, epoch)
+			drag = rot*drag
+		return drag, vel_r
