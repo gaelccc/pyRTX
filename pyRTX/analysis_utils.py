@@ -351,3 +351,11 @@ def convertTIFtoMesh(tifFile = '', latSampling = '', lonSampling = '', planet = 
 	plt.legend()
 	plt.show()
 	'''
+
+
+
+def convertEpoch(monteEpoch):
+	'''
+	Convert a Monte epoch string to a spice epoch string
+
+	'''

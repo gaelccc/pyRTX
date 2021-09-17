@@ -137,12 +137,43 @@ $END
 			dat = np.loadtxt(f, skiprows = 1)
 			rho = dat[4]
 			T = dat[5]
+			CO2 = dat[11]
+			N2 = dat[12]
+			O = dat[13]
+			CO = dat[14]
+			He = dat[15]
+			N = dat[16]
+			H = dat[17]
 		
-		return rho, T
+		composition = [CO2, N2, O, CO, He, N, H]
+		with open(os.getcwd()+'/TPresHgt.txt', 'r') as f:
+			dat = np.loadtxt(f, skiprows = 1)
+			P = dat[2]
+		return rho, T, P, composition
 
+	def readVariabilities(self, kind):
+		'''
+		Read results on variables with variabilities (e.g. Density)
 
+		Input:
+		kind : [str] The requested variable (available: Density)
 
-	def compute(self, epoch, lat, lon, height, inputUnits = 'deg'):
+		Output:
+
+		low : [float] Variable low range
+		avg : [float] Variable average range
+		hig : [float] Variable high range
+
+		'''
+
+		with open(os.getcwd() + '/Density.txt', 'r') as f:
+			dat = np.loadtxt(f, skiprows = 1)
+			low = dat[1]
+			avg = dat[2]
+			hig = dat[3]
+		return low, avg, hig
+
+	def compute(self, epoch, lat, lon, height, inputUnits = 'deg', variabilities = None):
 
 
 		if isinstance(epoch, float):
@@ -162,7 +193,7 @@ $END
 		if len(lat) != len(epoch):
 			raise ValueError('The epoch array must be of same lehgth of lat and lon')
 		if len(height) != len(epoch):
-			raise ValueError('The epoch array must be of same lehgth of lat and lon')
+			raise ValueError('The height array must be of same lehgth of lat and lon')
 
 		if inputUnits == 'rad':
 			conv = np.pi/180.0
@@ -172,15 +203,35 @@ $END
 
 		rho = np.zeros(len(epoch))
 		T = np.zeros(len(epoch))
+		P = np.zeros(len(epoch))
+		composition = np.zeros((len(epoch), 7))
+		if variabilities != None:
+			var_low = np.zeros(len(epoch))
+			var_avg = np.zeros(len(epoch))
+			var_hig = np.zeros(len(epoch))
+
 		for i, ep in enumerate(epoch):
 			self.namelistWriter(ep, lat[i], lon[i], height[i])
 			os.system( 'echo {} | {}venusgrm_V05.x 2&> {}/log.txt'.format(self.tmpFolder + '/input.txt', self.execFolder, self.tmpFolder))
-			rho[i], T[i] = self.readResults()
+			rho[i], T[i], P[i], composition[i,:] = self.readResults()
+			if variabilities != None:
+				var_low[i], var_avg[i], var_hig[i] = self.readVariabilities(variabilities)
 
-		return rho, T
+				
+
+		if variabilities == None:
+			return rho, T, P,composition
+		else:
+			return rho, T, P, composition, var_low, var_avg, var_hig
+			
 
 
 
+
+
+#################################
+# THIS IS AN EXAMPLE USAGE
+################################
 if __name__ == '__main__':
 
 	import spiceypy as sp
@@ -198,7 +249,7 @@ if __name__ == '__main__':
 	lon = [0.0]*len(height)
 	
 	#vg.namelistWriter(epoch, 3,4,100)
-	rho, T = vg.compute(epoch, lat, lon, height)	
+	rho, T, _,_ = vg.compute(epoch, lat, lon, height)	
 
 
 	fig, ax = plt.subplots()
