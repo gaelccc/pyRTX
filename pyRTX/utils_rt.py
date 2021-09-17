@@ -13,9 +13,11 @@ import multiprocessing as mproc
 from defaults import dFloat, dInt
 try:
 	import embree
-except ImportError:
-	print("""Could not import Embree3 library. \n Be sure that: 
-		\n 1) Embree3 is installed\n 2) you activated embree variables (source /path/to/lib/embree-vars.sh)""")
+except:
+	pass
+#except ImportError:
+#	print("""Could not import Embree3 library. \n Be sure that: 
+#		\n 1) Embree3 is installed\n 2) you activated embree variables (source /path/to/lib/embree-vars.sh)""")
 
 
 # No more imports after here

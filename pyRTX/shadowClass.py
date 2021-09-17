@@ -3,18 +3,21 @@ from pixelPlaneClass import pixelPlane
 import spiceypy as sp
 import utils_rt	
 from genericClasses import Planet
+import timeit
+from numba import jit
+
+
 
 
 def circular_mask(R, coords, origin):
 	maskIds = []
-	for i,elem in enumerate(coords):
-		if np.linalg.norm(elem - origin) <= R:
-			maskIds.append(i)
+
+	maskIds = np.where(np.linalg.norm(coords-origin, axis = 1) <= R)
 	
 
-	return np.array(maskIds, dtype = 'int32')
+	return np.array(maskIds[0], dtype = 'int32')
 
-
+@jit(nopython=True)
 def compute_directions(pixelCoords):
 	dirs = np.zeros_like(pixelCoords)
 	for i,elem in enumerate(pixelCoords):
@@ -22,18 +25,32 @@ def compute_directions(pixelCoords):
 
 	return dirs
 
+
+
+@jit(nopython = True)
 def compute_beta(coords, origin, R):
 	d = np.linalg.norm(origin)
+	o = origin / np.linalg.norm(origin)
 	betas = np.zeros((len(coords)))
+	
 	for i,c in enumerate(coords):
-		ang = sp.vsep(c, origin)
+		cos = np.dot(c/np.linalg.norm(c), o)
+		if cos > 1.0:
+			cos = 1.0
+		elif cos < -1.0:
+			cos = -1.0
+		ang = np.arccos(cos)
+
+		
 		sinb = d/R*np.sin(ang)
 		beta = np.arcsin(sinb)
 		betas[i] = beta
+		if np.isnan(beta):
+			print(np.dot(c/np.linalg.norm(c),o))
 
 	return betas
 
-
+@jit(nopython = True)
 def compute_pixel_intensities(beta, Type = 'Standard'):
 	if Type == 'Standard':
 		a0 = 0.3
@@ -43,6 +60,7 @@ def compute_pixel_intensities(beta, Type = 'Standard'):
 	elif Type == 'Eddington':
 		m = np.cos(beta)
 		intensities = 3.0/4* ( 7/12 * 0.5*m * m*(1/3 + 0.5*m)*np.log((1+m)/m))
+	
 
 	return intensities
 
@@ -84,21 +102,30 @@ class SunShadow():
 
 	def compute(self, epochs):
 
-		if not isinstance(epochs, list):
+		
+
+		if not isinstance(epochs, (list, np.ndarray)):
 			epochs = [epochs]
 
 
 		ratios = []
-		for epoch in epochs:
+		bodyPos = sp.spkezr(self.body, epochs, self.spacecraft.base_frame, 'LT+S', self.spacecraft.name)[0]
+		for i,epoch in enumerate(epochs):
+			
+
 			dist = sp.spkezr('Sun', epoch, 'J2000', 'LT+S', self.spacecraft.name)[0][0:3]
 			dist = np.sqrt(np.sum(np.array(dist)**2))
 			self.pxPlane.d0 = dist
 
-			coords, _ = self.pxPlane.dump(epoch)	
+			coords, _ = self.pxPlane.dump(epoch)
 			origin = self.pxPlane.x0
 
 			maskIds = circular_mask(self.sunRadius, -coords, origin)
 			newCoord = coords[maskIds]
+
+
+
+
 
 
 			if self.limbDarkening is not None:
@@ -111,37 +138,46 @@ class SunShadow():
 				self.betas = betas
 				self.pixelIntensities = pixelIntensities
 
-
 			dirs = compute_directions(newCoord)
 			ray_origins = np.zeros_like(dirs)
 
 
-			bodyPos = sp.spkezr(self.body, epoch, self.spacecraft.base_frame, 'LT+S', self.spacecraft.name)[0][0:3]
-			sunPos = sp.spkezr('Sun', epoch, self.spacecraft.base_frame, 'LT+S', self.spacecraft.name)[0][0:3]
 
-	
 
-			#print(sp.vsep(sunPos, [0,0,1])*180.0/np.pi)
-			#print(bodyPos/np.linalg.norm(bodyPos), sunPos/np.linalg.norm(sunPos), dirs[0])
-			
-			shape = self.shape.mesh(translate = bodyPos, epoch = epoch, rotate = self.spacecraft.base_frame)
+
+
+			shape = self.shape.mesh(translate = bodyPos[i][0:3], epoch = epoch, rotate = self.spacecraft.base_frame)
+
+
+
 
 			_, index_ray, _, _, _, _ = utils_rt.RTXkernel(shape, ray_origins, dirs, kernel = 'Embree', bounces = 1, errorMsg = False)
 
+			
 			if np.shape(index_ray)[0] == 1:
 				index_ray = index_ray[0]
 
 			numerator = len(index_ray)
 			denominator = len(ray_origins)
-			if self.limbDarkening is not None:
-				betas= compute_beta(-newCoord, origin, self.sunRadius)
-				pixelIntensities = compute_pixel_intensities(betas)
-				sum_of_weights= np.sum(pixelIntensities)
 
+			# Repeated block!
+			#if self.limbDarkening is not None:
+			#	betas= compute_beta(-newCoord, origin, self.sunRadius)
+			#	pixelIntensities = compute_pixel_intensities(betas)
+			#	sum_of_weights= np.sum(pixelIntensities)
+
+			#	numerator = np.sum(pixelIntensities[index_ray])/sum_of_weights
+			#	denominator = 1
+
+
+			if self.limbDarkening is not None:
 				numerator = np.sum(pixelIntensities[index_ray])/sum_of_weights
 				denominator = 1
+				
+
 
 			ratios.append(1-numerator/denominator)
+
 
 		return ratios
 

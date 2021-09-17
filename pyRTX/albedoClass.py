@@ -1,6 +1,7 @@
 import numpy as np
 import spiceypy as sp
 from utils_rt import get_surface_normals_and_face_areas, block_dot
+from timeit import default_timer as dT
 
 class Albedo():
 
@@ -28,9 +29,11 @@ class Albedo():
 
 		dirs_to_sc = np.dot(scRelative, rotMat.T)
 		dirs = np.zeros((len(norm_fluxes), 2))
+		
+
 		for i, ddir in enumerate(dirs_to_sc):
 			[_, dirs[i,0], dirs[i, 1]] = sp.recrad(ddir)
-		
+
 		return norm_fluxes, dirs, self.Planet.albedo[albedoIdxs]
 
 
@@ -40,7 +43,9 @@ class Albedo():
 		" Get the rays to be used in the computation "
 
 		V, F, N, C = self.Planet.VFNC(epoch)
+
 		albedoIdxs = self.Planet.albedoFaces(epoch, self.scname)
+
 		scPos = self.Planet.getScPosSunFixed(epoch, self.scname)
 
 
@@ -52,9 +57,9 @@ class Albedo():
 		rot = sp.pxform(self.Planet.sunFixedFrame, self.scFrame, epoch)
 		sc_dirs = np.dot(dirs, rot.T)
 
+
 		# Get normal-to-spacecraft angles
 		normals = N[albedoIdxs]
-		#cos_theta = np.dot(normals, scPos/np.linalg.norm(scPos))  ##TODO: Modify wirh the proper vector: scRelative!!!!
 		cos_theta = block_dot(normals, dirs)
 
 		# Get sun-to-normal angles
@@ -64,12 +69,12 @@ class Albedo():
 		scRelativeMag = np.sum(np.array(scRelative)**2, axis = 1)
 
 
+
 		# Compute the geometric contribution to the flux
 		_, dA = get_surface_normals_and_face_areas(V, F)
 		dA = dA[albedoIdxs]
 
 		norm_fluxes = cos_alpha * cos_theta * dA / np.pi / scRelativeMag
-
 
 		
 		return norm_fluxes, -scRelative, albedoIdxs

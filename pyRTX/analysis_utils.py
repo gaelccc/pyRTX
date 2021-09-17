@@ -107,7 +107,7 @@ class LookupTableND():
 
 	def interpolator(self, vals):
 		
-		return interpolate.interpn(self.axes,self.values, vals) 
+		return interpolate.interpn(self.axes,self.values, vals, method = 'linear') 
 
 
 	def set_interpType(self, interpType):
@@ -222,8 +222,8 @@ class TiffInterpolator():
 
 
 
-def getSunAngles(scName = None, scFrame = None, epoch = None):
-	sunPos = sp.spkezr('Sun', epoch, scFrame, 'LT+S', scName)[0][0:3]
+def getSunAngles(scName = None, scFrame = None, epoch = None, correction = 'LT+S'):
+	sunPos = sp.spkezr('Sun', epoch, scFrame, correction, scName)[0][0:3]
 	[_, ra, dec] = sp.recrad(sunPos)
 
 	return ra, dec
@@ -231,13 +231,42 @@ def getSunAngles(scName = None, scFrame = None, epoch = None):
 	
 
 def epochRange(startEpoch = None, duration = None, step = 100):
-	startEp = sp.str2et(startEpoch)
+	if isinstance(startEpoch, str):
+		startEp = sp.str2et(startEpoch)
+	elif isinstance(startEpoch, float):
+		startEp = startEpoch
+	else:
+		raise ValueError('startEpoch argument must be str or float')
+	
 	endEp = startEp + duration
 
-	epochList = np.linspace(startEp, endEp, num = int(np.ceil((endEp - startEp)/step)))
+	epochList = np.linspace(startEp, endEp, num = int(np.ceil((endEp - startEp)/step)), endpoint = False)
 	return epochList
 
 
+def epochRange2(startEpoch = None, endEpoch = None, step = 100):
+	if isinstance(startEpoch, str):
+		startEp = sp.str2et(startEpoch)
+	elif isinstance(startEpoch, float):
+		startEp = startEpoch
+	else:
+		raise ValueError('startEpoch argument must be str or float')
+
+
+	if isinstance(endEpoch, str):
+		endEp = sp.str2et(endEpoch)
+	elif isinstance(endEpoch, float):
+		endEp = endEpoch
+	else:
+		raise ValueError('endEpoch argument must be str or float')
+	
+	curr = startEp
+
+	epochlist = []
+	while curr <= endEp:
+		epochlist.append(curr)
+		curr += step
+	return np.array(epochlist)
 
 
 
@@ -321,4 +350,12 @@ def convertTIFtoMesh(tifFile = '', latSampling = '', lonSampling = '', planet = 
 	plt.plot(newlats,dd, marker = '.', label = 'interp')
 	plt.legend()
 	plt.show()
+	'''
+
+
+
+def convertEpoch(monteEpoch):
+	'''
+	Convert a Monte epoch string to a spice epoch string
+
 	'''
