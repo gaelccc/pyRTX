@@ -1,7 +1,7 @@
 import numpy as np
 import spiceypy as sp
-from utils_rt import get_surface_normals_and_face_areas, block_dot
-from constants import stefan_boltzmann as sb
+from pyRTX.utils_rt import get_surface_normals_and_face_areas, block_dot
+from pyRTX.constants import stefan_boltzmann as sb
 
 #mod test
 

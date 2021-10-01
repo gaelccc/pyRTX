@@ -5,7 +5,7 @@ import numpy as np
 import spiceypy as sp
 import matplotlib
 import copy
-import constants
+from pyRTX import constants
 
 class Spacecraft():
 	

@@ -4,13 +4,13 @@ import trimesh as tm
 import numpy as np
 import pickle as pkl
 import trimesh.transformations as tmt
-from scClass import Spacecraft
-from pixelPlaneClass import pixelPlane
-from rayTracerClass import rayTracer
-from srpClass import solarPressure
+from pyRTX.scClass import Spacecraft
+from pyRTX.pixelPlaneClass import pixelPlane
+from pyRTX.rayTracerClass import rayTracer
+from pyRTX.srpClass import solarPressure
 import spiceypy as sp
 import matplotlib.pyplot as plt
-import utils_rt
+from pyRTX import utils_rt
 
 
 # Example purpose:
@@ -22,7 +22,7 @@ import utils_rt
 
 
 # Load the metakernel containing references to the necessary SPICE frames
-METAKR = 'spice/metakernel_lro.tm'
+METAKR = '../example_data/LRO/metakernel_lro.tm'
 sp.furnsh(METAKR)
 
 # Define a basic epoch

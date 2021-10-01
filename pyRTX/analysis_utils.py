@@ -3,7 +3,7 @@ import numpy as np
 from scipy import interpolate
 import spiceypy as sp
 from PIL import Image
-from utils_rt import block_normalize
+from pyRTX.utils_rt import block_normalize
 from numba import jit
 
 

@@ -1,8 +1,8 @@
 import numpy as np
-from pixelPlaneClass import pixelPlane
+from pyRTX.pixelPlaneClass import pixelPlane
 import spiceypy as sp
-import utils_rt	
-from genericClasses import Planet
+from pyRTX import utils_rt	
+from pyRTX.genericClasses import Planet
 import timeit
 from numba import jit
 

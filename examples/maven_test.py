@@ -1,6 +1,4 @@
 import sys
-sys.path.append('..')
-
 import trimesh as tm
 import pyRTX
 from pyRTX import utils_rt

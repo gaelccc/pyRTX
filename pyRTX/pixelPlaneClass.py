@@ -1,7 +1,7 @@
 import numpy as np
-from utils_rt import fast_vector_build
+from pyRTX.utils_rt import fast_vector_build
 import spiceypy as sp
-import constants
+from pyRTX import constants
 
 class pixelPlane():
 

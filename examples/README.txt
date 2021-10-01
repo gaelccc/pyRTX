@@ -2,20 +2,6 @@
 #   PRELIMINARY OPERATIONS   # 
 
 
-Dependencies for running examples:
-
-For running these examples you will need some packages installed. 
-To facilitate the task a pre-made conda environment is available here under the name:
-
-pyRTX_env.yml
-
----------------------------------------
-To create the environment run:
->> conda env create -f pyRTX_env.yml
-
-To activate the environment run:
->> conda activate py38
----------------------------------------
 
 This environment supports the kernels 'Native' and 'Embree' in the RTXhandler (see 
 line 108 in the maven_test example). 
