@@ -10,7 +10,7 @@ import os
 import pickle as pkl
 from numba import jit
 import multiprocessing as mproc
-from defaults import dFloat, dInt
+from pyRTX.defaults import dFloat, dInt
 try:
 	import embree
 except:

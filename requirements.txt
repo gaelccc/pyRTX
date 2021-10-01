@@ -1,0 +1,10 @@
+numpy
+trimesh
+numba
+spiceypy
+matplotlib
+rtree 
+pyembree
+scipy
+shapely
+pyglet
