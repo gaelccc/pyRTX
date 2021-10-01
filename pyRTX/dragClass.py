@@ -1,5 +1,5 @@
 import numpy as np
-from analysis_utils import LookupTableND
+from pyRTX.analysis_utils import LookupTableND
 import spiceypy as sp
 
 class Drag():

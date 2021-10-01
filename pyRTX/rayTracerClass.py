@@ -1,4 +1,4 @@
-from utils_rt import RTXkernel
+from pyRTX.utils_rt import RTXkernel
 import timeit
 
 class rayTracer():

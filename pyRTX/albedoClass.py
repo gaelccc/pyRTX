@@ -1,6 +1,6 @@
 import numpy as np
 import spiceypy as sp
-from utils_rt import get_surface_normals_and_face_areas, block_dot
+from pyRTX.utils_rt import get_surface_normals_and_face_areas, block_dot
 from timeit import default_timer as dT
 
 class Albedo():

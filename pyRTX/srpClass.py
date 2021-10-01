@@ -1,8 +1,8 @@
-from physical_utils import compute_srp
+from pyRTX.physical_utils import compute_srp
 import spiceypy as sp
 import numpy as np
 import timeit
-import constants
+from pyRTX import constants
 
 class solarPressure():
 	
