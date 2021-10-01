@@ -11,4 +11,4 @@ Installation i a new environment called "py38" with Anaconsa (suggested).
 3) conda activate py38
 4) pip install "PATH_TO_MAIN_FOLDER" (e.g., pip install ~/username/pyRTX)
 
-Several examples are provided in the examples folder
+Several examples are provided in the examples folder. See the README.txt in the examples folder for a description of the various examples.
