@@ -1,4 +1,4 @@
-# pyRTX
+# pyRTX v 0.0.1
 
 A collection of functions, classes and tools for the computation of non-gravitational acceleration on space probes leveraging ray tracing techniques.
 
