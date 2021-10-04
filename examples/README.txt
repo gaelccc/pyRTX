@@ -12,6 +12,10 @@ future.
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 #    EXAMPLES DESCRIPTION    # 
 
+- visualize_pixel_plane_sphere.py
+This example shows how to use the ray tracer to compute the intersection points on a simple sphere and visually inspect the output. 
+Multiple options are available to the user to decide what to visualize. 
+
 - maven_test.py
 This example shows the general pipeline for performing a simple raytracing task
 
@@ -23,6 +27,5 @@ sectors. This is done to avoid the segmentation fault that happens when ray trac
 - lro_test_w_classes.py
 Show the capability of the object-oriented part of the code by computing the SRP on LRO
 based on the mission SPICE kernels
-
 
 
