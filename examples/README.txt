@@ -24,8 +24,8 @@ Same as maven_test but employing the 'multiple packets' approach to subdivide th
 sectors. This is done to avoid the segmentation fault that happens when ray tracing with too many rays 
 
 
-- lro_test_w_classes.py
+- lro_srp_complete.py
 Show the capability of the object-oriented part of the code by computing the SRP on LRO
-based on the mission SPICE kernels
+based on the mission SPICE kernels. 
 
 
