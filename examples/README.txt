@@ -30,4 +30,6 @@ based on the mission SPICE kernels.
 NOTE: to run this example you need LRO kernels. To download them run
 >> python download_lro_kernels.py
 
+- generate_crossection_lut.py
+Generate a lookup table of the cross-section given the spacecraft shape
 
