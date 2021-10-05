@@ -27,5 +27,7 @@ sectors. This is done to avoid the segmentation fault that happens when ray trac
 - lro_srp_complete.py
 Show the capability of the object-oriented part of the code by computing the SRP on LRO
 based on the mission SPICE kernels. 
+NOTE: to run this example you need LRO kernels. To download them run
+>> python download_lro_kernels.py
 
 
