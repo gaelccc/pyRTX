@@ -121,8 +121,8 @@ print(f'The cross-section in the direction {ra/conv} deg, {dec/conv} deg \n is: 
 save = False
 if save:
         import pickle as pkl
-        np.save('maven_crossection_lut.npy', newLUT[:,:])
-        pkl.dump(newLUT, open('maven_pickled_lut.pkl', 'wb'))
+        np.save('maven_crossection_lut.npy', newLUT[:,:]) # Save as a numpy array
+        pkl.dump(newLUT, open('maven_pickled_lut.pkl', 'wb')) # Save the class instance
 
 
 plt.show()
