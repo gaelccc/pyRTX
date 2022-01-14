@@ -47,7 +47,7 @@ class solarPressure():
 		if self.baseflux is None:
 			flux = 1.0
 		else:
-			flux = self.get_flux( epoch)
+                        flux = self.get_flux( epoch)
 
 		if self.shadowObj is not None:
 			shadow = self.shadowObj.compute(epoch)[0]
