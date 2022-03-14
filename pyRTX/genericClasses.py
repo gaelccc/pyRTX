@@ -11,8 +11,21 @@ from pyRTX.analysis_utils import TiffInterpolator
 
 
 class Planet():
-	def __init__(self, fromFile = None, radius = 0, name = '', bodyFrame = '', sunFixedFrame = '', units = 'km', subdivs = 6):
-		
+	def __init__(self, fromFile = None, radius = 0, name = '', bodyFrame = '', sunFixedFrame = '', units = 'km', subdivs = 4):
+		"""
+		A class to represent a planet/moon
+
+		Input:
+		fromFile : put here an obj file if requested to build the model. If None (default) a sphere with radius defined in "radius" will be built
+		radius : (float) the radius of the planet. Not used if "fromFile" is not None
+		name : (str) the name of the planet
+		bodyFrame: (str) the planet body fixed frame
+		sunFixedFrame: (str) the body centered - sun fixed frame
+		units: (str) [Default: km] the measurement units defining the body (can be km or m)
+		subdivs: (int) [Default: 4] the number of subdivision for the creation of the spherical planet. Note that the number of faces will grow as function of 4 ** subdivisions, so you probably want to keep this under ~5.
+
+
+		"""
 
 		self.name = name
 		self.fromFile = fromFile
@@ -260,7 +273,10 @@ class Planet():
 
 	@property
 	def emissivity(self):
-		return self._emissivity
+		try:
+			return self._emissivity
+		except AttributeError:
+			print(f'Error: emissivity not set for body {self.name}')
 	@emissivity.setter
 	def emissivity(self, value):
 		nFaces = len(self.base_shape.faces)  
