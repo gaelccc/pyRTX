@@ -5,7 +5,7 @@ import spiceypy as sp
 from PIL import Image
 from pyRTX.utils_rt import block_normalize
 from numba import jit
-
+from numpy import ceil
 
 
 
@@ -299,7 +299,7 @@ def computeRADEC(vecs, periodicity = 360):
 
 
 
-def convertTIFtoMesh(tifFile = '', latSampling = '', lonSampling = '', planet = '', lat0 = -np.pi/2, lat1 = np.pi/2, lon0 = 0, lon1 = 2*np.pi):
+def convertTIFtoMesh(tifFile = '', latSampling = '', inferSampling = False, lonSampling = '', planet = '', lat0 = -np.pi/2, lat1 = np.pi/2, lon0 = 0, lon1 = 2*np.pi):
 	"""
 	Convert a TIF map of emissivities to the format needed for assigning values to each face of a planetary 3D mesh
 
@@ -308,7 +308,7 @@ def convertTIFtoMesh(tifFile = '', latSampling = '', lonSampling = '', planet = 
 	latSampling: [float, in rad] sampling step of latitude
 	lonSampling: [float, in rad] sampling step of longitude
 	planet: [class.Planet] Planet object containing the mesh and the planetary frames
-
+	inferSampling: [bool] wether the importer shall infer the sampling or not
 	Returns:
 	emissivityInterpolator: [class.LookupTableND] an interpolator for mapping the temperatures on the mesh faces. This is intended to be passed
 				to the Planet class via the setter method: Planet.emissivity = emissivityInterpolator
@@ -320,17 +320,18 @@ def convertTIFtoMesh(tifFile = '', latSampling = '', lonSampling = '', planet = 
 	
 	#arr = np.expand_dims(np.array(im), axis = 2)
 	arr = np.array(im)
-	print(arr.shape)
 
 	#import matplotlib.pyplot as plt
 	#plt.figure()
 	#print(np.array(im).shape)
 	#plt.contourf(np.array(im))
 
+	if inferSampling:
+		lonSampling = (lon1-lon0)/arr.shape[1]
+		latSampling = (lat1-lat0)/arr.shape[0]
 
-	lats = np.linspace(lat0, lat1, int((lat1 - lat0) / latSampling ))
-	lons = np.linspace(lon0, lon1, int((lon1 - lon0) / lonSampling ))
-
+	lats = np.linspace(lat0, lat1, int(ceil((lat1 - lat0) / latSampling )))
+	lons = np.linspace(lon0, lon1, int(ceil((lon1 - lon0) / lonSampling )))
 
 	lut = TiffInterpolator(axes = (lons, lats), values = arr)
 

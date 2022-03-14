@@ -136,9 +136,12 @@ class Planet():
 	
 		visible_ids = self._is_visible(spacecraft_name, epoch)
 		visibleTemps = self.getFaceTemperatures(epoch)[visible_ids]
-		
+		visibleEmi = self.getFaceEmissivity(epoch)[visible_ids]
 		#return self._is_visible(spacecraft_name, epoch), visibleTemps
-		return visible_ids, visibleTemps
+		return visible_ids, visibleTemps, visibleEmi
+		
+
+
 	
 	def getFaceTemperatures(self, epoch):
 		"""
@@ -160,6 +163,17 @@ class Planet():
 			faceTemps[id_sunlit] = self._dayside_temperature
 
 		return faceTemps
+
+	def getFaceEmissivity(self, epoch):
+		if isinstance(self._emissivity, TiffInterpolator):
+			_,_,_,C = self.VFNC(epoch)
+			lon, lat = computeRADEC(C, periodicity = 180)
+			emissivity = self._emissivity[lon,lat]
+		else:
+			emissivity = self._emissivity
+		
+		return emissivity
+
 
 	def VFNC(self, epoch):
 		"""
@@ -224,7 +238,7 @@ class Planet():
 
 	# PROPERTIES
 
-
+ 
 	@property
 	def dayside_temperature(self):
 
@@ -265,6 +279,8 @@ class Planet():
 			print('Setting a single value of albedo for all the faces')
 
 			self._albedo = np.full(nFaces, value)
+		elif isinstance(value, TiffInterpolator):
+			self._albedo = value
 		elif len(value) == nFaces:
 			self._albedo = value
 		else:
