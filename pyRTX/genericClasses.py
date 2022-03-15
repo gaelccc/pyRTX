@@ -120,8 +120,9 @@ class Planet():
 
 		albedoIdxs = np.intersect1d(id_visible, id_sunlit, assume_unique = True)
 		
+		albedoValues = self.getFaceAlbedo(epoch)[albedoIdxs]
 
-		return albedoIdxs
+		return albedoIdxs, albedoValues
 
 	def rot_toSCframe(self, epoch, scFrame = None):
 		return sp.pxform(self.sunFixedFrame, scFrame, epoch)
@@ -139,9 +140,27 @@ class Planet():
 		visibleEmi = self.getFaceEmissivity(epoch)[visible_ids]
 		#return self._is_visible(spacecraft_name, epoch), visibleTemps
 		return visible_ids, visibleTemps, visibleEmi
+
+	def getFaceAlbedo(self, epoch):
+		"""
+		Return the albedo of each face at epoch
+		"""
 		
+		if isinstance(self._albedo, TiffInterpolator):
+			# Get information on the used map
+			options = self._albedo_map
+			perio = 180 if options['lon0'] == -180 else 360
+			sff = 1 if options['lontype'] == 'LST' else 0
 
 
+			_,_,_,C = self.VFNC(epoch, sunFixedFrame = sff)
+			
+			lon, lat = computeRADEC(C, periodicity = perio)
+			albedoValues = self._albedo[lon, lat]
+		elif isinstance(self._albedo, np.ndarray):
+			albedoValues = self._albedo
+
+		return albedoValues
 	
 	def getFaceTemperatures(self, epoch):
 		"""
@@ -175,7 +194,7 @@ class Planet():
 		return emissivity
 
 
-	def VFNC(self, epoch):
+	def VFNC(self, epoch, sunFixedFrame = True):
 		"""
 		Public method:
 		Returns  V F N C rotating the planet in the sunFixedFrame at epoch epoch
@@ -186,9 +205,11 @@ class Planet():
 
 
 		"""
-
-		rotated_mesh = self.mesh(epoch = epoch, rotate = self.bodyFrame, targetFrame = self.sunFixedFrame, translate = None)
-		##self.temp_rotated_debug = rotated_mesh not used
+		if sunFixedFrame:
+			rotated_mesh = self.mesh(epoch = epoch, rotate = self.bodyFrame, targetFrame = self.sunFixedFrame, translate = None)
+		else:
+			rotated_mesh = self.mesh(epoch = epoch)
+			
 		V = rotated_mesh.vertices
 		F = rotated_mesh.faces, 
 		N = rotated_mesh.face_normals
@@ -285,6 +306,17 @@ class Planet():
 			self._albedo = value
 		else:
 			raise IndexError('Error mismatch between input and number of face meshes')
+
+	@property
+	def albedo_map(self):
+		try:
+			return self._albedo_map
+		except AttributeError:
+			print(f'Albedo Map Settings not set for body {self.name}. \n Set them by declaring a dictionaty of the form [lon0 : the zero longitude (either 0 or -180), lontype: LST (for local solar time) or True (for true longitude)]')
+	@albedo_map.setter
+	def albedo_map(self, value):
+		self._albedo_map = value
+
 
 
 	@property
