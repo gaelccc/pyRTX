@@ -17,6 +17,14 @@ def circular_mask(R, coords, origin):
 
 	return np.array(maskIds[0], dtype = 'int32')
 
+def circular_rim(R, coords, origin):
+	maskIds = np.where(np.isclose(np.linalg.norm(coords-origin, axis = 1),R, rtol = 0.001))
+	mask_coords = coords[maskIds]
+
+	return np.array(maskIds[0], dtype = 'int32')
+
+
+
 @jit(nopython=True)
 def compute_directions(pixelCoords):
 	dirs = np.zeros_like(pixelCoords)
@@ -86,6 +94,7 @@ class SunShadow():
 				     width = 2*sunRadius,
 				     height = 2*sunRadius,
 				     ray_spacing = int(2*sunRadius/numrays),
+				     units = 'km'
 				     )
 
 		if isinstance(bodyShape, Planet):
@@ -120,6 +129,24 @@ class SunShadow():
 			coords, _ = self.pxPlane.dump(epoch)
 			origin = self.pxPlane.x0
 
+
+			shape = self.shape.mesh(translate = bodyPos[i][0:3], epoch = epoch, rotate = self.spacecraft.base_frame)
+
+
+			# Check the circular rim first
+			rimIds = circular_rim(self.sunRadius, -coords, origin)
+			rimCoords = coords[rimIds]
+			rimdirs = compute_directions(rimCoords)
+			rim_origins = np.zeros_like(rimdirs)
+			_, index_rim, _, _, _, _ = utils_rt.RTXkernel(shape, rim_origins, rimdirs, kernel = 'Embree', bounces = 1, errorMsg = False)
+
+			
+			if len(index_rim[0]) == 0:
+				ratios.append(1.0)
+				continue
+
+
+
 			maskIds = circular_mask(self.sunRadius, -coords, origin)
 			newCoord = coords[maskIds]
 
@@ -134,20 +161,10 @@ class SunShadow():
 				sum_of_weights= np.sum(pixelIntensities)
 
 
-				self.newCoord = newCoord
-				self.betas = betas
-				self.pixelIntensities = pixelIntensities
+
 
 			dirs = compute_directions(newCoord)
 			ray_origins = np.zeros_like(dirs)
-
-
-
-
-
-
-			shape = self.shape.mesh(translate = bodyPos[i][0:3], epoch = epoch, rotate = self.spacecraft.base_frame)
-
 
 
 
