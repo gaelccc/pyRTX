@@ -84,19 +84,12 @@ class LookupTable():
 
 
 
-
-
 class LookupTableND():
-	def __init__(self, axes = None, values = None):
+	def __init__(self, axes = None, values = None, info = None, np_array = None):
 		self.axes = axes
 		self.values = values
-		
-
-
-		# Error control
-		#if len(self.axes) != len(values.shape[0:-1]):
-		#	raise ValueError(f'The number of axes provided does not match with provided data\n Provided data has shape {len(values.shape)} while {len(self.axes)} axes have been provided')
-
+		self.info = info
+		self.np_array = np_array
 
 
 		self._set_defaults()
@@ -143,6 +136,11 @@ class LookupTableND():
 			return np.squeeze(outval)
 			
 
+	def axisExtent(self):
+		extent = []
+		for ax in self.axes:
+			extent.append([np.min(ax), np.max(ax)])
+		return extent
 
 
 	def quickPlot(self, xlabel = None, ylabel = None, title = None, conversion = 1, clabel = None, cmap = 'viridis', saveto = None):
@@ -161,6 +159,43 @@ class LookupTableND():
 			plt.savefig(saveto, dpi = 800)
 
 		plt.show()
+
+
+
+class ScatterLookup():
+
+	def __init__(self):
+		self.zones = []
+		self.zonedef = []
+
+	def add_zone(self, ZoneLookup = ''):
+		if not isinstance(ZoneLookup, LookupTableND):
+			raise TypeError('The ZoneLookup argument must be of type class.LookupTableND')
+
+		self.zones.append(ZoneLookup)
+		self.zonedef.append(ZoneLookup.axisExtent())
+
+	def __getitem__(self, idxs):
+
+		zone_no = self.zone_determination(idxs)
+		return self.zones[zone_no][idxs]
+		
+
+
+	def zone_determination(self,idxs):
+		flag = 1
+		for i, zonedef in enumerate(self.zonedef):
+			print(f'Zone {zonedef}')
+			for j, idx in enumerate(idxs):
+				if not zonedef[j][0]<=idx<=zonedef[j][1]:
+					flag = 0
+			if flag == 1:
+				return i 
+			elif i < len(self.zonedef)-1:
+				flag = 1
+		if flag == 0:
+			raise Exception('Interpolation Error: No data correspond to your request')
+
 
 
 
