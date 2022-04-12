@@ -12,6 +12,7 @@ sys.path.append('/home/cascioli/RTX/code/')
 from pyRTX.utils_rt import(get_centroids, get_surface_normals_and_face_areas, reflected, reflected)
 import time
 from pyRTX import constants
+from numba import jit
 
 
 
