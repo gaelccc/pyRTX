@@ -185,7 +185,7 @@ class ScatterLookup():
 	def zone_determination(self,idxs):
 		flag = 1
 		for i, zonedef in enumerate(self.zonedef):
-			print(f'Zone {zonedef}')
+			#print(f'Zone {zonedef}')  FOR DEBYG
 			for j, idx in enumerate(idxs):
 				if not zonedef[j][0]<=idx<=zonedef[j][1]:
 					flag = 0
