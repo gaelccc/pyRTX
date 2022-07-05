@@ -11,11 +11,11 @@ from numba import jit
 
 def circular_mask(R, coords, origin):
 	maskIds = []
-
 	maskIds = np.where(np.linalg.norm(coords-origin, axis = 1) <= R)
 	
 
 	return np.array(maskIds[0], dtype = 'int32')
+
 
 def circular_rim(R, coords, origin):
 	maskIds = np.where(np.isclose(np.linalg.norm(coords-origin, axis = 1),R, rtol = 0.001))
@@ -53,8 +53,9 @@ def compute_beta(coords, origin, R):
 		sinb = d/R*np.sin(ang)
 		beta = np.arcsin(sinb)
 		betas[i] = beta
-		if np.isnan(beta):
-			print(np.dot(c/np.linalg.norm(c),o))
+		#if np.isnan(beta):
+			#print(np.dot(c/np.linalg.norm(c),o))
+			#print(sinb)
 
 	return betas
 
