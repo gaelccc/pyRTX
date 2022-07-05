@@ -189,6 +189,7 @@ class ScatterLookup():
 			for j, idx in enumerate(idxs):
 				if not zonedef[j][0]<=idx<=zonedef[j][1]:
 					flag = 0
+					print(idx, zonedef[j][0], zonedef[j][1])
 			if flag == 1:
 				return i 
 			elif i < len(self.zonedef)-1:
