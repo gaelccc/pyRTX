@@ -102,19 +102,23 @@ class Spacecraft():
 	def materials(self):
 		return self.material_dict
 
-	def dump(self,epoch):
+	def dump(self,epoch = None):
 
 		mesh_todump =[]
-		if isinstance(epoch, str):
-			et = sp.str2et( epoch )
-		else:
-			et = epoch
+		if not epoch == None:
+			if isinstance(epoch, str):
+				et = sp.str2et( epoch )
+			else:
+				et = epoch
 
 		#if et == self._last_epoch:
 		#	return self._last_mesh
 			
 
-		self.apply_transforms(et)
+			self.apply_transforms(et)
+
+		else:
+			self.apply_transforms(None)
 
 		for elem in self.spacecraft_model:
 

@@ -211,7 +211,7 @@ class Planet():
 			rotated_mesh = self.mesh(epoch = epoch)
 			
 		V = rotated_mesh.vertices
-		F = rotated_mesh.faces, 
+		F = rotated_mesh.faces 
 		N = rotated_mesh.face_normals
 		C = get_centroids(V,F)
 
