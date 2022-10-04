@@ -405,15 +405,15 @@ def get_spacecraft_area(spacecraft, ra = 0.0, dec = 0.0, epoch = None):
 	by a pair of right ascension - declination
 
 	Input:
-	spacecraft [pyRTX.Spacecraft] : the spacecraft object
-	ra [float] 		: right ascension (in rad)
-	dec [float] 	: declination (rad)
-	epoch [float or None]	: epoch for the computation (this is used when moving Spice
-						frames are used for the Spacecraft definition)
+	spacecraft [pyRTX.Spacecraft] 	: the spacecraft object
+	ra [float] 						: right ascension (in rad)
+	dec [float] 					: declination (rad)
+	epoch [float or None]			: epoch for the computation (this is used when moving Spice
+										frames are used for the Spacecraft definition)
 
 	Output:
-	area [float] : the apparent area. The measurement units depend on the units of the
-				   Spacecraft object
+	area [float] 					: the apparent area. The measurement units depend on the units of the
+				   						Spacecraft object
 
 	TODO: avoid hardcoded width/height but rather use an automated method
 
