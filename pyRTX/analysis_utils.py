@@ -396,3 +396,50 @@ def convertEpoch(monteEpoch):
 	Convert a Monte epoch string to a spice epoch string
 
 	'''
+
+
+def get_spacecraft_area(spacecraft, ra = 0.0, dec = 0.0, epoch = None):
+
+	'''
+	Compute a pyRTX.Spacecraft apparent area as seen by the direction specified 
+	by a pair of right ascension - declination
+
+	Input:
+	spacecraft [pyRTX.Spacecraft] : the spacecraft object
+	ra [float] 		: right ascension (in rad)
+	dec [float] 	: declination (rad)
+	epoch [float or None]	: epoch for the computation (this is used when moving Spice
+						frames are used for the Spacecraft definition)
+
+	Output:
+	area [float] : the apparent area. The measurement units depend on the units of the
+				   Spacecraft object
+
+	TODO: avoid hardcoded width/height but rather use an automated method
+
+	'''
+	from pyRTX.pixelPlaneClass import pixelPlane
+	from pyRTX.rayTracerClass import rayTracer
+	rays = pixelPlane( 
+			spacecraft = spacecraft,   # Spacecraft object 
+			mode = 'Fixed',   # Mode: can be 'Dynamic' ( The sun orientation is computed from the kernels), or 'Fixed'
+			distance = 10000,	    # Distance of the ray origin from the spacecraft
+			width = 100,	    # Width of the pixel plane
+			height = 100,        # Height of the pixel plane
+			lon = ra,
+			lat = dec, 
+			ray_spacing = 0.1, # Ray spacing (in m)
+		)
+
+	rtx = rayTracer(        
+                        spacecraft,                    # Spacecraft object
+                        rays,                   # pixelPlane object
+                        kernel = 'Embree',      # The RTX kernel to use
+                        bounces = 1,            # The number of bounces to account for
+                        diffusion = False,       # Account for secondary diffusion
+                        ) 
+
+	rtx.trace(epoch)
+	hit_rays = rtx.index_ray_container
+	Area =  len(hit_rays[0])/rays.norm_factor
+	return Area

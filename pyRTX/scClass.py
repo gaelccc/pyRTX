@@ -7,6 +7,7 @@ import matplotlib
 import copy
 from pyRTX import constants
 
+
 class Spacecraft():
 	
 	def __init__(self, name = None, base_frame = None, spacecraft_model = None, units = 'm'):
@@ -66,6 +67,21 @@ class Spacecraft():
 
 		self.initialize(spacecraft_model)
 
+	def subset(self, elem_names):
+		'''
+		Return an instance of Spacecraft with only the elements contained
+		in the list elem_names.
+		Suppose the Spacecraft (self) is composed of elements A,B,C
+		Spacecraft.subset(['A','B']) would return a new instance
+		of Spacecraft with only the elements A and B
+		'''
+		
+		cself  = copy.deepcopy(self)
+		orig_elems = copy.deepcopy(list(cself.spacecraft_model.keys()))
+		for k in orig_elems:
+			if k not in elem_names:
+				cself.remove_part(k)
+		return cself
 
 	def remove_part(self, name):
 		del self.spacecraft_model[name]
@@ -168,6 +184,7 @@ class Spacecraft():
 
 	def __str__(self):
 		return self.info()
+
 
 
 
