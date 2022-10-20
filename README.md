@@ -13,5 +13,5 @@ Installation in a new environment called "py38" with Anaconda (suggested).
 
 Several examples are provided in the examples folder. See the README.txt in the examples folder for a description of the various examples.
 
-# [Documentation](https://gaelccc.github.io/) 
+# [Documentation](https://gaelccc.github.io/pyRTX)
 (work in progress)
