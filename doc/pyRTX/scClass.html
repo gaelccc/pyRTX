@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>pyRTX.scClass API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pyRTX.scClass</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># Spacecraft class
+import trimesh as tm 
+import trimesh.transformations as tmt 
+import numpy as np 
+import spiceypy as sp
+import matplotlib
+import copy
+from pyRTX import constants
+
+
+class Spacecraft():
+        &#34;&#34;&#34;
+        This is the main class for defining spacecraft objects. 
+        &#34;&#34;&#34;
+        
+        def __init__(self, name = None, base_frame = None, spacecraft_model = None, units = &#39;m&#39;):
+                &#34;&#34;&#34;
+                Parameters
+                ----------
+                name : str 
+                        Spacecraft name
+
+                base_frame : str 
+                        Spacecraft body (base) frame
+
+                spacecraft_model : dict 
+                        dict of {file:str, frame_type:str, frame_name:str, center:list, specular:float, diffuse:float, UD_rotation:trimesh.rotation}
+                a dictionary with keys the name of
+
+                file: str 
+                    the obj file for the part
+
+                frame_type: str 
+                        &#39;Spice&#39; or &#39;UD&#39; to choose wether to define a reference to a spice frame or UserDefined one
+                        in the case of &#39;UD&#39; a rotation matrix must be specified in the UD_rotation (optional) key
+
+                frame_name: str 
+                        The name of the Spice (or UD) frame
+
+                center: list  
+                        position of the origin of the object (in km) with respect to the base frame
+
+                specular: float 
+                        specular coefficient
+
+                diffuse: float 
+                        diffuse coefficient
+                        
+                UD_rotation: trimesh.rotation
+                        optional specify a user defined rotations matrix
+
+                Returns
+                -------
+                bla : pyRTX.Spacecraft
+                &#34;&#34;&#34;
+                self.name = name
+                self.part_number = len(spacecraft_model.keys())
+                self.base_frame = base_frame
+                self.mesh_cont = {}
+                self.mesh_prop = {}
+                self.units = units
+                self.conversion_factor = constants.unit_conversions[units]
+                
+
+                self.spacecraft_model = {}
+                self.initialize(spacecraft_model)
+                self.material_dict = {}
+                self.dump_materials()
+
+
+                #self._last_epoch = 0
+
+        def _load_obj(self, fname):
+                mesh = tm.load_mesh(fname, skip_texture = True)
+                mesh.apply_transform(tmt.scale_matrix(self.conversion_factor, [0,0,0]))
+                return mesh
+
+        def initialize(self, input_model):
+                # Load the meshes
+                self.spacecraft_model.update(input_model)
+                for elem in input_model.keys():
+                        
+
+                        self.spacecraft_model[elem][&#39;base_mesh&#39;] = self._load_obj(input_model[elem][&#39;file&#39;])
+                        self.spacecraft_model[elem][&#39;translation&#39;] = tmt.translation_matrix(np.array(input_model[elem][&#39;center&#39;]) * self.conversion_factor)
+
+                        #print(tmt.translation_matrix(input_model[elem][&#39;center&#39;]))
+
+
+        def add_parts(self, spacecraft_model = None):
+
+                if name in  self.spacecraft_model.keys():
+                        raise Exception(f&#39;{name} is already defined&#39;)
+
+                self.initialize(spacecraft_model)
+
+        def subset(self, elem_names):
+                &#39;&#39;&#39;
+                Return an instance of Spacecraft with only the elements contained
+                in the list elem_names.
+                Suppose the Spacecraft (self) is composed of elements A,B,C
+                Spacecraft.subset([&#39;A&#39;,&#39;B&#39;]) would return a new instance
+                of Spacecraft with only the elements A and B
+                &#39;&#39;&#39;
+                
+                cself  = copy.deepcopy(self)
+                orig_elems = copy.deepcopy(list(cself.spacecraft_model.keys()))
+                for k in orig_elems:
+                        if k not in elem_names:
+                                cself.remove_part(k)
+                return cself
+
+        def remove_part(self, name):
+                del self.spacecraft_model[name]
+
+        def pxform_convert(self,pxform):
+                pxform = np.array([pxform[0],pxform[1],pxform[2]])
+
+                p = np.append(pxform,[[0,0,0]],0)
+
+                mv = np.random.random()
+                p = np.append(p,[[0],[0],[0],[0]], 1)
+                return p
+
+        def apply_transforms(self, epoch):
+                for elem in self.spacecraft_model.keys():
+
+                        self.spacecraft_model[elem][&#39;mesh&#39;] = copy.deepcopy(self.spacecraft_model[elem][&#39;base_mesh&#39;])
+                        
+                        if self.spacecraft_model[elem][&#39;frame_type&#39;] == &#39;Spice&#39;:
+                                bframe = self.spacecraft_model[elem][&#39;frame_name&#39;]
+                                tframe = self.base_frame
+                                tmatrix = sp.pxform(bframe, tframe, epoch)
+                                tmatrix = self.pxform_convert(tmatrix)
+
+                                
+                                self.spacecraft_model[elem][&#39;mesh&#39;].apply_transform(tmatrix)
+                        else:
+                                self.spacecraft_model[elem][&#39;mesh&#39;].apply_transform(self.spacecraft_model[elem][&#39;UD_rotation&#39;])
+
+                        self.spacecraft_model[elem][&#39;mesh&#39;].apply_transform(self.spacecraft_model[elem][&#39;translation&#39;])
+
+
+
+        def materials(self):
+                return self.material_dict
+
+        def dump(self,epoch = None):
+
+                mesh_todump =[]
+                if not epoch == None:
+                        if isinstance(epoch, str):
+                                et = sp.str2et( epoch )
+                        else:
+                                et = epoch
+
+                #if et == self._last_epoch:
+                #       return self._last_mesh
+                        
+
+                        self.apply_transforms(et)
+
+                else:
+                        self.apply_transforms(None)
+
+                for elem in self.spacecraft_model:
+
+                        try:
+                                mesh_todump.append(np.sum(self.spacecraft_model[elem][&#39;mesh&#39;].dump()))
+                        except AttributeError:
+                                mesh_todump.append(self.spacecraft_model[elem][&#39;mesh&#39;])
+                                
+
+
+                mesh = np.array(mesh_todump).sum()
+                #self._last_mesh = np.array(mesh_todump).sum()
+                #self._last_epoch = et
+
+
+                return mesh
+
+
+        def dump_materials(self):
+                counter = 0
+                stored_idxs = []
+                props = {}
+                for elem in self.spacecraft_model:
+                        try:
+                                elemMesh = np.sum(self.spacecraft_model[elem][&#39;base_mesh&#39;].dump())
+                        except AttributeError:
+                                elemMesh = self.spacecraft_model[elem][&#39;base_mesh&#39;]
+                        stored_idxs.append([counter, counter + len(elemMesh.faces)-1])
+                        counter += len(elemMesh.faces)
+                        props[elem] = {&#39;specular&#39; : self.spacecraft_model[elem][&#39;specular&#39;] , &#39;diffuse&#39; :self.spacecraft_model[elem][&#39;diffuse&#39;] }
+                        
+                self.material_dict = {&#39;idxs&#39; : stored_idxs, &#39;props&#39;: props}
+
+
+        def _elem_info(self, elem):
+                print(self.spacecraft_model[elem][&#39;frame_name&#39;])
+                return f&#34;{elem}: Proper Frame: {self.spacecraft_model[elem][&#39;frame_name&#39;]} | Frame Type: {self.spacecraft_model[elem][&#39;frame_type&#39;]}&#34;
+
+
+        def info(self):
+                elems = self.spacecraft_model.keys()
+                n_parts = len(elems)
+                printstr = f&#34;Spacecraft {self.name} composed of {n_parts} elements: \n&#34;
+                for i,elem in enumerate(elems):
+                        printstr += f&#39;{i+1}) &#39; + self._elem_info(elem) + &#39; \n&#39;
+                return printstr
+
+        def __str__(self):
+                return self.info()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pyRTX.scClass.Spacecraft"><code class="flex name class">
+<span>class <span class="ident">Spacecraft</span></span>
+<span>(</span><span>name=None, base_frame=None, spacecraft_model=None, units='m')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This is the main class for defining spacecraft objects. </p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>name</code></strong> :&ensp;<code>str </code></dt>
+<dd>Spacecraft name</dd>
+<dt><strong><code>base_frame</code></strong> :&ensp;<code>str </code></dt>
+<dd>Spacecraft body (base) frame</dd>
+<dt><strong><code>spacecraft_model</code></strong> :&ensp;<code>dict </code></dt>
+<dd>dict of {file:str, frame_type:str, frame_name:str, center:list, specular:float, diffuse:float, UD_rotation:trimesh.rotation}</dd>
+</dl>
+<p>a dictionary with keys the name of</p>
+<dl>
+<dt><strong><code>file</code></strong> :&ensp;<code>str </code></dt>
+<dd>the obj file for the part</dd>
+<dt><strong><code>frame_type</code></strong> :&ensp;<code>str </code></dt>
+<dd>'Spice' or 'UD' to choose wether to define a reference to a spice frame or UserDefined one
+in the case of 'UD' a rotation matrix must be specified in the UD_rotation (optional) key</dd>
+<dt><strong><code>frame_name</code></strong> :&ensp;<code>str </code></dt>
+<dd>The name of the Spice (or UD) frame</dd>
+<dt><strong><code>center</code></strong> :&ensp;<code>list
+</code></dt>
+<dd>position of the origin of the object (in km) with respect to the base frame</dd>
+<dt><strong><code>specular</code></strong> :&ensp;<code>float </code></dt>
+<dd>specular coefficient</dd>
+<dt><strong><code>diffuse</code></strong> :&ensp;<code>float </code></dt>
+<dd>diffuse coefficient</dd>
+<dt><strong><code>UD_rotation</code></strong> :&ensp;<code>trimesh.rotation</code></dt>
+<dd>optional specify a user defined rotations matrix</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>bla</code></strong> :&ensp;<code>pyRTX.Spacecraft</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Spacecraft():
+        &#34;&#34;&#34;
+        This is the main class for defining spacecraft objects. 
+        &#34;&#34;&#34;
+        
+        def __init__(self, name = None, base_frame = None, spacecraft_model = None, units = &#39;m&#39;):
+                &#34;&#34;&#34;
+                Parameters
+                ----------
+                name : str 
+                        Spacecraft name
+
+                base_frame : str 
+                        Spacecraft body (base) frame
+
+                spacecraft_model : dict 
+                        dict of {file:str, frame_type:str, frame_name:str, center:list, specular:float, diffuse:float, UD_rotation:trimesh.rotation}
+                a dictionary with keys the name of
+
+                file: str 
+                    the obj file for the part
+
+                frame_type: str 
+                        &#39;Spice&#39; or &#39;UD&#39; to choose wether to define a reference to a spice frame or UserDefined one
+                        in the case of &#39;UD&#39; a rotation matrix must be specified in the UD_rotation (optional) key
+
+                frame_name: str 
+                        The name of the Spice (or UD) frame
+
+                center: list  
+                        position of the origin of the object (in km) with respect to the base frame
+
+                specular: float 
+                        specular coefficient
+
+                diffuse: float 
+                        diffuse coefficient
+                        
+                UD_rotation: trimesh.rotation
+                        optional specify a user defined rotations matrix
+
+                Returns
+                -------
+                bla : pyRTX.Spacecraft
+                &#34;&#34;&#34;
+                self.name = name
+                self.part_number = len(spacecraft_model.keys())
+                self.base_frame = base_frame
+                self.mesh_cont = {}
+                self.mesh_prop = {}
+                self.units = units
+                self.conversion_factor = constants.unit_conversions[units]
+                
+
+                self.spacecraft_model = {}
+                self.initialize(spacecraft_model)
+                self.material_dict = {}
+                self.dump_materials()
+
+
+                #self._last_epoch = 0
+
+        def _load_obj(self, fname):
+                mesh = tm.load_mesh(fname, skip_texture = True)
+                mesh.apply_transform(tmt.scale_matrix(self.conversion_factor, [0,0,0]))
+                return mesh
+
+        def initialize(self, input_model):
+                # Load the meshes
+                self.spacecraft_model.update(input_model)
+                for elem in input_model.keys():
+                        
+
+                        self.spacecraft_model[elem][&#39;base_mesh&#39;] = self._load_obj(input_model[elem][&#39;file&#39;])
+                        self.spacecraft_model[elem][&#39;translation&#39;] = tmt.translation_matrix(np.array(input_model[elem][&#39;center&#39;]) * self.conversion_factor)
+
+                        #print(tmt.translation_matrix(input_model[elem][&#39;center&#39;]))
+
+
+        def add_parts(self, spacecraft_model = None):
+
+                if name in  self.spacecraft_model.keys():
+                        raise Exception(f&#39;{name} is already defined&#39;)
+
+                self.initialize(spacecraft_model)
+
+        def subset(self, elem_names):
+                &#39;&#39;&#39;
+                Return an instance of Spacecraft with only the elements contained
+                in the list elem_names.
+                Suppose the Spacecraft (self) is composed of elements A,B,C
+                Spacecraft.subset([&#39;A&#39;,&#39;B&#39;]) would return a new instance
+                of Spacecraft with only the elements A and B
+                &#39;&#39;&#39;
+                
+                cself  = copy.deepcopy(self)
+                orig_elems = copy.deepcopy(list(cself.spacecraft_model.keys()))
+                for k in orig_elems:
+                        if k not in elem_names:
+                                cself.remove_part(k)
+                return cself
+
+        def remove_part(self, name):
+                del self.spacecraft_model[name]
+
+        def pxform_convert(self,pxform):
+                pxform = np.array([pxform[0],pxform[1],pxform[2]])
+
+                p = np.append(pxform,[[0,0,0]],0)
+
+                mv = np.random.random()
+                p = np.append(p,[[0],[0],[0],[0]], 1)
+                return p
+
+        def apply_transforms(self, epoch):
+                for elem in self.spacecraft_model.keys():
+
+                        self.spacecraft_model[elem][&#39;mesh&#39;] = copy.deepcopy(self.spacecraft_model[elem][&#39;base_mesh&#39;])
+                        
+                        if self.spacecraft_model[elem][&#39;frame_type&#39;] == &#39;Spice&#39;:
+                                bframe = self.spacecraft_model[elem][&#39;frame_name&#39;]
+                                tframe = self.base_frame
+                                tmatrix = sp.pxform(bframe, tframe, epoch)
+                                tmatrix = self.pxform_convert(tmatrix)
+
+                                
+                                self.spacecraft_model[elem][&#39;mesh&#39;].apply_transform(tmatrix)
+                        else:
+                                self.spacecraft_model[elem][&#39;mesh&#39;].apply_transform(self.spacecraft_model[elem][&#39;UD_rotation&#39;])
+
+                        self.spacecraft_model[elem][&#39;mesh&#39;].apply_transform(self.spacecraft_model[elem][&#39;translation&#39;])
+
+
+
+        def materials(self):
+                return self.material_dict
+
+        def dump(self,epoch = None):
+
+                mesh_todump =[]
+                if not epoch == None:
+                        if isinstance(epoch, str):
+                                et = sp.str2et( epoch )
+                        else:
+                                et = epoch
+
+                #if et == self._last_epoch:
+                #       return self._last_mesh
+                        
+
+                        self.apply_transforms(et)
+
+                else:
+                        self.apply_transforms(None)
+
+                for elem in self.spacecraft_model:
+
+                        try:
+                                mesh_todump.append(np.sum(self.spacecraft_model[elem][&#39;mesh&#39;].dump()))
+                        except AttributeError:
+                                mesh_todump.append(self.spacecraft_model[elem][&#39;mesh&#39;])
+                                
+
+
+                mesh = np.array(mesh_todump).sum()
+                #self._last_mesh = np.array(mesh_todump).sum()
+                #self._last_epoch = et
+
+
+                return mesh
+
+
+        def dump_materials(self):
+                counter = 0
+                stored_idxs = []
+                props = {}
+                for elem in self.spacecraft_model:
+                        try:
+                                elemMesh = np.sum(self.spacecraft_model[elem][&#39;base_mesh&#39;].dump())
+                        except AttributeError:
+                                elemMesh = self.spacecraft_model[elem][&#39;base_mesh&#39;]
+                        stored_idxs.append([counter, counter + len(elemMesh.faces)-1])
+                        counter += len(elemMesh.faces)
+                        props[elem] = {&#39;specular&#39; : self.spacecraft_model[elem][&#39;specular&#39;] , &#39;diffuse&#39; :self.spacecraft_model[elem][&#39;diffuse&#39;] }
+                        
+                self.material_dict = {&#39;idxs&#39; : stored_idxs, &#39;props&#39;: props}
+
+
+        def _elem_info(self, elem):
+                print(self.spacecraft_model[elem][&#39;frame_name&#39;])
+                return f&#34;{elem}: Proper Frame: {self.spacecraft_model[elem][&#39;frame_name&#39;]} | Frame Type: {self.spacecraft_model[elem][&#39;frame_type&#39;]}&#34;
+
+
+        def info(self):
+                elems = self.spacecraft_model.keys()
+                n_parts = len(elems)
+                printstr = f&#34;Spacecraft {self.name} composed of {n_parts} elements: \n&#34;
+                for i,elem in enumerate(elems):
+                        printstr += f&#39;{i+1}) &#39; + self._elem_info(elem) + &#39; \n&#39;
+                return printstr
+
+        def __str__(self):
+                return self.info()</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="pyRTX.scClass.Spacecraft.add_parts"><code class="name flex">
+<span>def <span class="ident">add_parts</span></span>(<span>self, spacecraft_model=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_parts(self, spacecraft_model = None):
+
+        if name in  self.spacecraft_model.keys():
+                raise Exception(f&#39;{name} is already defined&#39;)
+
+        self.initialize(spacecraft_model)</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.scClass.Spacecraft.apply_transforms"><code class="name flex">
+<span>def <span class="ident">apply_transforms</span></span>(<span>self, epoch)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def apply_transforms(self, epoch):
+        for elem in self.spacecraft_model.keys():
+
+                self.spacecraft_model[elem][&#39;mesh&#39;] = copy.deepcopy(self.spacecraft_model[elem][&#39;base_mesh&#39;])
+                
+                if self.spacecraft_model[elem][&#39;frame_type&#39;] == &#39;Spice&#39;:
+                        bframe = self.spacecraft_model[elem][&#39;frame_name&#39;]
+                        tframe = self.base_frame
+                        tmatrix = sp.pxform(bframe, tframe, epoch)
+                        tmatrix = self.pxform_convert(tmatrix)
+
+                        
+                        self.spacecraft_model[elem][&#39;mesh&#39;].apply_transform(tmatrix)
+                else:
+                        self.spacecraft_model[elem][&#39;mesh&#39;].apply_transform(self.spacecraft_model[elem][&#39;UD_rotation&#39;])
+
+                self.spacecraft_model[elem][&#39;mesh&#39;].apply_transform(self.spacecraft_model[elem][&#39;translation&#39;])</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.scClass.Spacecraft.dump"><code class="name flex">
+<span>def <span class="ident">dump</span></span>(<span>self, epoch=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dump(self,epoch = None):
+
+        mesh_todump =[]
+        if not epoch == None:
+                if isinstance(epoch, str):
+                        et = sp.str2et( epoch )
+                else:
+                        et = epoch
+
+        #if et == self._last_epoch:
+        #       return self._last_mesh
+                
+
+                self.apply_transforms(et)
+
+        else:
+                self.apply_transforms(None)
+
+        for elem in self.spacecraft_model:
+
+                try:
+                        mesh_todump.append(np.sum(self.spacecraft_model[elem][&#39;mesh&#39;].dump()))
+                except AttributeError:
+                        mesh_todump.append(self.spacecraft_model[elem][&#39;mesh&#39;])
+                        
+
+
+        mesh = np.array(mesh_todump).sum()
+        #self._last_mesh = np.array(mesh_todump).sum()
+        #self._last_epoch = et
+
+
+        return mesh</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.scClass.Spacecraft.dump_materials"><code class="name flex">
+<span>def <span class="ident">dump_materials</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dump_materials(self):
+        counter = 0
+        stored_idxs = []
+        props = {}
+        for elem in self.spacecraft_model:
+                try:
+                        elemMesh = np.sum(self.spacecraft_model[elem][&#39;base_mesh&#39;].dump())
+                except AttributeError:
+                        elemMesh = self.spacecraft_model[elem][&#39;base_mesh&#39;]
+                stored_idxs.append([counter, counter + len(elemMesh.faces)-1])
+                counter += len(elemMesh.faces)
+                props[elem] = {&#39;specular&#39; : self.spacecraft_model[elem][&#39;specular&#39;] , &#39;diffuse&#39; :self.spacecraft_model[elem][&#39;diffuse&#39;] }
+                
+        self.material_dict = {&#39;idxs&#39; : stored_idxs, &#39;props&#39;: props}</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.scClass.Spacecraft.info"><code class="name flex">
+<span>def <span class="ident">info</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def info(self):
+        elems = self.spacecraft_model.keys()
+        n_parts = len(elems)
+        printstr = f&#34;Spacecraft {self.name} composed of {n_parts} elements: \n&#34;
+        for i,elem in enumerate(elems):
+                printstr += f&#39;{i+1}) &#39; + self._elem_info(elem) + &#39; \n&#39;
+        return printstr</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.scClass.Spacecraft.initialize"><code class="name flex">
+<span>def <span class="ident">initialize</span></span>(<span>self, input_model)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def initialize(self, input_model):
+        # Load the meshes
+        self.spacecraft_model.update(input_model)
+        for elem in input_model.keys():
+                
+
+                self.spacecraft_model[elem][&#39;base_mesh&#39;] = self._load_obj(input_model[elem][&#39;file&#39;])
+                self.spacecraft_model[elem][&#39;translation&#39;] = tmt.translation_matrix(np.array(input_model[elem][&#39;center&#39;]) * self.conversion_factor)
+
+                #print(tmt.translation_matrix(input_model[elem][&#39;center&#39;]))</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.scClass.Spacecraft.materials"><code class="name flex">
+<span>def <span class="ident">materials</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def materials(self):
+        return self.material_dict</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.scClass.Spacecraft.pxform_convert"><code class="name flex">
+<span>def <span class="ident">pxform_convert</span></span>(<span>self, pxform)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pxform_convert(self,pxform):
+        pxform = np.array([pxform[0],pxform[1],pxform[2]])
+
+        p = np.append(pxform,[[0,0,0]],0)
+
+        mv = np.random.random()
+        p = np.append(p,[[0],[0],[0],[0]], 1)
+        return p</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.scClass.Spacecraft.remove_part"><code class="name flex">
+<span>def <span class="ident">remove_part</span></span>(<span>self, name)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def remove_part(self, name):
+        del self.spacecraft_model[name]</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.scClass.Spacecraft.subset"><code class="name flex">
+<span>def <span class="ident">subset</span></span>(<span>self, elem_names)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return an instance of Spacecraft with only the elements contained
+in the list elem_names.
+Suppose the Spacecraft (self) is composed of elements A,B,C
+Spacecraft.subset(['A','B']) would return a new instance
+of Spacecraft with only the elements A and B</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def subset(self, elem_names):
+        &#39;&#39;&#39;
+        Return an instance of Spacecraft with only the elements contained
+        in the list elem_names.
+        Suppose the Spacecraft (self) is composed of elements A,B,C
+        Spacecraft.subset([&#39;A&#39;,&#39;B&#39;]) would return a new instance
+        of Spacecraft with only the elements A and B
+        &#39;&#39;&#39;
+        
+        cself  = copy.deepcopy(self)
+        orig_elems = copy.deepcopy(list(cself.spacecraft_model.keys()))
+        for k in orig_elems:
+                if k not in elem_names:
+                        cself.remove_part(k)
+        return cself</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pyRTX" href="index.html">pyRTX</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pyRTX.scClass.Spacecraft" href="#pyRTX.scClass.Spacecraft">Spacecraft</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pyRTX.scClass.Spacecraft.add_parts" href="#pyRTX.scClass.Spacecraft.add_parts">add_parts</a></code></li>
+<li><code><a title="pyRTX.scClass.Spacecraft.apply_transforms" href="#pyRTX.scClass.Spacecraft.apply_transforms">apply_transforms</a></code></li>
+<li><code><a title="pyRTX.scClass.Spacecraft.dump" href="#pyRTX.scClass.Spacecraft.dump">dump</a></code></li>
+<li><code><a title="pyRTX.scClass.Spacecraft.dump_materials" href="#pyRTX.scClass.Spacecraft.dump_materials">dump_materials</a></code></li>
+<li><code><a title="pyRTX.scClass.Spacecraft.info" href="#pyRTX.scClass.Spacecraft.info">info</a></code></li>
+<li><code><a title="pyRTX.scClass.Spacecraft.initialize" href="#pyRTX.scClass.Spacecraft.initialize">initialize</a></code></li>
+<li><code><a title="pyRTX.scClass.Spacecraft.materials" href="#pyRTX.scClass.Spacecraft.materials">materials</a></code></li>
+<li><code><a title="pyRTX.scClass.Spacecraft.pxform_convert" href="#pyRTX.scClass.Spacecraft.pxform_convert">pxform_convert</a></code></li>
+<li><code><a title="pyRTX.scClass.Spacecraft.remove_part" href="#pyRTX.scClass.Spacecraft.remove_part">remove_part</a></code></li>
+<li><code><a title="pyRTX.scClass.Spacecraft.subset" href="#pyRTX.scClass.Spacecraft.subset">subset</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

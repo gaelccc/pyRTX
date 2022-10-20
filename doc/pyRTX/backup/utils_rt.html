@@ -1,0 +1,1851 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.8.1" />
+<title>pyRTX.backup.utils_rt API documentation</title>
+<meta name="description" content="" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pyRTX.backup.utils_rt</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># Utilities for ray tracing
+import numpy as np
+import trimesh
+from abc import ABC
+import os
+import pickle as pkl
+from numba import jit
+try:
+        import embree
+except ImportError:
+        print(&#34;&#34;&#34;Could not import Embree3 library. \n Be sure that: \n
+                1) Embree3 is installed\n 2) you activated embree variables (source /path/to/lib/embree-vars.sh)&#34;&#34;&#34;)
+
+
+# No more imports after here
+#___________________________________________________________
+
+############################################################
+# Define general utils
+###########################################################
+
+
+def pixel_plane(d0, lon, lat, width = 1, height = 1, ray_spacing = .1):
+        &#34;&#34;&#34;&#34;Generate a pixel array for raytracing ad defined in Li et al., 2018
+        This is the &#34;fully exposed version&#34; to explicitly show the algorithm. 
+        Parameters:
+        d0: Distance of the pixel array from the center (in meters)
+        lat: Latitude of the pixel array center (in rad)
+        lon: Longitude of the pixel array center (in rad)
+        width: The width of the plane(in meters). Default = 1
+        height: the height of the plane(in meters). Default = 1
+        ray_spacing: the spacing of the rays (in meters). Default = 0.1
+
+        Returns: 
+        locs: Pixel locations as a numpy array
+        dirs: the ray directions as a numpy array
+        &#34;&#34;&#34;
+
+
+
+        w2 = width/2
+        h2 = height/2
+        # Build the direction vector 
+        x0 = np.array([-d0*np.cos(lon)*np.cos(lat), -d0*np.sin(lon)*np.cos(lat), -d0*np.sin(lat)])
+
+        # Build the transformation matrix
+        R1 = np.array( [[np.cos(lon), -np.sin(lon), 0],
+                                        [np.sin(lon), np.cos(lon), 0],
+                                        [0,0,1]]
+                )
+        R2 = np.array([[np.cos(-lat), 0, np.sin(-lat)],
+                                        [0,1,0],
+                                        [-np.sin(-lat), 0, np.cos(-lat)]])
+        R = R1@R2
+
+
+        # Build the pixel matrix
+        basic_coords = np.zeros(((int(width/ray_spacing)+1)* (int(height/ray_spacing)+1), 3))
+        basic_dirs = np.zeros_like(basic_coords)
+        counter = 0     
+        for i, w in enumerate(np.linspace(-w2, w2, num = int(width/ray_spacing)+1 )):
+                for j, h in enumerate(np.linspace(-h2, h2, num = int(height/ray_spacing)+1)):
+                        basic_coords[counter, :] = R@np.array([0, w, h]) - x0
+                        basic_dirs[counter, :] = x0/np.linalg.norm(x0)
+                        counter += 1
+
+
+        # Return the output in the shape required by trimesh
+        return basic_coords, basic_dirs
+
+
+
+
+
+
+
+@jit(nopython = True)
+def fast_vector_build(linsp1, linsp2, dim1, dim2):
+        &#34;&#34;&#34;
+        Further accelerate the ray vector generation using numba&#39;s jit vectorization
+        &#34;&#34;&#34;
+        basic_coords = np.zeros((dim1*dim2, 3))
+        counter = 0
+
+        for w in linsp1:
+                for h in linsp2:
+                        basic_coords[counter, :] = [0, w, h]
+                        counter += 1
+        return basic_coords     
+
+
+
+def pixel_plane_opt(d0, lon, lat, width = 1, height = 1, ray_spacing = .1, packets = 1):
+        &#34;&#34;&#34;&#34;Generate a pixel array for raytracing ad defined in Li et al., 2018
+        This is the &#34;optimized version&#34;. To explicitly see the algorithm refer to the function definition
+        without _opt extension.
+        Parameters:
+        d0: [float] Distance of the pixel array from the center (in meters)
+        lat: [float] Latitude of the pixel array center (in rad)
+        lon: [float] Longitude of the pixel array center (in rad)
+        width: [float] The width of the plane(in meters). Default = 1
+        height: [float] the height of the plane(in meters). Default = 1
+        ray_spacing: [float] the spacing of the rays (in meters). Default = 0.1
+        packets: [int] the number of &#39;ray packets&#39; to return. This is implemented to avoid the segmentation
+                 fault triggered by the raytracer when the number of rays is too high
+
+        Returns: 
+        locs: [numpy array (n_rays, 3)] Pixel locations as a numpy array
+        dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array
+        &#34;&#34;&#34;
+
+
+
+        w2 = width/2
+        h2 = height/2
+        # Build the direction vector 
+        x0 = np.array([-d0*np.cos(lon)*np.cos(lat), -d0*np.sin(lon)*np.cos(lat), -d0*np.sin(lat)])
+        x0_unit = x0/np.linalg.norm(x0)
+        # Build the transformation matrix
+        R1 = np.array( [[np.cos(lon), -np.sin(lon), 0],
+                                        [np.sin(lon), np.cos(lon), 0],
+                                        [0,0,1]]
+                )
+        R2 = np.array([[np.cos(-lat), 0, np.sin(-lat)],
+                                        [0,1,0],
+                                        [-np.sin(-lat), 0, np.cos(-lat)]])
+        R = R1@R2
+
+
+        # Build the pixel matrix
+        
+        dim1 = int(width/ray_spacing)+1
+        dim2 = int(height/ray_spacing)+1
+        basic_coords = np.zeros((dim1*dim2, 3))
+        basic_dirs = np.full(basic_coords.shape, x0_unit)
+
+        linsp1 = np.linspace(-w2, w2, num = dim1 )
+        linsp2 = np.linspace(-h2, h2, num = dim2)
+
+
+        basic_coords = fast_vector_build(linsp1, linsp2, dim1, dim2)
+
+        basic_coords = np.dot(np.array(basic_coords), R.T)
+        basic_coords -= x0
+
+
+        # Return the output in the shape required by trimesh
+
+        if not packets == 1:    
+                basic_coords = np.array_split(basic_coords, packets)
+                basic_dirs = np.array_split(basic_dirs, packets)
+
+        return basic_coords, basic_dirs
+
+
+
+def reflected(incoming, normal):
+        &#34;&#34;&#34;
+        Compute the reflected unit vector given the incoming and the normal
+        Numpy vectorized version of &#39;reflected&#39; 
+        Parameters:
+        incoming: [numpy array (number of rays, 3)]  incoming rays
+        normal: [numpy array (number of rays, 3)] surface normals associated to each incoming ray
+
+        Returns:
+        reflected: [numpy array (number of rays, 3)] reflected rays
+
+        &#34;&#34;&#34;
+
+        return incoming - 2*np.multiply(normal.T,np.einsum(&#39;ij,ij-&gt;i&#39;,incoming, normal)).T
+
+def get_orthogonal(v):
+        &#34;&#34;&#34;
+        Get a unit vector orthogonal to v
+
+        Parameters:
+        v: [numpy array (3,)]
+
+        Returns: 
+        x: [numpy array(3,)]
+        &#34;&#34;&#34;
+        x = np.random.random(3)
+        x -= x.dot(v)*v
+        x  = x/ np.linalg.norm(x)
+
+        return x
+
+def sample_lambert_dist(normal, num = 100):
+        &#34;&#34;&#34;
+        Generate a cloud of vectors following the Lambert cosine distribution
+
+        Parameters: 
+        normals: [numpy array] the normal vector to the face
+        num: [int] the number of samples required
+        
+        Returns:
+        v: [numpy array (num, 3)] array of the sampled vectors
+        &#34;&#34;&#34;
+
+        theta = np.arccos(np.sqrt(np.random.random(num)))
+        cos_theta = np.cos(theta)
+        sin_theta = np.sin(theta)
+        psi = np.random.random(num)*2*np.pi
+
+        a = sin_theta*np.cos(psi)
+        b = sin_theta*np.sin(psi)
+        c = cos_theta
+
+        t1 = get_orthogonal(normal)
+        t2 = np.cross( normal , t1)
+
+
+        v =np.zeros((num, 3))
+        for i in range(num):
+                v[i] = a[i]*t1 + b[i]*t2 + c[i]*normal
+        return v
+
+
+def diffuse(normals, num = 10):
+        &#34;&#34;&#34;
+        Compute num diffuse reflection directions sampling a lambert cosine distribution
+        
+        Parameters:
+        normals: [numpy array (N, 3)] normal unit vectors
+        num: number of samples for each normal
+
+        Returns:
+        diffuse_directions: [numpy array (N*num, 3)] 
+
+        &#34;&#34;&#34;
+
+        diffuse_directions = np.repeat(normals, num, axis = 0)*0.0  
+        for i,n in enumerate(normals):
+                diff_dirs = sample_lambert_dist(n, num = num)   
+                
+                diffuse_directions[i*num: (i+1)*num] = diff_dirs 
+
+        return diffuse_directions
+
+def compute_secondary_bounce(location, index_tri, mesh_obj, ray_directions, index_ray, diffusion = False, num_diffuse = None):
+        &#34;&#34;&#34;
+        Prepare the quantities required for iterating the raytracer
+
+        Parameters:
+        location: UNUSED. This input is maintained just to change the variable name
+        index_tri: [numpy array (N,)] indexes of the faces intersected by the rays
+        mesh_obj: [trimesh.Trimesh] the mesh object
+        ray_directions: [numpy array (L, 3)] the directions of the incoming rays
+        index_ray: [numpy array (M,)] the indexes of the rays that effectively intersected the N faces
+        diffusion: [bool] boolean flag to select wether to compute the secondary diffusion rays (Default: False)
+        num_diffuse: [None or int] number of samples for the diffusion computation (Default: None)
+
+        Returns:
+        location: same as location in input
+        reflect_dirs: [numpy array (L,3)] the specularly reflected directions of the rays
+        diffuse_dirs [numpy array (L*num_diffuse, 3) or -1] (if requested) the direction of the diffused rays
+
+
+
+        &#34;&#34;&#34;
+        reflect_dirs = np.zeros_like(location)
+        normals = mesh_obj.face_normals
+
+
+
+        reflect_dirs = reflected(ray_directions[index_ray], normals[index_tri])
+
+        if diffusion: 
+                diffuse_dirs = diffuse(normals[index_tri], num = num_diffuse)
+        
+        else:
+                diffuse_dirs = -1  # Dummy variable for return values management
+        
+        return location, reflect_dirs, diffuse_dirs
+
+
+####################################################################################################
+# Saving utilities
+
+def save_for_visualization(outputFilePath, mesh, ray_origins, ray_directions, location, index_tri, diffusion_pack ):
+        &#34;&#34;&#34;
+        Save a pickled dictionary useful for visualization scripts (see visual_utils)
+
+        Parameters:
+        outputFilePath: [str] output file for saving (should end with .pkl)
+        mesh: [trimesh.Trimesh] mesh object
+        ray_origins: [numpy array (bounce_number, N, 3)] output of the raytracer
+        ray_directions: [numpy array (bounce_number, N, 3)] output of the raytracer
+        location: [numpy array (bounce_number, N, 3)] locations of intersection points
+        index_tri: [numpy array (bounce_number, M, 3)] indexes of intersected triangles
+        diffusion_pack: [list] output of the raytracer with the same name
+
+        Returns:
+        None
+
+        &#34;&#34;&#34;
+        outdict = {&#39;mesh&#39;: mesh, &#39;ray_origins&#39;: ray_origins, &#39;ray_directions&#39;: ray_directions, &#39;locations&#39;: location, &#39;index_tri&#39;: index_tri, &#39;diffusion_pack&#39;: diffusion_pack}
+
+        with open(outputFilePath, &#39;wb&#39;) as f:
+                pkl.dump(outdict, f, protocol = 4)
+
+        
+
+#####################################################################################################
+# Define utils specific to Embree3 implementation
+# (Provided by Sam Potter)
+
+def Embree3_init_geometry(mesh_obj):
+
+        &#34;&#34;&#34;
+        Perform initial task for geometry initialization for the Embree3 kernel
+        Parameters:
+        mesh_obj: the mesh object provided via trimesh
+
+        Returns:
+        scene: embree.Scene object
+        context: embree.Context object
+        V:  mesh vertices
+        F: mesh faces
+        &#34;&#34;&#34;
+        V = np.array(mesh_obj.vertices, dtype=np.float64)
+        F = np.array(mesh_obj.faces, dtype=np.int64)
+
+        P = get_centroids(V, F)
+        N, A = get_surface_normals_and_face_areas(V, F)
+
+        device = embree.Device()
+        scene = TrimeshShapeModel(V,F,N=N, A=A).get_scene()
+        
+                
+        context = embree.IntersectContext()
+
+        return scene, context, V, F
+
+def Embree3_init_rayhit(ray_origins, ray_directions):
+        &#34;&#34;&#34;
+        Initialize the rayhit object of Embree3
+
+        Parameters:
+        ray_origins: [np.array (N,3)]  ray_origins
+        ray_directions: [np.array (N,3)]  ray_directions
+
+        Returns: 
+        rayhit: the initialized embree.rayhit object
+
+        &#34;&#34;&#34;
+        nb = np.shape(ray_origins)[0] # Number of tracked rays
+        rayhit = embree.RayHit1M(nb)
+
+        # Initialize the ray structure
+        #rayhit.tnear[:] = 0.001 #Avoid numerical problems
+        rayhit.tnear[:] = 0.00 #Avoid numerical problems
+        rayhit.tfar[:] = np.inf
+        rayhit.prim_id[:] = embree.INVALID_GEOMETRY_ID
+        rayhit.geom_id[:] = embree.INVALID_GEOMETRY_ID
+        rayhit.org[:] = ray_origins
+        rayhit.dir[:] = ray_directions
+
+        return rayhit
+
+def Embree3_dump_solution(rayhit, V, F):
+        &#34;&#34;&#34;
+        Process the output of the embree ray intersector kernel
+
+        Parameters: 
+        rayhit: embree.rayhit object
+        V: vertices
+        F: faces
+
+        Returns:
+        hits: indexes of hit faces
+        nhits: number of hits
+        idh: indexez of hitting rays
+        Ph: hit points on the mesh
+
+        &#34;&#34;&#34;
+        ishit=rayhit.prim_id!=embree.INVALID_GEOMETRY_ID
+        idh=np.nonzero(ishit)[0]
+        hits=rayhit.prim_id[idh]
+        nhits=hits.size
+
+        if nhits&gt;0:
+                p = V[F[hits]]
+                v1=p[:,0]
+                v2=p[:,1]
+                v3=p[:,2]
+                u=rayhit.uv[idh,0]
+                v=rayhit.uv[idh,1]
+                Ph = v1 + (v2-v1)*u[:,None] + (v3-v1)*v[:,None]
+
+                return hits, nhits, idh, Ph
+
+        else:
+                return -1, -1, -1, -1
+                
+
+
+
+
+def get_centroids(V, F):
+    return V[F].mean(axis=1)
+ 
+ 
+def get_cross_products(V, F):
+    V0 = V[F][:, 0, :]
+    C = np.cross(V[F][:, 1, :] - V0, V[F][:, 2, :] - V0)
+    return C
+ 
+ 
+def get_face_areas(V, F):
+    C = get_cross_products(V, F)
+    C_norms = np.sqrt(np.sum(C**2, axis=1))
+    A = C_norms/2
+    return A
+ 
+ 
+def get_surface_normals(V, F):
+    C = get_cross_products(V, F)
+    C_norms = np.sqrt(np.sum(C**2, axis=1))
+    N = C/C_norms.reshape(C.shape[0], 1)
+    return N
+ 
+def get_surface_normals_and_face_areas(V, F):
+    C = get_cross_products(V, F)
+    C_norms = np.sqrt(np.sum(C**2, axis=1))
+    N = C/C_norms.reshape(C.shape[0], 1)
+    A = C_norms/2
+    return N, A
+
+
+
+class ShapeModel(ABC):
+    pass
+
+
+class TrimeshShapeModel(ShapeModel):
+    &#34;&#34;&#34;A shape model consisting of a single triangle mesh.&#34;&#34;&#34;
+
+    def __init__(self, V, F, N=None, P=None, A=None):
+        &#34;&#34;&#34;Initialize a triangle mesh shape model. No assumption is made about
+        the way vertices or faces are stored when building the shape
+        model except that V[F] yields the faces of the mesh. Vertices
+        may be repeated or not.
+        Parameters
+        ----------
+        V : array_like
+            An array with shape (num_verts, 3) whose rows correspond to the
+            vertices of the triangle mesh
+        F : array_like
+            An array with shape (num_faces, 3) whose rows index the faces
+            of the triangle mesh (i.e., V[F] returns an array with shape
+            (num_faces, 3, 3) such that V[F][i] is a 3x3 matrix whose rows
+            are the vertices of the ith face.
+        N : array_like, optional
+            An array with shape (num_faces, 3) consisting of the triangle
+            mesh face normals. Can be passed to specify the face normals.
+            Otherwise, the face normals will be computed from the cross products
+            of the face edges (i.e. np.cross(vi1 - vi0, vi2 - vi0) normalized).
+        P : array_like, optional
+            An array with shape (num_faces, 3) consisting of the triangle
+            centroids. Can be optionally passed to avoid recomputing.
+        A : array_like, optional
+            An array of shape (num_faces,) containing the triangle areas. Can
+            be optionally passed to avoid recomputing.
+        &#34;&#34;&#34;
+
+        self.dtype = V.dtype
+
+        self.V = V
+        self.F = F
+
+        if N is None and A is None:
+            N, A = get_surface_normals_and_face_areas(V, F)
+        elif A is None:
+            if N.shape[0] != F.shape[0]:
+                raise Exception(
+                    &#39;must pass same number of surface normals as faces (got &#39; +
+                    &#39;%d faces and %d normals&#39; % (F.shape[0], N.shape[0])
+                )
+            A = get_face_areas(V, F)
+        elif N is None:
+            N = get_surface_normals(V, F)
+
+        self.P = get_centroids(V, F)
+        self.N = N
+        self.A = A
+
+        assert self.P.dtype == self.dtype
+        assert self.N.dtype == self.dtype
+        assert self.A.dtype == self.dtype
+
+        self._make_scene()
+        
+
+    def _make_scene(self):
+        &#39;&#39;&#39;Set up an Embree scene. This function allocates some memory that
+        Embree manages, and loads vertices and index lists for the
+        faces. In Embree parlance, this function creates a &#34;device&#34;,
+        which manages a &#34;scene&#34;, which has one &#34;geometry&#34; in it, which
+        is our mesh.
+        &#39;&#39;&#39;
+        device = embree.Device()
+        geometry = device.make_geometry(embree.GeometryType.Triangle)
+        scene = device.make_scene()
+        
+        
+        vertex_buffer = geometry.set_new_buffer(
+            embree.BufferType.Vertex, # buf_type
+            0, # slot
+            embree.Format.Float3, # fmt
+            3*np.dtype(&#39;float32&#39;).itemsize, # byte_stride
+            self.V.shape[0], # item_count
+        )
+        vertex_buffer[:] = self.V[:]
+        index_buffer = geometry.set_new_buffer(
+            embree.BufferType.Index, # buf_type
+            0, # slot
+            embree.Format.Uint3, # fmt
+            3*np.dtype(&#39;uint32&#39;).itemsize, # byte_stride,
+            self.F.shape[0]
+        )
+        index_buffer[:] = self.F[:]
+        geometry.commit()
+        scene.attach_geometry(geometry)
+        geometry.release()
+        scene.commit()
+
+        # This is the only variable we need to retain a reference to
+        # (I think)
+        self.scene = scene
+        self.device = device
+    def __reduce__(self):
+        return (self.__class__, (self.V, self.F, self.N, self.P, self.A))
+
+    @property
+    def num_faces(self):
+        return self.P.shape[0]
+
+
+    def get_scene(self):
+        return self.scene
+
+
+
+
+# Main definition of the kernel wrapper
+#-----------------------------------------------------------------------------------------------------#
+
+def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces = 1,  kernel = &#39;Embree&#39;, diffusion = False, num_diffuse = None):
+        &#34;&#34;&#34;
+        Wrapper for trimesh RTX kernel
+        Parameters:
+        mesh_obj: Mesh (or geometry) object 
+        ray_origins: numpy array of ray origins (n, 3)
+        ray_directions: numpy array of ray directions (does not need to be normalized) (n,3)
+        bounces: (int) number of bounces to compute
+        kernel: one of Embree, Native or Embree3. To chose wether to use the Intel Embree kernel or the native python kernel
+        diffusion: (bool) Boolean flag to activate diffused raytracing for the first bounce
+        num_diffuse: (int) number of samples for first-bounce diffuse computation
+
+        Returns:
+        index_tri:  Mesh triangle indexes
+        index_ray:  Ray indexes
+        location:   Location of intersect points
+        &#34;&#34;&#34;
+
+
+        ray_origins_container = []
+        ray_directions_container = []
+        locations_container = []
+        index_tri_container = []
+        index_ray_container = []
+
+
+        # Set variables for diffusion computation
+        diffusion_directions = 0
+        diffusion_pack = []
+        diffusion_control = False
+
+        # Select the kernel
+        if kernel in [&#39;Embree&#39;, &#39;Native&#39;]:
+                for i in range(bounces):
+
+                        ray_origins_container.append(ray_origins)
+
+
+                        if kernel == &#39;Embree&#39;:
+                                intersector = trimesh.ray.ray_pyembree.RayMeshIntersector(mesh_obj)
+
+                        elif kernel == &#39;Native&#39;:
+                                intersector = trimesh.ray.ray_triangle.RayMeshIntersector(mesh_obj)
+
+
+                        # Avoid numerical problems
+                        ray_origins = ray_origins + 1e-3*ray_directions 
+
+
+                        # If computing bounce number 1 and the diffusion computation has been requested
+                        # do a separate raytracing also for the diffused rays
+                        # and pack results in the variable: diffusion pack
+                        if i == 1 and diffusion:
+                                print(&#39;performing diffusion RTX&#39;)
+                        
+                                ray_origins_diffusion = np.repeat(ray_origins, num_diffuse, axis = 0) # this should be correct
+                                ray_directions_diffusion = diffuse_directions
+
+                                index_tri_diffusion, index_ray_diffusion, location_diffusion = intersector.intersects_id( ray_origins = ray_origins_diffusion,
+                                                                                                                          ray_directions = ray_directions_diffusion,
+                                                                                                                          multiple_hits = False,
+                                                                                                                          return_locations = True)
+                                diffusion_pack = [index_tri_diffusion, index_ray_diffusion, ray_directions_diffusion,  location_diffusion]
+
+
+
+                        # Main Raytracer
+                        index_tri, index_ray, location = intersector.intersects_id(
+                                                                                                                ray_origins = ray_origins,
+                                                                                                                ray_directions = ray_directions,
+                                                                                                                multiple_hits = False,
+                                                                                                                return_locations = True)
+                        # Get the number of hits
+                        n_hits = len(index_tri)
+
+                        # Manage the possibility of no hits
+                        if n_hits == 0:
+                                print (&#39;No intersections found for bounce {}. Results provided up to bounce {}&#39;.format(i+1, i))
+                                break
+                        else:
+                                locations_container.append(location)
+                                index_tri_container.append(index_tri)
+                                index_ray_container.append(index_ray)
+                                ray_directions_container.append(ray_directions)
+                        
+
+
+                                if i != bounces -1:
+                                        # If at bounce number 1 compute the diffused directions:
+                                        if diffusion and i == 0:
+                                                diffusion_control = True
+        
+                                        ray_origins, ray_directions, diffuse_directions = compute_secondary_bounce(location, index_tri, mesh_obj, ray_directions, index_ray, diffusion = diffusion_control, num_diffuse = num_diffuse)
+
+                                        # Set back to false the diffusion computation control flag
+                                        diffusion_control = False
+                                        
+
+
+
+        elif kernel == &#39;Embree3&#39;:
+                
+                # Initialize the geometry
+                scene, context, V, F = Embree3_init_geometry(mesh_obj)
+
+                for i in range(bounces):
+                        ray_origins_container.append(ray_origins)
+
+                        # Initialize the rayhit object
+                        ray_origins = ray_origins +1e-3*ray_directions
+                        rayhit = Embree3_init_rayhit(ray_origins, ray_directions)
+
+                        # Run the intersector
+                        scene.intersect1M(context, rayhit)
+
+                        # Post-process the results
+                        index_tri, n_hits, index_ray, location = Embree3_dump_solution(rayhit, V, F)
+
+                        #embree.Device().release()
+                        # Handle: not bounces found
+                        if n_hits == -1:
+                                print (&#39;No intersections found for bounce {}. Results provided up to bounce {}&#39;.format(i+1, i))
+                                break
+
+
+                        # Otherwise append results and proceed with next bounce
+                        else: 
+                                locations_container.append(location)
+                                index_tri_container.append(index_tri)
+                                index_ray_container.append(index_ray)
+                                ray_directions_container.append(ray_directions) 
+
+                                if i != bounces-1:
+                                        ray_origins, ray_directions = compute_secondary_bounce(location, index_tri, mesh_obj, ray_directions, index_ray)
+
+
+
+
+        else:
+                print(&#39;No Recognized kernel&#39;)
+
+
+
+
+        # Manage output variables
+        if diffusion:
+                return index_tri_container, index_ray_container, locations_container, ray_origins_container, ray_directions_container, diffusion_pack
+        else:
+                return index_tri_container, index_ray_container, locations_container, ray_origins_container, ray_directions_container, None
+                
+
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == &#34;__main__&#34;:
+        d0 = 2
+        lat = 90*np.pi/180
+        lon = 45*np.pi/180
+        locs, dirs = pixel_plane(d0, lon, lat, width = 1, height = 1, ray_spacing = .5)
+        
+
+
+        import matplotlib.pyplot as plt 
+        from mpl_toolkits import mplot3d
+        ax = plt.axes(projection = &#39;3d&#39;)
+        ax.scatter3D(locs[:,0], locs[:,1], locs[:,2])
+        ax.set_xlabel(&#39;x&#39;)
+        ax.set_ylabel(&#39;y&#39;)
+        ax.set_zlabel(&#39;z&#39;)
+        ax.quiver(0, 0, 0, 1, 0, 0, 
+ arrow_length_ratio=0.1, color = &#39;r&#39;)
+        ax.quiver(0, 0, 0, 0, 1, 0, 
+ arrow_length_ratio=0.1, color = &#39;g&#39;)
+        ax.quiver(0, 0, 0, 0, 0, 1, 
+ arrow_length_ratio=0.1, color = &#39;b&#39;)
+        plt.show()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="pyRTX.backup.utils_rt.Embree3_dump_solution"><code class="name flex">
+<span>def <span class="ident">Embree3_dump_solution</span></span>(<span>rayhit, V, F)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Process the output of the embree ray intersector kernel</p>
+<p>Parameters:
+rayhit: embree.rayhit object
+V: vertices
+F: faces</p>
+<p>Returns:
+hits: indexes of hit faces
+nhits: number of hits
+idh: indexez of hitting rays
+Ph: hit points on the mesh</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def Embree3_dump_solution(rayhit, V, F):
+        &#34;&#34;&#34;
+        Process the output of the embree ray intersector kernel
+
+        Parameters: 
+        rayhit: embree.rayhit object
+        V: vertices
+        F: faces
+
+        Returns:
+        hits: indexes of hit faces
+        nhits: number of hits
+        idh: indexez of hitting rays
+        Ph: hit points on the mesh
+
+        &#34;&#34;&#34;
+        ishit=rayhit.prim_id!=embree.INVALID_GEOMETRY_ID
+        idh=np.nonzero(ishit)[0]
+        hits=rayhit.prim_id[idh]
+        nhits=hits.size
+
+        if nhits&gt;0:
+                p = V[F[hits]]
+                v1=p[:,0]
+                v2=p[:,1]
+                v3=p[:,2]
+                u=rayhit.uv[idh,0]
+                v=rayhit.uv[idh,1]
+                Ph = v1 + (v2-v1)*u[:,None] + (v3-v1)*v[:,None]
+
+                return hits, nhits, idh, Ph
+
+        else:
+                return -1, -1, -1, -1</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.backup.utils_rt.Embree3_init_geometry"><code class="name flex">
+<span>def <span class="ident">Embree3_init_geometry</span></span>(<span>mesh_obj)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Perform initial task for geometry initialization for the Embree3 kernel
+Parameters:
+mesh_obj: the mesh object provided via trimesh</p>
+<p>Returns:
+scene: embree.Scene object
+context: embree.Context object
+V:
+mesh vertices
+F: mesh faces</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def Embree3_init_geometry(mesh_obj):
+
+        &#34;&#34;&#34;
+        Perform initial task for geometry initialization for the Embree3 kernel
+        Parameters:
+        mesh_obj: the mesh object provided via trimesh
+
+        Returns:
+        scene: embree.Scene object
+        context: embree.Context object
+        V:  mesh vertices
+        F: mesh faces
+        &#34;&#34;&#34;
+        V = np.array(mesh_obj.vertices, dtype=np.float64)
+        F = np.array(mesh_obj.faces, dtype=np.int64)
+
+        P = get_centroids(V, F)
+        N, A = get_surface_normals_and_face_areas(V, F)
+
+        device = embree.Device()
+        scene = TrimeshShapeModel(V,F,N=N, A=A).get_scene()
+        
+                
+        context = embree.IntersectContext()
+
+        return scene, context, V, F</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.backup.utils_rt.Embree3_init_rayhit"><code class="name flex">
+<span>def <span class="ident">Embree3_init_rayhit</span></span>(<span>ray_origins, ray_directions)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Initialize the rayhit object of Embree3</p>
+<p>Parameters:
+ray_origins: [np.array (N,3)]
+ray_origins
+ray_directions: [np.array (N,3)]
+ray_directions</p>
+<p>Returns:
+rayhit: the initialized embree.rayhit object</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def Embree3_init_rayhit(ray_origins, ray_directions):
+        &#34;&#34;&#34;
+        Initialize the rayhit object of Embree3
+
+        Parameters:
+        ray_origins: [np.array (N,3)]  ray_origins
+        ray_directions: [np.array (N,3)]  ray_directions
+
+        Returns: 
+        rayhit: the initialized embree.rayhit object
+
+        &#34;&#34;&#34;
+        nb = np.shape(ray_origins)[0] # Number of tracked rays
+        rayhit = embree.RayHit1M(nb)
+
+        # Initialize the ray structure
+        #rayhit.tnear[:] = 0.001 #Avoid numerical problems
+        rayhit.tnear[:] = 0.00 #Avoid numerical problems
+        rayhit.tfar[:] = np.inf
+        rayhit.prim_id[:] = embree.INVALID_GEOMETRY_ID
+        rayhit.geom_id[:] = embree.INVALID_GEOMETRY_ID
+        rayhit.org[:] = ray_origins
+        rayhit.dir[:] = ray_directions
+
+        return rayhit</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.backup.utils_rt.RTXkernel"><code class="name flex">
+<span>def <span class="ident">RTXkernel</span></span>(<span>mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree', diffusion=False, num_diffuse=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Wrapper for trimesh RTX kernel
+Parameters:
+mesh_obj: Mesh (or geometry) object
+ray_origins: numpy array of ray origins (n, 3)
+ray_directions: numpy array of ray directions (does not need to be normalized) (n,3)
+bounces: (int) number of bounces to compute
+kernel: one of Embree, Native or Embree3. To chose wether to use the Intel Embree kernel or the native python kernel
+diffusion: (bool) Boolean flag to activate diffused raytracing for the first bounce
+num_diffuse: (int) number of samples for first-bounce diffuse computation</p>
+<p>Returns:
+index_tri:
+Mesh triangle indexes
+index_ray:
+Ray indexes
+location:
+Location of intersect points</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces = 1,  kernel = &#39;Embree&#39;, diffusion = False, num_diffuse = None):
+        &#34;&#34;&#34;
+        Wrapper for trimesh RTX kernel
+        Parameters:
+        mesh_obj: Mesh (or geometry) object 
+        ray_origins: numpy array of ray origins (n, 3)
+        ray_directions: numpy array of ray directions (does not need to be normalized) (n,3)
+        bounces: (int) number of bounces to compute
+        kernel: one of Embree, Native or Embree3. To chose wether to use the Intel Embree kernel or the native python kernel
+        diffusion: (bool) Boolean flag to activate diffused raytracing for the first bounce
+        num_diffuse: (int) number of samples for first-bounce diffuse computation
+
+        Returns:
+        index_tri:  Mesh triangle indexes
+        index_ray:  Ray indexes
+        location:   Location of intersect points
+        &#34;&#34;&#34;
+
+
+        ray_origins_container = []
+        ray_directions_container = []
+        locations_container = []
+        index_tri_container = []
+        index_ray_container = []
+
+
+        # Set variables for diffusion computation
+        diffusion_directions = 0
+        diffusion_pack = []
+        diffusion_control = False
+
+        # Select the kernel
+        if kernel in [&#39;Embree&#39;, &#39;Native&#39;]:
+                for i in range(bounces):
+
+                        ray_origins_container.append(ray_origins)
+
+
+                        if kernel == &#39;Embree&#39;:
+                                intersector = trimesh.ray.ray_pyembree.RayMeshIntersector(mesh_obj)
+
+                        elif kernel == &#39;Native&#39;:
+                                intersector = trimesh.ray.ray_triangle.RayMeshIntersector(mesh_obj)
+
+
+                        # Avoid numerical problems
+                        ray_origins = ray_origins + 1e-3*ray_directions 
+
+
+                        # If computing bounce number 1 and the diffusion computation has been requested
+                        # do a separate raytracing also for the diffused rays
+                        # and pack results in the variable: diffusion pack
+                        if i == 1 and diffusion:
+                                print(&#39;performing diffusion RTX&#39;)
+                        
+                                ray_origins_diffusion = np.repeat(ray_origins, num_diffuse, axis = 0) # this should be correct
+                                ray_directions_diffusion = diffuse_directions
+
+                                index_tri_diffusion, index_ray_diffusion, location_diffusion = intersector.intersects_id( ray_origins = ray_origins_diffusion,
+                                                                                                                          ray_directions = ray_directions_diffusion,
+                                                                                                                          multiple_hits = False,
+                                                                                                                          return_locations = True)
+                                diffusion_pack = [index_tri_diffusion, index_ray_diffusion, ray_directions_diffusion,  location_diffusion]
+
+
+
+                        # Main Raytracer
+                        index_tri, index_ray, location = intersector.intersects_id(
+                                                                                                                ray_origins = ray_origins,
+                                                                                                                ray_directions = ray_directions,
+                                                                                                                multiple_hits = False,
+                                                                                                                return_locations = True)
+                        # Get the number of hits
+                        n_hits = len(index_tri)
+
+                        # Manage the possibility of no hits
+                        if n_hits == 0:
+                                print (&#39;No intersections found for bounce {}. Results provided up to bounce {}&#39;.format(i+1, i))
+                                break
+                        else:
+                                locations_container.append(location)
+                                index_tri_container.append(index_tri)
+                                index_ray_container.append(index_ray)
+                                ray_directions_container.append(ray_directions)
+                        
+
+
+                                if i != bounces -1:
+                                        # If at bounce number 1 compute the diffused directions:
+                                        if diffusion and i == 0:
+                                                diffusion_control = True
+        
+                                        ray_origins, ray_directions, diffuse_directions = compute_secondary_bounce(location, index_tri, mesh_obj, ray_directions, index_ray, diffusion = diffusion_control, num_diffuse = num_diffuse)
+
+                                        # Set back to false the diffusion computation control flag
+                                        diffusion_control = False
+                                        
+
+
+
+        elif kernel == &#39;Embree3&#39;:
+                
+                # Initialize the geometry
+                scene, context, V, F = Embree3_init_geometry(mesh_obj)
+
+                for i in range(bounces):
+                        ray_origins_container.append(ray_origins)
+
+                        # Initialize the rayhit object
+                        ray_origins = ray_origins +1e-3*ray_directions
+                        rayhit = Embree3_init_rayhit(ray_origins, ray_directions)
+
+                        # Run the intersector
+                        scene.intersect1M(context, rayhit)
+
+                        # Post-process the results
+                        index_tri, n_hits, index_ray, location = Embree3_dump_solution(rayhit, V, F)
+
+                        #embree.Device().release()
+                        # Handle: not bounces found
+                        if n_hits == -1:
+                                print (&#39;No intersections found for bounce {}. Results provided up to bounce {}&#39;.format(i+1, i))
+                                break
+
+
+                        # Otherwise append results and proceed with next bounce
+                        else: 
+                                locations_container.append(location)
+                                index_tri_container.append(index_tri)
+                                index_ray_container.append(index_ray)
+                                ray_directions_container.append(ray_directions) 
+
+                                if i != bounces-1:
+                                        ray_origins, ray_directions = compute_secondary_bounce(location, index_tri, mesh_obj, ray_directions, index_ray)
+
+
+
+
+        else:
+                print(&#39;No Recognized kernel&#39;)
+
+
+
+
+        # Manage output variables
+        if diffusion:
+                return index_tri_container, index_ray_container, locations_container, ray_origins_container, ray_directions_container, diffusion_pack
+        else:
+                return index_tri_container, index_ray_container, locations_container, ray_origins_container, ray_directions_container, None</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.backup.utils_rt.compute_secondary_bounce"><code class="name flex">
+<span>def <span class="ident">compute_secondary_bounce</span></span>(<span>location, index_tri, mesh_obj, ray_directions, index_ray, diffusion=False, num_diffuse=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prepare the quantities required for iterating the raytracer</p>
+<p>Parameters:
+location: UNUSED. This input is maintained just to change the variable name
+index_tri: [numpy array (N,)] indexes of the faces intersected by the rays
+mesh_obj: [trimesh.Trimesh] the mesh object
+ray_directions: [numpy array (L, 3)] the directions of the incoming rays
+index_ray: [numpy array (M,)] the indexes of the rays that effectively intersected the N faces
+diffusion: [bool] boolean flag to select wether to compute the secondary diffusion rays (Default: False)
+num_diffuse: [None or int] number of samples for the diffusion computation (Default: None)</p>
+<p>Returns:
+location: same as location in input
+reflect_dirs: [numpy array (L,3)] the specularly reflected directions of the rays
+diffuse_dirs [numpy array (L*num_diffuse, 3) or -1] (if requested) the direction of the diffused rays</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def compute_secondary_bounce(location, index_tri, mesh_obj, ray_directions, index_ray, diffusion = False, num_diffuse = None):
+        &#34;&#34;&#34;
+        Prepare the quantities required for iterating the raytracer
+
+        Parameters:
+        location: UNUSED. This input is maintained just to change the variable name
+        index_tri: [numpy array (N,)] indexes of the faces intersected by the rays
+        mesh_obj: [trimesh.Trimesh] the mesh object
+        ray_directions: [numpy array (L, 3)] the directions of the incoming rays
+        index_ray: [numpy array (M,)] the indexes of the rays that effectively intersected the N faces
+        diffusion: [bool] boolean flag to select wether to compute the secondary diffusion rays (Default: False)
+        num_diffuse: [None or int] number of samples for the diffusion computation (Default: None)
+
+        Returns:
+        location: same as location in input
+        reflect_dirs: [numpy array (L,3)] the specularly reflected directions of the rays
+        diffuse_dirs [numpy array (L*num_diffuse, 3) or -1] (if requested) the direction of the diffused rays
+
+
+
+        &#34;&#34;&#34;
+        reflect_dirs = np.zeros_like(location)
+        normals = mesh_obj.face_normals
+
+
+
+        reflect_dirs = reflected(ray_directions[index_ray], normals[index_tri])
+
+        if diffusion: 
+                diffuse_dirs = diffuse(normals[index_tri], num = num_diffuse)
+        
+        else:
+                diffuse_dirs = -1  # Dummy variable for return values management
+        
+        return location, reflect_dirs, diffuse_dirs</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.backup.utils_rt.diffuse"><code class="name flex">
+<span>def <span class="ident">diffuse</span></span>(<span>normals, num=10)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute num diffuse reflection directions sampling a lambert cosine distribution</p>
+<p>Parameters:
+normals: [numpy array (N, 3)] normal unit vectors
+num: number of samples for each normal</p>
+<p>Returns:
+diffuse_directions: [numpy array (N*num, 3)]</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def diffuse(normals, num = 10):
+        &#34;&#34;&#34;
+        Compute num diffuse reflection directions sampling a lambert cosine distribution
+        
+        Parameters:
+        normals: [numpy array (N, 3)] normal unit vectors
+        num: number of samples for each normal
+
+        Returns:
+        diffuse_directions: [numpy array (N*num, 3)] 
+
+        &#34;&#34;&#34;
+
+        diffuse_directions = np.repeat(normals, num, axis = 0)*0.0  
+        for i,n in enumerate(normals):
+                diff_dirs = sample_lambert_dist(n, num = num)   
+                
+                diffuse_directions[i*num: (i+1)*num] = diff_dirs 
+
+        return diffuse_directions</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.backup.utils_rt.fast_vector_build"><code class="name flex">
+<span>def <span class="ident">fast_vector_build</span></span>(<span>linsp1, linsp2, dim1, dim2)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Further accelerate the ray vector generation using numba's jit vectorization</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@jit(nopython = True)
+def fast_vector_build(linsp1, linsp2, dim1, dim2):
+        &#34;&#34;&#34;
+        Further accelerate the ray vector generation using numba&#39;s jit vectorization
+        &#34;&#34;&#34;
+        basic_coords = np.zeros((dim1*dim2, 3))
+        counter = 0
+
+        for w in linsp1:
+                for h in linsp2:
+                        basic_coords[counter, :] = [0, w, h]
+                        counter += 1
+        return basic_coords     </code></pre>
+</details>
+</dd>
+<dt id="pyRTX.backup.utils_rt.get_centroids"><code class="name flex">
+<span>def <span class="ident">get_centroids</span></span>(<span>V, F)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_centroids(V, F):
+    return V[F].mean(axis=1)</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.backup.utils_rt.get_cross_products"><code class="name flex">
+<span>def <span class="ident">get_cross_products</span></span>(<span>V, F)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_cross_products(V, F):
+    V0 = V[F][:, 0, :]
+    C = np.cross(V[F][:, 1, :] - V0, V[F][:, 2, :] - V0)
+    return C</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.backup.utils_rt.get_face_areas"><code class="name flex">
+<span>def <span class="ident">get_face_areas</span></span>(<span>V, F)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_face_areas(V, F):
+    C = get_cross_products(V, F)
+    C_norms = np.sqrt(np.sum(C**2, axis=1))
+    A = C_norms/2
+    return A</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.backup.utils_rt.get_orthogonal"><code class="name flex">
+<span>def <span class="ident">get_orthogonal</span></span>(<span>v)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get a unit vector orthogonal to v</p>
+<p>Parameters:
+v: [numpy array (3,)]</p>
+<p>Returns:
+x: [numpy array(3,)]</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_orthogonal(v):
+        &#34;&#34;&#34;
+        Get a unit vector orthogonal to v
+
+        Parameters:
+        v: [numpy array (3,)]
+
+        Returns: 
+        x: [numpy array(3,)]
+        &#34;&#34;&#34;
+        x = np.random.random(3)
+        x -= x.dot(v)*v
+        x  = x/ np.linalg.norm(x)
+
+        return x</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.backup.utils_rt.get_surface_normals"><code class="name flex">
+<span>def <span class="ident">get_surface_normals</span></span>(<span>V, F)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_surface_normals(V, F):
+    C = get_cross_products(V, F)
+    C_norms = np.sqrt(np.sum(C**2, axis=1))
+    N = C/C_norms.reshape(C.shape[0], 1)
+    return N</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.backup.utils_rt.get_surface_normals_and_face_areas"><code class="name flex">
+<span>def <span class="ident">get_surface_normals_and_face_areas</span></span>(<span>V, F)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_surface_normals_and_face_areas(V, F):
+    C = get_cross_products(V, F)
+    C_norms = np.sqrt(np.sum(C**2, axis=1))
+    N = C/C_norms.reshape(C.shape[0], 1)
+    A = C_norms/2
+    return N, A</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.backup.utils_rt.pixel_plane"><code class="name flex">
+<span>def <span class="ident">pixel_plane</span></span>(<span>d0, lon, lat, width=1, height=1, ray_spacing=0.1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>"Generate a pixel array for raytracing ad defined in Li et al., 2018
+This is the "fully exposed version" to explicitly show the algorithm.
+Parameters:
+d0: Distance of the pixel array from the center (in meters)
+lat: Latitude of the pixel array center (in rad)
+lon: Longitude of the pixel array center (in rad)
+width: The width of the plane(in meters). Default = 1
+height: the height of the plane(in meters). Default = 1
+ray_spacing: the spacing of the rays (in meters). Default = 0.1</p>
+<p>Returns:
+locs: Pixel locations as a numpy array
+dirs: the ray directions as a numpy array</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pixel_plane(d0, lon, lat, width = 1, height = 1, ray_spacing = .1):
+        &#34;&#34;&#34;&#34;Generate a pixel array for raytracing ad defined in Li et al., 2018
+        This is the &#34;fully exposed version&#34; to explicitly show the algorithm. 
+        Parameters:
+        d0: Distance of the pixel array from the center (in meters)
+        lat: Latitude of the pixel array center (in rad)
+        lon: Longitude of the pixel array center (in rad)
+        width: The width of the plane(in meters). Default = 1
+        height: the height of the plane(in meters). Default = 1
+        ray_spacing: the spacing of the rays (in meters). Default = 0.1
+
+        Returns: 
+        locs: Pixel locations as a numpy array
+        dirs: the ray directions as a numpy array
+        &#34;&#34;&#34;
+
+
+
+        w2 = width/2
+        h2 = height/2
+        # Build the direction vector 
+        x0 = np.array([-d0*np.cos(lon)*np.cos(lat), -d0*np.sin(lon)*np.cos(lat), -d0*np.sin(lat)])
+
+        # Build the transformation matrix
+        R1 = np.array( [[np.cos(lon), -np.sin(lon), 0],
+                                        [np.sin(lon), np.cos(lon), 0],
+                                        [0,0,1]]
+                )
+        R2 = np.array([[np.cos(-lat), 0, np.sin(-lat)],
+                                        [0,1,0],
+                                        [-np.sin(-lat), 0, np.cos(-lat)]])
+        R = R1@R2
+
+
+        # Build the pixel matrix
+        basic_coords = np.zeros(((int(width/ray_spacing)+1)* (int(height/ray_spacing)+1), 3))
+        basic_dirs = np.zeros_like(basic_coords)
+        counter = 0     
+        for i, w in enumerate(np.linspace(-w2, w2, num = int(width/ray_spacing)+1 )):
+                for j, h in enumerate(np.linspace(-h2, h2, num = int(height/ray_spacing)+1)):
+                        basic_coords[counter, :] = R@np.array([0, w, h]) - x0
+                        basic_dirs[counter, :] = x0/np.linalg.norm(x0)
+                        counter += 1
+
+
+        # Return the output in the shape required by trimesh
+        return basic_coords, basic_dirs</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.backup.utils_rt.pixel_plane_opt"><code class="name flex">
+<span>def <span class="ident">pixel_plane_opt</span></span>(<span>d0, lon, lat, width=1, height=1, ray_spacing=0.1, packets=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>"Generate a pixel array for raytracing ad defined in Li et al., 2018
+This is the "optimized version". To explicitly see the algorithm refer to the function definition
+without _opt extension.
+Parameters:
+d0: [float] Distance of the pixel array from the center (in meters)
+lat: [float] Latitude of the pixel array center (in rad)
+lon: [float] Longitude of the pixel array center (in rad)
+width: [float] The width of the plane(in meters). Default = 1
+height: [float] the height of the plane(in meters). Default = 1
+ray_spacing: [float] the spacing of the rays (in meters). Default = 0.1
+packets: [int] the number of 'ray packets' to return. This is implemented to avoid the segmentation
+fault triggered by the raytracer when the number of rays is too high</p>
+<p>Returns:
+locs: [numpy array (n_rays, 3)] Pixel locations as a numpy array
+dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def pixel_plane_opt(d0, lon, lat, width = 1, height = 1, ray_spacing = .1, packets = 1):
+        &#34;&#34;&#34;&#34;Generate a pixel array for raytracing ad defined in Li et al., 2018
+        This is the &#34;optimized version&#34;. To explicitly see the algorithm refer to the function definition
+        without _opt extension.
+        Parameters:
+        d0: [float] Distance of the pixel array from the center (in meters)
+        lat: [float] Latitude of the pixel array center (in rad)
+        lon: [float] Longitude of the pixel array center (in rad)
+        width: [float] The width of the plane(in meters). Default = 1
+        height: [float] the height of the plane(in meters). Default = 1
+        ray_spacing: [float] the spacing of the rays (in meters). Default = 0.1
+        packets: [int] the number of &#39;ray packets&#39; to return. This is implemented to avoid the segmentation
+                 fault triggered by the raytracer when the number of rays is too high
+
+        Returns: 
+        locs: [numpy array (n_rays, 3)] Pixel locations as a numpy array
+        dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array
+        &#34;&#34;&#34;
+
+
+
+        w2 = width/2
+        h2 = height/2
+        # Build the direction vector 
+        x0 = np.array([-d0*np.cos(lon)*np.cos(lat), -d0*np.sin(lon)*np.cos(lat), -d0*np.sin(lat)])
+        x0_unit = x0/np.linalg.norm(x0)
+        # Build the transformation matrix
+        R1 = np.array( [[np.cos(lon), -np.sin(lon), 0],
+                                        [np.sin(lon), np.cos(lon), 0],
+                                        [0,0,1]]
+                )
+        R2 = np.array([[np.cos(-lat), 0, np.sin(-lat)],
+                                        [0,1,0],
+                                        [-np.sin(-lat), 0, np.cos(-lat)]])
+        R = R1@R2
+
+
+        # Build the pixel matrix
+        
+        dim1 = int(width/ray_spacing)+1
+        dim2 = int(height/ray_spacing)+1
+        basic_coords = np.zeros((dim1*dim2, 3))
+        basic_dirs = np.full(basic_coords.shape, x0_unit)
+
+        linsp1 = np.linspace(-w2, w2, num = dim1 )
+        linsp2 = np.linspace(-h2, h2, num = dim2)
+
+
+        basic_coords = fast_vector_build(linsp1, linsp2, dim1, dim2)
+
+        basic_coords = np.dot(np.array(basic_coords), R.T)
+        basic_coords -= x0
+
+
+        # Return the output in the shape required by trimesh
+
+        if not packets == 1:    
+                basic_coords = np.array_split(basic_coords, packets)
+                basic_dirs = np.array_split(basic_dirs, packets)
+
+        return basic_coords, basic_dirs</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.backup.utils_rt.reflected"><code class="name flex">
+<span>def <span class="ident">reflected</span></span>(<span>incoming, normal)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute the reflected unit vector given the incoming and the normal
+Numpy vectorized version of 'reflected'
+Parameters:
+incoming: [numpy array (number of rays, 3)]
+incoming rays
+normal: [numpy array (number of rays, 3)] surface normals associated to each incoming ray</p>
+<p>Returns:
+reflected: [numpy array (number of rays, 3)] reflected rays</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def reflected(incoming, normal):
+        &#34;&#34;&#34;
+        Compute the reflected unit vector given the incoming and the normal
+        Numpy vectorized version of &#39;reflected&#39; 
+        Parameters:
+        incoming: [numpy array (number of rays, 3)]  incoming rays
+        normal: [numpy array (number of rays, 3)] surface normals associated to each incoming ray
+
+        Returns:
+        reflected: [numpy array (number of rays, 3)] reflected rays
+
+        &#34;&#34;&#34;
+
+        return incoming - 2*np.multiply(normal.T,np.einsum(&#39;ij,ij-&gt;i&#39;,incoming, normal)).T</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.backup.utils_rt.sample_lambert_dist"><code class="name flex">
+<span>def <span class="ident">sample_lambert_dist</span></span>(<span>normal, num=100)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Generate a cloud of vectors following the Lambert cosine distribution</p>
+<p>Parameters:
+normals: [numpy array] the normal vector to the face
+num: [int] the number of samples required</p>
+<p>Returns:
+v: [numpy array (num, 3)] array of the sampled vectors</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def sample_lambert_dist(normal, num = 100):
+        &#34;&#34;&#34;
+        Generate a cloud of vectors following the Lambert cosine distribution
+
+        Parameters: 
+        normals: [numpy array] the normal vector to the face
+        num: [int] the number of samples required
+        
+        Returns:
+        v: [numpy array (num, 3)] array of the sampled vectors
+        &#34;&#34;&#34;
+
+        theta = np.arccos(np.sqrt(np.random.random(num)))
+        cos_theta = np.cos(theta)
+        sin_theta = np.sin(theta)
+        psi = np.random.random(num)*2*np.pi
+
+        a = sin_theta*np.cos(psi)
+        b = sin_theta*np.sin(psi)
+        c = cos_theta
+
+        t1 = get_orthogonal(normal)
+        t2 = np.cross( normal , t1)
+
+
+        v =np.zeros((num, 3))
+        for i in range(num):
+                v[i] = a[i]*t1 + b[i]*t2 + c[i]*normal
+        return v</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.backup.utils_rt.save_for_visualization"><code class="name flex">
+<span>def <span class="ident">save_for_visualization</span></span>(<span>outputFilePath, mesh, ray_origins, ray_directions, location, index_tri, diffusion_pack)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Save a pickled dictionary useful for visualization scripts (see visual_utils)</p>
+<p>Parameters:
+outputFilePath: [str] output file for saving (should end with .pkl)
+mesh: [trimesh.Trimesh] mesh object
+ray_origins: [numpy array (bounce_number, N, 3)] output of the raytracer
+ray_directions: [numpy array (bounce_number, N, 3)] output of the raytracer
+location: [numpy array (bounce_number, N, 3)] locations of intersection points
+index_tri: [numpy array (bounce_number, M, 3)] indexes of intersected triangles
+diffusion_pack: [list] output of the raytracer with the same name</p>
+<p>Returns:
+None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def save_for_visualization(outputFilePath, mesh, ray_origins, ray_directions, location, index_tri, diffusion_pack ):
+        &#34;&#34;&#34;
+        Save a pickled dictionary useful for visualization scripts (see visual_utils)
+
+        Parameters:
+        outputFilePath: [str] output file for saving (should end with .pkl)
+        mesh: [trimesh.Trimesh] mesh object
+        ray_origins: [numpy array (bounce_number, N, 3)] output of the raytracer
+        ray_directions: [numpy array (bounce_number, N, 3)] output of the raytracer
+        location: [numpy array (bounce_number, N, 3)] locations of intersection points
+        index_tri: [numpy array (bounce_number, M, 3)] indexes of intersected triangles
+        diffusion_pack: [list] output of the raytracer with the same name
+
+        Returns:
+        None
+
+        &#34;&#34;&#34;
+        outdict = {&#39;mesh&#39;: mesh, &#39;ray_origins&#39;: ray_origins, &#39;ray_directions&#39;: ray_directions, &#39;locations&#39;: location, &#39;index_tri&#39;: index_tri, &#39;diffusion_pack&#39;: diffusion_pack}
+
+        with open(outputFilePath, &#39;wb&#39;) as f:
+                pkl.dump(outdict, f, protocol = 4)</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pyRTX.backup.utils_rt.ShapeModel"><code class="flex name class">
+<span>class <span class="ident">ShapeModel</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Helper class that provides a standard way to create an ABC using
+inheritance.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ShapeModel(ABC):
+    pass</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="pyRTX.backup.utils_rt.TrimeshShapeModel" href="#pyRTX.backup.utils_rt.TrimeshShapeModel">TrimeshShapeModel</a></li>
+</ul>
+</dd>
+<dt id="pyRTX.backup.utils_rt.TrimeshShapeModel"><code class="flex name class">
+<span>class <span class="ident">TrimeshShapeModel</span></span>
+<span>(</span><span>V, F, N=None, P=None, A=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A shape model consisting of a single triangle mesh.</p>
+<p>Initialize a triangle mesh shape model. No assumption is made about
+the way vertices or faces are stored when building the shape
+model except that V[F] yields the faces of the mesh. Vertices
+may be repeated or not.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>V</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>An array with shape (num_verts, 3) whose rows correspond to the
+vertices of the triangle mesh</dd>
+<dt><strong><code>F</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>An array with shape (num_faces, 3) whose rows index the faces
+of the triangle mesh (i.e., V[F] returns an array with shape
+(num_faces, 3, 3) such that V[F][i] is a 3x3 matrix whose rows
+are the vertices of the ith face.</dd>
+<dt><strong><code>N</code></strong> :&ensp;<code>array_like</code>, optional</dt>
+<dd>An array with shape (num_faces, 3) consisting of the triangle
+mesh face normals. Can be passed to specify the face normals.
+Otherwise, the face normals will be computed from the cross products
+of the face edges (i.e. np.cross(vi1 - vi0, vi2 - vi0) normalized).</dd>
+<dt><strong><code>P</code></strong> :&ensp;<code>array_like</code>, optional</dt>
+<dd>An array with shape (num_faces, 3) consisting of the triangle
+centroids. Can be optionally passed to avoid recomputing.</dd>
+<dt><strong><code>A</code></strong> :&ensp;<code>array_like</code>, optional</dt>
+<dd>An array of shape (num_faces,) containing the triangle areas. Can
+be optionally passed to avoid recomputing.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TrimeshShapeModel(ShapeModel):
+    &#34;&#34;&#34;A shape model consisting of a single triangle mesh.&#34;&#34;&#34;
+
+    def __init__(self, V, F, N=None, P=None, A=None):
+        &#34;&#34;&#34;Initialize a triangle mesh shape model. No assumption is made about
+        the way vertices or faces are stored when building the shape
+        model except that V[F] yields the faces of the mesh. Vertices
+        may be repeated or not.
+        Parameters
+        ----------
+        V : array_like
+            An array with shape (num_verts, 3) whose rows correspond to the
+            vertices of the triangle mesh
+        F : array_like
+            An array with shape (num_faces, 3) whose rows index the faces
+            of the triangle mesh (i.e., V[F] returns an array with shape
+            (num_faces, 3, 3) such that V[F][i] is a 3x3 matrix whose rows
+            are the vertices of the ith face.
+        N : array_like, optional
+            An array with shape (num_faces, 3) consisting of the triangle
+            mesh face normals. Can be passed to specify the face normals.
+            Otherwise, the face normals will be computed from the cross products
+            of the face edges (i.e. np.cross(vi1 - vi0, vi2 - vi0) normalized).
+        P : array_like, optional
+            An array with shape (num_faces, 3) consisting of the triangle
+            centroids. Can be optionally passed to avoid recomputing.
+        A : array_like, optional
+            An array of shape (num_faces,) containing the triangle areas. Can
+            be optionally passed to avoid recomputing.
+        &#34;&#34;&#34;
+
+        self.dtype = V.dtype
+
+        self.V = V
+        self.F = F
+
+        if N is None and A is None:
+            N, A = get_surface_normals_and_face_areas(V, F)
+        elif A is None:
+            if N.shape[0] != F.shape[0]:
+                raise Exception(
+                    &#39;must pass same number of surface normals as faces (got &#39; +
+                    &#39;%d faces and %d normals&#39; % (F.shape[0], N.shape[0])
+                )
+            A = get_face_areas(V, F)
+        elif N is None:
+            N = get_surface_normals(V, F)
+
+        self.P = get_centroids(V, F)
+        self.N = N
+        self.A = A
+
+        assert self.P.dtype == self.dtype
+        assert self.N.dtype == self.dtype
+        assert self.A.dtype == self.dtype
+
+        self._make_scene()
+        
+
+    def _make_scene(self):
+        &#39;&#39;&#39;Set up an Embree scene. This function allocates some memory that
+        Embree manages, and loads vertices and index lists for the
+        faces. In Embree parlance, this function creates a &#34;device&#34;,
+        which manages a &#34;scene&#34;, which has one &#34;geometry&#34; in it, which
+        is our mesh.
+        &#39;&#39;&#39;
+        device = embree.Device()
+        geometry = device.make_geometry(embree.GeometryType.Triangle)
+        scene = device.make_scene()
+        
+        
+        vertex_buffer = geometry.set_new_buffer(
+            embree.BufferType.Vertex, # buf_type
+            0, # slot
+            embree.Format.Float3, # fmt
+            3*np.dtype(&#39;float32&#39;).itemsize, # byte_stride
+            self.V.shape[0], # item_count
+        )
+        vertex_buffer[:] = self.V[:]
+        index_buffer = geometry.set_new_buffer(
+            embree.BufferType.Index, # buf_type
+            0, # slot
+            embree.Format.Uint3, # fmt
+            3*np.dtype(&#39;uint32&#39;).itemsize, # byte_stride,
+            self.F.shape[0]
+        )
+        index_buffer[:] = self.F[:]
+        geometry.commit()
+        scene.attach_geometry(geometry)
+        geometry.release()
+        scene.commit()
+
+        # This is the only variable we need to retain a reference to
+        # (I think)
+        self.scene = scene
+        self.device = device
+    def __reduce__(self):
+        return (self.__class__, (self.V, self.F, self.N, self.P, self.A))
+
+    @property
+    def num_faces(self):
+        return self.P.shape[0]
+
+
+    def get_scene(self):
+        return self.scene</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyRTX.backup.utils_rt.ShapeModel" href="#pyRTX.backup.utils_rt.ShapeModel">ShapeModel</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pyRTX.backup.utils_rt.TrimeshShapeModel.num_faces"><code class="name">var <span class="ident">num_faces</span></code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def num_faces(self):
+    return self.P.shape[0]</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="pyRTX.backup.utils_rt.TrimeshShapeModel.get_scene"><code class="name flex">
+<span>def <span class="ident">get_scene</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_scene(self):
+    return self.scene</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pyRTX.backup" href="index.html">pyRTX.backup</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="pyRTX.backup.utils_rt.Embree3_dump_solution" href="#pyRTX.backup.utils_rt.Embree3_dump_solution">Embree3_dump_solution</a></code></li>
+<li><code><a title="pyRTX.backup.utils_rt.Embree3_init_geometry" href="#pyRTX.backup.utils_rt.Embree3_init_geometry">Embree3_init_geometry</a></code></li>
+<li><code><a title="pyRTX.backup.utils_rt.Embree3_init_rayhit" href="#pyRTX.backup.utils_rt.Embree3_init_rayhit">Embree3_init_rayhit</a></code></li>
+<li><code><a title="pyRTX.backup.utils_rt.RTXkernel" href="#pyRTX.backup.utils_rt.RTXkernel">RTXkernel</a></code></li>
+<li><code><a title="pyRTX.backup.utils_rt.compute_secondary_bounce" href="#pyRTX.backup.utils_rt.compute_secondary_bounce">compute_secondary_bounce</a></code></li>
+<li><code><a title="pyRTX.backup.utils_rt.diffuse" href="#pyRTX.backup.utils_rt.diffuse">diffuse</a></code></li>
+<li><code><a title="pyRTX.backup.utils_rt.fast_vector_build" href="#pyRTX.backup.utils_rt.fast_vector_build">fast_vector_build</a></code></li>
+<li><code><a title="pyRTX.backup.utils_rt.get_centroids" href="#pyRTX.backup.utils_rt.get_centroids">get_centroids</a></code></li>
+<li><code><a title="pyRTX.backup.utils_rt.get_cross_products" href="#pyRTX.backup.utils_rt.get_cross_products">get_cross_products</a></code></li>
+<li><code><a title="pyRTX.backup.utils_rt.get_face_areas" href="#pyRTX.backup.utils_rt.get_face_areas">get_face_areas</a></code></li>
+<li><code><a title="pyRTX.backup.utils_rt.get_orthogonal" href="#pyRTX.backup.utils_rt.get_orthogonal">get_orthogonal</a></code></li>
+<li><code><a title="pyRTX.backup.utils_rt.get_surface_normals" href="#pyRTX.backup.utils_rt.get_surface_normals">get_surface_normals</a></code></li>
+<li><code><a title="pyRTX.backup.utils_rt.get_surface_normals_and_face_areas" href="#pyRTX.backup.utils_rt.get_surface_normals_and_face_areas">get_surface_normals_and_face_areas</a></code></li>
+<li><code><a title="pyRTX.backup.utils_rt.pixel_plane" href="#pyRTX.backup.utils_rt.pixel_plane">pixel_plane</a></code></li>
+<li><code><a title="pyRTX.backup.utils_rt.pixel_plane_opt" href="#pyRTX.backup.utils_rt.pixel_plane_opt">pixel_plane_opt</a></code></li>
+<li><code><a title="pyRTX.backup.utils_rt.reflected" href="#pyRTX.backup.utils_rt.reflected">reflected</a></code></li>
+<li><code><a title="pyRTX.backup.utils_rt.sample_lambert_dist" href="#pyRTX.backup.utils_rt.sample_lambert_dist">sample_lambert_dist</a></code></li>
+<li><code><a title="pyRTX.backup.utils_rt.save_for_visualization" href="#pyRTX.backup.utils_rt.save_for_visualization">save_for_visualization</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pyRTX.backup.utils_rt.ShapeModel" href="#pyRTX.backup.utils_rt.ShapeModel">ShapeModel</a></code></h4>
+</li>
+<li>
+<h4><code><a title="pyRTX.backup.utils_rt.TrimeshShapeModel" href="#pyRTX.backup.utils_rt.TrimeshShapeModel">TrimeshShapeModel</a></code></h4>
+<ul class="">
+<li><code><a title="pyRTX.backup.utils_rt.TrimeshShapeModel.get_scene" href="#pyRTX.backup.utils_rt.TrimeshShapeModel.get_scene">get_scene</a></code></li>
+<li><code><a title="pyRTX.backup.utils_rt.TrimeshShapeModel.num_faces" href="#pyRTX.backup.utils_rt.TrimeshShapeModel.num_faces">num_faces</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>

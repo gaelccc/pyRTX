@@ -9,22 +9,49 @@ from pyRTX import constants
 
 
 class Spacecraft():
+	"""
+	This is the main class for defining spacecraft objects. 
+	"""
 	
 	def __init__(self, name = None, base_frame = None, spacecraft_model = None, units = 'm'):
 		"""
-		Object constructor:
-		Parameters:
-		name: [str] Spacecraft name
-		base_frame: [str] Spacecraft body (base) frame
-		spacecraft_model: [dict] a dictionary with keys the name of the parts. Each key holds a dictionary: 
-			file [str] the obj file for the part
-			frame_type: [str] 'Spice' or 'UD' to choose wether to define a reference to a spice frame or UserDefined one
-								in the case of 'UD' a rotation matrix must be specified in the UD_rotation (optional) key
-			frame_name: [str] The name of the Spice (or UD) frame
-			center: [list]  position of the origin of the object (in km) with respect to the base frame
-			specular: [float] specular coefficient
-			diffuse: [float] diffuse coefficient
-			UD_rotation (optional): specify a user defined rotations matrix
+ 		Parameters
+		----------
+		name : str 
+			Spacecraft name
+
+		base_frame : str 
+			Spacecraft body (base) frame
+
+		spacecraft_model : dict 
+			dict of {file:str, frame_type:str, frame_name:str, center:list, specular:float, diffuse:float, UD_rotation:trimesh.rotation}
+        	a dictionary with keys the name of
+
+		file: str 
+		    the obj file for the part
+
+		frame_type: str 
+			'Spice' or 'UD' to choose wether to define a reference to a spice frame or UserDefined one
+			in the case of 'UD' a rotation matrix must be specified in the UD_rotation (optional) key
+
+		frame_name: str 
+			The name of the Spice (or UD) frame
+
+		center: list  
+			position of the origin of the object (in km) with respect to the base frame
+
+		specular: float 
+			specular coefficient
+
+		diffuse: float 
+			diffuse coefficient
+			
+		UD_rotation: trimesh.rotation
+			optional specify a user defined rotations matrix
+
+		Returns
+		-------
+		bla : pyRTX.Spacecraft
 		"""
 		self.name = name
 		self.part_number = len(spacecraft_model.keys())
