@@ -63,7 +63,7 @@ class Spacecraft():
 		
 
 		self.spacecraft_model = {}
-		self.initialize(spacecraft_model)
+		self._initialize(spacecraft_model)
 		self.material_dict = {}
 		self.dump_materials()
 
@@ -75,7 +75,7 @@ class Spacecraft():
 		mesh.apply_transform(tmt.scale_matrix(self.conversion_factor, [0,0,0]))
 		return mesh
 
-	def initialize(self, input_model):
+	def _initialize(self, input_model):
 		# Load the meshes
 		self.spacecraft_model.update(input_model)
 		for elem in input_model.keys():
@@ -88,11 +88,18 @@ class Spacecraft():
 
 
 	def add_parts(self, spacecraft_model = None):
+		"""
+		Add parts to the model instance
+		Parameters
+		----------
+		spacecraft_model : dict
+			See the main constructor documentation
+		"""
 
 		if name in  self.spacecraft_model.keys():
 			raise Exception(f'{name} is already defined')
 
-		self.initialize(spacecraft_model)
+		self._initialize(spacecraft_model)
 
 	def subset(self, elem_names):
 		'''

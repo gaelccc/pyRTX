@@ -89,7 +89,7 @@ class Spacecraft():
                 
 
                 self.spacecraft_model = {}
-                self.initialize(spacecraft_model)
+                self._initialize(spacecraft_model)
                 self.material_dict = {}
                 self.dump_materials()
 
@@ -101,7 +101,7 @@ class Spacecraft():
                 mesh.apply_transform(tmt.scale_matrix(self.conversion_factor, [0,0,0]))
                 return mesh
 
-        def initialize(self, input_model):
+        def _initialize(self, input_model):
                 # Load the meshes
                 self.spacecraft_model.update(input_model)
                 for elem in input_model.keys():
@@ -114,11 +114,18 @@ class Spacecraft():
 
 
         def add_parts(self, spacecraft_model = None):
+                &#34;&#34;&#34;
+                Add parts to the model instance
+                Parameters
+                ----------
+                spacecraft_model : dict
+                        See the main constructor documentation
+                &#34;&#34;&#34;
 
                 if name in  self.spacecraft_model.keys():
                         raise Exception(f&#39;{name} is already defined&#39;)
 
-                self.initialize(spacecraft_model)
+                self._initialize(spacecraft_model)
 
         def subset(self, elem_names):
                 &#39;&#39;&#39;
@@ -346,7 +353,7 @@ in the case of 'UD' a rotation matrix must be specified in the UD_rotation (opti
                 
 
                 self.spacecraft_model = {}
-                self.initialize(spacecraft_model)
+                self._initialize(spacecraft_model)
                 self.material_dict = {}
                 self.dump_materials()
 
@@ -358,7 +365,7 @@ in the case of 'UD' a rotation matrix must be specified in the UD_rotation (opti
                 mesh.apply_transform(tmt.scale_matrix(self.conversion_factor, [0,0,0]))
                 return mesh
 
-        def initialize(self, input_model):
+        def _initialize(self, input_model):
                 # Load the meshes
                 self.spacecraft_model.update(input_model)
                 for elem in input_model.keys():
@@ -371,11 +378,18 @@ in the case of 'UD' a rotation matrix must be specified in the UD_rotation (opti
 
 
         def add_parts(self, spacecraft_model = None):
+                &#34;&#34;&#34;
+                Add parts to the model instance
+                Parameters
+                ----------
+                spacecraft_model : dict
+                        See the main constructor documentation
+                &#34;&#34;&#34;
 
                 if name in  self.spacecraft_model.keys():
                         raise Exception(f&#39;{name} is already defined&#39;)
 
-                self.initialize(spacecraft_model)
+                self._initialize(spacecraft_model)
 
         def subset(self, elem_names):
                 &#39;&#39;&#39;
@@ -501,17 +515,30 @@ in the case of 'UD' a rotation matrix must be specified in the UD_rotation (opti
 <span>def <span class="ident">add_parts</span></span>(<span>self, spacecraft_model=None)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Add parts to the model instance
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>spacecraft_model</code></strong> :&ensp;<code>dict</code></dt>
+<dd>See the main constructor documentation</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def add_parts(self, spacecraft_model = None):
+        &#34;&#34;&#34;
+        Add parts to the model instance
+        Parameters
+        ----------
+        spacecraft_model : dict
+                See the main constructor documentation
+        &#34;&#34;&#34;
 
         if name in  self.spacecraft_model.keys():
                 raise Exception(f&#39;{name} is already defined&#39;)
 
-        self.initialize(spacecraft_model)</code></pre>
+        self._initialize(spacecraft_model)</code></pre>
 </details>
 </dd>
 <dt id="pyRTX.scClass.Spacecraft.apply_transforms"><code class="name flex">
@@ -629,27 +656,6 @@ in the case of 'UD' a rotation matrix must be specified in the UD_rotation (opti
         return printstr</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.scClass.Spacecraft.initialize"><code class="name flex">
-<span>def <span class="ident">initialize</span></span>(<span>self, input_model)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def initialize(self, input_model):
-        # Load the meshes
-        self.spacecraft_model.update(input_model)
-        for elem in input_model.keys():
-                
-
-                self.spacecraft_model[elem][&#39;base_mesh&#39;] = self._load_obj(input_model[elem][&#39;file&#39;])
-                self.spacecraft_model[elem][&#39;translation&#39;] = tmt.translation_matrix(np.array(input_model[elem][&#39;center&#39;]) * self.conversion_factor)
-
-                #print(tmt.translation_matrix(input_model[elem][&#39;center&#39;]))</code></pre>
-</details>
-</dd>
 <dt id="pyRTX.scClass.Spacecraft.materials"><code class="name flex">
 <span>def <span class="ident">materials</span></span>(<span>self)</span>
 </code></dt>
@@ -751,7 +757,6 @@ of Spacecraft with only the elements A and B</p></div>
 <li><code><a title="pyRTX.scClass.Spacecraft.dump" href="#pyRTX.scClass.Spacecraft.dump">dump</a></code></li>
 <li><code><a title="pyRTX.scClass.Spacecraft.dump_materials" href="#pyRTX.scClass.Spacecraft.dump_materials">dump_materials</a></code></li>
 <li><code><a title="pyRTX.scClass.Spacecraft.info" href="#pyRTX.scClass.Spacecraft.info">info</a></code></li>
-<li><code><a title="pyRTX.scClass.Spacecraft.initialize" href="#pyRTX.scClass.Spacecraft.initialize">initialize</a></code></li>
 <li><code><a title="pyRTX.scClass.Spacecraft.materials" href="#pyRTX.scClass.Spacecraft.materials">materials</a></code></li>
 <li><code><a title="pyRTX.scClass.Spacecraft.pxform_convert" href="#pyRTX.scClass.Spacecraft.pxform_convert">pxform_convert</a></code></li>
 <li><code><a title="pyRTX.scClass.Spacecraft.remove_part" href="#pyRTX.scClass.Spacecraft.remove_part">remove_part</a></code></li>
