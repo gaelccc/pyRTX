@@ -3,11 +3,21 @@ import spiceypy as sp
 from pyRTX.utils_rt import get_surface_normals_and_face_areas, block_dot
 from timeit import default_timer as dT
 """
-This is a test string
+Description of this class
 """
 class Albedo():
 
         def __init__(self, Planet = None, spacecraftName = None, spacecraftFrame = None):
+                """
+                Parameters
+                ----------
+                Planet : pyRTX.scClass.Planet
+                        The planet object the Albedo is for
+                spacecraftName : str
+                        The name of the spacecraft
+                spacecraftFrame : str
+                        The name of the spacecraft body fixed frame
+                """
                 self.Planet = Planet
                 self.scname = spacecraftName
                 self.scFrame = spacecraftFrame
@@ -18,10 +28,18 @@ class Albedo():
 
                 """
                 Compute the fundamental quantities for the albedo force computation
-                returns 
-                1) normalized fluxes (i.e. for each face that is responsible for albedo contribution
-                cos(alpha)*cos(theta)*dA/pi/r**2
-                2) direction of each ray relative to the SC frame
+                Parameters
+                ----------
+                epoch : str or float
+                        the epoch at which to compute the albedo (it can be either a string or a float)
+                Returns
+                -------
+                normalized_fluxes : np.ndarray
+                        (i.e. for each face that is responsible for albedo contribution  cos(alpha)*cos(theta)*dA/pi/r**2
+                dirs: np.ndarray
+                        direction of each ray relative to the SC frame
+                vals : np.array
+                        values of the albedo for each face of the planet
 
                 """
 
