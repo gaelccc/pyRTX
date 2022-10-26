@@ -278,6 +278,8 @@ class ScatterLookup():
 	sc.addZone(zone2)
 
 
+
+	The value retrieval follows the same rules of indexing as the LookupTable and LookupTableND classes
 	"""
 	def __init__(self):
 		self.zones = []
