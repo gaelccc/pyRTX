@@ -2,7 +2,9 @@ import numpy as np
 import spiceypy as sp
 from pyRTX.utils_rt import get_surface_normals_and_face_areas, block_dot
 from timeit import default_timer as dT
-
+"""
+This is a test string
+"""
 class Albedo():
 
         def __init__(self, Planet = None, spacecraftName = None, spacecraftFrame = None):
