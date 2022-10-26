@@ -33,7 +33,9 @@ from pyRTX.utils_rt import block_normalize
 from numba import jit
 from numpy import ceil
 
-
+&#34;&#34;&#34;
+A set of utilities mainly focused on result analysis and data manipulation
+&#34;&#34;&#34;
 
 
 
@@ -41,6 +43,38 @@ from numpy import ceil
 
 
 class LookupTable():
+        &#34;&#34;&#34;
+        This class is used to store results in the shape aof a lookup table.
+        This is mainly used to store the resultas of a set of raytracing results
+        example: the solar pressure for a body is computed for a grid of RA/DEC values.
+        these values can be stored in the LookupTable object and later retrieved.
+        This class offers the possibility of not oly retrieving pre-computed values, but
+        aslso interpolating between grid points.
+
+        NOTE: the grid of the lookup table does not need to be regular
+        the interpolation is based on numpy griddata method which is able to cope
+        with unstructured grids
+
+        The main way of retrieving values is through indexing. The following are implemented:
+
+        LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated
+        LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested
+        LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)
+        LUT[array-like, array-like]: return the lookup table interpolated in the array-like points
+
+
+
+        Parameters
+        ----------
+        linspace_x : np.array(N,)
+                The x axis of the lookup table
+        linspace_y : np.array(M,)
+                The y axis of the lookup table
+        values : np.ndarray (N,M,1)
+                The lookup table values
+
+
+        &#34;&#34;&#34;
         def __init__(self, linspace_x, linspace_y, values):
                 self.linspace_x = linspace_x
                 self.linspace_y = linspace_y
@@ -52,7 +86,8 @@ class LookupTable():
         def _set_defaults(self):
                 self.interpType = &#39;cubic&#39;
 
-        def interpolator(self, x, y):
+        def _interpolator(self, x, y):
+
                 x, y = np.meshgrid(x,y)
                 meshgrid_x, meshgrid_y = np.meshgrid(self.linspace_x, self.linspace_y)
                 #return  interpolate.griddata((meshgrid_x.ravel(), meshgrid_y.ravel()), self.values.T.ravel(),np.array([x,y]).T, method = self.interpType)
@@ -62,12 +97,12 @@ class LookupTable():
                 self.interpType = interpType
 
 
-        def get_idx(self, ind, search_list):
+        def _get_idx(self, ind, search_list):
                 return np.where(search_list == ind)[0][0]
 
         
         def interp_point(self, x, y):
-                return self.interpolator(x,y)
+                return self._interpolator(x,y)
 
 
         def __getitem__(self, idxs):
@@ -92,6 +127,30 @@ class LookupTable():
 
 
         def quickPlot(self, xlabel = None, ylabel = None, title = None, conversion = 1, clabel = None, cmap = &#39;viridis&#39;, saveto = None):
+
+                &#34;&#34;&#34;
+                Produce a quick plot of the lookup table
+
+                Parameters
+                ----------
+                xlabel : str (Optional)
+                        label for the x-axis
+                ylabel : str (Optional)
+                        label for the y-axis
+                title : str (Optional)
+                        title of the plot
+                conversion : float (Optional, default 1)
+                        a conversion factor for the plotted values. This method will plot X*conversion, Y*conversion
+                clabel : str (Optional)
+                        label of the color bar
+                cmap : str      (Optional, default &#39;viridis&#39;)
+                        the colormap to use (matplotlib colormaps)
+                saveto : str (Optional, default None)
+                        if not None: the path to save the plot to (the file extension defines the format)
+
+                &#34;&#34;&#34;
+
+
                 import matplotlib.pyplot as plt
 
                 X, Y = np.meshgrid(self.linspace_x, self.linspace_y)
@@ -759,12 +818,66 @@ Spacecraft object</p>
 <span>(</span><span>linspace_x, linspace_y, values)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>This class is used to store results in the shape aof a lookup table.
+This is mainly used to store the resultas of a set of raytracing results
+example: the solar pressure for a body is computed for a grid of RA/DEC values.
+these values can be stored in the LookupTable object and later retrieved.
+This class offers the possibility of not oly retrieving pre-computed values, but
+aslso interpolating between grid points.</p>
+<p>NOTE: the grid of the lookup table does not need to be regular
+the interpolation is based on numpy griddata method which is able to cope
+with unstructured grids</p>
+<p>The main way of retrieving values is through indexing. The following are implemented:</p>
+<p>LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated
+LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested
+LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)
+LUT[array-like, array-like]: return the lookup table interpolated in the array-like points</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>linspace_x</code></strong> :&ensp;<code>np.array(N,)</code></dt>
+<dd>The x axis of the lookup table</dd>
+<dt><strong><code>linspace_y</code></strong> :&ensp;<code>np.array(M,)</code></dt>
+<dd>The y axis of the lookup table</dd>
+<dt><strong><code>values</code></strong> :&ensp;<code>np.ndarray (N,M,1)</code></dt>
+<dd>The lookup table values</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class LookupTable():
+        &#34;&#34;&#34;
+        This class is used to store results in the shape aof a lookup table.
+        This is mainly used to store the resultas of a set of raytracing results
+        example: the solar pressure for a body is computed for a grid of RA/DEC values.
+        these values can be stored in the LookupTable object and later retrieved.
+        This class offers the possibility of not oly retrieving pre-computed values, but
+        aslso interpolating between grid points.
+
+        NOTE: the grid of the lookup table does not need to be regular
+        the interpolation is based on numpy griddata method which is able to cope
+        with unstructured grids
+
+        The main way of retrieving values is through indexing. The following are implemented:
+
+        LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated
+        LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested
+        LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)
+        LUT[array-like, array-like]: return the lookup table interpolated in the array-like points
+
+
+
+        Parameters
+        ----------
+        linspace_x : np.array(N,)
+                The x axis of the lookup table
+        linspace_y : np.array(M,)
+                The y axis of the lookup table
+        values : np.ndarray (N,M,1)
+                The lookup table values
+
+
+        &#34;&#34;&#34;
         def __init__(self, linspace_x, linspace_y, values):
                 self.linspace_x = linspace_x
                 self.linspace_y = linspace_y
@@ -776,7 +889,8 @@ Spacecraft object</p>
         def _set_defaults(self):
                 self.interpType = &#39;cubic&#39;
 
-        def interpolator(self, x, y):
+        def _interpolator(self, x, y):
+
                 x, y = np.meshgrid(x,y)
                 meshgrid_x, meshgrid_y = np.meshgrid(self.linspace_x, self.linspace_y)
                 #return  interpolate.griddata((meshgrid_x.ravel(), meshgrid_y.ravel()), self.values.T.ravel(),np.array([x,y]).T, method = self.interpType)
@@ -786,12 +900,12 @@ Spacecraft object</p>
                 self.interpType = interpType
 
 
-        def get_idx(self, ind, search_list):
+        def _get_idx(self, ind, search_list):
                 return np.where(search_list == ind)[0][0]
 
         
         def interp_point(self, x, y):
-                return self.interpolator(x,y)
+                return self._interpolator(x,y)
 
 
         def __getitem__(self, idxs):
@@ -816,6 +930,30 @@ Spacecraft object</p>
 
 
         def quickPlot(self, xlabel = None, ylabel = None, title = None, conversion = 1, clabel = None, cmap = &#39;viridis&#39;, saveto = None):
+
+                &#34;&#34;&#34;
+                Produce a quick plot of the lookup table
+
+                Parameters
+                ----------
+                xlabel : str (Optional)
+                        label for the x-axis
+                ylabel : str (Optional)
+                        label for the y-axis
+                title : str (Optional)
+                        title of the plot
+                conversion : float (Optional, default 1)
+                        a conversion factor for the plotted values. This method will plot X*conversion, Y*conversion
+                clabel : str (Optional)
+                        label of the color bar
+                cmap : str      (Optional, default &#39;viridis&#39;)
+                        the colormap to use (matplotlib colormaps)
+                saveto : str (Optional, default None)
+                        if not None: the path to save the plot to (the file extension defines the format)
+
+                &#34;&#34;&#34;
+
+
                 import matplotlib.pyplot as plt
 
                 X, Y = np.meshgrid(self.linspace_x, self.linspace_y)
@@ -834,19 +972,6 @@ Spacecraft object</p>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="pyRTX.analysis_utils.LookupTable.get_idx"><code class="name flex">
-<span>def <span class="ident">get_idx</span></span>(<span>self, ind, search_list)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def get_idx(self, ind, search_list):
-        return np.where(search_list == ind)[0][0]</code></pre>
-</details>
-</dd>
 <dt id="pyRTX.analysis_utils.LookupTable.interp_point"><code class="name flex">
 <span>def <span class="ident">interp_point</span></span>(<span>self, x, y)</span>
 </code></dt>
@@ -857,35 +982,61 @@ Spacecraft object</p>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def interp_point(self, x, y):
-        return self.interpolator(x,y)</code></pre>
-</details>
-</dd>
-<dt id="pyRTX.analysis_utils.LookupTable.interpolator"><code class="name flex">
-<span>def <span class="ident">interpolator</span></span>(<span>self, x, y)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def interpolator(self, x, y):
-        x, y = np.meshgrid(x,y)
-        meshgrid_x, meshgrid_y = np.meshgrid(self.linspace_x, self.linspace_y)
-        #return  interpolate.griddata((meshgrid_x.ravel(), meshgrid_y.ravel()), self.values.T.ravel(),np.array([x,y]).T, method = self.interpType)
-        return  interpolate.griddata((meshgrid_x.ravel(), meshgrid_y.ravel()), self.values.T.ravel(),(x,y), method = self.interpType)</code></pre>
+        return self._interpolator(x,y)</code></pre>
 </details>
 </dd>
 <dt id="pyRTX.analysis_utils.LookupTable.quickPlot"><code class="name flex">
 <span>def <span class="ident">quickPlot</span></span>(<span>self, xlabel=None, ylabel=None, title=None, conversion=1, clabel=None, cmap='viridis', saveto=None)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Produce a quick plot of the lookup table</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>xlabel</code></strong> :&ensp;<code>str (Optional)</code></dt>
+<dd>label for the x-axis</dd>
+<dt><strong><code>ylabel</code></strong> :&ensp;<code>str (Optional)</code></dt>
+<dd>label for the y-axis</dd>
+<dt><strong><code>title</code></strong> :&ensp;<code>str (Optional)</code></dt>
+<dd>title of the plot</dd>
+<dt><strong><code>conversion</code></strong> :&ensp;<code>float (Optional</code>, default <code>1)</code></dt>
+<dd>a conversion factor for the plotted values. This method will plot X<em>conversion, Y</em>conversion</dd>
+<dt><strong><code>clabel</code></strong> :&ensp;<code>str (Optional)</code></dt>
+<dd>label of the color bar</dd>
+<dt><strong><code>cmap</code></strong> :&ensp;<code>str
+(Optional</code>, default <code>'viridis')</code></dt>
+<dd>the colormap to use (matplotlib colormaps)</dd>
+<dt><strong><code>saveto</code></strong> :&ensp;<code>str (Optional</code>, default <code>None)</code></dt>
+<dd>if not None: the path to save the plot to (the file extension defines the format)</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def quickPlot(self, xlabel = None, ylabel = None, title = None, conversion = 1, clabel = None, cmap = &#39;viridis&#39;, saveto = None):
+
+        &#34;&#34;&#34;
+        Produce a quick plot of the lookup table
+
+        Parameters
+        ----------
+        xlabel : str (Optional)
+                label for the x-axis
+        ylabel : str (Optional)
+                label for the y-axis
+        title : str (Optional)
+                title of the plot
+        conversion : float (Optional, default 1)
+                a conversion factor for the plotted values. This method will plot X*conversion, Y*conversion
+        clabel : str (Optional)
+                label of the color bar
+        cmap : str      (Optional, default &#39;viridis&#39;)
+                the colormap to use (matplotlib colormaps)
+        saveto : str (Optional, default None)
+                if not None: the path to save the plot to (the file extension defines the format)
+
+        &#34;&#34;&#34;
+
+
         import matplotlib.pyplot as plt
 
         X, Y = np.meshgrid(self.linspace_x, self.linspace_y)
@@ -1347,9 +1498,7 @@ Spacecraft object</p>
 <li>
 <h4><code><a title="pyRTX.analysis_utils.LookupTable" href="#pyRTX.analysis_utils.LookupTable">LookupTable</a></code></h4>
 <ul class="">
-<li><code><a title="pyRTX.analysis_utils.LookupTable.get_idx" href="#pyRTX.analysis_utils.LookupTable.get_idx">get_idx</a></code></li>
 <li><code><a title="pyRTX.analysis_utils.LookupTable.interp_point" href="#pyRTX.analysis_utils.LookupTable.interp_point">interp_point</a></code></li>
-<li><code><a title="pyRTX.analysis_utils.LookupTable.interpolator" href="#pyRTX.analysis_utils.LookupTable.interpolator">interpolator</a></code></li>
 <li><code><a title="pyRTX.analysis_utils.LookupTable.quickPlot" href="#pyRTX.analysis_utils.LookupTable.quickPlot">quickPlot</a></code></li>
 <li><code><a title="pyRTX.analysis_utils.LookupTable.set_interpType" href="#pyRTX.analysis_utils.LookupTable.set_interpType">set_interpType</a></code></li>
 </ul>
