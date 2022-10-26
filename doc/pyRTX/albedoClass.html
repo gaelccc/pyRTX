@@ -28,10 +28,22 @@
 import spiceypy as sp
 from pyRTX.utils_rt import get_surface_normals_and_face_areas, block_dot
 from timeit import default_timer as dT
-
+&#34;&#34;&#34;
+Description of this class
+&#34;&#34;&#34;
 class Albedo():
 
         def __init__(self, Planet = None, spacecraftName = None, spacecraftFrame = None):
+                &#34;&#34;&#34;
+                Parameters
+                ----------
+                Planet : pyRTX.scClass.Planet
+                        The planet object the Albedo is for
+                spacecraftName : str
+                        The name of the spacecraft
+                spacecraftFrame : str
+                        The name of the spacecraft body fixed frame
+                &#34;&#34;&#34;
                 self.Planet = Planet
                 self.scname = spacecraftName
                 self.scFrame = spacecraftFrame
@@ -42,10 +54,18 @@ class Albedo():
 
                 &#34;&#34;&#34;
                 Compute the fundamental quantities for the albedo force computation
-                returns 
-                1) normalized fluxes (i.e. for each face that is responsible for albedo contribution
-                cos(alpha)*cos(theta)*dA/pi/r**2
-                2) direction of each ray relative to the SC frame
+                Parameters
+                ----------
+                epoch : str or float
+                        the epoch at which to compute the albedo (it can be either a string or a float)
+                Returns
+                -------
+                normalized_fluxes : np.ndarray
+                        (i.e. for each face that is responsible for albedo contribution  cos(alpha)*cos(theta)*dA/pi/r**2
+                dirs: np.ndarray
+                        direction of each ray relative to the SC frame
+                vals : np.array
+                        values of the albedo for each face of the planet
 
                 &#34;&#34;&#34;
 
@@ -128,7 +148,15 @@ class Albedo():
 <span>(</span><span>Planet=None, spacecraftName=None, spacecraftFrame=None)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>Planet</code></strong> :&ensp;<code>pyRTX.scClass.Planet</code></dt>
+<dd>The planet object the Albedo is for</dd>
+<dt><strong><code>spacecraftName</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the spacecraft</dd>
+<dt><strong><code>spacecraftFrame</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the spacecraft body fixed frame</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -136,6 +164,16 @@ class Albedo():
 <pre><code class="python">class Albedo():
 
         def __init__(self, Planet = None, spacecraftName = None, spacecraftFrame = None):
+                &#34;&#34;&#34;
+                Parameters
+                ----------
+                Planet : pyRTX.scClass.Planet
+                        The planet object the Albedo is for
+                spacecraftName : str
+                        The name of the spacecraft
+                spacecraftFrame : str
+                        The name of the spacecraft body fixed frame
+                &#34;&#34;&#34;
                 self.Planet = Planet
                 self.scname = spacecraftName
                 self.scFrame = spacecraftFrame
@@ -146,10 +184,18 @@ class Albedo():
 
                 &#34;&#34;&#34;
                 Compute the fundamental quantities for the albedo force computation
-                returns 
-                1) normalized fluxes (i.e. for each face that is responsible for albedo contribution
-                cos(alpha)*cos(theta)*dA/pi/r**2
-                2) direction of each ray relative to the SC frame
+                Parameters
+                ----------
+                epoch : str or float
+                        the epoch at which to compute the albedo (it can be either a string or a float)
+                Returns
+                -------
+                normalized_fluxes : np.ndarray
+                        (i.e. for each face that is responsible for albedo contribution  cos(alpha)*cos(theta)*dA/pi/r**2
+                dirs: np.ndarray
+                        direction of each ray relative to the SC frame
+                vals : np.array
+                        values of the albedo for each face of the planet
 
                 &#34;&#34;&#34;
 
@@ -215,10 +261,22 @@ class Albedo():
 </code></dt>
 <dd>
 <div class="desc"><p>Compute the fundamental quantities for the albedo force computation
-returns
-1) normalized fluxes (i.e. for each face that is responsible for albedo contribution
-cos(alpha)<em>cos(theta)</em>dA/pi/r**2
-2) direction of each ray relative to the SC frame</p></div>
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>epoch</code></strong> :&ensp;<code>str</code> or <code>float</code></dt>
+<dd>the epoch at which to compute the albedo (it can be either a string or a float)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>normalized_fluxes</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>(i.e. for each face that is responsible for albedo contribution
+cos(alpha)<em>cos(theta)</em>dA/pi/r**2</dd>
+<dt><strong><code>dirs</code></strong> :&ensp;<code>np.ndarray</code></dt>
+<dd>direction of each ray relative to the SC frame</dd>
+<dt><strong><code>vals</code></strong> :&ensp;<code>np.array</code></dt>
+<dd>values of the albedo for each face of the planet</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -227,10 +285,18 @@ cos(alpha)<em>cos(theta)</em>dA/pi/r**2
 
         &#34;&#34;&#34;
         Compute the fundamental quantities for the albedo force computation
-        returns 
-        1) normalized fluxes (i.e. for each face that is responsible for albedo contribution
-        cos(alpha)*cos(theta)*dA/pi/r**2
-        2) direction of each ray relative to the SC frame
+        Parameters
+        ----------
+        epoch : str or float
+                the epoch at which to compute the albedo (it can be either a string or a float)
+        Returns
+        -------
+        normalized_fluxes : np.ndarray
+                (i.e. for each face that is responsible for albedo contribution  cos(alpha)*cos(theta)*dA/pi/r**2
+        dirs: np.ndarray
+                direction of each ray relative to the SC frame
+        vals : np.array
+                values of the albedo for each face of the planet
 
         &#34;&#34;&#34;
 
