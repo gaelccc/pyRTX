@@ -3,7 +3,7 @@ import spiceypy as sp
 from pyRTX.utils_rt import get_surface_normals_and_face_areas, block_dot
 from timeit import default_timer as dT
 """
-Description of this class
+Main class for Albedo computations.
 """
 class Albedo():
 

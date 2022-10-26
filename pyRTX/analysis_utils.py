@@ -7,7 +7,9 @@ from pyRTX.utils_rt import block_normalize
 from numba import jit
 from numpy import ceil
 
-
+"""
+A set of utilities mainly focused on result analysis and data manipulation
+"""
 
 
 
@@ -15,6 +17,38 @@ from numpy import ceil
 
 
 class LookupTable():
+	"""
+	This class is used to store results in the shape aof a lookup table.
+	This is mainly used to store the resultas of a set of raytracing results
+	example: the solar pressure for a body is computed for a grid of RA/DEC values.
+	these values can be stored in the LookupTable object and later retrieved.
+	This class offers the possibility of not oly retrieving pre-computed values, but
+	aslso interpolating between grid points.
+
+	NOTE: the grid of the lookup table does not need to be regular
+	the interpolation is based on numpy griddata method which is able to cope
+	with unstructured grids
+
+	The main way of retrieving values is through indexing. The following are implemented:
+
+	LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated
+	LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested
+	LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)
+	LUT[array-like, array-like]: return the lookup table interpolated in the array-like points
+
+
+
+	Parameters
+	----------
+	linspace_x : np.array(N,)
+		The x axis of the lookup table
+	linspace_y : np.array(M,)
+		The y axis of the lookup table
+	values : np.ndarray (N,M,1)
+		The lookup table values
+
+
+	"""
 	def __init__(self, linspace_x, linspace_y, values):
 		self.linspace_x = linspace_x
 		self.linspace_y = linspace_y
@@ -26,7 +60,8 @@ class LookupTable():
 	def _set_defaults(self):
 		self.interpType = 'cubic'
 
-	def interpolator(self, x, y):
+	def _interpolator(self, x, y):
+
 		x, y = np.meshgrid(x,y)
 		meshgrid_x, meshgrid_y = np.meshgrid(self.linspace_x, self.linspace_y)
 		#return  interpolate.griddata((meshgrid_x.ravel(), meshgrid_y.ravel()), self.values.T.ravel(),np.array([x,y]).T, method = self.interpType)
@@ -36,12 +71,12 @@ class LookupTable():
 		self.interpType = interpType
 
 
-	def get_idx(self, ind, search_list):
+	def _get_idx(self, ind, search_list):
 		return np.where(search_list == ind)[0][0]
 
 	
 	def interp_point(self, x, y):
-		return self.interpolator(x,y)
+		return self._interpolator(x,y)
 
 
 	def __getitem__(self, idxs):
@@ -66,6 +101,30 @@ class LookupTable():
 
 
 	def quickPlot(self, xlabel = None, ylabel = None, title = None, conversion = 1, clabel = None, cmap = 'viridis', saveto = None):
+
+		"""
+		Produce a quick plot of the lookup table
+
+		Parameters
+		----------
+		xlabel : str (Optional)
+			label for the x-axis
+		ylabel : str (Optional)
+			label for the y-axis
+		title : str (Optional)
+			title of the plot
+		conversion : float (Optional, default 1)
+			a conversion factor for the plotted values. This method will plot X*conversion, Y*conversion
+		clabel : str (Optional)
+			label of the color bar
+		cmap : str	(Optional, default 'viridis')
+			the colormap to use (matplotlib colormaps)
+		saveto : str (Optional, default None)
+			if not None: the path to save the plot to (the file extension defines the format)
+
+		"""
+
+
 		import matplotlib.pyplot as plt
 
 		X, Y = np.meshgrid(self.linspace_x, self.linspace_y)
