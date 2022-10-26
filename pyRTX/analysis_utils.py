@@ -144,6 +144,24 @@ class LookupTable():
 
 
 class LookupTableND():
+	"""
+	Same concept as the LookupTable class, but allowing for multi-dimensional (>2) tables
+
+	Parameters
+	----------
+	axes : tuple of np.array
+		The axes of the lookup table
+	values : np.ndarray(N,M,L,...,1)
+	info : str
+		A string field to store information about the lookup table. This is set as a class property
+		so it can be requested trhough instance.info
+	np.array : np.array
+		unset
+
+	"""
+
+
+
 	def __init__(self, axes = None, values = None, info = None, np_array = None):
 		self.axes = axes
 		self.values = values
@@ -157,7 +175,7 @@ class LookupTableND():
 	def _set_defaults(self):
 		self.interpType = 'linear'
 
-	def interpolator(self, vals):
+	def _interpolator(self, vals):
 		
 		return interpolate.interpn(self.axes,self.values, vals, method = 'linear') 
 
@@ -171,7 +189,7 @@ class LookupTableND():
 
 	
 	def interp_point(self, vals):
-		return self.interpolator(vals)
+		return self._interpolator(vals)
 
 
 	def __getitem__(self, idxs):
@@ -203,6 +221,29 @@ class LookupTableND():
 
 
 	def quickPlot(self, xlabel = None, ylabel = None, title = None, conversion = 1, clabel = None, cmap = 'viridis', saveto = None):
+		"""
+		Produce a quick plot of the lookup table
+
+		Parameters
+		----------
+		xlabel : str (Optional)
+			label for the x-axis
+		ylabel : str (Optional)
+			label for the y-axis
+		title : str (Optional)
+			title of the plot
+		conversion : float (Optional, default 1)
+			a conversion factor for the plotted values. This method will plot X*conversion, Y*conversion
+		clabel : str (Optional)
+			label of the color bar
+		cmap : str	(Optional, default 'viridis')
+			the colormap to use (matplotlib colormaps)
+		saveto : str (Optional, default None)
+			if not None: the path to save the plot to (the file extension defines the format)
+
+		"""
+
+
 		import matplotlib.pyplot as plt
 
 		X, Y = np.meshgrid(*self.axes)
@@ -222,12 +263,34 @@ class LookupTableND():
 
 
 class ScatterLookup():
+	"""
+	A class for dealing with zone-scattered lookup tables
+	Intended for creating a lookup table of sets of computed values that lie in distinct, DISJUNCT,
+	zones of the axes space.
+	Example: the value of a variable has been computed in X = [0,1] Y = [0,1] and X = [3,4] Y = [-2,-1]
 
+	After instantiating the empty class, the different zones are added. Example
+
+	sc = ScatterLookup()
+	zone1 = LookupTableND(*args, **kwargs)
+	zone2 = LookupTableND(*args, **kwargs)
+	sc.addZone(zone1)
+	sc.addZone(zone2)
+
+
+	"""
 	def __init__(self):
 		self.zones = []
 		self.zonedef = []
 
 	def add_zone(self, ZoneLookup = ''):
+		"""
+		Add a zone
+		Parameters
+		----------
+		ZoneLookup : pyRTX.analysis_utils.LookupTableND
+
+		"""
 		if not isinstance(ZoneLookup, LookupTableND):
 			raise TypeError('The ZoneLookup argument must be of type class.LookupTableND')
 

@@ -170,6 +170,24 @@ class LookupTable():
 
 
 class LookupTableND():
+        &#34;&#34;&#34;
+        Same concept as the LookupTable class, but allowing for multi-dimensional (&gt;2) tables
+
+        Parameters
+        ----------
+        axes : tuple of np.array
+                The axes of the lookup table
+        values : np.ndarray(N,M,L,...,1)
+        info : str
+                A string field to store information about the lookup table. This is set as a class property
+                so it can be requested trhough instance.info
+        np.array : np.array
+                unset
+
+        &#34;&#34;&#34;
+
+
+
         def __init__(self, axes = None, values = None, info = None, np_array = None):
                 self.axes = axes
                 self.values = values
@@ -183,7 +201,7 @@ class LookupTableND():
         def _set_defaults(self):
                 self.interpType = &#39;linear&#39;
 
-        def interpolator(self, vals):
+        def _interpolator(self, vals):
                 
                 return interpolate.interpn(self.axes,self.values, vals, method = &#39;linear&#39;) 
 
@@ -197,7 +215,7 @@ class LookupTableND():
 
         
         def interp_point(self, vals):
-                return self.interpolator(vals)
+                return self._interpolator(vals)
 
 
         def __getitem__(self, idxs):
@@ -229,6 +247,29 @@ class LookupTableND():
 
 
         def quickPlot(self, xlabel = None, ylabel = None, title = None, conversion = 1, clabel = None, cmap = &#39;viridis&#39;, saveto = None):
+                &#34;&#34;&#34;
+                Produce a quick plot of the lookup table
+
+                Parameters
+                ----------
+                xlabel : str (Optional)
+                        label for the x-axis
+                ylabel : str (Optional)
+                        label for the y-axis
+                title : str (Optional)
+                        title of the plot
+                conversion : float (Optional, default 1)
+                        a conversion factor for the plotted values. This method will plot X*conversion, Y*conversion
+                clabel : str (Optional)
+                        label of the color bar
+                cmap : str      (Optional, default &#39;viridis&#39;)
+                        the colormap to use (matplotlib colormaps)
+                saveto : str (Optional, default None)
+                        if not None: the path to save the plot to (the file extension defines the format)
+
+                &#34;&#34;&#34;
+
+
                 import matplotlib.pyplot as plt
 
                 X, Y = np.meshgrid(*self.axes)
@@ -248,12 +289,34 @@ class LookupTableND():
 
 
 class ScatterLookup():
+        &#34;&#34;&#34;
+        A class for dealing with zone-scattered lookup tables
+        Intended for creating a lookup table of sets of computed values that lie in distinct, DISJUNCT,
+        zones of the axes space.
+        Example: the value of a variable has been computed in X = [0,1] Y = [0,1] and X = [3,4] Y = [-2,-1]
 
+        After instantiating the empty class, the different zones are added. Example
+
+        sc = ScatterLookup()
+        zone1 = LookupTableND(*args, **kwargs)
+        zone2 = LookupTableND(*args, **kwargs)
+        sc.addZone(zone1)
+        sc.addZone(zone2)
+
+
+        &#34;&#34;&#34;
         def __init__(self):
                 self.zones = []
                 self.zonedef = []
 
         def add_zone(self, ZoneLookup = &#39;&#39;):
+                &#34;&#34;&#34;
+                Add a zone
+                Parameters
+                ----------
+                ZoneLookup : pyRTX.analysis_utils.LookupTableND
+
+                &#34;&#34;&#34;
                 if not isinstance(ZoneLookup, LookupTableND):
                         raise TypeError(&#39;The ZoneLookup argument must be of type class.LookupTableND&#39;)
 
@@ -1074,12 +1137,42 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
 <span>(</span><span>axes=None, values=None, info=None, np_array=None)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Same concept as the LookupTable class, but allowing for multi-dimensional (&gt;2) tables</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>axes</code></strong> :&ensp;<code>tuple</code> of <code>np.array</code></dt>
+<dd>The axes of the lookup table</dd>
+<dt><strong><code>values</code></strong> :&ensp;<code>np.ndarray(N,M,L,&hellip;,1)</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>info</code></strong> :&ensp;<code>str</code></dt>
+<dd>A string field to store information about the lookup table. This is set as a class property
+so it can be requested trhough instance.info</dd>
+</dl>
+<p>np.array : np.array
+unset</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class LookupTableND():
+        &#34;&#34;&#34;
+        Same concept as the LookupTable class, but allowing for multi-dimensional (&gt;2) tables
+
+        Parameters
+        ----------
+        axes : tuple of np.array
+                The axes of the lookup table
+        values : np.ndarray(N,M,L,...,1)
+        info : str
+                A string field to store information about the lookup table. This is set as a class property
+                so it can be requested trhough instance.info
+        np.array : np.array
+                unset
+
+        &#34;&#34;&#34;
+
+
+
         def __init__(self, axes = None, values = None, info = None, np_array = None):
                 self.axes = axes
                 self.values = values
@@ -1093,7 +1186,7 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
         def _set_defaults(self):
                 self.interpType = &#39;linear&#39;
 
-        def interpolator(self, vals):
+        def _interpolator(self, vals):
                 
                 return interpolate.interpn(self.axes,self.values, vals, method = &#39;linear&#39;) 
 
@@ -1107,7 +1200,7 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
 
         
         def interp_point(self, vals):
-                return self.interpolator(vals)
+                return self._interpolator(vals)
 
 
         def __getitem__(self, idxs):
@@ -1139,6 +1232,29 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
 
 
         def quickPlot(self, xlabel = None, ylabel = None, title = None, conversion = 1, clabel = None, cmap = &#39;viridis&#39;, saveto = None):
+                &#34;&#34;&#34;
+                Produce a quick plot of the lookup table
+
+                Parameters
+                ----------
+                xlabel : str (Optional)
+                        label for the x-axis
+                ylabel : str (Optional)
+                        label for the y-axis
+                title : str (Optional)
+                        title of the plot
+                conversion : float (Optional, default 1)
+                        a conversion factor for the plotted values. This method will plot X*conversion, Y*conversion
+                clabel : str (Optional)
+                        label of the color bar
+                cmap : str      (Optional, default &#39;viridis&#39;)
+                        the colormap to use (matplotlib colormaps)
+                saveto : str (Optional, default None)
+                        if not None: the path to save the plot to (the file extension defines the format)
+
+                &#34;&#34;&#34;
+
+
                 import matplotlib.pyplot as plt
 
                 X, Y = np.meshgrid(*self.axes)
@@ -1196,33 +1312,60 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def interp_point(self, vals):
-        return self.interpolator(vals)</code></pre>
-</details>
-</dd>
-<dt id="pyRTX.analysis_utils.LookupTableND.interpolator"><code class="name flex">
-<span>def <span class="ident">interpolator</span></span>(<span>self, vals)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def interpolator(self, vals):
-        
-        return interpolate.interpn(self.axes,self.values, vals, method = &#39;linear&#39;) </code></pre>
+        return self._interpolator(vals)</code></pre>
 </details>
 </dd>
 <dt id="pyRTX.analysis_utils.LookupTableND.quickPlot"><code class="name flex">
 <span>def <span class="ident">quickPlot</span></span>(<span>self, xlabel=None, ylabel=None, title=None, conversion=1, clabel=None, cmap='viridis', saveto=None)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Produce a quick plot of the lookup table</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>xlabel</code></strong> :&ensp;<code>str (Optional)</code></dt>
+<dd>label for the x-axis</dd>
+<dt><strong><code>ylabel</code></strong> :&ensp;<code>str (Optional)</code></dt>
+<dd>label for the y-axis</dd>
+<dt><strong><code>title</code></strong> :&ensp;<code>str (Optional)</code></dt>
+<dd>title of the plot</dd>
+<dt><strong><code>conversion</code></strong> :&ensp;<code>float (Optional</code>, default <code>1)</code></dt>
+<dd>a conversion factor for the plotted values. This method will plot X<em>conversion, Y</em>conversion</dd>
+<dt><strong><code>clabel</code></strong> :&ensp;<code>str (Optional)</code></dt>
+<dd>label of the color bar</dd>
+<dt><strong><code>cmap</code></strong> :&ensp;<code>str
+(Optional</code>, default <code>'viridis')</code></dt>
+<dd>the colormap to use (matplotlib colormaps)</dd>
+<dt><strong><code>saveto</code></strong> :&ensp;<code>str (Optional</code>, default <code>None)</code></dt>
+<dd>if not None: the path to save the plot to (the file extension defines the format)</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def quickPlot(self, xlabel = None, ylabel = None, title = None, conversion = 1, clabel = None, cmap = &#39;viridis&#39;, saveto = None):
+        &#34;&#34;&#34;
+        Produce a quick plot of the lookup table
+
+        Parameters
+        ----------
+        xlabel : str (Optional)
+                label for the x-axis
+        ylabel : str (Optional)
+                label for the y-axis
+        title : str (Optional)
+                title of the plot
+        conversion : float (Optional, default 1)
+                a conversion factor for the plotted values. This method will plot X*conversion, Y*conversion
+        clabel : str (Optional)
+                label of the color bar
+        cmap : str      (Optional, default &#39;viridis&#39;)
+                the colormap to use (matplotlib colormaps)
+        saveto : str (Optional, default None)
+                if not None: the path to save the plot to (the file extension defines the format)
+
+        &#34;&#34;&#34;
+
+
         import matplotlib.pyplot as plt
 
         X, Y = np.meshgrid(*self.axes)
@@ -1259,18 +1402,49 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
 <span>class <span class="ident">ScatterLookup</span></span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>A class for dealing with zone-scattered lookup tables
+Intended for creating a lookup table of sets of computed values that lie in distinct, DISJUNCT,
+zones of the axes space.
+Example: the value of a variable has been computed in X = [0,1] Y = [0,1] and X = [3,4] Y = [-2,-1]</p>
+<p>After instantiating the empty class, the different zones are added. Example</p>
+<p>sc = ScatterLookup()
+zone1 = LookupTableND(<em>args, </em><em>kwargs)
+zone2 = LookupTableND(</em>args, **kwargs)
+sc.addZone(zone1)
+sc.addZone(zone2)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class ScatterLookup():
+        &#34;&#34;&#34;
+        A class for dealing with zone-scattered lookup tables
+        Intended for creating a lookup table of sets of computed values that lie in distinct, DISJUNCT,
+        zones of the axes space.
+        Example: the value of a variable has been computed in X = [0,1] Y = [0,1] and X = [3,4] Y = [-2,-1]
 
+        After instantiating the empty class, the different zones are added. Example
+
+        sc = ScatterLookup()
+        zone1 = LookupTableND(*args, **kwargs)
+        zone2 = LookupTableND(*args, **kwargs)
+        sc.addZone(zone1)
+        sc.addZone(zone2)
+
+
+        &#34;&#34;&#34;
         def __init__(self):
                 self.zones = []
                 self.zonedef = []
 
         def add_zone(self, ZoneLookup = &#39;&#39;):
+                &#34;&#34;&#34;
+                Add a zone
+                Parameters
+                ----------
+                ZoneLookup : pyRTX.analysis_utils.LookupTableND
+
+                &#34;&#34;&#34;
                 if not isinstance(ZoneLookup, LookupTableND):
                         raise TypeError(&#39;The ZoneLookup argument must be of type class.LookupTableND&#39;)
 
@@ -1305,12 +1479,25 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
 <span>def <span class="ident">add_zone</span></span>(<span>self, ZoneLookup='')</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Add a zone
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>ZoneLookup</code></strong> :&ensp;<code><a title="pyRTX.analysis_utils.LookupTableND" href="#pyRTX.analysis_utils.LookupTableND">LookupTableND</a></code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def add_zone(self, ZoneLookup = &#39;&#39;):
+        &#34;&#34;&#34;
+        Add a zone
+        Parameters
+        ----------
+        ZoneLookup : pyRTX.analysis_utils.LookupTableND
+
+        &#34;&#34;&#34;
         if not isinstance(ZoneLookup, LookupTableND):
                 raise TypeError(&#39;The ZoneLookup argument must be of type class.LookupTableND&#39;)
 
@@ -1505,11 +1692,10 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
 </li>
 <li>
 <h4><code><a title="pyRTX.analysis_utils.LookupTableND" href="#pyRTX.analysis_utils.LookupTableND">LookupTableND</a></code></h4>
-<ul class="two-column">
+<ul class="">
 <li><code><a title="pyRTX.analysis_utils.LookupTableND.axisExtent" href="#pyRTX.analysis_utils.LookupTableND.axisExtent">axisExtent</a></code></li>
 <li><code><a title="pyRTX.analysis_utils.LookupTableND.get_idx" href="#pyRTX.analysis_utils.LookupTableND.get_idx">get_idx</a></code></li>
 <li><code><a title="pyRTX.analysis_utils.LookupTableND.interp_point" href="#pyRTX.analysis_utils.LookupTableND.interp_point">interp_point</a></code></li>
-<li><code><a title="pyRTX.analysis_utils.LookupTableND.interpolator" href="#pyRTX.analysis_utils.LookupTableND.interpolator">interpolator</a></code></li>
 <li><code><a title="pyRTX.analysis_utils.LookupTableND.quickPlot" href="#pyRTX.analysis_utils.LookupTableND.quickPlot">quickPlot</a></code></li>
 <li><code><a title="pyRTX.analysis_utils.LookupTableND.set_interpType" href="#pyRTX.analysis_utils.LookupTableND.set_interpType">set_interpType</a></code></li>
 </ul>
