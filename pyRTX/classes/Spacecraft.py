@@ -51,7 +51,7 @@ class Spacecraft():
 
 		Returns
 		-------
-		bla : pyRTX.Spacecraft
+		bla : pyRTX.classes.Spacecraft
 		"""
 		self.name = name
 		self.part_number = len(spacecraft_model.keys())

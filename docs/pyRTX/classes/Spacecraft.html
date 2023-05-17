@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
-<title>pyRTX.scClass API documentation</title>
+<title>pyRTX.classes.Spacecraft API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,7 +17,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pyRTX.scClass</code></h1>
+<h1 class="title">Module <code>pyRTX.classes.Spacecraft</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
@@ -77,7 +77,7 @@ class Spacecraft():
 
                 Returns
                 -------
-                bla : pyRTX.Spacecraft
+                bla : pyRTX.classes.Spacecraft
                 &#34;&#34;&#34;
                 self.name = name
                 self.part_number = len(spacecraft_model.keys())
@@ -255,7 +255,7 @@ class Spacecraft():
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="pyRTX.scClass.Spacecraft"><code class="flex name class">
+<dt id="pyRTX.classes.Spacecraft.Spacecraft"><code class="flex name class">
 <span>class <span class="ident">Spacecraft</span></span>
 <span>(</span><span>name=None, base_frame=None, spacecraft_model=None, units='m')</span>
 </code></dt>
@@ -291,7 +291,7 @@ in the case of 'UD' a rotation matrix must be specified in the UD_rotation (opti
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
-<dt><strong><code>bla</code></strong> :&ensp;<code>pyRTX.Spacecraft</code></dt>
+<dt><strong><code>bla</code></strong> :&ensp;<code><a title="pyRTX.classes.Spacecraft" href="#pyRTX.classes.Spacecraft">pyRTX.classes.Spacecraft</a></code></dt>
 <dd>&nbsp;</dd>
 </dl></div>
 <details class="source">
@@ -341,7 +341,7 @@ in the case of 'UD' a rotation matrix must be specified in the UD_rotation (opti
 
                 Returns
                 -------
-                bla : pyRTX.Spacecraft
+                bla : pyRTX.classes.Spacecraft
                 &#34;&#34;&#34;
                 self.name = name
                 self.part_number = len(spacecraft_model.keys())
@@ -511,7 +511,7 @@ in the case of 'UD' a rotation matrix must be specified in the UD_rotation (opti
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="pyRTX.scClass.Spacecraft.add_parts"><code class="name flex">
+<dt id="pyRTX.classes.Spacecraft.Spacecraft.add_parts"><code class="name flex">
 <span>def <span class="ident">add_parts</span></span>(<span>self, spacecraft_model=None)</span>
 </code></dt>
 <dd>
@@ -541,7 +541,7 @@ Parameters</p>
         self._initialize(spacecraft_model)</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.scClass.Spacecraft.apply_transforms"><code class="name flex">
+<dt id="pyRTX.classes.Spacecraft.Spacecraft.apply_transforms"><code class="name flex">
 <span>def <span class="ident">apply_transforms</span></span>(<span>self, epoch)</span>
 </code></dt>
 <dd>
@@ -569,7 +569,7 @@ Parameters</p>
                 self.spacecraft_model[elem][&#39;mesh&#39;].apply_transform(self.spacecraft_model[elem][&#39;translation&#39;])</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.scClass.Spacecraft.dump"><code class="name flex">
+<dt id="pyRTX.classes.Spacecraft.Spacecraft.dump"><code class="name flex">
 <span>def <span class="ident">dump</span></span>(<span>self, epoch=None)</span>
 </code></dt>
 <dd>
@@ -613,7 +613,7 @@ Parameters</p>
         return mesh</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.scClass.Spacecraft.dump_materials"><code class="name flex">
+<dt id="pyRTX.classes.Spacecraft.Spacecraft.dump_materials"><code class="name flex">
 <span>def <span class="ident">dump_materials</span></span>(<span>self)</span>
 </code></dt>
 <dd>
@@ -638,7 +638,7 @@ Parameters</p>
         self.material_dict = {&#39;idxs&#39; : stored_idxs, &#39;props&#39;: props}</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.scClass.Spacecraft.info"><code class="name flex">
+<dt id="pyRTX.classes.Spacecraft.Spacecraft.info"><code class="name flex">
 <span>def <span class="ident">info</span></span>(<span>self)</span>
 </code></dt>
 <dd>
@@ -656,7 +656,7 @@ Parameters</p>
         return printstr</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.scClass.Spacecraft.materials"><code class="name flex">
+<dt id="pyRTX.classes.Spacecraft.Spacecraft.materials"><code class="name flex">
 <span>def <span class="ident">materials</span></span>(<span>self)</span>
 </code></dt>
 <dd>
@@ -669,7 +669,7 @@ Parameters</p>
         return self.material_dict</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.scClass.Spacecraft.pxform_convert"><code class="name flex">
+<dt id="pyRTX.classes.Spacecraft.Spacecraft.pxform_convert"><code class="name flex">
 <span>def <span class="ident">pxform_convert</span></span>(<span>self, pxform)</span>
 </code></dt>
 <dd>
@@ -688,7 +688,7 @@ Parameters</p>
         return p</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.scClass.Spacecraft.remove_part"><code class="name flex">
+<dt id="pyRTX.classes.Spacecraft.Spacecraft.remove_part"><code class="name flex">
 <span>def <span class="ident">remove_part</span></span>(<span>self, name)</span>
 </code></dt>
 <dd>
@@ -701,7 +701,7 @@ Parameters</p>
         del self.spacecraft_model[name]</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.scClass.Spacecraft.subset"><code class="name flex">
+<dt id="pyRTX.classes.Spacecraft.Spacecraft.subset"><code class="name flex">
 <span>def <span class="ident">subset</span></span>(<span>self, elem_names)</span>
 </code></dt>
 <dd>
@@ -744,23 +744,23 @@ of Spacecraft with only the elements A and B</p></div>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pyRTX" href="index.html">pyRTX</a></code></li>
+<li><code><a title="pyRTX.classes" href="index.html">pyRTX.classes</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="pyRTX.scClass.Spacecraft" href="#pyRTX.scClass.Spacecraft">Spacecraft</a></code></h4>
+<h4><code><a title="pyRTX.classes.Spacecraft.Spacecraft" href="#pyRTX.classes.Spacecraft.Spacecraft">Spacecraft</a></code></h4>
 <ul class="two-column">
-<li><code><a title="pyRTX.scClass.Spacecraft.add_parts" href="#pyRTX.scClass.Spacecraft.add_parts">add_parts</a></code></li>
-<li><code><a title="pyRTX.scClass.Spacecraft.apply_transforms" href="#pyRTX.scClass.Spacecraft.apply_transforms">apply_transforms</a></code></li>
-<li><code><a title="pyRTX.scClass.Spacecraft.dump" href="#pyRTX.scClass.Spacecraft.dump">dump</a></code></li>
-<li><code><a title="pyRTX.scClass.Spacecraft.dump_materials" href="#pyRTX.scClass.Spacecraft.dump_materials">dump_materials</a></code></li>
-<li><code><a title="pyRTX.scClass.Spacecraft.info" href="#pyRTX.scClass.Spacecraft.info">info</a></code></li>
-<li><code><a title="pyRTX.scClass.Spacecraft.materials" href="#pyRTX.scClass.Spacecraft.materials">materials</a></code></li>
-<li><code><a title="pyRTX.scClass.Spacecraft.pxform_convert" href="#pyRTX.scClass.Spacecraft.pxform_convert">pxform_convert</a></code></li>
-<li><code><a title="pyRTX.scClass.Spacecraft.remove_part" href="#pyRTX.scClass.Spacecraft.remove_part">remove_part</a></code></li>
-<li><code><a title="pyRTX.scClass.Spacecraft.subset" href="#pyRTX.scClass.Spacecraft.subset">subset</a></code></li>
+<li><code><a title="pyRTX.classes.Spacecraft.Spacecraft.add_parts" href="#pyRTX.classes.Spacecraft.Spacecraft.add_parts">add_parts</a></code></li>
+<li><code><a title="pyRTX.classes.Spacecraft.Spacecraft.apply_transforms" href="#pyRTX.classes.Spacecraft.Spacecraft.apply_transforms">apply_transforms</a></code></li>
+<li><code><a title="pyRTX.classes.Spacecraft.Spacecraft.dump" href="#pyRTX.classes.Spacecraft.Spacecraft.dump">dump</a></code></li>
+<li><code><a title="pyRTX.classes.Spacecraft.Spacecraft.dump_materials" href="#pyRTX.classes.Spacecraft.Spacecraft.dump_materials">dump_materials</a></code></li>
+<li><code><a title="pyRTX.classes.Spacecraft.Spacecraft.info" href="#pyRTX.classes.Spacecraft.Spacecraft.info">info</a></code></li>
+<li><code><a title="pyRTX.classes.Spacecraft.Spacecraft.materials" href="#pyRTX.classes.Spacecraft.Spacecraft.materials">materials</a></code></li>
+<li><code><a title="pyRTX.classes.Spacecraft.Spacecraft.pxform_convert" href="#pyRTX.classes.Spacecraft.Spacecraft.pxform_convert">pxform_convert</a></code></li>
+<li><code><a title="pyRTX.classes.Spacecraft.Spacecraft.remove_part" href="#pyRTX.classes.Spacecraft.Spacecraft.remove_part">remove_part</a></code></li>
+<li><code><a title="pyRTX.classes.Spacecraft.Spacecraft.subset" href="#pyRTX.classes.Spacecraft.Spacecraft.subset">subset</a></code></li>
 </ul>
 </li>
 </ul>

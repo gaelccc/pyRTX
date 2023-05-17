@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
-<title>pyRTX.albedoClass API documentation</title>
+<title>pyRTX.classes.Radiation API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,7 +17,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pyRTX.albedoClass</code></h1>
+<h1 class="title">Module <code>pyRTX.classes.Radiation</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
@@ -26,8 +26,9 @@
 </summary>
 <pre><code class="python">import numpy as np
 import spiceypy as sp
-from pyRTX.utils_rt import get_surface_normals_and_face_areas, block_dot
+from pyRTX.core.utils_rt import get_surface_normals_and_face_areas, block_dot
 from timeit import default_timer as dT
+from pyRTX.constants import stefan_boltzmann as sb
 &#34;&#34;&#34;
 Main class for Albedo computations.
 &#34;&#34;&#34;
@@ -37,7 +38,7 @@ class Albedo():
                 &#34;&#34;&#34;
                 Parameters
                 ----------
-                Planet : pyRTX.scClass.Planet
+                Planet : pyRTX.classes.Planet
                         The planet object the Albedo is for
                 spacecraftName : str
                         The name of the spacecraft
@@ -125,7 +126,77 @@ class Albedo():
                 return norm_fluxes, -scRelative, albedoIdxs, albedoVals
 
                 
+class Emissivity():
 
+        @classmethod
+        def __init__(self, Planet = None, spacecraftName = None, spacecraftFrame = None):
+
+                self.Planet = Planet
+                self.scname = spacecraftName
+                self.scFrame = spacecraftFrame
+
+        def compute(self, epoch):
+
+                &#34;&#34;&#34;
+                Compute the fundamental quantities for the emissivity force computation
+                returns 
+                1) normalized fluxes (i.e. for each face that is responsible for albedo contribution
+                cos(theta)*dA/pi/r**2
+                2) direction of each ray relative to the SC frame
+
+                &#34;&#34;&#34;
+
+                norm_fluxes, scRelative, emiIdxs, faceEmi = self._core_compute(epoch)
+                rotMat = self.Planet.rot_toSCframe(epoch, scFrame = self.scFrame)
+
+                dirs_to_sc = np.dot(scRelative, rotMat.T)
+                dirs = np.zeros((len(norm_fluxes), 2))
+                for i, ddir in enumerate(dirs_to_sc):
+                        [_, dirs[i,0], dirs[i, 1]] = sp.recrad(ddir)
+                
+                return norm_fluxes, dirs, faceEmi
+
+        @classmethod
+        def _core_compute(self, epoch):
+                &#34; Get the rays to be used in the computation &#34;
+
+                V, F, N, C = self.Planet.VFNC(epoch)
+                emiIdxs, faceTemps, faceEmi = self.Planet.emissivityFaces(epoch, self.scname)
+                scPos = self.Planet.getScPosSunFixed(epoch, self.scname)
+
+
+                # Get the direction of the rays in the SC frame
+                centers = C[emiIdxs]
+                scRelative = - centers + scPos
+                
+                dirs = scRelative / np.linalg.norm(scRelative, axis = 1).reshape(len(scRelative), 1)
+                rot = sp.pxform(self.Planet.sunFixedFrame, self.scFrame, epoch)
+                sc_dirs = np.dot(dirs, rot.T)
+
+                # Get normal-to-spacecraft angles
+                normals = N[emiIdxs]
+                #cos_theta = np.dot(normals, scPos/np.linalg.norm(scPos))
+                cos_theta = block_dot(normals, dirs)
+
+
+                # Distance between sc and each element mesh
+                scRelativeMag = np.sum(np.array(scRelative)**2, axis=1)
+
+                # Compute the geometric contribution to the flux
+                _, dA = get_surface_normals_and_face_areas(V, F)
+                dA = dA[emiIdxs]
+                
+
+                norm_fluxes =  sb * faceTemps**4 * cos_theta * dA / np.pi / scRelativeMag 
+
+
+
+
+                #print(np.linalg.norm(scPos))   
+                return norm_fluxes, -scRelative, emiIdxs, faceEmi
+
+
+                
 
                 
 
@@ -143,14 +214,14 @@ class Albedo():
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="pyRTX.albedoClass.Albedo"><code class="flex name class">
+<dt id="pyRTX.classes.Radiation.Albedo"><code class="flex name class">
 <span>class <span class="ident">Albedo</span></span>
 <span>(</span><span>Planet=None, spacecraftName=None, spacecraftFrame=None)</span>
 </code></dt>
 <dd>
 <div class="desc"><h2 id="parameters">Parameters</h2>
 <dl>
-<dt><strong><code>Planet</code></strong> :&ensp;<code>pyRTX.scClass.Planet</code></dt>
+<dt><strong><code>Planet</code></strong> :&ensp;<code><a title="pyRTX.classes.Planet" href="Planet.html">pyRTX.classes.Planet</a></code></dt>
 <dd>The planet object the Albedo is for</dd>
 <dt><strong><code>spacecraftName</code></strong> :&ensp;<code>str</code></dt>
 <dd>The name of the spacecraft</dd>
@@ -167,7 +238,7 @@ class Albedo():
                 &#34;&#34;&#34;
                 Parameters
                 ----------
-                Planet : pyRTX.scClass.Planet
+                Planet : pyRTX.classes.Planet
                         The planet object the Albedo is for
                 spacecraftName : str
                         The name of the spacecraft
@@ -256,7 +327,7 @@ class Albedo():
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="pyRTX.albedoClass.Albedo.compute"><code class="name flex">
+<dt id="pyRTX.classes.Radiation.Albedo.compute"><code class="name flex">
 <span>def <span class="ident">compute</span></span>(<span>self, epoch)</span>
 </code></dt>
 <dd>
@@ -315,6 +386,124 @@ cos(alpha)<em>cos(theta)</em>dA/pi/r**2</dd>
 </dd>
 </dl>
 </dd>
+<dt id="pyRTX.classes.Radiation.Emissivity"><code class="flex name class">
+<span>class <span class="ident">Emissivity</span></span>
+<span>(</span><span>spacecraftName=None, spacecraftFrame=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Emissivity():
+
+        @classmethod
+        def __init__(self, Planet = None, spacecraftName = None, spacecraftFrame = None):
+
+                self.Planet = Planet
+                self.scname = spacecraftName
+                self.scFrame = spacecraftFrame
+
+        def compute(self, epoch):
+
+                &#34;&#34;&#34;
+                Compute the fundamental quantities for the emissivity force computation
+                returns 
+                1) normalized fluxes (i.e. for each face that is responsible for albedo contribution
+                cos(theta)*dA/pi/r**2
+                2) direction of each ray relative to the SC frame
+
+                &#34;&#34;&#34;
+
+                norm_fluxes, scRelative, emiIdxs, faceEmi = self._core_compute(epoch)
+                rotMat = self.Planet.rot_toSCframe(epoch, scFrame = self.scFrame)
+
+                dirs_to_sc = np.dot(scRelative, rotMat.T)
+                dirs = np.zeros((len(norm_fluxes), 2))
+                for i, ddir in enumerate(dirs_to_sc):
+                        [_, dirs[i,0], dirs[i, 1]] = sp.recrad(ddir)
+                
+                return norm_fluxes, dirs, faceEmi
+
+        @classmethod
+        def _core_compute(self, epoch):
+                &#34; Get the rays to be used in the computation &#34;
+
+                V, F, N, C = self.Planet.VFNC(epoch)
+                emiIdxs, faceTemps, faceEmi = self.Planet.emissivityFaces(epoch, self.scname)
+                scPos = self.Planet.getScPosSunFixed(epoch, self.scname)
+
+
+                # Get the direction of the rays in the SC frame
+                centers = C[emiIdxs]
+                scRelative = - centers + scPos
+                
+                dirs = scRelative / np.linalg.norm(scRelative, axis = 1).reshape(len(scRelative), 1)
+                rot = sp.pxform(self.Planet.sunFixedFrame, self.scFrame, epoch)
+                sc_dirs = np.dot(dirs, rot.T)
+
+                # Get normal-to-spacecraft angles
+                normals = N[emiIdxs]
+                #cos_theta = np.dot(normals, scPos/np.linalg.norm(scPos))
+                cos_theta = block_dot(normals, dirs)
+
+
+                # Distance between sc and each element mesh
+                scRelativeMag = np.sum(np.array(scRelative)**2, axis=1)
+
+                # Compute the geometric contribution to the flux
+                _, dA = get_surface_normals_and_face_areas(V, F)
+                dA = dA[emiIdxs]
+                
+
+                norm_fluxes =  sb * faceTemps**4 * cos_theta * dA / np.pi / scRelativeMag 
+
+
+
+
+                #print(np.linalg.norm(scPos))   
+                return norm_fluxes, -scRelative, emiIdxs, faceEmi</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="pyRTX.classes.Radiation.Emissivity.compute"><code class="name flex">
+<span>def <span class="ident">compute</span></span>(<span>self, epoch)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Compute the fundamental quantities for the emissivity force computation
+returns
+1) normalized fluxes (i.e. for each face that is responsible for albedo contribution
+cos(theta)<em>dA/pi/r</em>*2
+2) direction of each ray relative to the SC frame</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def compute(self, epoch):
+
+        &#34;&#34;&#34;
+        Compute the fundamental quantities for the emissivity force computation
+        returns 
+        1) normalized fluxes (i.e. for each face that is responsible for albedo contribution
+        cos(theta)*dA/pi/r**2
+        2) direction of each ray relative to the SC frame
+
+        &#34;&#34;&#34;
+
+        norm_fluxes, scRelative, emiIdxs, faceEmi = self._core_compute(epoch)
+        rotMat = self.Planet.rot_toSCframe(epoch, scFrame = self.scFrame)
+
+        dirs_to_sc = np.dot(scRelative, rotMat.T)
+        dirs = np.zeros((len(norm_fluxes), 2))
+        for i, ddir in enumerate(dirs_to_sc):
+                [_, dirs[i,0], dirs[i, 1]] = sp.recrad(ddir)
+        
+        return norm_fluxes, dirs, faceEmi</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
 </dl>
 </section>
 </article>
@@ -326,15 +515,21 @@ cos(alpha)<em>cos(theta)</em>dA/pi/r**2</dd>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pyRTX" href="index.html">pyRTX</a></code></li>
+<li><code><a title="pyRTX.classes" href="index.html">pyRTX.classes</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="pyRTX.albedoClass.Albedo" href="#pyRTX.albedoClass.Albedo">Albedo</a></code></h4>
+<h4><code><a title="pyRTX.classes.Radiation.Albedo" href="#pyRTX.classes.Radiation.Albedo">Albedo</a></code></h4>
 <ul class="">
-<li><code><a title="pyRTX.albedoClass.Albedo.compute" href="#pyRTX.albedoClass.Albedo.compute">compute</a></code></li>
+<li><code><a title="pyRTX.classes.Radiation.Albedo.compute" href="#pyRTX.classes.Radiation.Albedo.compute">compute</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyRTX.classes.Radiation.Emissivity" href="#pyRTX.classes.Radiation.Emissivity">Emissivity</a></code></h4>
+<ul class="">
+<li><code><a title="pyRTX.classes.Radiation.Emissivity.compute" href="#pyRTX.classes.Radiation.Emissivity.compute">compute</a></code></li>
 </ul>
 </li>
 </ul>

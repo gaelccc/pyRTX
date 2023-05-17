@@ -7,7 +7,7 @@ setuptools.setup(
 	name = 'pyRTX',
 	version = '0.0.1',
 	author = 'Gael Cascioli',
-	author_email = 'gael.cascioli@uniroma1.it',
+	author_email = 'gael.cascioli@umbc.edu',
 	description = 'A collection of tools for non-gravitational acceleration computation leveraging ray tracing techniques',
 	url = '',
 	packages = ['pyRTX'],

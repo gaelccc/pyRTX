@@ -12,7 +12,7 @@ class Albedo():
                 """
                 Parameters
                 ----------
-                Planet : pyRTX.scClass.Planet
+                Planet : pyRTX.classes.Planet
                         The planet object the Albedo is for
                 spacecraftName : str
                         The name of the spacecraft

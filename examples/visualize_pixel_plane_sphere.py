@@ -1,6 +1,6 @@
 import trimesh
 import numpy as np
-from pyRTX.utils_rt import pixel_plane_opt, RTXkernel
+from pyRTX.core.utils_rt import pixel_plane_opt, RTXkernel
 from matplotlib.colors import to_rgba_array
 # Scope: Perform a simple ray tracing against a sphere and visualize the impinging and reflected rays
 

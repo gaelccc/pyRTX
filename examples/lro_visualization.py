@@ -2,21 +2,15 @@
 
 import trimesh as tm
 import numpy as np
-import pickle as pkl
-import trimesh.transformations as tmt
-from pyRTX.scClass import Spacecraft
-from pyRTX.pixelPlaneClass import pixelPlane
-from pyRTX.rayTracerClass import rayTracer
-from pyRTX.srpClass import solarPressure
 import spiceypy as sp
 import matplotlib.pyplot as plt
-from pyRTX import utils_rt
-from pyRTX.shadowClass import SunShadow
-from pyRTX.genericClasses import Planet
-from pyRTX import constants
-import logging
-import matplotlib.pyplot as plt
 import matplotlib
+from pyRTX.classes.Spacecraft import Spacecraft
+
+
+
+
+
 
 # Example purpose:
 # Show the object-oriented interface of the pyRTX library

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
-<title>pyRTX.shadowClass API documentation</title>
+<title>pyRTX.classes.SRP API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,7 +17,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pyRTX.shadowClass</code></h1>
+<h1 class="title">Module <code>pyRTX.classes.SRP</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
@@ -25,79 +25,19 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">import numpy as np
-from pyRTX.pixelPlaneClass import pixelPlane
 import spiceypy as sp
-from pyRTX import utils_rt      
-from pyRTX.genericClasses import Planet
-import timeit
-from numba import jit
+
+from pyRTX.classes.PixelPlane import PixelPlane
+from pyRTX.core import utils_rt
+from pyRTX.core.shadow_utils import circular_mask, circular_rim, compute_directions, compute_beta, compute_pixel_intensities
+from pyRTX.classes.Planet import Planet
+from pyRTX import constants
+from pyRTX.core.physical_utils import compute_srp
 
 
 
 
-def circular_mask(R, coords, origin):
-        maskIds = []
-        maskIds = np.where(np.linalg.norm(coords-origin, axis = 1) &lt;= R)
-        
 
-        return np.array(maskIds[0], dtype = &#39;int32&#39;)
-
-
-def circular_rim(R, coords, origin):
-        maskIds = np.where(np.isclose(np.linalg.norm(coords-origin, axis = 1),R, rtol = 0.001))
-        mask_coords = coords[maskIds]
-
-        return np.array(maskIds[0], dtype = &#39;int32&#39;)
-
-
-
-@jit(nopython=True)
-def compute_directions(pixelCoords):
-        dirs = np.zeros_like(pixelCoords)
-        for i,elem in enumerate(pixelCoords):
-                dirs[i] = elem/np.linalg.norm(elem)
-
-        return dirs
-
-
-
-@jit(nopython = True)
-def compute_beta(coords, origin, R):
-        d = np.linalg.norm(origin)
-        o = origin / np.linalg.norm(origin)
-        betas = np.zeros((len(coords)))
-        
-        for i,c in enumerate(coords):
-                cos = np.dot(c/np.linalg.norm(c), o)
-                if cos &gt; 1.0:
-                        cos = 1.0
-                elif cos &lt; -1.0:
-                        cos = -1.0
-                ang = np.arccos(cos)
-
-                
-                sinb = d/R*np.sin(ang)
-                beta = np.arcsin(sinb)
-                betas[i] = beta
-                #if np.isnan(beta):
-                        #print(np.dot(c/np.linalg.norm(c),o))
-                        #print(sinb)
-
-        return betas
-
-@jit(nopython = True)
-def compute_pixel_intensities(beta, Type = &#39;Standard&#39;):
-        if Type == &#39;Standard&#39;:
-                a0 = 0.3
-                a1 = 0.93
-                a2 = -0.23
-                intensities = a0 + a1*np.cos(beta) + a2*(np.cos(beta))**2
-        elif Type == &#39;Eddington&#39;:
-                m = np.cos(beta)
-                intensities = 3.0/4* ( 7/12 * 0.5*m * m*(1/3 + 0.5*m)*np.log((1+m)/m))
-        
-
-        return intensities
 
 class SunShadow():
         &#34;&#34;&#34;
@@ -115,7 +55,7 @@ class SunShadow():
                 self.spacecraft = spacecraft
                 self.body = body
                 self.limbDarkening = limbDarkening
-                self.pxPlane = pixelPlane(spacecraft = spacecraft,
+                self.pxPlane = PixelPlane(spacecraft = spacecraft,
                                      source = &#39;Sun&#39;,
                                      mode = &#39;Dynamic&#39;,
                                      width = 2*sunRadius,
@@ -223,131 +163,260 @@ class SunShadow():
                         ratios.append(1-numerator/denominator)
 
 
-                return ratios</code></pre>
-</details>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
-<h2 class="section-title" id="header-functions">Functions</h2>
-<dl>
-<dt id="pyRTX.shadowClass.circular_mask"><code class="name flex">
-<span>def <span class="ident">circular_mask</span></span>(<span>R, coords, origin)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def circular_mask(R, coords, origin):
-        maskIds = []
-        maskIds = np.where(np.linalg.norm(coords-origin, axis = 1) &lt;= R)
-        
+                return ratios
 
-        return np.array(maskIds[0], dtype = &#39;int32&#39;)</code></pre>
-</details>
-</dd>
-<dt id="pyRTX.shadowClass.circular_rim"><code class="name flex">
-<span>def <span class="ident">circular_rim</span></span>(<span>R, coords, origin)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def circular_rim(R, coords, origin):
-        maskIds = np.where(np.isclose(np.linalg.norm(coords-origin, axis = 1),R, rtol = 0.001))
-        mask_coords = coords[maskIds]
 
-        return np.array(maskIds[0], dtype = &#39;int32&#39;)</code></pre>
-</details>
-</dd>
-<dt id="pyRTX.shadowClass.compute_beta"><code class="name flex">
-<span>def <span class="ident">compute_beta</span></span>(<span>coords, origin, R)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@jit(nopython = True)
-def compute_beta(coords, origin, R):
-        d = np.linalg.norm(origin)
-        o = origin / np.linalg.norm(origin)
-        betas = np.zeros((len(coords)))
+
+
+
+
+
+class SolarPressure():
         
-        for i,c in enumerate(coords):
-                cos = np.dot(c/np.linalg.norm(c), o)
-                if cos &gt; 1.0:
-                        cos = 1.0
-                elif cos &lt; -1.0:
-                        cos = -1.0
-                ang = np.arccos(cos)
+        def __init__(self, spacecraft, rayTracer, baseflux = 1380.0, grouped = True, shadowObj = None):
+
+                self.spacecraft = spacecraft
+                self.rayTracer = rayTracer
+                self.baseflux = baseflux
+                self.grouped = grouped
+                self.shadowObj = shadowObj
+                
+
+
+
+        def compute(self, epoch = None):
+
+                # Launch rayTracer
+                rtx = self.rayTracer
+                rtx.trace(epoch)
+
+
+                # Retrieve RTX  properties
+                mesh = self.spacecraft.dump(epoch)
+
+
+                index_tri = rtx.index_tri_container
+                index_ray = rtx.index_ray_container
+                location = rtx.locations_container
+                ray_origins = rtx.ray_origins_container
+                ray_directions = rtx.ray_directions_container
+                diffusion_pack = rtx.diffusion_pack
+                norm_factor = rtx.norm_factor
+                diffusion = rtx.diffusion
+                num_diffuse = rtx.num_diffuse
+
+
 
                 
-                sinb = d/R*np.sin(ang)
-                beta = np.arcsin(sinb)
-                betas[i] = beta
-                #if np.isnan(beta):
-                        #print(np.dot(c/np.linalg.norm(c),o))
-                        #print(sinb)
 
-        return betas</code></pre>
-</details>
-</dd>
-<dt id="pyRTX.shadowClass.compute_directions"><code class="name flex">
-<span>def <span class="ident">compute_directions</span></span>(<span>pixelCoords)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@jit(nopython=True)
-def compute_directions(pixelCoords):
-        dirs = np.zeros_like(pixelCoords)
-        for i,elem in enumerate(pixelCoords):
-                dirs[i] = elem/np.linalg.norm(elem)
+                material_dict = self.spacecraft.materials()
 
-        return dirs</code></pre>
-</details>
-</dd>
-<dt id="pyRTX.shadowClass.compute_pixel_intensities"><code class="name flex">
-<span>def <span class="ident">compute_pixel_intensities</span></span>(<span>beta, Type='Standard')</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@jit(nopython = True)
-def compute_pixel_intensities(beta, Type = &#39;Standard&#39;):
-        if Type == &#39;Standard&#39;:
-                a0 = 0.3
-                a1 = 0.93
-                a2 = -0.23
-                intensities = a0 + a1*np.cos(beta) + a2*(np.cos(beta))**2
-        elif Type == &#39;Eddington&#39;:
-                m = np.cos(beta)
-                intensities = 3.0/4* ( 7/12 * 0.5*m * m*(1/3 + 0.5*m)*np.log((1+m)/m))
-        
+                if self.baseflux is None:
+                        flux = 1.0
+                else:
+                        flux = self.get_flux( epoch)
 
-        return intensities</code></pre>
+                if self.shadowObj is not None:
+                        shadow = self.shadowObj.compute(epoch)[0]
+                        flux = flux*shadow
+                
+
+
+
+                force = compute_srp(flux, mesh, index_tri, index_ray, location, ray_origins, ray_directions, norm_factor, grouped = self.grouped, materials = material_dict, diffusion = diffusion, num_diffuse = num_diffuse, diffusion_pack = diffusion_pack)
+
+
+
+
+                return force
+
+
+
+        def get_flux(self, epoch):
+                
+                au = constants.au
+                sunpos = sp.spkezr( &#39;Sun&#39;, epoch, &#39;J2000&#39;,&#39;LT+S&#39;, self.spacecraft.name)
+                pos = sunpos[0][0:3]
+                dist = np.sqrt(np.sum(np.array(pos)**2))/au
+
+                flux = self.baseflux * (1.0/dist)**2
+
+                return flux</code></pre>
 </details>
-</dd>
-</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
 </section>
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="pyRTX.shadowClass.SunShadow"><code class="flex name class">
+<dt id="pyRTX.classes.SRP.SolarPressure"><code class="flex name class">
+<span>class <span class="ident">SolarPressure</span></span>
+<span>(</span><span>spacecraft, rayTracer, baseflux=1380.0, grouped=True, shadowObj=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SolarPressure():
+        
+        def __init__(self, spacecraft, rayTracer, baseflux = 1380.0, grouped = True, shadowObj = None):
+
+                self.spacecraft = spacecraft
+                self.rayTracer = rayTracer
+                self.baseflux = baseflux
+                self.grouped = grouped
+                self.shadowObj = shadowObj
+                
+
+
+
+        def compute(self, epoch = None):
+
+                # Launch rayTracer
+                rtx = self.rayTracer
+                rtx.trace(epoch)
+
+
+                # Retrieve RTX  properties
+                mesh = self.spacecraft.dump(epoch)
+
+
+                index_tri = rtx.index_tri_container
+                index_ray = rtx.index_ray_container
+                location = rtx.locations_container
+                ray_origins = rtx.ray_origins_container
+                ray_directions = rtx.ray_directions_container
+                diffusion_pack = rtx.diffusion_pack
+                norm_factor = rtx.norm_factor
+                diffusion = rtx.diffusion
+                num_diffuse = rtx.num_diffuse
+
+
+
+                
+
+                material_dict = self.spacecraft.materials()
+
+                if self.baseflux is None:
+                        flux = 1.0
+                else:
+                        flux = self.get_flux( epoch)
+
+                if self.shadowObj is not None:
+                        shadow = self.shadowObj.compute(epoch)[0]
+                        flux = flux*shadow
+                
+
+
+
+                force = compute_srp(flux, mesh, index_tri, index_ray, location, ray_origins, ray_directions, norm_factor, grouped = self.grouped, materials = material_dict, diffusion = diffusion, num_diffuse = num_diffuse, diffusion_pack = diffusion_pack)
+
+
+
+
+                return force
+
+
+
+        def get_flux(self, epoch):
+                
+                au = constants.au
+                sunpos = sp.spkezr( &#39;Sun&#39;, epoch, &#39;J2000&#39;,&#39;LT+S&#39;, self.spacecraft.name)
+                pos = sunpos[0][0:3]
+                dist = np.sqrt(np.sum(np.array(pos)**2))/au
+
+                flux = self.baseflux * (1.0/dist)**2
+
+                return flux</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="pyRTX.classes.SRP.SolarPressure.compute"><code class="name flex">
+<span>def <span class="ident">compute</span></span>(<span>self, epoch=None)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def compute(self, epoch = None):
+
+        # Launch rayTracer
+        rtx = self.rayTracer
+        rtx.trace(epoch)
+
+
+        # Retrieve RTX  properties
+        mesh = self.spacecraft.dump(epoch)
+
+
+        index_tri = rtx.index_tri_container
+        index_ray = rtx.index_ray_container
+        location = rtx.locations_container
+        ray_origins = rtx.ray_origins_container
+        ray_directions = rtx.ray_directions_container
+        diffusion_pack = rtx.diffusion_pack
+        norm_factor = rtx.norm_factor
+        diffusion = rtx.diffusion
+        num_diffuse = rtx.num_diffuse
+
+
+
+        
+
+        material_dict = self.spacecraft.materials()
+
+        if self.baseflux is None:
+                flux = 1.0
+        else:
+                flux = self.get_flux( epoch)
+
+        if self.shadowObj is not None:
+                shadow = self.shadowObj.compute(epoch)[0]
+                flux = flux*shadow
+        
+
+
+
+        force = compute_srp(flux, mesh, index_tri, index_ray, location, ray_origins, ray_directions, norm_factor, grouped = self.grouped, materials = material_dict, diffusion = diffusion, num_diffuse = num_diffuse, diffusion_pack = diffusion_pack)
+
+
+
+
+        return force</code></pre>
+</details>
+</dd>
+<dt id="pyRTX.classes.SRP.SolarPressure.get_flux"><code class="name flex">
+<span>def <span class="ident">get_flux</span></span>(<span>self, epoch)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_flux(self, epoch):
+        
+        au = constants.au
+        sunpos = sp.spkezr( &#39;Sun&#39;, epoch, &#39;J2000&#39;,&#39;LT+S&#39;, self.spacecraft.name)
+        pos = sunpos[0][0:3]
+        dist = np.sqrt(np.sum(np.array(pos)**2))/au
+
+        flux = self.baseflux * (1.0/dist)**2
+
+        return flux</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="pyRTX.classes.SRP.SunShadow"><code class="flex name class">
 <span>class <span class="ident">SunShadow</span></span>
 <span>(</span><span>spacecraft=None, body=None, bodyRadius=None, numrays=100, sunRadius=600000.0, bodyShape=None, bodyFrame=None, limbDarkening='Standard')</span>
 </code></dt>
@@ -376,7 +445,7 @@ body</p></div>
                 self.spacecraft = spacecraft
                 self.body = body
                 self.limbDarkening = limbDarkening
-                self.pxPlane = pixelPlane(spacecraft = spacecraft,
+                self.pxPlane = PixelPlane(spacecraft = spacecraft,
                                      source = &#39;Sun&#39;,
                                      mode = &#39;Dynamic&#39;,
                                      width = 2*sunRadius,
@@ -488,7 +557,7 @@ body</p></div>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="pyRTX.shadowClass.SunShadow.compute"><code class="name flex">
+<dt id="pyRTX.classes.SRP.SunShadow.compute"><code class="name flex">
 <span>def <span class="ident">compute</span></span>(<span>self, epochs)</span>
 </code></dt>
 <dd>
@@ -600,24 +669,22 @@ body</p></div>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pyRTX" href="index.html">pyRTX</a></code></li>
-</ul>
-</li>
-<li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="">
-<li><code><a title="pyRTX.shadowClass.circular_mask" href="#pyRTX.shadowClass.circular_mask">circular_mask</a></code></li>
-<li><code><a title="pyRTX.shadowClass.circular_rim" href="#pyRTX.shadowClass.circular_rim">circular_rim</a></code></li>
-<li><code><a title="pyRTX.shadowClass.compute_beta" href="#pyRTX.shadowClass.compute_beta">compute_beta</a></code></li>
-<li><code><a title="pyRTX.shadowClass.compute_directions" href="#pyRTX.shadowClass.compute_directions">compute_directions</a></code></li>
-<li><code><a title="pyRTX.shadowClass.compute_pixel_intensities" href="#pyRTX.shadowClass.compute_pixel_intensities">compute_pixel_intensities</a></code></li>
+<li><code><a title="pyRTX.classes" href="index.html">pyRTX.classes</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="pyRTX.shadowClass.SunShadow" href="#pyRTX.shadowClass.SunShadow">SunShadow</a></code></h4>
+<h4><code><a title="pyRTX.classes.SRP.SolarPressure" href="#pyRTX.classes.SRP.SolarPressure">SolarPressure</a></code></h4>
 <ul class="">
-<li><code><a title="pyRTX.shadowClass.SunShadow.compute" href="#pyRTX.shadowClass.SunShadow.compute">compute</a></code></li>
+<li><code><a title="pyRTX.classes.SRP.SolarPressure.compute" href="#pyRTX.classes.SRP.SolarPressure.compute">compute</a></code></li>
+<li><code><a title="pyRTX.classes.SRP.SolarPressure.get_flux" href="#pyRTX.classes.SRP.SolarPressure.get_flux">get_flux</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyRTX.classes.SRP.SunShadow" href="#pyRTX.classes.SRP.SunShadow">SunShadow</a></code></h4>
+<ul class="">
+<li><code><a title="pyRTX.classes.SRP.SunShadow.compute" href="#pyRTX.classes.SRP.SunShadow.compute">compute</a></code></li>
 </ul>
 </li>
 </ul>

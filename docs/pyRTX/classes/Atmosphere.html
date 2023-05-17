@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
-<title>pyRTX.VenusGram API documentation</title>
+<title>pyRTX.classes.Atmosphere API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,7 +17,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pyRTX.VenusGram</code></h1>
+<h1 class="title">Module <code>pyRTX.classes.Atmosphere</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
@@ -302,7 +302,7 @@ if __name__ == &#39;__main__&#39;:
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="pyRTX.VenusGram.VenusGram"><code class="flex name class">
+<dt id="pyRTX.classes.Atmosphere.VenusGram"><code class="flex name class">
 <span>class <span class="ident">VenusGram</span></span>
 <span>(</span><span>dataFolder='/home/cascioli/VenusGram2005/', execFolder='/home/cascioli/VenusGram2005/', tmpFolder='./tmp')</span>
 </code></dt>
@@ -563,7 +563,7 @@ $END
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="pyRTX.VenusGram.VenusGram.compute"><code class="name flex">
+<dt id="pyRTX.classes.Atmosphere.VenusGram.compute"><code class="name flex">
 <span>def <span class="ident">compute</span></span>(<span>self, epoch, lat, lon, height, inputUnits='deg', variabilities=None)</span>
 </code></dt>
 <dd>
@@ -624,7 +624,7 @@ $END
                 return rho, T, P, composition, var_low, var_avg, var_hig</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.VenusGram.VenusGram.epoch_converter"><code class="name flex">
+<dt id="pyRTX.classes.Atmosphere.VenusGram.epoch_converter"><code class="name flex">
 <span>def <span class="ident">epoch_converter</span></span>(<span>self, epoch, inputFormat='TDB', outputformat='UTC')</span>
 </code></dt>
 <dd>
@@ -651,7 +651,7 @@ $END
         return M, D, Y, H, m, S</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.VenusGram.VenusGram.namelistWriter"><code class="name flex">
+<dt id="pyRTX.classes.Atmosphere.VenusGram.namelistWriter"><code class="name flex">
 <span>def <span class="ident">namelistWriter</span></span>(<span>self, epoch, lat, lon, height)</span>
 </code></dt>
 <dd>
@@ -708,7 +708,7 @@ $END
                 f.close()</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.VenusGram.VenusGram.readResults"><code class="name flex">
+<dt id="pyRTX.classes.Atmosphere.VenusGram.readResults"><code class="name flex">
 <span>def <span class="ident">readResults</span></span>(<span>self)</span>
 </code></dt>
 <dd>
@@ -737,7 +737,7 @@ $END
         return rho, T, P, composition</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.VenusGram.VenusGram.readVariabilities"><code class="name flex">
+<dt id="pyRTX.classes.Atmosphere.VenusGram.readVariabilities"><code class="name flex">
 <span>def <span class="ident">readVariabilities</span></span>(<span>self, kind)</span>
 </code></dt>
 <dd>
@@ -788,19 +788,19 @@ hig : [float] Variable high range</p></div>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pyRTX" href="index.html">pyRTX</a></code></li>
+<li><code><a title="pyRTX.classes" href="index.html">pyRTX.classes</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="pyRTX.VenusGram.VenusGram" href="#pyRTX.VenusGram.VenusGram">VenusGram</a></code></h4>
+<h4><code><a title="pyRTX.classes.Atmosphere.VenusGram" href="#pyRTX.classes.Atmosphere.VenusGram">VenusGram</a></code></h4>
 <ul class="">
-<li><code><a title="pyRTX.VenusGram.VenusGram.compute" href="#pyRTX.VenusGram.VenusGram.compute">compute</a></code></li>
-<li><code><a title="pyRTX.VenusGram.VenusGram.epoch_converter" href="#pyRTX.VenusGram.VenusGram.epoch_converter">epoch_converter</a></code></li>
-<li><code><a title="pyRTX.VenusGram.VenusGram.namelistWriter" href="#pyRTX.VenusGram.VenusGram.namelistWriter">namelistWriter</a></code></li>
-<li><code><a title="pyRTX.VenusGram.VenusGram.readResults" href="#pyRTX.VenusGram.VenusGram.readResults">readResults</a></code></li>
-<li><code><a title="pyRTX.VenusGram.VenusGram.readVariabilities" href="#pyRTX.VenusGram.VenusGram.readVariabilities">readVariabilities</a></code></li>
+<li><code><a title="pyRTX.classes.Atmosphere.VenusGram.compute" href="#pyRTX.classes.Atmosphere.VenusGram.compute">compute</a></code></li>
+<li><code><a title="pyRTX.classes.Atmosphere.VenusGram.epoch_converter" href="#pyRTX.classes.Atmosphere.VenusGram.epoch_converter">epoch_converter</a></code></li>
+<li><code><a title="pyRTX.classes.Atmosphere.VenusGram.namelistWriter" href="#pyRTX.classes.Atmosphere.VenusGram.namelistWriter">namelistWriter</a></code></li>
+<li><code><a title="pyRTX.classes.Atmosphere.VenusGram.readResults" href="#pyRTX.classes.Atmosphere.VenusGram.readResults">readResults</a></code></li>
+<li><code><a title="pyRTX.classes.Atmosphere.VenusGram.readVariabilities" href="#pyRTX.classes.Atmosphere.VenusGram.readVariabilities">readVariabilities</a></code></li>
 </ul>
 </li>
 </ul>

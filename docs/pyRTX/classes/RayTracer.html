@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
-<title>pyRTX.rayTracerClass API documentation</title>
+<title>pyRTX.classes.RayTracer API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,17 +17,17 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pyRTX.rayTracerClass</code></h1>
+<h1 class="title">Module <code>pyRTX.classes.RayTracer</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from pyRTX.utils_rt import RTXkernel
+<pre><code class="python">from pyRTX.core.utils_rt import RTXkernel
 import timeit
 
-class rayTracer():
+class RayTracer():
         
         def __init__(self, spacecraft, rays, kernel = &#39;Embree&#39;, bounces = 1, diffusion = False, num_diffuse = None):
 
@@ -111,8 +111,8 @@ class rayTracer():
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="pyRTX.rayTracerClass.rayTracer"><code class="flex name class">
-<span>class <span class="ident">rayTracer</span></span>
+<dt id="pyRTX.classes.RayTracer.RayTracer"><code class="flex name class">
+<span>class <span class="ident">RayTracer</span></span>
 <span>(</span><span>spacecraft, rays, kernel='Embree', bounces=1, diffusion=False, num_diffuse=None)</span>
 </code></dt>
 <dd>
@@ -121,7 +121,7 @@ class rayTracer():
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class rayTracer():
+<pre><code class="python">class RayTracer():
         
         def __init__(self, spacecraft, rays, kernel = &#39;Embree&#39;, bounces = 1, diffusion = False, num_diffuse = None):
 
@@ -190,7 +190,7 @@ class rayTracer():
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="pyRTX.rayTracerClass.rayTracer.trace"><code class="name flex">
+<dt id="pyRTX.classes.RayTracer.RayTracer.trace"><code class="name flex">
 <span>def <span class="ident">trace</span></span>(<span>self, epoch=None)</span>
 </code></dt>
 <dd>
@@ -262,15 +262,15 @@ class rayTracer():
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pyRTX" href="index.html">pyRTX</a></code></li>
+<li><code><a title="pyRTX.classes" href="index.html">pyRTX.classes</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="pyRTX.rayTracerClass.rayTracer" href="#pyRTX.rayTracerClass.rayTracer">rayTracer</a></code></h4>
+<h4><code><a title="pyRTX.classes.RayTracer.RayTracer" href="#pyRTX.classes.RayTracer.RayTracer">RayTracer</a></code></h4>
 <ul class="">
-<li><code><a title="pyRTX.rayTracerClass.rayTracer.trace" href="#pyRTX.rayTracerClass.rayTracer.trace">trace</a></code></li>
+<li><code><a title="pyRTX.classes.RayTracer.RayTracer.trace" href="#pyRTX.classes.RayTracer.RayTracer.trace">trace</a></code></li>
 </ul>
 </li>
 </ul>

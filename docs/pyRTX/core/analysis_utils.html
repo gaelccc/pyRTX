@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
-<title>pyRTX.analysis_utils API documentation</title>
+<title>pyRTX.core.analysis_utils API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,7 +17,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pyRTX.analysis_utils</code></h1>
+<h1 class="title">Module <code>pyRTX.core.analysis_utils</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
@@ -29,7 +29,7 @@ import numpy as np
 from scipy import interpolate
 import spiceypy as sp
 from PIL import Image
-from pyRTX.utils_rt import block_normalize
+from pyRTX.core.utils_rt import block_normalize
 from numba import jit
 from numpy import ceil
 
@@ -316,7 +316,7 @@ class ScatterLookup():
                 Add a zone
                 Parameters
                 ----------
-                ZoneLookup : pyRTX.analysis_utils.LookupTableND
+                ZoneLookup : pyRTX.core.analysis_utils.LookupTableND
 
                 &#34;&#34;&#34;
                 if not isinstance(ZoneLookup, LookupTableND):
@@ -568,20 +568,20 @@ def get_spacecraft_area(spacecraft, ra = 0.0, dec = 0.0, epoch = None):
         TODO: avoid hardcoded width/height but rather use an automated method
 
         &#39;&#39;&#39;
-        from pyRTX.pixelPlaneClass import pixelPlane
-        from pyRTX.rayTracerClass import rayTracer
-        rays = pixelPlane( 
+        from pyRTX.classes.PixelPlane import PixelPlane
+        from pyRTX.classes.RayTracer  import RayTracer
+        rays = PixelPlane( 
                         spacecraft = spacecraft,   # Spacecraft object 
                         mode = &#39;Fixed&#39;,   # Mode: can be &#39;Dynamic&#39; ( The sun orientation is computed from the kernels), or &#39;Fixed&#39;
                         distance = 10000,           # Distance of the ray origin from the spacecraft
-                        width = 100,        # Width of the pixel plane
-                        height = 100,        # Height of the pixel plane
+                        width = 10,         # Width of the pixel plane
+                        height = 10,        # Height of the pixel plane
                         lon = ra,
                         lat = dec, 
                         ray_spacing = 0.1, # Ray spacing (in m)
                 )
 
-        rtx = rayTracer(        
+        rtx = RayTracer(        
                         spacecraft,                    # Spacecraft object
                         rays,                   # pixelPlane object
                         kernel = &#39;Embree&#39;,      # The RTX kernel to use
@@ -602,7 +602,7 @@ def get_spacecraft_area(spacecraft, ra = 0.0, dec = 0.0, epoch = None):
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="pyRTX.analysis_utils.computeRADEC"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.computeRADEC"><code class="name flex">
 <span>def <span class="ident">computeRADEC</span></span>(<span>vecs, periodicity=360)</span>
 </code></dt>
 <dd>
@@ -639,7 +639,7 @@ RA, DEC</p></div>
         return ra, dec</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.analysis_utils.convertEpoch"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.convertEpoch"><code class="name flex">
 <span>def <span class="ident">convertEpoch</span></span>(<span>monteEpoch)</span>
 </code></dt>
 <dd>
@@ -655,7 +655,7 @@ RA, DEC</p></div>
         &#39;&#39;&#39;</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.analysis_utils.convertTIFtoMesh"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.convertTIFtoMesh"><code class="name flex">
 <span>def <span class="ident">convertTIFtoMesh</span></span>(<span>tifFile='', latSampling='', inferSampling=False, lonSampling='', planet='', lat0=-1.5707963267948966, lat1=1.5707963267948966, lon0=0, lon1=6.283185307179586)</span>
 </code></dt>
 <dd>
@@ -728,7 +728,7 @@ to the Planet class via the setter method: Planet.emissivity = emissivityInterpo
         &#39;&#39;&#39;</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.analysis_utils.epochRange"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.epochRange"><code class="name flex">
 <span>def <span class="ident">epochRange</span></span>(<span>startEpoch=None, duration=None, step=100)</span>
 </code></dt>
 <dd>
@@ -751,7 +751,7 @@ to the Planet class via the setter method: Planet.emissivity = emissivityInterpo
         return epochList</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.analysis_utils.epochRange2"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.epochRange2"><code class="name flex">
 <span>def <span class="ident">epochRange2</span></span>(<span>startEpoch=None, endEpoch=None, step=100)</span>
 </code></dt>
 <dd>
@@ -785,7 +785,7 @@ to the Planet class via the setter method: Planet.emissivity = emissivityInterpo
         return np.array(epochlist)</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.analysis_utils.getSunAngles"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.getSunAngles"><code class="name flex">
 <span>def <span class="ident">getSunAngles</span></span>(<span>scName=None, scFrame=None, epoch=None, correction='LT+S')</span>
 </code></dt>
 <dd>
@@ -801,7 +801,7 @@ to the Planet class via the setter method: Planet.emissivity = emissivityInterpo
         return ra, dec</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.analysis_utils.get_spacecraft_area"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.get_spacecraft_area"><code class="name flex">
 <span>def <span class="ident">get_spacecraft_area</span></span>(<span>spacecraft, ra=0.0, dec=0.0, epoch=None)</span>
 </code></dt>
 <dd>
@@ -846,20 +846,20 @@ Spacecraft object</p>
         TODO: avoid hardcoded width/height but rather use an automated method
 
         &#39;&#39;&#39;
-        from pyRTX.pixelPlaneClass import pixelPlane
-        from pyRTX.rayTracerClass import rayTracer
-        rays = pixelPlane( 
+        from pyRTX.classes.PixelPlane import PixelPlane
+        from pyRTX.classes.RayTracer  import RayTracer
+        rays = PixelPlane( 
                         spacecraft = spacecraft,   # Spacecraft object 
                         mode = &#39;Fixed&#39;,   # Mode: can be &#39;Dynamic&#39; ( The sun orientation is computed from the kernels), or &#39;Fixed&#39;
                         distance = 10000,           # Distance of the ray origin from the spacecraft
-                        width = 100,        # Width of the pixel plane
-                        height = 100,        # Height of the pixel plane
+                        width = 10,         # Width of the pixel plane
+                        height = 10,        # Height of the pixel plane
                         lon = ra,
                         lat = dec, 
                         ray_spacing = 0.1, # Ray spacing (in m)
                 )
 
-        rtx = rayTracer(        
+        rtx = RayTracer(        
                         spacecraft,                    # Spacecraft object
                         rays,                   # pixelPlane object
                         kernel = &#39;Embree&#39;,      # The RTX kernel to use
@@ -878,7 +878,7 @@ Spacecraft object</p>
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="pyRTX.analysis_utils.LookupTable"><code class="flex name class">
+<dt id="pyRTX.core.analysis_utils.LookupTable"><code class="flex name class">
 <span>class <span class="ident">LookupTable</span></span>
 <span>(</span><span>linspace_x, linspace_y, values)</span>
 </code></dt>
@@ -1037,7 +1037,7 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="pyRTX.analysis_utils.LookupTable.interp_point"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.LookupTable.interp_point"><code class="name flex">
 <span>def <span class="ident">interp_point</span></span>(<span>self, x, y)</span>
 </code></dt>
 <dd>
@@ -1050,7 +1050,7 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
         return self._interpolator(x,y)</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.analysis_utils.LookupTable.quickPlot"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.LookupTable.quickPlot"><code class="name flex">
 <span>def <span class="ident">quickPlot</span></span>(<span>self, xlabel=None, ylabel=None, title=None, conversion=1, clabel=None, cmap='viridis', saveto=None)</span>
 </code></dt>
 <dd>
@@ -1119,7 +1119,7 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
         plt.show()</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.analysis_utils.LookupTable.set_interpType"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.LookupTable.set_interpType"><code class="name flex">
 <span>def <span class="ident">set_interpType</span></span>(<span>self, interpType)</span>
 </code></dt>
 <dd>
@@ -1134,7 +1134,7 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
 </dd>
 </dl>
 </dd>
-<dt id="pyRTX.analysis_utils.LookupTableND"><code class="flex name class">
+<dt id="pyRTX.core.analysis_utils.LookupTableND"><code class="flex name class">
 <span>class <span class="ident">LookupTableND</span></span>
 <span>(</span><span>axes=None, values=None, info=None, np_array=None)</span>
 </code></dt>
@@ -1275,7 +1275,7 @@ unset</p></div>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="pyRTX.analysis_utils.LookupTableND.axisExtent"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.LookupTableND.axisExtent"><code class="name flex">
 <span>def <span class="ident">axisExtent</span></span>(<span>self)</span>
 </code></dt>
 <dd>
@@ -1291,7 +1291,7 @@ unset</p></div>
         return extent</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.analysis_utils.LookupTableND.get_idx"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.LookupTableND.get_idx"><code class="name flex">
 <span>def <span class="ident">get_idx</span></span>(<span>self, ind, search_list)</span>
 </code></dt>
 <dd>
@@ -1304,7 +1304,7 @@ unset</p></div>
         return np.where(search_list == ind)[0][0]</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.analysis_utils.LookupTableND.interp_point"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.LookupTableND.interp_point"><code class="name flex">
 <span>def <span class="ident">interp_point</span></span>(<span>self, vals)</span>
 </code></dt>
 <dd>
@@ -1317,7 +1317,7 @@ unset</p></div>
         return self._interpolator(vals)</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.analysis_utils.LookupTableND.quickPlot"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.LookupTableND.quickPlot"><code class="name flex">
 <span>def <span class="ident">quickPlot</span></span>(<span>self, xlabel=None, ylabel=None, title=None, conversion=1, clabel=None, cmap='viridis', saveto=None)</span>
 </code></dt>
 <dd>
@@ -1385,7 +1385,7 @@ unset</p></div>
         plt.show()</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.analysis_utils.LookupTableND.set_interpType"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.LookupTableND.set_interpType"><code class="name flex">
 <span>def <span class="ident">set_interpType</span></span>(<span>self, interpType)</span>
 </code></dt>
 <dd>
@@ -1400,7 +1400,7 @@ unset</p></div>
 </dd>
 </dl>
 </dd>
-<dt id="pyRTX.analysis_utils.ScatterLookup"><code class="flex name class">
+<dt id="pyRTX.core.analysis_utils.ScatterLookup"><code class="flex name class">
 <span>class <span class="ident">ScatterLookup</span></span>
 </code></dt>
 <dd>
@@ -1447,7 +1447,7 @@ sc.addZone(zone2)</p>
                 Add a zone
                 Parameters
                 ----------
-                ZoneLookup : pyRTX.analysis_utils.LookupTableND
+                ZoneLookup : pyRTX.core.analysis_utils.LookupTableND
 
                 &#34;&#34;&#34;
                 if not isinstance(ZoneLookup, LookupTableND):
@@ -1480,7 +1480,7 @@ sc.addZone(zone2)</p>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="pyRTX.analysis_utils.ScatterLookup.add_zone"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.ScatterLookup.add_zone"><code class="name flex">
 <span>def <span class="ident">add_zone</span></span>(<span>self, ZoneLookup='')</span>
 </code></dt>
 <dd>
@@ -1488,7 +1488,7 @@ sc.addZone(zone2)</p>
 Parameters</p>
 <hr>
 <dl>
-<dt><strong><code>ZoneLookup</code></strong> :&ensp;<code><a title="pyRTX.analysis_utils.LookupTableND" href="#pyRTX.analysis_utils.LookupTableND">LookupTableND</a></code></dt>
+<dt><strong><code>ZoneLookup</code></strong> :&ensp;<code><a title="pyRTX.core.analysis_utils.LookupTableND" href="#pyRTX.core.analysis_utils.LookupTableND">LookupTableND</a></code></dt>
 <dd>&nbsp;</dd>
 </dl></div>
 <details class="source">
@@ -1500,7 +1500,7 @@ Parameters</p>
         Add a zone
         Parameters
         ----------
-        ZoneLookup : pyRTX.analysis_utils.LookupTableND
+        ZoneLookup : pyRTX.core.analysis_utils.LookupTableND
 
         &#34;&#34;&#34;
         if not isinstance(ZoneLookup, LookupTableND):
@@ -1510,7 +1510,7 @@ Parameters</p>
         self.zonedef.append(ZoneLookup.axisExtent())</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.analysis_utils.ScatterLookup.zone_determination"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.ScatterLookup.zone_determination"><code class="name flex">
 <span>def <span class="ident">zone_determination</span></span>(<span>self, idxs)</span>
 </code></dt>
 <dd>
@@ -1537,7 +1537,7 @@ Parameters</p>
 </dd>
 </dl>
 </dd>
-<dt id="pyRTX.analysis_utils.TiffInterpolator"><code class="flex name class">
+<dt id="pyRTX.core.analysis_utils.TiffInterpolator"><code class="flex name class">
 <span>class <span class="ident">TiffInterpolator</span></span>
 <span>(</span><span>axes=None, values=None)</span>
 </code></dt>
@@ -1605,7 +1605,7 @@ Parameters</p>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="pyRTX.analysis_utils.TiffInterpolator.get_idx"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.TiffInterpolator.get_idx"><code class="name flex">
 <span>def <span class="ident">get_idx</span></span>(<span>self, ind, search_list)</span>
 </code></dt>
 <dd>
@@ -1618,7 +1618,7 @@ Parameters</p>
         return np.where(search_list == ind)[0][0]</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.analysis_utils.TiffInterpolator.interp_point"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.TiffInterpolator.interp_point"><code class="name flex">
 <span>def <span class="ident">interp_point</span></span>(<span>self, vals)</span>
 </code></dt>
 <dd>
@@ -1631,7 +1631,7 @@ Parameters</p>
         return self.interpolator(vals)</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.analysis_utils.TiffInterpolator.interpolator"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.TiffInterpolator.interpolator"><code class="name flex">
 <span>def <span class="ident">interpolator</span></span>(<span>self, vals)</span>
 </code></dt>
 <dd>
@@ -1645,7 +1645,7 @@ Parameters</p>
         return interpolate.interpn(self.axes,self.values.T, vals) </code></pre>
 </details>
 </dd>
-<dt id="pyRTX.analysis_utils.TiffInterpolator.set_interpType"><code class="name flex">
+<dt id="pyRTX.core.analysis_utils.TiffInterpolator.set_interpType"><code class="name flex">
 <span>def <span class="ident">set_interpType</span></span>(<span>self, interpType)</span>
 </code></dt>
 <dd>
@@ -1671,54 +1671,54 @@ Parameters</p>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pyRTX" href="index.html">pyRTX</a></code></li>
+<li><code><a title="pyRTX.core" href="index.html">pyRTX.core</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
-<li><code><a title="pyRTX.analysis_utils.computeRADEC" href="#pyRTX.analysis_utils.computeRADEC">computeRADEC</a></code></li>
-<li><code><a title="pyRTX.analysis_utils.convertEpoch" href="#pyRTX.analysis_utils.convertEpoch">convertEpoch</a></code></li>
-<li><code><a title="pyRTX.analysis_utils.convertTIFtoMesh" href="#pyRTX.analysis_utils.convertTIFtoMesh">convertTIFtoMesh</a></code></li>
-<li><code><a title="pyRTX.analysis_utils.epochRange" href="#pyRTX.analysis_utils.epochRange">epochRange</a></code></li>
-<li><code><a title="pyRTX.analysis_utils.epochRange2" href="#pyRTX.analysis_utils.epochRange2">epochRange2</a></code></li>
-<li><code><a title="pyRTX.analysis_utils.getSunAngles" href="#pyRTX.analysis_utils.getSunAngles">getSunAngles</a></code></li>
-<li><code><a title="pyRTX.analysis_utils.get_spacecraft_area" href="#pyRTX.analysis_utils.get_spacecraft_area">get_spacecraft_area</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.computeRADEC" href="#pyRTX.core.analysis_utils.computeRADEC">computeRADEC</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.convertEpoch" href="#pyRTX.core.analysis_utils.convertEpoch">convertEpoch</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.convertTIFtoMesh" href="#pyRTX.core.analysis_utils.convertTIFtoMesh">convertTIFtoMesh</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.epochRange" href="#pyRTX.core.analysis_utils.epochRange">epochRange</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.epochRange2" href="#pyRTX.core.analysis_utils.epochRange2">epochRange2</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.getSunAngles" href="#pyRTX.core.analysis_utils.getSunAngles">getSunAngles</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.get_spacecraft_area" href="#pyRTX.core.analysis_utils.get_spacecraft_area">get_spacecraft_area</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="pyRTX.analysis_utils.LookupTable" href="#pyRTX.analysis_utils.LookupTable">LookupTable</a></code></h4>
+<h4><code><a title="pyRTX.core.analysis_utils.LookupTable" href="#pyRTX.core.analysis_utils.LookupTable">LookupTable</a></code></h4>
 <ul class="">
-<li><code><a title="pyRTX.analysis_utils.LookupTable.interp_point" href="#pyRTX.analysis_utils.LookupTable.interp_point">interp_point</a></code></li>
-<li><code><a title="pyRTX.analysis_utils.LookupTable.quickPlot" href="#pyRTX.analysis_utils.LookupTable.quickPlot">quickPlot</a></code></li>
-<li><code><a title="pyRTX.analysis_utils.LookupTable.set_interpType" href="#pyRTX.analysis_utils.LookupTable.set_interpType">set_interpType</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.LookupTable.interp_point" href="#pyRTX.core.analysis_utils.LookupTable.interp_point">interp_point</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.LookupTable.quickPlot" href="#pyRTX.core.analysis_utils.LookupTable.quickPlot">quickPlot</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.LookupTable.set_interpType" href="#pyRTX.core.analysis_utils.LookupTable.set_interpType">set_interpType</a></code></li>
 </ul>
 </li>
 <li>
-<h4><code><a title="pyRTX.analysis_utils.LookupTableND" href="#pyRTX.analysis_utils.LookupTableND">LookupTableND</a></code></h4>
+<h4><code><a title="pyRTX.core.analysis_utils.LookupTableND" href="#pyRTX.core.analysis_utils.LookupTableND">LookupTableND</a></code></h4>
 <ul class="">
-<li><code><a title="pyRTX.analysis_utils.LookupTableND.axisExtent" href="#pyRTX.analysis_utils.LookupTableND.axisExtent">axisExtent</a></code></li>
-<li><code><a title="pyRTX.analysis_utils.LookupTableND.get_idx" href="#pyRTX.analysis_utils.LookupTableND.get_idx">get_idx</a></code></li>
-<li><code><a title="pyRTX.analysis_utils.LookupTableND.interp_point" href="#pyRTX.analysis_utils.LookupTableND.interp_point">interp_point</a></code></li>
-<li><code><a title="pyRTX.analysis_utils.LookupTableND.quickPlot" href="#pyRTX.analysis_utils.LookupTableND.quickPlot">quickPlot</a></code></li>
-<li><code><a title="pyRTX.analysis_utils.LookupTableND.set_interpType" href="#pyRTX.analysis_utils.LookupTableND.set_interpType">set_interpType</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.LookupTableND.axisExtent" href="#pyRTX.core.analysis_utils.LookupTableND.axisExtent">axisExtent</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.LookupTableND.get_idx" href="#pyRTX.core.analysis_utils.LookupTableND.get_idx">get_idx</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.LookupTableND.interp_point" href="#pyRTX.core.analysis_utils.LookupTableND.interp_point">interp_point</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.LookupTableND.quickPlot" href="#pyRTX.core.analysis_utils.LookupTableND.quickPlot">quickPlot</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.LookupTableND.set_interpType" href="#pyRTX.core.analysis_utils.LookupTableND.set_interpType">set_interpType</a></code></li>
 </ul>
 </li>
 <li>
-<h4><code><a title="pyRTX.analysis_utils.ScatterLookup" href="#pyRTX.analysis_utils.ScatterLookup">ScatterLookup</a></code></h4>
+<h4><code><a title="pyRTX.core.analysis_utils.ScatterLookup" href="#pyRTX.core.analysis_utils.ScatterLookup">ScatterLookup</a></code></h4>
 <ul class="">
-<li><code><a title="pyRTX.analysis_utils.ScatterLookup.add_zone" href="#pyRTX.analysis_utils.ScatterLookup.add_zone">add_zone</a></code></li>
-<li><code><a title="pyRTX.analysis_utils.ScatterLookup.zone_determination" href="#pyRTX.analysis_utils.ScatterLookup.zone_determination">zone_determination</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.ScatterLookup.add_zone" href="#pyRTX.core.analysis_utils.ScatterLookup.add_zone">add_zone</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.ScatterLookup.zone_determination" href="#pyRTX.core.analysis_utils.ScatterLookup.zone_determination">zone_determination</a></code></li>
 </ul>
 </li>
 <li>
-<h4><code><a title="pyRTX.analysis_utils.TiffInterpolator" href="#pyRTX.analysis_utils.TiffInterpolator">TiffInterpolator</a></code></h4>
+<h4><code><a title="pyRTX.core.analysis_utils.TiffInterpolator" href="#pyRTX.core.analysis_utils.TiffInterpolator">TiffInterpolator</a></code></h4>
 <ul class="">
-<li><code><a title="pyRTX.analysis_utils.TiffInterpolator.get_idx" href="#pyRTX.analysis_utils.TiffInterpolator.get_idx">get_idx</a></code></li>
-<li><code><a title="pyRTX.analysis_utils.TiffInterpolator.interp_point" href="#pyRTX.analysis_utils.TiffInterpolator.interp_point">interp_point</a></code></li>
-<li><code><a title="pyRTX.analysis_utils.TiffInterpolator.interpolator" href="#pyRTX.analysis_utils.TiffInterpolator.interpolator">interpolator</a></code></li>
-<li><code><a title="pyRTX.analysis_utils.TiffInterpolator.set_interpType" href="#pyRTX.analysis_utils.TiffInterpolator.set_interpType">set_interpType</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.TiffInterpolator.get_idx" href="#pyRTX.core.analysis_utils.TiffInterpolator.get_idx">get_idx</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.TiffInterpolator.interp_point" href="#pyRTX.core.analysis_utils.TiffInterpolator.interp_point">interp_point</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.TiffInterpolator.interpolator" href="#pyRTX.core.analysis_utils.TiffInterpolator.interpolator">interpolator</a></code></li>
+<li><code><a title="pyRTX.core.analysis_utils.TiffInterpolator.set_interpType" href="#pyRTX.core.analysis_utils.TiffInterpolator.set_interpType">set_interpType</a></code></li>
 </ul>
 </li>
 </ul>

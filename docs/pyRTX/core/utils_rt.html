@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
-<title>pyRTX.utils_rt API documentation</title>
+<title>pyRTX.core.utils_rt API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,7 +17,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pyRTX.utils_rt</code></h1>
+<h1 class="title">Module <code>pyRTX.core.utils_rt</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
@@ -177,6 +177,7 @@ def pixel_plane(d0, lon, lat, width = 1, height = 1, ray_spacing = .1):
 
 @jit(nopython = True)
 def fast_vector_build(linsp1, linsp2, dim1, dim2):
+
         &#34;&#34;&#34;
         Further accelerate the ray vector generation using numba&#39;s jit vectorization
         &#34;&#34;&#34;
@@ -889,7 +890,7 @@ if __name__ == &#34;__main__&#34;:
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="pyRTX.utils_rt.Embree3_dump_solution"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.Embree3_dump_solution"><code class="name flex">
 <span>def <span class="ident">Embree3_dump_solution</span></span>(<span>rayhit, V, F)</span>
 </code></dt>
 <dd>
@@ -943,7 +944,7 @@ Ph: hit points on the mesh</p></div>
                 return -1, -1, -1, -1</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.Embree3_init_geometry"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.Embree3_init_geometry"><code class="name flex">
 <span>def <span class="ident">Embree3_init_geometry</span></span>(<span>mesh_obj)</span>
 </code></dt>
 <dd>
@@ -988,7 +989,7 @@ F: mesh faces</p></div>
         return scene, context, V, F</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.Embree3_init_rayhit"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="name flex">
 <span>def <span class="ident">Embree3_init_rayhit</span></span>(<span>ray_origins, ray_directions)</span>
 </code></dt>
 <dd>
@@ -1031,7 +1032,7 @@ rayhit: the initialized embree.rayhit object</p></div>
         return rayhit</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.RTXkernel"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.RTXkernel"><code class="name flex">
 <span>def <span class="ident">RTXkernel</span></span>(<span>mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree', diffusion=False, num_diffuse=None, errorMsg=True)</span>
 </code></dt>
 <dd>
@@ -1209,7 +1210,7 @@ Location of intersect points</p></div>
                 return index_tri_container, index_ray_container, locations_container, ray_origins_container, ray_directions_container, None</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.block_dot"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.block_dot"><code class="name flex">
 <span>def <span class="ident">block_dot</span></span>(<span>a, b)</span>
 </code></dt>
 <dd>
@@ -1236,7 +1237,7 @@ c [np.array (N,)]</p></div>
         return np.sum(a*b, axis = 1)</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.block_normalize"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.block_normalize"><code class="name flex">
 <span>def <span class="ident">block_normalize</span></span>(<span>V)</span>
 </code></dt>
 <dd>
@@ -1261,7 +1262,7 @@ c [np.array (N,)]</p></div>
                 return V / np.linalg.norm(V)</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.chunker"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.chunker"><code class="name flex">
 <span>def <span class="ident">chunker</span></span>(<span>iterator, chunks)</span>
 </code></dt>
 <dd>
@@ -1275,7 +1276,7 @@ c [np.array (N,)]</p></div>
         return np.array_split(iterator, chunks)</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.compute_secondary_bounce"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.compute_secondary_bounce"><code class="name flex">
 <span>def <span class="ident">compute_secondary_bounce</span></span>(<span>location, index_tri, mesh_obj, ray_directions, index_ray, diffusion=False, num_diffuse=None)</span>
 </code></dt>
 <dd>
@@ -1333,7 +1334,7 @@ diffuse_dirs [numpy array (L*num_diffuse, 3) or -1] (if requested) the direction
         return location, reflect_dirs, diffuse_dirs</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.diffuse"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.diffuse"><code class="name flex">
 <span>def <span class="ident">diffuse</span></span>(<span>normals, num=10)</span>
 </code></dt>
 <dd>
@@ -1372,7 +1373,7 @@ diffuse_directions: [numpy array (N*num, 3)]</p></div>
         #return _core_diffuse(normals, diffuse_directions, num)</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.exportEXAC"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.exportEXAC"><code class="name flex">
 <span>def <span class="ident">exportEXAC</span></span>(<span>satelliteID, data, tstep, startTime, endTime, outFileName)</span>
 </code></dt>
 <dd>
@@ -1425,7 +1426,7 @@ outFileName: [str] name of output file</p></div>
                 outfile.write_record(datarec)</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.fast_vector_build"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.fast_vector_build"><code class="name flex">
 <span>def <span class="ident">fast_vector_build</span></span>(<span>linsp1, linsp2, dim1, dim2)</span>
 </code></dt>
 <dd>
@@ -1436,6 +1437,7 @@ outFileName: [str] name of output file</p></div>
 </summary>
 <pre><code class="python">@jit(nopython = True)
 def fast_vector_build(linsp1, linsp2, dim1, dim2):
+
         &#34;&#34;&#34;
         Further accelerate the ray vector generation using numba&#39;s jit vectorization
         &#34;&#34;&#34;
@@ -1449,7 +1451,7 @@ def fast_vector_build(linsp1, linsp2, dim1, dim2):
         return basic_coords     </code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.get_centroids"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.get_centroids"><code class="name flex">
 <span>def <span class="ident">get_centroids</span></span>(<span>V, F)</span>
 </code></dt>
 <dd>
@@ -1462,7 +1464,7 @@ def fast_vector_build(linsp1, linsp2, dim1, dim2):
     return V[F].mean(axis=1)</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.get_cross_products"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.get_cross_products"><code class="name flex">
 <span>def <span class="ident">get_cross_products</span></span>(<span>V, F)</span>
 </code></dt>
 <dd>
@@ -1477,7 +1479,7 @@ def fast_vector_build(linsp1, linsp2, dim1, dim2):
     return C</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.get_face_areas"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.get_face_areas"><code class="name flex">
 <span>def <span class="ident">get_face_areas</span></span>(<span>V, F)</span>
 </code></dt>
 <dd>
@@ -1493,7 +1495,7 @@ def fast_vector_build(linsp1, linsp2, dim1, dim2):
     return A</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.get_orthogonal"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.get_orthogonal"><code class="name flex">
 <span>def <span class="ident">get_orthogonal</span></span>(<span>v)</span>
 </code></dt>
 <dd>
@@ -1524,7 +1526,7 @@ def get_orthogonal(v):
         return x</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.get_surface_normals"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.get_surface_normals"><code class="name flex">
 <span>def <span class="ident">get_surface_normals</span></span>(<span>V, F)</span>
 </code></dt>
 <dd>
@@ -1540,7 +1542,7 @@ def get_orthogonal(v):
     return N</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.get_surface_normals_and_face_areas"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="name flex">
 <span>def <span class="ident">get_surface_normals_and_face_areas</span></span>(<span>V, F)</span>
 </code></dt>
 <dd>
@@ -1557,7 +1559,7 @@ def get_orthogonal(v):
     return N, A</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.parallelize"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.parallelize"><code class="name flex">
 <span>def <span class="ident">parallelize</span></span>(<span>iterator, function, chunks)</span>
 </code></dt>
 <dd>
@@ -1589,7 +1591,7 @@ chunks: number of parallel workers</p></div>
         return result</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.pixel_plane"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.pixel_plane"><code class="name flex">
 <span>def <span class="ident">pixel_plane</span></span>(<span>d0, lon, lat, width=1, height=1, ray_spacing=0.1)</span>
 </code></dt>
 <dd>
@@ -1658,7 +1660,7 @@ dirs: the ray directions as a numpy array</p></div>
         return basic_coords, basic_dirs</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.pixel_plane_opt"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.pixel_plane_opt"><code class="name flex">
 <span>def <span class="ident">pixel_plane_opt</span></span>(<span>d0, lon, lat, width=1, height=1, ray_spacing=0.1, packets=1)</span>
 </code></dt>
 <dd>
@@ -1744,7 +1746,7 @@ dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array</p></div>
         return basic_coords, basic_dirs</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.pxform_convert"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.pxform_convert"><code class="name flex">
 <span>def <span class="ident">pxform_convert</span></span>(<span>pxform)</span>
 </code></dt>
 <dd>
@@ -1766,7 +1768,7 @@ dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array</p></div>
         return p</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.reflected"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.reflected"><code class="name flex">
 <span>def <span class="ident">reflected</span></span>(<span>incoming, normal)</span>
 </code></dt>
 <dd>
@@ -1798,7 +1800,7 @@ reflected: [numpy array (number of rays, 3)] reflected rays</p></div>
         return incoming - 2*np.multiply(normal.T,np.einsum(&#39;ij,ij-&gt;i&#39;,incoming, normal)).T</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.sample_lambert_dist"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.sample_lambert_dist"><code class="name flex">
 <span>def <span class="ident">sample_lambert_dist</span></span>(<span>normal, num=100)</span>
 </code></dt>
 <dd>
@@ -1844,7 +1846,7 @@ def sample_lambert_dist(normal, num = 100):
         return v</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.utils_rt.save_for_visualization"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.save_for_visualization"><code class="name flex">
 <span>def <span class="ident">save_for_visualization</span></span>(<span>outputFilePath, mesh, ray_origins, ray_directions, location, index_tri, diffusion_pack)</span>
 </code></dt>
 <dd>
@@ -1891,7 +1893,7 @@ None</p></div>
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="pyRTX.utils_rt.ShapeModel"><code class="flex name class">
+<dt id="pyRTX.core.utils_rt.ShapeModel"><code class="flex name class">
 <span>class <span class="ident">ShapeModel</span></span>
 </code></dt>
 <dd>
@@ -1910,10 +1912,10 @@ inheritance.</p></div>
 </ul>
 <h3>Subclasses</h3>
 <ul class="hlist">
-<li><a title="pyRTX.utils_rt.TrimeshShapeModel" href="#pyRTX.utils_rt.TrimeshShapeModel">TrimeshShapeModel</a></li>
+<li><a title="pyRTX.core.utils_rt.TrimeshShapeModel" href="#pyRTX.core.utils_rt.TrimeshShapeModel">TrimeshShapeModel</a></li>
 </ul>
 </dd>
-<dt id="pyRTX.utils_rt.TrimeshShapeModel"><code class="flex name class">
+<dt id="pyRTX.core.utils_rt.TrimeshShapeModel"><code class="flex name class">
 <span>class <span class="ident">TrimeshShapeModel</span></span>
 <span>(</span><span>V, F, N=None, P=None, A=None)</span>
 </code></dt>
@@ -2059,12 +2061,12 @@ be optionally passed to avoid recomputing.</dd>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
-<li><a title="pyRTX.utils_rt.ShapeModel" href="#pyRTX.utils_rt.ShapeModel">ShapeModel</a></li>
+<li><a title="pyRTX.core.utils_rt.ShapeModel" href="#pyRTX.core.utils_rt.ShapeModel">ShapeModel</a></li>
 <li>abc.ABC</li>
 </ul>
 <h3>Instance variables</h3>
 <dl>
-<dt id="pyRTX.utils_rt.TrimeshShapeModel.num_faces"><code class="name">var <span class="ident">num_faces</span></code></dt>
+<dt id="pyRTX.core.utils_rt.TrimeshShapeModel.num_faces"><code class="name">var <span class="ident">num_faces</span></code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
@@ -2079,7 +2081,7 @@ def num_faces(self):
 </dl>
 <h3>Methods</h3>
 <dl>
-<dt id="pyRTX.utils_rt.TrimeshShapeModel.get_scene"><code class="name flex">
+<dt id="pyRTX.core.utils_rt.TrimeshShapeModel.get_scene"><code class="name flex">
 <span>def <span class="ident">get_scene</span></span>(<span>self)</span>
 </code></dt>
 <dd>
@@ -2105,47 +2107,47 @@ def num_faces(self):
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pyRTX" href="index.html">pyRTX</a></code></li>
+<li><code><a title="pyRTX.core" href="index.html">pyRTX.core</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="pyRTX.utils_rt.Embree3_dump_solution" href="#pyRTX.utils_rt.Embree3_dump_solution">Embree3_dump_solution</a></code></li>
-<li><code><a title="pyRTX.utils_rt.Embree3_init_geometry" href="#pyRTX.utils_rt.Embree3_init_geometry">Embree3_init_geometry</a></code></li>
-<li><code><a title="pyRTX.utils_rt.Embree3_init_rayhit" href="#pyRTX.utils_rt.Embree3_init_rayhit">Embree3_init_rayhit</a></code></li>
-<li><code><a title="pyRTX.utils_rt.RTXkernel" href="#pyRTX.utils_rt.RTXkernel">RTXkernel</a></code></li>
-<li><code><a title="pyRTX.utils_rt.block_dot" href="#pyRTX.utils_rt.block_dot">block_dot</a></code></li>
-<li><code><a title="pyRTX.utils_rt.block_normalize" href="#pyRTX.utils_rt.block_normalize">block_normalize</a></code></li>
-<li><code><a title="pyRTX.utils_rt.chunker" href="#pyRTX.utils_rt.chunker">chunker</a></code></li>
-<li><code><a title="pyRTX.utils_rt.compute_secondary_bounce" href="#pyRTX.utils_rt.compute_secondary_bounce">compute_secondary_bounce</a></code></li>
-<li><code><a title="pyRTX.utils_rt.diffuse" href="#pyRTX.utils_rt.diffuse">diffuse</a></code></li>
-<li><code><a title="pyRTX.utils_rt.exportEXAC" href="#pyRTX.utils_rt.exportEXAC">exportEXAC</a></code></li>
-<li><code><a title="pyRTX.utils_rt.fast_vector_build" href="#pyRTX.utils_rt.fast_vector_build">fast_vector_build</a></code></li>
-<li><code><a title="pyRTX.utils_rt.get_centroids" href="#pyRTX.utils_rt.get_centroids">get_centroids</a></code></li>
-<li><code><a title="pyRTX.utils_rt.get_cross_products" href="#pyRTX.utils_rt.get_cross_products">get_cross_products</a></code></li>
-<li><code><a title="pyRTX.utils_rt.get_face_areas" href="#pyRTX.utils_rt.get_face_areas">get_face_areas</a></code></li>
-<li><code><a title="pyRTX.utils_rt.get_orthogonal" href="#pyRTX.utils_rt.get_orthogonal">get_orthogonal</a></code></li>
-<li><code><a title="pyRTX.utils_rt.get_surface_normals" href="#pyRTX.utils_rt.get_surface_normals">get_surface_normals</a></code></li>
-<li><code><a title="pyRTX.utils_rt.get_surface_normals_and_face_areas" href="#pyRTX.utils_rt.get_surface_normals_and_face_areas">get_surface_normals_and_face_areas</a></code></li>
-<li><code><a title="pyRTX.utils_rt.parallelize" href="#pyRTX.utils_rt.parallelize">parallelize</a></code></li>
-<li><code><a title="pyRTX.utils_rt.pixel_plane" href="#pyRTX.utils_rt.pixel_plane">pixel_plane</a></code></li>
-<li><code><a title="pyRTX.utils_rt.pixel_plane_opt" href="#pyRTX.utils_rt.pixel_plane_opt">pixel_plane_opt</a></code></li>
-<li><code><a title="pyRTX.utils_rt.pxform_convert" href="#pyRTX.utils_rt.pxform_convert">pxform_convert</a></code></li>
-<li><code><a title="pyRTX.utils_rt.reflected" href="#pyRTX.utils_rt.reflected">reflected</a></code></li>
-<li><code><a title="pyRTX.utils_rt.sample_lambert_dist" href="#pyRTX.utils_rt.sample_lambert_dist">sample_lambert_dist</a></code></li>
-<li><code><a title="pyRTX.utils_rt.save_for_visualization" href="#pyRTX.utils_rt.save_for_visualization">save_for_visualization</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.Embree3_dump_solution" href="#pyRTX.core.utils_rt.Embree3_dump_solution">Embree3_dump_solution</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.Embree3_init_geometry" href="#pyRTX.core.utils_rt.Embree3_init_geometry">Embree3_init_geometry</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.Embree3_init_rayhit" href="#pyRTX.core.utils_rt.Embree3_init_rayhit">Embree3_init_rayhit</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.RTXkernel" href="#pyRTX.core.utils_rt.RTXkernel">RTXkernel</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.block_dot" href="#pyRTX.core.utils_rt.block_dot">block_dot</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.block_normalize" href="#pyRTX.core.utils_rt.block_normalize">block_normalize</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.chunker" href="#pyRTX.core.utils_rt.chunker">chunker</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.compute_secondary_bounce" href="#pyRTX.core.utils_rt.compute_secondary_bounce">compute_secondary_bounce</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.diffuse" href="#pyRTX.core.utils_rt.diffuse">diffuse</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.exportEXAC" href="#pyRTX.core.utils_rt.exportEXAC">exportEXAC</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.fast_vector_build" href="#pyRTX.core.utils_rt.fast_vector_build">fast_vector_build</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.get_centroids" href="#pyRTX.core.utils_rt.get_centroids">get_centroids</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.get_cross_products" href="#pyRTX.core.utils_rt.get_cross_products">get_cross_products</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.get_face_areas" href="#pyRTX.core.utils_rt.get_face_areas">get_face_areas</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.get_orthogonal" href="#pyRTX.core.utils_rt.get_orthogonal">get_orthogonal</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.get_surface_normals" href="#pyRTX.core.utils_rt.get_surface_normals">get_surface_normals</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.get_surface_normals_and_face_areas" href="#pyRTX.core.utils_rt.get_surface_normals_and_face_areas">get_surface_normals_and_face_areas</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.parallelize" href="#pyRTX.core.utils_rt.parallelize">parallelize</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.pixel_plane" href="#pyRTX.core.utils_rt.pixel_plane">pixel_plane</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.pixel_plane_opt" href="#pyRTX.core.utils_rt.pixel_plane_opt">pixel_plane_opt</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.pxform_convert" href="#pyRTX.core.utils_rt.pxform_convert">pxform_convert</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.reflected" href="#pyRTX.core.utils_rt.reflected">reflected</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.sample_lambert_dist" href="#pyRTX.core.utils_rt.sample_lambert_dist">sample_lambert_dist</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.save_for_visualization" href="#pyRTX.core.utils_rt.save_for_visualization">save_for_visualization</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="pyRTX.utils_rt.ShapeModel" href="#pyRTX.utils_rt.ShapeModel">ShapeModel</a></code></h4>
+<h4><code><a title="pyRTX.core.utils_rt.ShapeModel" href="#pyRTX.core.utils_rt.ShapeModel">ShapeModel</a></code></h4>
 </li>
 <li>
-<h4><code><a title="pyRTX.utils_rt.TrimeshShapeModel" href="#pyRTX.utils_rt.TrimeshShapeModel">TrimeshShapeModel</a></code></h4>
+<h4><code><a title="pyRTX.core.utils_rt.TrimeshShapeModel" href="#pyRTX.core.utils_rt.TrimeshShapeModel">TrimeshShapeModel</a></code></h4>
 <ul class="">
-<li><code><a title="pyRTX.utils_rt.TrimeshShapeModel.get_scene" href="#pyRTX.utils_rt.TrimeshShapeModel.get_scene">get_scene</a></code></li>
-<li><code><a title="pyRTX.utils_rt.TrimeshShapeModel.num_faces" href="#pyRTX.utils_rt.TrimeshShapeModel.num_faces">num_faces</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.TrimeshShapeModel.get_scene" href="#pyRTX.core.utils_rt.TrimeshShapeModel.get_scene">get_scene</a></code></li>
+<li><code><a title="pyRTX.core.utils_rt.TrimeshShapeModel.num_faces" href="#pyRTX.core.utils_rt.TrimeshShapeModel.num_faces">num_faces</a></code></li>
 </ul>
 </li>
 </ul>

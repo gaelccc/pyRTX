@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
-<title>pyRTX.pixelPlaneClass API documentation</title>
+<title>pyRTX.classes.PixelPlane API documentation</title>
 <meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
@@ -17,7 +17,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pyRTX.pixelPlaneClass</code></h1>
+<h1 class="title">Module <code>pyRTX.classes.PixelPlane</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
@@ -25,11 +25,11 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">import numpy as np
-from pyRTX.utils_rt import fast_vector_build
+from pyRTX.core.utils_rt import fast_vector_build
 import spiceypy as sp
 from pyRTX import constants
 
-class pixelPlane():
+class PixelPlane():
 
 
         def __init__(self, spacecraft = None, 
@@ -81,8 +81,8 @@ class pixelPlane():
 
                 else:
                         width, height = self.compute_hw() # TODO
-                
-                
+
+
                 # Instantiate the ray data at __init__ to gain time. Unless when instantiating the object for shadow computation
                 self._core_dump(instantiate = True)
 
@@ -153,7 +153,7 @@ class pixelPlane():
                         linsp1 = np.linspace(-w2, w2, num = dim1 )
                         linsp2 = np.linspace(-h2, h2, num = dim2)
 
-                        
+
                         basic_coords = fast_vector_build(linsp1, linsp2, dim1, dim2)
 
                         self.basic_coords0 = basic_coords
@@ -213,8 +213,8 @@ class pixelPlane():
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="pyRTX.pixelPlaneClass.pixelPlane"><code class="flex name class">
-<span>class <span class="ident">pixelPlane</span></span>
+<dt id="pyRTX.classes.PixelPlane.PixelPlane"><code class="flex name class">
+<span>class <span class="ident">PixelPlane</span></span>
 <span>(</span><span>spacecraft=None, source=None, mode='Fixed', distance=1.0, lon=None, lat=None, width=None, height=None, ray_spacing=0.1, packets=1, units='m')</span>
 </code></dt>
 <dd>
@@ -237,7 +237,7 @@ dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array</p></div>
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class pixelPlane():
+<pre><code class="python">class PixelPlane():
 
 
         def __init__(self, spacecraft = None, 
@@ -289,8 +289,8 @@ dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array</p></div>
 
                 else:
                         width, height = self.compute_hw() # TODO
-                
-                
+
+
                 # Instantiate the ray data at __init__ to gain time. Unless when instantiating the object for shadow computation
                 self._core_dump(instantiate = True)
 
@@ -361,7 +361,7 @@ dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array</p></div>
                         linsp1 = np.linspace(-w2, w2, num = dim1 )
                         linsp2 = np.linspace(-h2, h2, num = dim2)
 
-                        
+
                         basic_coords = fast_vector_build(linsp1, linsp2, dim1, dim2)
 
                         self.basic_coords0 = basic_coords
@@ -413,7 +413,7 @@ dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array</p></div>
 </details>
 <h3>Methods</h3>
 <dl>
-<dt id="pyRTX.pixelPlaneClass.pixelPlane.dump"><code class="name flex">
+<dt id="pyRTX.classes.PixelPlane.PixelPlane.dump"><code class="name flex">
 <span>def <span class="ident">dump</span></span>(<span>self, epoch=None)</span>
 </code></dt>
 <dd>
@@ -444,7 +444,7 @@ dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array</p></div>
         return basic_coords, basic_dirs</code></pre>
 </details>
 </dd>
-<dt id="pyRTX.pixelPlaneClass.pixelPlane.update_latlon"><code class="name flex">
+<dt id="pyRTX.classes.PixelPlane.PixelPlane.update_latlon"><code class="name flex">
 <span>def <span class="ident">update_latlon</span></span>(<span>self, lon=None, lat=None)</span>
 </code></dt>
 <dd>
@@ -471,16 +471,16 @@ dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array</p></div>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pyRTX" href="index.html">pyRTX</a></code></li>
+<li><code><a title="pyRTX.classes" href="index.html">pyRTX.classes</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="pyRTX.pixelPlaneClass.pixelPlane" href="#pyRTX.pixelPlaneClass.pixelPlane">pixelPlane</a></code></h4>
+<h4><code><a title="pyRTX.classes.PixelPlane.PixelPlane" href="#pyRTX.classes.PixelPlane.PixelPlane">PixelPlane</a></code></h4>
 <ul class="">
-<li><code><a title="pyRTX.pixelPlaneClass.pixelPlane.dump" href="#pyRTX.pixelPlaneClass.pixelPlane.dump">dump</a></code></li>
-<li><code><a title="pyRTX.pixelPlaneClass.pixelPlane.update_latlon" href="#pyRTX.pixelPlaneClass.pixelPlane.update_latlon">update_latlon</a></code></li>
+<li><code><a title="pyRTX.classes.PixelPlane.PixelPlane.dump" href="#pyRTX.classes.PixelPlane.PixelPlane.dump">dump</a></code></li>
+<li><code><a title="pyRTX.classes.PixelPlane.PixelPlane.update_latlon" href="#pyRTX.classes.PixelPlane.PixelPlane.update_latlon">update_latlon</a></code></li>
 </ul>
 </li>
 </ul>

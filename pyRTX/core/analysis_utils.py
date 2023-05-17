@@ -290,7 +290,7 @@ class ScatterLookup():
 		Add a zone
 		Parameters
 		----------
-		ZoneLookup : pyRTX.analysis_utils.LookupTableND
+		ZoneLookup : pyRTX.core.analysis_utils.LookupTableND
 
 		"""
 		if not isinstance(ZoneLookup, LookupTableND):
