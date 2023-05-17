@@ -3,4 +3,6 @@
 *.bsp
 *.bpc
 *.bc
-make_docs.x
+*.pkl
+.DS_Store
+docs/.DS_Store

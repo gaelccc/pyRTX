@@ -3,18 +3,19 @@
 import trimesh as tm
 import numpy as np
 import pickle as pkl
-import trimesh.transformations as tmt
-from pyRTX.scClass import Spacecraft
-from pyRTX.pixelPlaneClass import pixelPlane
-from pyRTX.rayTracerClass import rayTracer
-from pyRTX.srpClass import solarPressure
 import spiceypy as sp
 import matplotlib.pyplot as plt
-from pyRTX import utils_rt
-from pyRTX.shadowClass import SunShadow
-from pyRTX.genericClasses import Planet
-from pyRTX import constants
+import trimesh.transformations as tmt
+
+from pyRTX.classes.Spacecraft import Spacecraft
+from pyRTX.classes.Planet import Planet
+from pyRTX.classes.PixelPlane import PixelPlane
+from pyRTX.classes.RayTracer import RayTracer
+from pyRTX.classes.SRP import SunShadow, SolarPressure 
 import logging
+
+
+
 
 
 # Example purpose:
@@ -28,6 +29,7 @@ import logging
 # Load the metakernel containing references to the necessary SPICE frames
 METAKR = '../example_data/LRO/metakernel_lro.tm'
 sp.furnsh(METAKR)
+
 
 # Define a basic epoch
 epc = "2010 may 10 08:25:00"
@@ -77,6 +79,8 @@ lro = Spacecraft( name = 'LRO',
 
 
 
+
+
 # Define the Moon object
 moon = Planet( 
                 fromFile = None,
@@ -92,7 +96,7 @@ moon = Planet(
 
 # Define the Sun rays object
 
-rays = pixelPlane( 
+rays = PixelPlane( 
 			spacecraft = lro,   # Spacecraft object 
 			mode = 'Dynamic',   # Mode: can be 'Dynamic' ( The sun orientation is computed from the kernels), or 'Fixed'
 			distance = 100,	    # Distance of the ray origin from the spacecraft
@@ -105,7 +109,7 @@ rays = pixelPlane(
 
 
 # Define the ray tracer
-rtx = rayTracer(        
+rtx = RayTracer(        
                         lro,                    # Spacecraft object
                         rays,                   # pixelPlane object
                         kernel = 'Embree',      # The RTX kernel to use
@@ -125,7 +129,7 @@ shadow = SunShadow(
 
 
 # Define the solar pressure object
-srp = solarPressure(
+srp = SolarPressure(
                         lro, 
                         rtx,
                         baseflux = 1361,  # Here we use the None option to obtain the generalized geometry vector, used also for the computation of albedo and thermal infrared
@@ -133,10 +137,9 @@ srp = solarPressure(
                         )
 
 
-
 # Compute the SRP acceleration in different epochs and plot it
 increment = 100
-steps = 100
+steps = 50
 accel = np.zeros((steps, 3))
 mass = 2000
 epochs = [i*increment for i in range(steps)]
@@ -154,6 +157,8 @@ for i in range(len(epochs)):
         epoch = epc_et0 + i*increment
         f_srp = np.array(srp.compute(epoch))
         accel[i,:] = f_srp/mass
+
+
 
 
 log.disabled = False
