@@ -1,7 +1,7 @@
-from pyRTX.utils_rt import RTXkernel
+from pyRTX.core.utils_rt import RTXkernel
 import timeit
 
-class rayTracer():
+class RayTracer():
 	
 	def __init__(self, spacecraft, rays, kernel = 'Embree', bounces = 1, diffusion = False, num_diffuse = None):
 

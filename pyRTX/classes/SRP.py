@@ -1,77 +1,17 @@
 import numpy as np
-from pyRTX.pixelPlaneClass import pixelPlane
 import spiceypy as sp
-from pyRTX import utils_rt	
-from pyRTX.genericClasses import Planet
-import timeit
-from numba import jit
+
+from pyRTX.classes.PixelPlane import PixelPlane
+from pyRTX.core import utils_rt
+from pyRTX.core.shadow_utils import circular_mask, circular_rim, compute_directions, compute_beta, compute_pixel_intensities
+from pyRTX.classes.Planet import Planet
+from pyRTX import constants
+from pyRTX.core.physical_utils import compute_srp
 
 
 
 
-def circular_mask(R, coords, origin):
-	maskIds = []
-	maskIds = np.where(np.linalg.norm(coords-origin, axis = 1) <= R)
-	
 
-	return np.array(maskIds[0], dtype = 'int32')
-
-
-def circular_rim(R, coords, origin):
-	maskIds = np.where(np.isclose(np.linalg.norm(coords-origin, axis = 1),R, rtol = 0.001))
-	mask_coords = coords[maskIds]
-
-	return np.array(maskIds[0], dtype = 'int32')
-
-
-
-@jit(nopython=True)
-def compute_directions(pixelCoords):
-	dirs = np.zeros_like(pixelCoords)
-	for i,elem in enumerate(pixelCoords):
-		dirs[i] = elem/np.linalg.norm(elem)
-
-	return dirs
-
-
-
-@jit(nopython = True)
-def compute_beta(coords, origin, R):
-	d = np.linalg.norm(origin)
-	o = origin / np.linalg.norm(origin)
-	betas = np.zeros((len(coords)))
-	
-	for i,c in enumerate(coords):
-		cos = np.dot(c/np.linalg.norm(c), o)
-		if cos > 1.0:
-			cos = 1.0
-		elif cos < -1.0:
-			cos = -1.0
-		ang = np.arccos(cos)
-
-		
-		sinb = d/R*np.sin(ang)
-		beta = np.arcsin(sinb)
-		betas[i] = beta
-		#if np.isnan(beta):
-			#print(np.dot(c/np.linalg.norm(c),o))
-			#print(sinb)
-
-	return betas
-
-@jit(nopython = True)
-def compute_pixel_intensities(beta, Type = 'Standard'):
-	if Type == 'Standard':
-		a0 = 0.3
-		a1 = 0.93
-		a2 = -0.23
-		intensities = a0 + a1*np.cos(beta) + a2*(np.cos(beta))**2
-	elif Type == 'Eddington':
-		m = np.cos(beta)
-		intensities = 3.0/4* ( 7/12 * 0.5*m * m*(1/3 + 0.5*m)*np.log((1+m)/m))
-	
-
-	return intensities
 
 class SunShadow():
 	"""
@@ -89,7 +29,7 @@ class SunShadow():
 		self.spacecraft = spacecraft
 		self.body = body
 		self.limbDarkening = limbDarkening
-		self.pxPlane = pixelPlane(spacecraft = spacecraft,
+		self.pxPlane = PixelPlane(spacecraft = spacecraft,
 				     source = 'Sun',
 				     mode = 'Dynamic',
 				     width = 2*sunRadius,
@@ -198,4 +138,83 @@ class SunShadow():
 
 
 		return ratios
+
+
+
+
+
+
+
+class SolarPressure():
+	
+	def __init__(self, spacecraft, rayTracer, baseflux = 1380.0, grouped = True, shadowObj = None):
+
+		self.spacecraft = spacecraft
+		self.rayTracer = rayTracer
+		self.baseflux = baseflux
+		self.grouped = grouped
+		self.shadowObj = shadowObj
+		
+
+
+
+	def compute(self, epoch = None):
+
+		# Launch rayTracer
+		rtx = self.rayTracer
+		rtx.trace(epoch)
+
+
+		# Retrieve RTX  properties
+		mesh = self.spacecraft.dump(epoch)
+
+
+		index_tri = rtx.index_tri_container
+		index_ray = rtx.index_ray_container
+		location = rtx.locations_container
+		ray_origins = rtx.ray_origins_container
+		ray_directions = rtx.ray_directions_container
+		diffusion_pack = rtx.diffusion_pack
+		norm_factor = rtx.norm_factor
+		diffusion = rtx.diffusion
+		num_diffuse = rtx.num_diffuse
+
+
+
+		
+
+		material_dict = self.spacecraft.materials()
+
+		if self.baseflux is None:
+			flux = 1.0
+		else:
+                        flux = self.get_flux( epoch)
+
+		if self.shadowObj is not None:
+			shadow = self.shadowObj.compute(epoch)[0]
+			flux = flux*shadow
+		
+
+
+
+		force = compute_srp(flux, mesh, index_tri, index_ray, location, ray_origins, ray_directions, norm_factor, grouped = self.grouped, materials = material_dict, diffusion = diffusion, num_diffuse = num_diffuse, diffusion_pack = diffusion_pack)
+
+
+
+
+		return force
+
+
+
+	def get_flux(self, epoch):
+		
+		au = constants.au
+		sunpos = sp.spkezr( 'Sun', epoch, 'J2000','LT+S', self.spacecraft.name)
+		pos = sunpos[0][0:3]
+		dist = np.sqrt(np.sum(np.array(pos)**2))/au
+
+		flux = self.baseflux * (1.0/dist)**2
+
+		return flux
+
 

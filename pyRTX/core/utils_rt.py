@@ -151,6 +151,7 @@ def pixel_plane(d0, lon, lat, width = 1, height = 1, ray_spacing = .1):
 
 @jit(nopython = True)
 def fast_vector_build(linsp1, linsp2, dim1, dim2):
+
 	"""
 	Further accelerate the ray vector generation using numba's jit vectorization
 	"""

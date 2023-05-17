@@ -1,9 +1,9 @@
 import numpy as np
-from pyRTX.utils_rt import fast_vector_build
+from pyRTX.core.utils_rt import fast_vector_build
 import spiceypy as sp
 from pyRTX import constants
 
-class pixelPlane():
+class PixelPlane():
 
 
 	def __init__(self, spacecraft = None, 
@@ -55,8 +55,8 @@ class pixelPlane():
 
 		else:
 			width, height = self.compute_hw() # TODO
-		
-		
+
+
 		# Instantiate the ray data at __init__ to gain time. Unless when instantiating the object for shadow computation
 		self._core_dump(instantiate = True)
 
@@ -127,7 +127,7 @@ class pixelPlane():
 			linsp1 = np.linspace(-w2, w2, num = dim1 )
 			linsp2 = np.linspace(-h2, h2, num = dim2)
 
-			
+
 			basic_coords = fast_vector_build(linsp1, linsp2, dim1, dim2)
 
 			self.basic_coords0 = basic_coords

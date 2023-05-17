@@ -3,10 +3,10 @@ import trimesh.transformations as tmt
 import copy
 import spiceypy as sp
 import numpy as np
-from pyRTX.utils_rt import get_centroids, block_normalize
-from pyRTX.analysis_utils import computeRADEC
+from pyRTX.core.utils_rt import get_centroids, block_normalize
+from pyRTX.core.analysis_utils import computeRADEC
 from pyRTX import constants
-from pyRTX.analysis_utils import TiffInterpolator
+from pyRTX.core.analysis_utils import TiffInterpolator
 
 
 
