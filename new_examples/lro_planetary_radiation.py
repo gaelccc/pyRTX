@@ -1,4 +1,9 @@
 import spiceypy as sp
+import pickle as pkl
+import os
+import numpy as np
+from tqdm import tqdm
+import matplotlib.pyplot as plt
 
 from pyRTX.classes.Spacecraft import Spacecraft
 from pyRTX.classes.Planet import Planet
@@ -11,6 +16,7 @@ from pyRTX.core.analysis_utils import epochRange2
 
 
 
+
 # Load the metakernel containing references to the necessary SPICE frames
 METAKR = '../example_data/LRO/metakernel_lro.tm'
 sp.furnsh(METAKR)
@@ -19,13 +25,14 @@ sp.furnsh(METAKR)
 # Define a basic epoch and a time span
 epc = "2010 may 10 09:25:00"
 epc_et0 =  sp.str2et( epc )
-duration = 1000 # Seconds
+duration = 10000 # Seconds
 epc_et1 = epc_et0 + duration
-tspan = epochRange2(startEpoch = epc_et0, endEpoch = epc_et1, step = 10)
+tspan = epochRange2(startEpoch = epc_et0, endEpoch = epc_et1, step = 100)
 
 
 # Define spacecraft properties 
 mass = 2000
+sunFlux = 1380
 
 # Define the Spacecraft Object (Refer to the class documentation for further details)
 obj_path = '../example_data/LRO/'
@@ -87,7 +94,7 @@ moon = Planet(
 
 moon.albedo = 0.3
 moon.emissivity  = 0.8 
-moon.dayside_temperature = 310
+moon.dayside_temperature = 300
 moon.nightside_temperature = 200
 
 
@@ -117,13 +124,48 @@ thermal_ir = Emissivity(
 # Due to the very high number of rays involved in these computations
 # it is useful to precompute L in the form of a lookup table.
 # Here we import the lookup table for LRO which can be computed using the example script
-# 'generate_lro_lut.py'
+# 'generate_lro_accel_lookup.py'
+
+if not os.path.exists('lro_lut.pkl'):
+	print('ERROR: You need to generate first the lookup table. To do so: run generate_lro_accel_lookup.py')
+	sys.exit(0)
+else:
+	with open('lro_lut.pkl', 'rb') as f:
+		LUT = pkl.load(f)
 
 
-ep = epc_et0
+ALB = np.zeros((3, len(tspan)))
+EMI = np.zeros_like(ALB)
+for i, ep in tqdm(enumerate(tspan), total = len(tspan)):
 
-print(moon.albedoFaces(ep, 'LRO'))
-norm_fluxes, dirs, alb_values = albedo.compute(ep)
-print(alb_values)
+	norm_fluxes, dirs, alb_values = albedo.compute(ep)
+	lll = LUT[dirs[:,0], dirs[:,1]]
+	norm_fluxes = np.expand_dims(norm_fluxes, axis = 1)
+	alb_values = np.expand_dims(alb_values, axis = 1)
+
+	ALB[:,i] = np.sum(alb_values * sunFlux/mass * norm_fluxes * lll, axis = 0)
+
+
+
+	norm_fluxes, dirs, emi_values = thermal_ir.compute(ep)
+	lll = LUT[dirs[:,0], dirs[:,1]]
+	norm_fluxes = np.expand_dims(norm_fluxes, axis = 1)
+	emi_values = np.expand_dims(emi_values, axis = 1)
+
+	EMI[:,i] = np.sum(emi_values * sunFlux/mass *norm_fluxes* lll, axis = 0)
+
+
+fig, ax = plt.subplots(2,1, sharex = True)
+
+labels = ['x','y','z']
+for i in range(3):
+	ax[0].plot(tspan, ALB[i,:], label = labels[i])
+	ax[1].plot(tspan, EMI[i,:], label = labels[i])
+ax[0].legend()
+ax[0].set_ylabel('Albedo Acceleration [km/s]')
+ax[1].set_ylabel('Thermal IR Acceleration [km/s]')
+plt.show()
+
+
 
 

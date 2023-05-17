@@ -2,6 +2,7 @@ import numpy as np
 import spiceypy as sp
 from pyRTX.core.utils_rt import get_surface_normals_and_face_areas, block_dot
 from timeit import default_timer as dT
+from pyRTX.constants import stefan_boltzmann as sb
 """
 Main class for Albedo computations.
 """
