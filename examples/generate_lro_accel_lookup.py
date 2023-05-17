@@ -92,7 +92,7 @@ DEC = np.linspace(-90,90, int(360/sampling))*conv
 
 lut = np.zeros((len(RA), len(DEC), 3))
 
-for i, ra in tqdm(enumerate(RA)):
+for i, ra in tqdm(enumerate(RA), total = len(RA)):
 	for j, dec in enumerate(DEC):
 			rays.update_latlon(lon = ra, lat = dec)
 			rtx = RayTracer( lro, rays, kernel = 'Embree', bounces = 1, diffusion = False,)
@@ -125,7 +125,7 @@ ax[0,0].set_ylabel('DEC')
 ax[0,1].contourf(RA/conv, DEC/conv, lookup[:,:].T[1,:,:])
 ax[0,1].set_title('Y')
 
-ax[1,0].contourf(RA/conv, DEC/conv, lookup[:,:].T[1,:,:])
+ax[1,0].contourf(RA/conv, DEC/conv, lookup[:,:].T[2,:,:])
 ax[1,0].set_title('Z')
 ax[1,0].set_xlabel('RA')
 ax[1,0].set_ylabel('DEC')

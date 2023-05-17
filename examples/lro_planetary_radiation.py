@@ -4,6 +4,7 @@ import os
 import numpy as np
 from tqdm import tqdm
 import matplotlib.pyplot as plt
+import sys
 
 from pyRTX.classes.Spacecraft import Spacecraft
 from pyRTX.classes.Planet import Planet
