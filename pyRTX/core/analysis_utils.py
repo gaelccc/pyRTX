@@ -542,20 +542,20 @@ def get_spacecraft_area(spacecraft, ra = 0.0, dec = 0.0, epoch = None):
 	TODO: avoid hardcoded width/height but rather use an automated method
 
 	'''
-	from pyRTX.pixelPlaneClass import pixelPlane
-	from pyRTX.rayTracerClass import rayTracer
-	rays = pixelPlane( 
+	from pyRTX.classes.PixelPlane import PixelPlane
+	from pyRTX.classes.RayTracer  import RayTracer
+	rays = PixelPlane( 
 			spacecraft = spacecraft,   # Spacecraft object 
 			mode = 'Fixed',   # Mode: can be 'Dynamic' ( The sun orientation is computed from the kernels), or 'Fixed'
 			distance = 10000,	    # Distance of the ray origin from the spacecraft
-			width = 100,	    # Width of the pixel plane
-			height = 100,        # Height of the pixel plane
+			width = 10,	    # Width of the pixel plane
+			height = 10,        # Height of the pixel plane
 			lon = ra,
 			lat = dec, 
 			ray_spacing = 0.1, # Ray spacing (in m)
 		)
 
-	rtx = rayTracer(        
+	rtx = RayTracer(        
                         spacecraft,                    # Spacecraft object
                         rays,                   # pixelPlane object
                         kernel = 'Embree',      # The RTX kernel to use

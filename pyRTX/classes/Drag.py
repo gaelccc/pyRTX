@@ -1,5 +1,5 @@
 import numpy as np
-from pyRTX.analysis_utils import LookupTableND
+from pyRTX.core.analysis_utils import LookupTableND
 import spiceypy as sp
 
 class Drag():
@@ -27,7 +27,7 @@ class Drag():
 			x = np.linspace(0, 360, lut.shape[0])*np.pi/180
 			self.LUT = LookupTableND(axes = (x,y), values = lut)
 		else:
-			raise TypeError('Error: the input lookup table must be either analysis_utols.LookupTableND or a file path to the numpy NDarray')
+			raise TypeError('Error: the input lookup table must be either core.analysis_utils.LookupTableND or a file path to the numpy NDarray')
 
 
 		if not callable(density):
@@ -43,9 +43,12 @@ class Drag():
 		"""
 		Compute the drag at epoch in the spacecraft body frame
 		"""
+		if frame == '':
+			frame = 'IAU_%s' %self.body.upper()
 
-		st = sp.spkezr(self.scName, epoch, 'IAU_%s' %self.body.upper(), 'LT+S', self.body)
-		rot = sp.pxform('IAU_%s' %self.body.upper(), self.scFrame, epoch)
+
+		st = sp.spkezr(self.scName, epoch, frame, 'LT+S', self.body)
+		rot = sp.pxform(frame, self.scFrame, epoch)
 		st_r = rot@st[0][0:3]
 		vel_r = rot@st[0][3:6]
 
@@ -54,10 +57,10 @@ class Drag():
 		unitv = vel_r/np.linalg.norm(vel_r)
 		rho = self.density(h)
 
-		drag = - 0.5*rho*self.CD*np.linalg.norm(vel_r)**2*unitv*self.LUT[dir1, dir2]
 
+		drag = - 0.5*rho*self.CD*np.linalg.norm(vel_r)**2*unitv*self.LUT[dir1, dir2]
 
 		if frame != '' and frame.lower() != self.scFrame:
 			rot = sp.pxform(self.scFrame, frame, epoch)
-			drag = rot*drag
+			drag = rot@drag
 		return drag, vel_r

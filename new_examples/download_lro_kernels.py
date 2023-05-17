@@ -1,6 +1,6 @@
 import os
 import subprocess
-from context import helpers
+from pyRTX import helpers
 
 # Scope: 
 # Download the spice kernels needed for running LRO examples
