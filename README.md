@@ -15,3 +15,7 @@ Several examples are provided in the examples folder. See the README.txt in the 
 
 # [Documentation](https://gaelccc.github.io/pyRTX)
 (work in progress)
+
+
+# Change log
+Version 0.0.2 implements the same functionalities as v0.0.1 but the code structure has been heavily restructured. Backwards compatibility is guaranteed for functions and classes call signs but not for imports syntax.
