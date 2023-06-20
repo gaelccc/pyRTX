@@ -6,7 +6,7 @@ import spiceypy as sp
 import matplotlib.pyplot as plt
 import matplotlib
 from pyRTX.classes.Spacecraft import Spacecraft
-
+from matplotlib.colors import to_rgba_array
 
 
 
@@ -88,7 +88,7 @@ zaxis.colors = np.full((1,4),matplotlib.colors.to_rgba_array('blue')*255)
 
 # Dumping the spacecraft mesh at a specific epoch (since the relative
 # position of the parts depend on SPICE frames)
-mesh = lro.dump(epc_et0) 
+mesh = lro.dump(epc_et0)
 
 scene = tm.Scene([mesh, xaxis, yaxis, zaxis])
 scene.show()
