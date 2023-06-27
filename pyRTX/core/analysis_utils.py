@@ -18,12 +18,12 @@ A set of utilities mainly focused on result analysis and data manipulation
 
 class LookupTable():
 	"""
-	This class is used to store results in the shape aof a lookup table.
-	This is mainly used to store the resultas of a set of raytracing results
+	This class is used to store results in the shape of a lookup table.
+	This is mainly used to store the results of a set of raytracing runs.
 	example: the solar pressure for a body is computed for a grid of RA/DEC values.
 	these values can be stored in the LookupTable object and later retrieved.
 	This class offers the possibility of not oly retrieving pre-computed values, but
-	aslso interpolating between grid points.
+	also interpolating between grid points.
 
 	NOTE: the grid of the lookup table does not need to be regular
 	the interpolation is based on numpy griddata method which is able to cope
@@ -154,7 +154,7 @@ class LookupTableND():
 	values : np.ndarray(N,M,L,...,1)
 	info : str
 		A string field to store information about the lookup table. This is set as a class property
-		so it can be requested trhough instance.info
+		so it can be requested trough instance.info
 	np.array : np.array
 		unset
 

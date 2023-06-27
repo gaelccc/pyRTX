@@ -574,11 +574,12 @@ def get_spacecraft_area(spacecraft, ra = 0.0, dec = 0.0, epoch = None):
                         spacecraft = spacecraft,   # Spacecraft object 
                         mode = &#39;Fixed&#39;,   # Mode: can be &#39;Dynamic&#39; ( The sun orientation is computed from the kernels), or &#39;Fixed&#39;
                         distance = 10000,           # Distance of the ray origin from the spacecraft
-                        width = 10,         # Width of the pixel plane
-                        height = 10,        # Height of the pixel plane
+                        width = 2,         # Width of the pixel plane
+                        height = 2,        # Height of the pixel plane
                         lon = ra,
                         lat = dec, 
                         ray_spacing = 0.1, # Ray spacing (in m)
+                        units = 'km',
                 )
 
         rtx = RayTracer(        

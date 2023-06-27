@@ -1,4 +1,4 @@
-import maptlotlib.colors as col
+import matplotlib.colors as col
 
 
 def color_convert(color, size = 1):

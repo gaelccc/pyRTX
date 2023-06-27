@@ -71,7 +71,10 @@ class Spacecraft():
 		#self._last_epoch = 0
 
 	def _load_obj(self, fname):
-		mesh = tm.load_mesh(fname, skip_texture = True)
+		if not isinstance(fname, tm.base.Trimesh):
+			mesh = tm.load_mesh(fname, skip_texture = True)
+		else:
+			mesh = fname
 		mesh.apply_transform(tmt.scale_matrix(self.conversion_factor, [0,0,0]))
 		return mesh
 
@@ -83,6 +86,9 @@ class Spacecraft():
 
 			self.spacecraft_model[elem]['base_mesh'] = self._load_obj(input_model[elem]['file'])
 			self.spacecraft_model[elem]['translation'] = tmt.translation_matrix(np.array(input_model[elem]['center']) * self.conversion_factor)
+
+			if 'UD_rotation' not in input_model[elem].keys() and input_model[elem]['frame_type'] == 'UD':
+				input_model[elem]['UD_rotation']= tmt.identity_matrix()
 
 			#print(tmt.translation_matrix(input_model[elem]['center']))
 

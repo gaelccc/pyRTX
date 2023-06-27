@@ -3,7 +3,9 @@ import timeit
 
 class RayTracer():
 	
-	def __init__(self, spacecraft, rays, kernel = 'Embree', bounces = 1, diffusion = False, num_diffuse = None):
+	def __init__(self, spacecraft, rays, kernel = 'Embree', bounces = 1, diffusion = False, num_diffuse = 10):
+
+
 
 		self.kernel = kernel
 		self.bounces = bounces
@@ -13,7 +15,7 @@ class RayTracer():
 		self.spacecraft = spacecraft
 		self.norm_factor = rays.norm_factor
 
-		if self.diffusion and num_diffuse is None:
+		if self.diffusion and self.num_diffuse == None:
 			raise ValueError('The diffusion computation is activated but the number of diffused rays was not specified')
 	
 

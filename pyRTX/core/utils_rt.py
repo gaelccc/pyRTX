@@ -678,14 +678,31 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces = 1,  kernel = 'Emb
 	ray_directions: numpy array of ray directions (does not need to be normalized) (n,3)
 	bounces: (int) number of bounces to compute
 	kernel: one of Embree, Native or Embree3. To chose wether to use the Intel Embree kernel or the native python kernel
-	diffusion: (bool) Boolean flag to activate diffused raytracing for the first bounce
+	diffusion: (bool) Boolean flag to activate diffused raytracing for the first bounce. Note: if this is false, the output "diffusion pack" will be "None"
 	num_diffuse: (int) number of samples for first-bounce diffuse computation
 	errorMsg: (bool) flag to control wether to pring the warning when no bounces are found
 
 	Returns:
-	index_tri:  Mesh triangle indexes
-	index_ray:  Ray indexes
-	location:   Location of intersect points
+	index_tri_container: (list of np.array) a list containing the index of the hit faces of the mesh.
+						[ [hit indexes bounce 1], [hit indexes bounce 2], ...]
+	index_ray_container: (list of np.array) list containing the index of the ray that have hit the mesh
+						[ [ray hitting idx bounce 1], [ray hitting idx bounce 2], ...]
+
+	locations_container: (list of (3,N) np.array)  list containing coordinates of the hit points
+						[ [(3,N) np.array of locations of bounce 1], [(3,N) np.array of locations of bounce 2], ...]
+	ray_origins_container: (list of (3,N) np.array) list containing the origins of the rays
+						[ [(3,N) np.array of ray origins of bounce 1], ...]
+						Note that ray_origins_container[0] corresponds with the ray_origins input
+	ray_directions_container: (list of (3,N) np.array) list containing the directions of the rays
+						[ [directions of bounce 1], [directions of bounce 2], ...]. Note that the directions of bounce 1
+						correspond with the ray_directions input value.
+	None or diffusion_pack:	 (list of lists):
+		A list containing:
+			index_tri_diffusion: (np.array) indexes of the mesh faces hit by diffusion
+			index_ray_diffusion: (np.array) indexes of the diffused rays hitting the surface
+			ray_directions_diffusion: (3,N np.array) directions of the diffused rays
+			location_diffusion: (3,N np.array) location og the diffusion hit points
+
 	"""
 
 
@@ -810,7 +827,7 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces = 1,  kernel = 'Emb
 
 
 	else:
-		print('No Recognized kernel')
+		print(f'The kernel {kernel} is not recognized. Choose between one of the currently supported kernels: Native, Embree, Embree3')
 
 
 
