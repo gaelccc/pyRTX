@@ -27,18 +27,21 @@ except:
 # Define general utils
 ###########################################################
 
-
 def parallelize( iterator, function, chunks ):
-	"""
-	Define a general parallelization framework to speedup computations
-
-	Parameters:
-	iterator: the array-like object over which to parallelize
-	functiuon: the function that must be called by each subprocess. The function should be of the form y = f(iterator)
-	chunks: number of parallel workers
-
-	"""
-
+	"""Define a general parallelization framework to speedup computations
+	        Parameters
+	        ----------
+	        iterator : array_like
+	            the array-like object over which to parallelize
+	        function : function handle
+	            the function that must be called by each subprocess. The function should be of the form y = f(iterator)
+	        chunks : int
+	        	number of parallel workers
+	 	   Returns
+	 	   -------
+	 	   result : array_like
+	 	   		the result of the parallelized computation
+	        """
 
 
 	with mproc.Pool(chunks) as p:
@@ -48,13 +51,36 @@ def parallelize( iterator, function, chunks ):
 
 
 def chunker(iterator, chunks):
+	"""Chunk an iterator or array into chunks
+
+	Parameters
+	----------
+	iterator : array_like
+		the array-like object to chunk
+	chunks : int
+		number of chunks
+	Returns
+	-------
+	result : array_like
+		the chunked array
+	"""
 	
 	return np.array_split(iterator, chunks)
 	
 
 def pxform_convert(pxform):
-	"""
-	Convert a spice-generated rotation matrix (pxform) to the format required by trimesh
+	"""	Convert a spice-generated rotation matrix (pxform) to the format required by trimesh
+
+	Parameters
+	----------
+	pxform : array_like
+		the spice-generated rotation matrix
+	Returns
+	-------
+	result : array_like
+		the rotation matrix in the format required by trimesh
+
+
 	"""
 	pxform = np.array([pxform[0],pxform[1],pxform[2]], dtype = dFloat)
 
@@ -66,12 +92,16 @@ def pxform_convert(pxform):
 
 
 def block_normalize(V):
-	"""
-	get the unit vectors associated to a block of vectors of shape
-	(N,3)
+	"""Get the unit vectors associated to a block of vectors of shape (N,3)
 
-	
-
+	Parameters
+	----------
+	V : array_like (N,3)
+		the array of vectors to normalize
+	Returns
+	-------
+	result : array_like (N,3)
+		the normalized vectors
 	"""
 
 	if V.ndim > 1:
@@ -81,14 +111,17 @@ def block_normalize(V):
 
 
 def block_dot(a,b):
-	"""
-	Perform block dot product between two arrays of shape (N,m), (N,m)
+	"""Perform block dot product between two arrays of shape (N,m), (N,m)
 
 	Parameters
-	a, b [np.array (N,m)]
+	----------
+	a, b :  np.array (N,m)
+		the arrays to dot product
 
 	Returns
-	c [np.array (N,)]
+	-------
+	result : np.array (N,)
+		the dot product of the two arrays
 	"""
 
 	return np.sum(a*b, axis = 1)
@@ -96,18 +129,29 @@ def block_dot(a,b):
 
 def pixel_plane(d0, lon, lat, width = 1, height = 1, ray_spacing = .1):
 	""""Generate a pixel array for raytracing ad defined in Li et al., 2018
-	This is the "fully exposed version" to explicitly show the algorithm. 
-	Parameters:
-	d0: Distance of the pixel array from the center (in meters)
-	lat: Latitude of the pixel array center (in rad)
-	lon: Longitude of the pixel array center (in rad)
-	width: The width of the plane(in meters). Default = 1
-	height: the height of the plane(in meters). Default = 1
-	ray_spacing: the spacing of the rays (in meters). Default = 0.1
+	This is the "fully exposed version" to explicitly show the algorithm.
 
-	Returns: 
-	locs: Pixel locations as a numpy array
-	dirs: the ray directions as a numpy array
+	Parameters
+	----------
+	d0 : float
+		Distance of the pixel array from the center (in meters)
+	lat : float
+		Latitude of the pixel array center (in rad)
+	lon : float
+		Longitude of the pixel array center (in rad)
+	width : float
+		The width of the plane(in meters). Default = 1
+	height : float
+		the height of the plane(in meters). Default = 1
+	ray_spacing : float
+		the spacing of the rays (in meters). Default = 0.1
+
+	Returns
+	-------
+	locs: np.array (N,3)
+		Pixel locations as a numpy array
+	dirs: np.array (N,3)
+		the ray directions as a numpy array
 	"""
 
 
@@ -146,14 +190,24 @@ def pixel_plane(d0, lon, lat, width = 1, height = 1, ray_spacing = .1):
 
 
 
-
-
-
 @jit(nopython = True)
 def fast_vector_build(linsp1, linsp2, dim1, dim2):
+	"""Build the pixel array using numba's jit vectorization
 
-	"""
-	Further accelerate the ray vector generation using numba's jit vectorization
+	Parameters
+	----------
+	linsp1 : np.array (N,)
+		the first linspace
+	linsp2 : np.array (N,)
+		the second linspace
+	dim1 : int
+		the first dimension of the pixel array
+	dim2 : int
+		the second dimension of the pixel array
+	Returns
+	-------
+	result : np.array (N,3)
+		the pixel array
 	"""
 	basic_coords = np.zeros((dim1*dim2, 3))
 	counter = 0
@@ -165,23 +219,38 @@ def fast_vector_build(linsp1, linsp2, dim1, dim2):
 	return basic_coords	
 
 
+
+
+
 def pixel_plane_opt(d0, lon, lat, width = 1, height = 1, ray_spacing = .1, packets = 1):
 	""""Generate a pixel array for raytracing ad defined in Li et al., 2018
 	This is the "optimized version". To explicitly see the algorithm refer to the function definition
 	without _opt extension.
-	Parameters:
-	d0: [float] Distance of the pixel array from the center (in meters)
-	lat: [float] Latitude of the pixel array center (in rad)
-	lon: [float] Longitude of the pixel array center (in rad)
-	width: [float] The width of the plane(in meters). Default = 1
-	height: [float] the height of the plane(in meters). Default = 1
-	ray_spacing: [float] the spacing of the rays (in meters). Default = 0.1
-	packets: [int] the number of 'ray packets' to return. This is implemented to avoid the segmentation
-		 fault triggered by the raytracer when the number of rays is too high
 
-	Returns: 
-	locs: [numpy array (n_rays, 3)] Pixel locations as a numpy array
-	dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array
+	Parameters
+	----------
+	d0 : float
+		Distance of the pixel array from the center (in meters)
+	lat : float
+		Latitude of the pixel array center (in rad)
+	lon : float
+		Longitude of the pixel array center (in rad)
+	width : float
+		The width of the plane(in meters). Default = 1
+	height : float
+		the height of the plane(in meters). Default = 1
+	ray_spacing : float
+		the spacing of the rays (in meters). Default = 0.1
+	packets : int
+		the number of 'ray packets' to return. This is implemented to avoid the segmentation
+		fault triggered by the raytracer when the number of rays is too high
+
+	Returns
+	-------
+	locs: np.array (n_rays,3)
+		Pixel locations as a numpy array
+	dirs: np.array (n_rays,3)
+		the ray directions as a numpy array
 	"""
 
 
@@ -228,31 +297,40 @@ def pixel_plane_opt(d0, lon, lat, width = 1, height = 1, ray_spacing = .1, packe
 	return basic_coords, basic_dirs
 
 def reflected(incoming, normal):
-	"""
-	Compute the reflected unit vector given the incoming and the normal
-	Numpy vectorized version of 'reflected' 
-	Parameters:
-	incoming: [numpy array (number of rays, 3)]  incoming rays
-	normal: [numpy array (number of rays, 3)] surface normals associated to each incoming ray
+	"""Compute the reflected unit vector given the incoming and the normal
+	Numpy vectorized version of 'reflected'
+	This function uses np.einsum to compute the dot product between the incoming and the normal for
+	improved performance
 
-	Returns:
-	reflected: [numpy array (number of rays, 3)] reflected rays
-
+	Parameters
+	----------
+	incoming : np.array (n_rays,3)
+		the incoming rays
+	normal : np.array (n_rays,3)
+		the surface normals associated to each incoming ray
+	Returns
+	-------
+	reflected : np.array (n_rays,3)
+		the reflected rays
 	"""
 
 	return incoming - 2*np.multiply(normal.T,np.einsum('ij,ij->i',incoming, normal)).T
 
 @jit(nopython = True)
 def get_orthogonal(v):
-	"""
-	Get a unit vector orthogonal to v
+	"""Get a unit vector orthogonal to v
 
-	Parameters:
-	v: [numpy array (3,)]
-
-	Returns: 
-	x: [numpy array(3,)]
+	Parameters
+	----------
+	v : np.array (3,)
+		the vector to which the orthogonal is required
+	Returns
+	-------
+	x : np.array (3,)
+		the orthogonal vector
 	"""
+
+
 	x = np.random.random(3)
 	x -= x.dot(v)*v
 	x  = x/ np.linalg.norm(x)
@@ -261,15 +339,18 @@ def get_orthogonal(v):
 
 @jit(nopython = True)
 def sample_lambert_dist(normal, num = 100):
-	"""
-	Generate a cloud of vectors following the Lambert cosine distribution
+	"""Generate a cloud of vectors following the Lambert cosine distribution
 
-	Parameters: 
-	normals: [numpy array] the normal vector to the face
-	num: [int] the number of samples required
-	
-	Returns:
-	v: [numpy array (num, 3)] array of the sampled vectors
+	Parameters
+	----------
+	normal : np.array (3,)
+		the normal vector to the face
+	num : int
+		the number of samples required
+	Returns
+	-------
+	v : np.array (num, 3)
+		array of the sampled vectors
 	"""
 
 	theta = np.arccos(np.sqrt(np.random.random(num)))
@@ -302,17 +383,20 @@ def _core_diffuse(normals, diffuse_directions, num):
 
 
 def diffuse(normals, num = 10):
-	"""
-	Compute num diffuse reflection directions sampling a lambert cosine distribution
+	"""Compute num diffuse reflection directions sampling a lambert cosine distribution
 	
-	Parameters:
-	normals: [numpy array (N, 3)] normal unit vectors
-	num: number of samples for each normal
-
-	Returns:
-	diffuse_directions: [numpy array (N*num, 3)] 
-
+	Parameters
+	----------
+	normals : np.array (n_rays,3)
+		the unit vectors normal to the surface
+	num : int
+		the number of samples required for each normal vectror
+	Returns
+	-------
+	diffuse_directions : np.array (n_rays*num,3)
+		the sampled directions
 	"""
+
 
 	diffuse_directions = np.repeat(normals, num, axis = 0)*0.0  
 
@@ -326,8 +410,7 @@ def diffuse(normals, num = 10):
 	#return _core_diffuse(normals, diffuse_directions, num)
 
 def compute_secondary_bounce(location, index_tri, mesh_obj, ray_directions, index_ray, diffusion = False, num_diffuse = None):
-	"""
-	Prepare the quantities required for iterating the raytracer
+	"""Prepare the quantities required for iterating the raytracer
 
 	Parameters:
 	location: UNUSED. This input is maintained just to change the variable name

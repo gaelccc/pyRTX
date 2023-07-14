@@ -44,12 +44,12 @@ A set of utilities mainly focused on result analysis and data manipulation
 
 class LookupTable():
         &#34;&#34;&#34;
-        This class is used to store results in the shape aof a lookup table.
-        This is mainly used to store the resultas of a set of raytracing results
+        This class is used to store results in the shape of a lookup table.
+        This is mainly used to store the results of a set of raytracing runs.
         example: the solar pressure for a body is computed for a grid of RA/DEC values.
         these values can be stored in the LookupTable object and later retrieved.
         This class offers the possibility of not oly retrieving pre-computed values, but
-        aslso interpolating between grid points.
+        also interpolating between grid points.
 
         NOTE: the grid of the lookup table does not need to be regular
         the interpolation is based on numpy griddata method which is able to cope
@@ -180,7 +180,7 @@ class LookupTableND():
         values : np.ndarray(N,M,L,...,1)
         info : str
                 A string field to store information about the lookup table. This is set as a class property
-                so it can be requested trhough instance.info
+                so it can be requested trough instance.info
         np.array : np.array
                 unset
 
@@ -574,12 +574,11 @@ def get_spacecraft_area(spacecraft, ra = 0.0, dec = 0.0, epoch = None):
                         spacecraft = spacecraft,   # Spacecraft object 
                         mode = &#39;Fixed&#39;,   # Mode: can be &#39;Dynamic&#39; ( The sun orientation is computed from the kernels), or &#39;Fixed&#39;
                         distance = 10000,           # Distance of the ray origin from the spacecraft
-                        width = 2,         # Width of the pixel plane
-                        height = 2,        # Height of the pixel plane
+                        width = 10,         # Width of the pixel plane
+                        height = 10,        # Height of the pixel plane
                         lon = ra,
                         lat = dec, 
                         ray_spacing = 0.1, # Ray spacing (in m)
-                        units = 'km',
                 )
 
         rtx = RayTracer(        
@@ -884,12 +883,12 @@ Spacecraft object</p>
 <span>(</span><span>linspace_x, linspace_y, values)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>This class is used to store results in the shape aof a lookup table.
-This is mainly used to store the resultas of a set of raytracing results
+<div class="desc"><p>This class is used to store results in the shape of a lookup table.
+This is mainly used to store the results of a set of raytracing runs.
 example: the solar pressure for a body is computed for a grid of RA/DEC values.
 these values can be stored in the LookupTable object and later retrieved.
 This class offers the possibility of not oly retrieving pre-computed values, but
-aslso interpolating between grid points.</p>
+also interpolating between grid points.</p>
 <p>NOTE: the grid of the lookup table does not need to be regular
 the interpolation is based on numpy griddata method which is able to cope
 with unstructured grids</p>
@@ -913,12 +912,12 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
 </summary>
 <pre><code class="python">class LookupTable():
         &#34;&#34;&#34;
-        This class is used to store results in the shape aof a lookup table.
-        This is mainly used to store the resultas of a set of raytracing results
+        This class is used to store results in the shape of a lookup table.
+        This is mainly used to store the results of a set of raytracing runs.
         example: the solar pressure for a body is computed for a grid of RA/DEC values.
         these values can be stored in the LookupTable object and later retrieved.
         This class offers the possibility of not oly retrieving pre-computed values, but
-        aslso interpolating between grid points.
+        also interpolating between grid points.
 
         NOTE: the grid of the lookup table does not need to be regular
         the interpolation is based on numpy griddata method which is able to cope
@@ -1149,7 +1148,7 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
 <dd>&nbsp;</dd>
 <dt><strong><code>info</code></strong> :&ensp;<code>str</code></dt>
 <dd>A string field to store information about the lookup table. This is set as a class property
-so it can be requested trhough instance.info</dd>
+so it can be requested trough instance.info</dd>
 </dl>
 <p>np.array : np.array
 unset</p></div>
@@ -1168,7 +1167,7 @@ unset</p></div>
         values : np.ndarray(N,M,L,...,1)
         info : str
                 A string field to store information about the lookup table. This is set as a class property
-                so it can be requested trhough instance.info
+                so it can be requested trough instance.info
         np.array : np.array
                 unset
 

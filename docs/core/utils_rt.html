@@ -53,18 +53,21 @@ except:
 # Define general utils
 ###########################################################
 
-
 def parallelize( iterator, function, chunks ):
-        &#34;&#34;&#34;
-        Define a general parallelization framework to speedup computations
-
-        Parameters:
-        iterator: the array-like object over which to parallelize
-        functiuon: the function that must be called by each subprocess. The function should be of the form y = f(iterator)
-        chunks: number of parallel workers
-
-        &#34;&#34;&#34;
-
+        &#34;&#34;&#34;Define a general parallelization framework to speedup computations
+                Parameters
+                ----------
+                iterator : array_like
+                    the array-like object over which to parallelize
+                function : function handle
+                    the function that must be called by each subprocess. The function should be of the form y = f(iterator)
+                chunks : int
+                        number of parallel workers
+                   Returns
+                   -------
+                   result : array_like
+                                the result of the parallelized computation
+                &#34;&#34;&#34;
 
 
         with mproc.Pool(chunks) as p:
@@ -74,13 +77,36 @@ def parallelize( iterator, function, chunks ):
 
 
 def chunker(iterator, chunks):
+        &#34;&#34;&#34;Chunk an iterator or array into chunks
+
+        Parameters
+        ----------
+        iterator : array_like
+                the array-like object to chunk
+        chunks : int
+                number of chunks
+        Returns
+        -------
+        result : array_like
+                the chunked array
+        &#34;&#34;&#34;
         
         return np.array_split(iterator, chunks)
         
 
 def pxform_convert(pxform):
-        &#34;&#34;&#34;
-        Convert a spice-generated rotation matrix (pxform) to the format required by trimesh
+        &#34;&#34;&#34;     Convert a spice-generated rotation matrix (pxform) to the format required by trimesh
+
+        Parameters
+        ----------
+        pxform : array_like
+                the spice-generated rotation matrix
+        Returns
+        -------
+        result : array_like
+                the rotation matrix in the format required by trimesh
+
+
         &#34;&#34;&#34;
         pxform = np.array([pxform[0],pxform[1],pxform[2]], dtype = dFloat)
 
@@ -92,12 +118,16 @@ def pxform_convert(pxform):
 
 
 def block_normalize(V):
-        &#34;&#34;&#34;
-        get the unit vectors associated to a block of vectors of shape
-        (N,3)
+        &#34;&#34;&#34;Get the unit vectors associated to a block of vectors of shape (N,3)
 
-        
-
+        Parameters
+        ----------
+        V : array_like (N,3)
+                the array of vectors to normalize
+        Returns
+        -------
+        result : array_like (N,3)
+                the normalized vectors
         &#34;&#34;&#34;
 
         if V.ndim &gt; 1:
@@ -107,14 +137,17 @@ def block_normalize(V):
 
 
 def block_dot(a,b):
-        &#34;&#34;&#34;
-        Perform block dot product between two arrays of shape (N,m), (N,m)
+        &#34;&#34;&#34;Perform block dot product between two arrays of shape (N,m), (N,m)
 
         Parameters
-        a, b [np.array (N,m)]
+        ----------
+        a, b :  np.array (N,m)
+                the arrays to dot product
 
         Returns
-        c [np.array (N,)]
+        -------
+        result : np.array (N,)
+                the dot product of the two arrays
         &#34;&#34;&#34;
 
         return np.sum(a*b, axis = 1)
@@ -122,18 +155,29 @@ def block_dot(a,b):
 
 def pixel_plane(d0, lon, lat, width = 1, height = 1, ray_spacing = .1):
         &#34;&#34;&#34;&#34;Generate a pixel array for raytracing ad defined in Li et al., 2018
-        This is the &#34;fully exposed version&#34; to explicitly show the algorithm. 
-        Parameters:
-        d0: Distance of the pixel array from the center (in meters)
-        lat: Latitude of the pixel array center (in rad)
-        lon: Longitude of the pixel array center (in rad)
-        width: The width of the plane(in meters). Default = 1
-        height: the height of the plane(in meters). Default = 1
-        ray_spacing: the spacing of the rays (in meters). Default = 0.1
+        This is the &#34;fully exposed version&#34; to explicitly show the algorithm.
 
-        Returns: 
-        locs: Pixel locations as a numpy array
-        dirs: the ray directions as a numpy array
+        Parameters
+        ----------
+        d0 : float
+                Distance of the pixel array from the center (in meters)
+        lat : float
+                Latitude of the pixel array center (in rad)
+        lon : float
+                Longitude of the pixel array center (in rad)
+        width : float
+                The width of the plane(in meters). Default = 1
+        height : float
+                the height of the plane(in meters). Default = 1
+        ray_spacing : float
+                the spacing of the rays (in meters). Default = 0.1
+
+        Returns
+        -------
+        locs: np.array (N,3)
+                Pixel locations as a numpy array
+        dirs: np.array (N,3)
+                the ray directions as a numpy array
         &#34;&#34;&#34;
 
 
@@ -172,14 +216,29 @@ def pixel_plane(d0, lon, lat, width = 1, height = 1, ray_spacing = .1):
 
 
 
-
+        &#34;&#34;&#34;
+        Further accelerate the ray vector generation using numba&#39;s jit vectorization
+        &#34;&#34;&#34;
 
 
 @jit(nopython = True)
 def fast_vector_build(linsp1, linsp2, dim1, dim2):
+        &#34;&#34;&#34;Build the pixel array using numba&#39;s jit vectorization
 
-        &#34;&#34;&#34;
-        Further accelerate the ray vector generation using numba&#39;s jit vectorization
+        Parameters
+        ----------
+        linsp1 : np.array (N,)
+                the first linspace
+        linsp2 : np.array (N,)
+                the second linspace
+        dim1 : int
+                the first dimension of the pixel array
+        dim2 : int
+                the second dimension of the pixel array
+        Returns
+        -------
+        result : np.array (N,3)
+                the pixel array
         &#34;&#34;&#34;
         basic_coords = np.zeros((dim1*dim2, 3))
         counter = 0
@@ -704,14 +763,31 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces = 1,  kernel = &#39
         ray_directions: numpy array of ray directions (does not need to be normalized) (n,3)
         bounces: (int) number of bounces to compute
         kernel: one of Embree, Native or Embree3. To chose wether to use the Intel Embree kernel or the native python kernel
-        diffusion: (bool) Boolean flag to activate diffused raytracing for the first bounce
+        diffusion: (bool) Boolean flag to activate diffused raytracing for the first bounce. Note: if this is false, the output &#34;diffusion pack&#34; will be &#34;None&#34;
         num_diffuse: (int) number of samples for first-bounce diffuse computation
         errorMsg: (bool) flag to control wether to pring the warning when no bounces are found
 
         Returns:
-        index_tri:  Mesh triangle indexes
-        index_ray:  Ray indexes
-        location:   Location of intersect points
+        index_tri_container: (list of np.array) a list containing the index of the hit faces of the mesh.
+                                                [ [hit indexes bounce 1], [hit indexes bounce 2], ...]
+        index_ray_container: (list of np.array) list containing the index of the ray that have hit the mesh
+                                                [ [ray hitting idx bounce 1], [ray hitting idx bounce 2], ...]
+
+        locations_container: (list of (3,N) np.array)  list containing coordinates of the hit points
+                                                [ [(3,N) np.array of locations of bounce 1], [(3,N) np.array of locations of bounce 2], ...]
+        ray_origins_container: (list of (3,N) np.array) list containing the origins of the rays
+                                                [ [(3,N) np.array of ray origins of bounce 1], ...]
+                                                Note that ray_origins_container[0] corresponds with the ray_origins input
+        ray_directions_container: (list of (3,N) np.array) list containing the directions of the rays
+                                                [ [directions of bounce 1], [directions of bounce 2], ...]. Note that the directions of bounce 1
+                                                correspond with the ray_directions input value.
+        None or diffusion_pack:  (list of lists):
+                A list containing:
+                        index_tri_diffusion: (np.array) indexes of the mesh faces hit by diffusion
+                        index_ray_diffusion: (np.array) indexes of the diffused rays hitting the surface
+                        ray_directions_diffusion: (3,N np.array) directions of the diffused rays
+                        location_diffusion: (3,N np.array) location og the diffusion hit points
+
         &#34;&#34;&#34;
 
 
@@ -836,7 +912,7 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces = 1,  kernel = &#39
 
 
         else:
-                print(&#39;No Recognized kernel&#39;)
+                print(f&#39;The kernel {kernel} is not recognized. Choose between one of the currently supported kernels: Native, Embree, Embree3&#39;)
 
 
 
@@ -1043,16 +1119,30 @@ ray_origins: numpy array of ray origins (n, 3)
 ray_directions: numpy array of ray directions (does not need to be normalized) (n,3)
 bounces: (int) number of bounces to compute
 kernel: one of Embree, Native or Embree3. To chose wether to use the Intel Embree kernel or the native python kernel
-diffusion: (bool) Boolean flag to activate diffused raytracing for the first bounce
+diffusion: (bool) Boolean flag to activate diffused raytracing for the first bounce. Note: if this is false, the output "diffusion pack" will be "None"
 num_diffuse: (int) number of samples for first-bounce diffuse computation
 errorMsg: (bool) flag to control wether to pring the warning when no bounces are found</p>
 <p>Returns:
-index_tri:
-Mesh triangle indexes
-index_ray:
-Ray indexes
-location:
-Location of intersect points</p></div>
+index_tri_container: (list of np.array) a list containing the index of the hit faces of the mesh.
+[ [hit indexes bounce 1], [hit indexes bounce 2], &hellip;]
+index_ray_container: (list of np.array) list containing the index of the ray that have hit the mesh
+[ [ray hitting idx bounce 1], [ray hitting idx bounce 2], &hellip;]</p>
+<p>locations_container: (list of (3,N) np.array)
+list containing coordinates of the hit points
+[ [(3,N) np.array of locations of bounce 1], [(3,N) np.array of locations of bounce 2], &hellip;]
+ray_origins_container: (list of (3,N) np.array) list containing the origins of the rays
+[ [(3,N) np.array of ray origins of bounce 1], &hellip;]
+Note that ray_origins_container[0] corresponds with the ray_origins input
+ray_directions_container: (list of (3,N) np.array) list containing the directions of the rays
+[ [directions of bounce 1], [directions of bounce 2], &hellip;]. Note that the directions of bounce 1
+correspond with the ray_directions input value.
+None or diffusion_pack:
+(list of lists):
+A list containing:
+index_tri_diffusion: (np.array) indexes of the mesh faces hit by diffusion
+index_ray_diffusion: (np.array) indexes of the diffused rays hitting the surface
+ray_directions_diffusion: (3,N np.array) directions of the diffused rays
+location_diffusion: (3,N np.array) location og the diffusion hit points</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1066,14 +1156,31 @@ Location of intersect points</p></div>
         ray_directions: numpy array of ray directions (does not need to be normalized) (n,3)
         bounces: (int) number of bounces to compute
         kernel: one of Embree, Native or Embree3. To chose wether to use the Intel Embree kernel or the native python kernel
-        diffusion: (bool) Boolean flag to activate diffused raytracing for the first bounce
+        diffusion: (bool) Boolean flag to activate diffused raytracing for the first bounce. Note: if this is false, the output &#34;diffusion pack&#34; will be &#34;None&#34;
         num_diffuse: (int) number of samples for first-bounce diffuse computation
         errorMsg: (bool) flag to control wether to pring the warning when no bounces are found
 
         Returns:
-        index_tri:  Mesh triangle indexes
-        index_ray:  Ray indexes
-        location:   Location of intersect points
+        index_tri_container: (list of np.array) a list containing the index of the hit faces of the mesh.
+                                                [ [hit indexes bounce 1], [hit indexes bounce 2], ...]
+        index_ray_container: (list of np.array) list containing the index of the ray that have hit the mesh
+                                                [ [ray hitting idx bounce 1], [ray hitting idx bounce 2], ...]
+
+        locations_container: (list of (3,N) np.array)  list containing coordinates of the hit points
+                                                [ [(3,N) np.array of locations of bounce 1], [(3,N) np.array of locations of bounce 2], ...]
+        ray_origins_container: (list of (3,N) np.array) list containing the origins of the rays
+                                                [ [(3,N) np.array of ray origins of bounce 1], ...]
+                                                Note that ray_origins_container[0] corresponds with the ray_origins input
+        ray_directions_container: (list of (3,N) np.array) list containing the directions of the rays
+                                                [ [directions of bounce 1], [directions of bounce 2], ...]. Note that the directions of bounce 1
+                                                correspond with the ray_directions input value.
+        None or diffusion_pack:  (list of lists):
+                A list containing:
+                        index_tri_diffusion: (np.array) indexes of the mesh faces hit by diffusion
+                        index_ray_diffusion: (np.array) indexes of the diffused rays hitting the surface
+                        ray_directions_diffusion: (3,N np.array) directions of the diffused rays
+                        location_diffusion: (3,N np.array) location og the diffusion hit points
+
         &#34;&#34;&#34;
 
 
@@ -1198,7 +1305,7 @@ Location of intersect points</p></div>
 
 
         else:
-                print(&#39;No Recognized kernel&#39;)
+                print(f&#39;The kernel {kernel} is not recognized. Choose between one of the currently supported kernels: Native, Embree, Embree3&#39;)
 
 
 
@@ -1215,23 +1322,32 @@ Location of intersect points</p></div>
 </code></dt>
 <dd>
 <div class="desc"><p>Perform block dot product between two arrays of shape (N,m), (N,m)</p>
-<p>Parameters
-a, b [np.array (N,m)]</p>
-<p>Returns
-c [np.array (N,)]</p></div>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>a</code></strong>, <strong><code>b</code></strong> :&ensp;<code> np.array (N,m)</code></dt>
+<dd>the arrays to dot product</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>result</code></strong> :&ensp;<code>np.array (N,)</code></dt>
+<dd>the dot product of the two arrays</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def block_dot(a,b):
-        &#34;&#34;&#34;
-        Perform block dot product between two arrays of shape (N,m), (N,m)
+        &#34;&#34;&#34;Perform block dot product between two arrays of shape (N,m), (N,m)
 
         Parameters
-        a, b [np.array (N,m)]
+        ----------
+        a, b :  np.array (N,m)
+                the arrays to dot product
 
         Returns
-        c [np.array (N,)]
+        -------
+        result : np.array (N,)
+                the dot product of the two arrays
         &#34;&#34;&#34;
 
         return np.sum(a*b, axis = 1)</code></pre>
@@ -1241,19 +1357,32 @@ c [np.array (N,)]</p></div>
 <span>def <span class="ident">block_normalize</span></span>(<span>V)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>get the unit vectors associated to a block of vectors of shape
-(N,3)</p></div>
+<div class="desc"><p>Get the unit vectors associated to a block of vectors of shape (N,3)</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>V</code></strong> :&ensp;<code>array_like (N,3)</code></dt>
+<dd>the array of vectors to normalize</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>result</code></strong> :&ensp;<code>array_like (N,3)</code></dt>
+<dd>the normalized vectors</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def block_normalize(V):
-        &#34;&#34;&#34;
-        get the unit vectors associated to a block of vectors of shape
-        (N,3)
+        &#34;&#34;&#34;Get the unit vectors associated to a block of vectors of shape (N,3)
 
-        
-
+        Parameters
+        ----------
+        V : array_like (N,3)
+                the array of vectors to normalize
+        Returns
+        -------
+        result : array_like (N,3)
+                the normalized vectors
         &#34;&#34;&#34;
 
         if V.ndim &gt; 1:
@@ -1266,12 +1395,37 @@ c [np.array (N,)]</p></div>
 <span>def <span class="ident">chunker</span></span>(<span>iterator, chunks)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Chunk an iterator or array into chunks</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>iterator</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>the array-like object to chunk</dd>
+<dt><strong><code>chunks</code></strong> :&ensp;<code>int</code></dt>
+<dd>number of chunks</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>result</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>the chunked array</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def chunker(iterator, chunks):
+        &#34;&#34;&#34;Chunk an iterator or array into chunks
+
+        Parameters
+        ----------
+        iterator : array_like
+                the array-like object to chunk
+        chunks : int
+                number of chunks
+        Returns
+        -------
+        result : array_like
+                the chunked array
+        &#34;&#34;&#34;
         
         return np.array_split(iterator, chunks)</code></pre>
 </details>
@@ -1430,16 +1584,45 @@ outFileName: [str] name of output file</p></div>
 <span>def <span class="ident">fast_vector_build</span></span>(<span>linsp1, linsp2, dim1, dim2)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Further accelerate the ray vector generation using numba's jit vectorization</p></div>
+<div class="desc"><p>Build the pixel array using numba's jit vectorization</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>linsp1</code></strong> :&ensp;<code>np.array (N,)</code></dt>
+<dd>the first linspace</dd>
+<dt><strong><code>linsp2</code></strong> :&ensp;<code>np.array (N,)</code></dt>
+<dd>the second linspace</dd>
+<dt><strong><code>dim1</code></strong> :&ensp;<code>int</code></dt>
+<dd>the first dimension of the pixel array</dd>
+<dt><strong><code>dim2</code></strong> :&ensp;<code>int</code></dt>
+<dd>the second dimension of the pixel array</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>result</code></strong> :&ensp;<code>np.array (N,3)</code></dt>
+<dd>the pixel array</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@jit(nopython = True)
 def fast_vector_build(linsp1, linsp2, dim1, dim2):
+        &#34;&#34;&#34;Build the pixel array using numba&#39;s jit vectorization
 
-        &#34;&#34;&#34;
-        Further accelerate the ray vector generation using numba&#39;s jit vectorization
+        Parameters
+        ----------
+        linsp1 : np.array (N,)
+                the first linspace
+        linsp2 : np.array (N,)
+                the second linspace
+        dim1 : int
+                the first dimension of the pixel array
+        dim2 : int
+                the second dimension of the pixel array
+        Returns
+        -------
+        result : np.array (N,3)
+                the pixel array
         &#34;&#34;&#34;
         basic_coords = np.zeros((dim1*dim2, 3))
         counter = 0
@@ -1563,26 +1746,40 @@ def get_orthogonal(v):
 <span>def <span class="ident">parallelize</span></span>(<span>iterator, function, chunks)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Define a general parallelization framework to speedup computations</p>
-<p>Parameters:
-iterator: the array-like object over which to parallelize
-functiuon: the function that must be called by each subprocess. The function should be of the form y = f(iterator)
-chunks: number of parallel workers</p></div>
+<div class="desc"><p>Define a general parallelization framework to speedup computations
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>iterator</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>the array-like object over which to parallelize</dd>
+<dt><strong><code>function</code></strong> :&ensp;<code>function handle</code></dt>
+<dd>the function that must be called by each subprocess. The function should be of the form y = f(iterator)</dd>
+<dt><strong><code>chunks</code></strong> :&ensp;<code>int</code></dt>
+<dd>number of parallel workers</dd>
+</dl>
+<p>Returns</p>
+<hr>
+<p>result : array_like
+the result of the parallelized computation</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def parallelize( iterator, function, chunks ):
-        &#34;&#34;&#34;
-        Define a general parallelization framework to speedup computations
-
-        Parameters:
-        iterator: the array-like object over which to parallelize
-        functiuon: the function that must be called by each subprocess. The function should be of the form y = f(iterator)
-        chunks: number of parallel workers
-
-        &#34;&#34;&#34;
-
+        &#34;&#34;&#34;Define a general parallelization framework to speedup computations
+                Parameters
+                ----------
+                iterator : array_like
+                    the array-like object over which to parallelize
+                function : function handle
+                    the function that must be called by each subprocess. The function should be of the form y = f(iterator)
+                chunks : int
+                        number of parallel workers
+                   Returns
+                   -------
+                   result : array_like
+                                the result of the parallelized computation
+                &#34;&#34;&#34;
 
 
         with mproc.Pool(chunks) as p:
@@ -1596,35 +1793,58 @@ chunks: number of parallel workers</p></div>
 </code></dt>
 <dd>
 <div class="desc"><p>"Generate a pixel array for raytracing ad defined in Li et al., 2018
-This is the "fully exposed version" to explicitly show the algorithm.
-Parameters:
-d0: Distance of the pixel array from the center (in meters)
-lat: Latitude of the pixel array center (in rad)
-lon: Longitude of the pixel array center (in rad)
-width: The width of the plane(in meters). Default = 1
-height: the height of the plane(in meters). Default = 1
-ray_spacing: the spacing of the rays (in meters). Default = 0.1</p>
-<p>Returns:
-locs: Pixel locations as a numpy array
-dirs: the ray directions as a numpy array</p></div>
+This is the "fully exposed version" to explicitly show the algorithm.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>d0</code></strong> :&ensp;<code>float</code></dt>
+<dd>Distance of the pixel array from the center (in meters)</dd>
+<dt><strong><code>lat</code></strong> :&ensp;<code>float</code></dt>
+<dd>Latitude of the pixel array center (in rad)</dd>
+<dt><strong><code>lon</code></strong> :&ensp;<code>float</code></dt>
+<dd>Longitude of the pixel array center (in rad)</dd>
+<dt><strong><code>width</code></strong> :&ensp;<code>float</code></dt>
+<dd>The width of the plane(in meters). Default = 1</dd>
+<dt><strong><code>height</code></strong> :&ensp;<code>float</code></dt>
+<dd>the height of the plane(in meters). Default = 1</dd>
+<dt><strong><code>ray_spacing</code></strong> :&ensp;<code>float</code></dt>
+<dd>the spacing of the rays (in meters). Default = 0.1</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>locs</code></strong> :&ensp;<code>np.array (N,3)</code></dt>
+<dd>Pixel locations as a numpy array</dd>
+<dt><strong><code>dirs</code></strong> :&ensp;<code>np.array (N,3)</code></dt>
+<dd>the ray directions as a numpy array</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def pixel_plane(d0, lon, lat, width = 1, height = 1, ray_spacing = .1):
         &#34;&#34;&#34;&#34;Generate a pixel array for raytracing ad defined in Li et al., 2018
-        This is the &#34;fully exposed version&#34; to explicitly show the algorithm. 
-        Parameters:
-        d0: Distance of the pixel array from the center (in meters)
-        lat: Latitude of the pixel array center (in rad)
-        lon: Longitude of the pixel array center (in rad)
-        width: The width of the plane(in meters). Default = 1
-        height: the height of the plane(in meters). Default = 1
-        ray_spacing: the spacing of the rays (in meters). Default = 0.1
+        This is the &#34;fully exposed version&#34; to explicitly show the algorithm.
 
-        Returns: 
-        locs: Pixel locations as a numpy array
-        dirs: the ray directions as a numpy array
+        Parameters
+        ----------
+        d0 : float
+                Distance of the pixel array from the center (in meters)
+        lat : float
+                Latitude of the pixel array center (in rad)
+        lon : float
+                Longitude of the pixel array center (in rad)
+        width : float
+                The width of the plane(in meters). Default = 1
+        height : float
+                the height of the plane(in meters). Default = 1
+        ray_spacing : float
+                the spacing of the rays (in meters). Default = 0.1
+
+        Returns
+        -------
+        locs: np.array (N,3)
+                Pixel locations as a numpy array
+        dirs: np.array (N,3)
+                the ray directions as a numpy array
         &#34;&#34;&#34;
 
 
@@ -1657,7 +1877,15 @@ dirs: the ray directions as a numpy array</p></div>
 
 
         # Return the output in the shape required by trimesh
-        return basic_coords, basic_dirs</code></pre>
+        return basic_coords, basic_dirs
+
+
+
+
+
+        &#34;&#34;&#34;
+        Further accelerate the ray vector generation using numba&#39;s jit vectorization
+        &#34;&#34;&#34;</code></pre>
 </details>
 </dd>
 <dt id="pyRTX.core.utils_rt.pixel_plane_opt"><code class="name flex">
@@ -1750,14 +1978,34 @@ dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array</p></div>
 <span>def <span class="ident">pxform_convert</span></span>(<span>pxform)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Convert a spice-generated rotation matrix (pxform) to the format required by trimesh</p></div>
+<div class="desc"><p>Convert a spice-generated rotation matrix (pxform) to the format required by trimesh</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pxform</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>the spice-generated rotation matrix</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>result</code></strong> :&ensp;<code>array_like</code></dt>
+<dd>the rotation matrix in the format required by trimesh</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def pxform_convert(pxform):
-        &#34;&#34;&#34;
-        Convert a spice-generated rotation matrix (pxform) to the format required by trimesh
+        &#34;&#34;&#34;     Convert a spice-generated rotation matrix (pxform) to the format required by trimesh
+
+        Parameters
+        ----------
+        pxform : array_like
+                the spice-generated rotation matrix
+        Returns
+        -------
+        result : array_like
+                the rotation matrix in the format required by trimesh
+
+
         &#34;&#34;&#34;
         pxform = np.array([pxform[0],pxform[1],pxform[2]], dtype = dFloat)
 

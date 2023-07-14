@@ -97,7 +97,10 @@ class Spacecraft():
                 #self._last_epoch = 0
 
         def _load_obj(self, fname):
-                mesh = tm.load_mesh(fname, skip_texture = True)
+                if not isinstance(fname, tm.base.Trimesh):
+                        mesh = tm.load_mesh(fname, skip_texture = True)
+                else:
+                        mesh = fname
                 mesh.apply_transform(tmt.scale_matrix(self.conversion_factor, [0,0,0]))
                 return mesh
 
@@ -109,6 +112,9 @@ class Spacecraft():
 
                         self.spacecraft_model[elem][&#39;base_mesh&#39;] = self._load_obj(input_model[elem][&#39;file&#39;])
                         self.spacecraft_model[elem][&#39;translation&#39;] = tmt.translation_matrix(np.array(input_model[elem][&#39;center&#39;]) * self.conversion_factor)
+
+                        if &#39;UD_rotation&#39; not in input_model[elem].keys() and input_model[elem][&#39;frame_type&#39;] == &#39;UD&#39;:
+                                input_model[elem][&#39;UD_rotation&#39;]= tmt.identity_matrix()
 
                         #print(tmt.translation_matrix(input_model[elem][&#39;center&#39;]))
 
@@ -361,7 +367,10 @@ in the case of 'UD' a rotation matrix must be specified in the UD_rotation (opti
                 #self._last_epoch = 0
 
         def _load_obj(self, fname):
-                mesh = tm.load_mesh(fname, skip_texture = True)
+                if not isinstance(fname, tm.base.Trimesh):
+                        mesh = tm.load_mesh(fname, skip_texture = True)
+                else:
+                        mesh = fname
                 mesh.apply_transform(tmt.scale_matrix(self.conversion_factor, [0,0,0]))
                 return mesh
 
@@ -373,6 +382,9 @@ in the case of 'UD' a rotation matrix must be specified in the UD_rotation (opti
 
                         self.spacecraft_model[elem][&#39;base_mesh&#39;] = self._load_obj(input_model[elem][&#39;file&#39;])
                         self.spacecraft_model[elem][&#39;translation&#39;] = tmt.translation_matrix(np.array(input_model[elem][&#39;center&#39;]) * self.conversion_factor)
+
+                        if &#39;UD_rotation&#39; not in input_model[elem].keys() and input_model[elem][&#39;frame_type&#39;] == &#39;UD&#39;:
+                                input_model[elem][&#39;UD_rotation&#39;]= tmt.identity_matrix()
 
                         #print(tmt.translation_matrix(input_model[elem][&#39;center&#39;]))
 

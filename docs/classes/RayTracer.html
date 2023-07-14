@@ -29,7 +29,9 @@ import timeit
 
 class RayTracer():
         
-        def __init__(self, spacecraft, rays, kernel = &#39;Embree&#39;, bounces = 1, diffusion = False, num_diffuse = None):
+        def __init__(self, spacecraft, rays, kernel = &#39;Embree&#39;, bounces = 1, diffusion = False, num_diffuse = 10):
+
+
 
                 self.kernel = kernel
                 self.bounces = bounces
@@ -39,7 +41,7 @@ class RayTracer():
                 self.spacecraft = spacecraft
                 self.norm_factor = rays.norm_factor
 
-                if self.diffusion and num_diffuse is None:
+                if self.diffusion and self.num_diffuse == None:
                         raise ValueError(&#39;The diffusion computation is activated but the number of diffused rays was not specified&#39;)
         
 
@@ -113,7 +115,7 @@ class RayTracer():
 <dl>
 <dt id="pyRTX.classes.RayTracer.RayTracer"><code class="flex name class">
 <span>class <span class="ident">RayTracer</span></span>
-<span>(</span><span>spacecraft, rays, kernel='Embree', bounces=1, diffusion=False, num_diffuse=None)</span>
+<span>(</span><span>spacecraft, rays, kernel='Embree', bounces=1, diffusion=False, num_diffuse=10)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -123,7 +125,9 @@ class RayTracer():
 </summary>
 <pre><code class="python">class RayTracer():
         
-        def __init__(self, spacecraft, rays, kernel = &#39;Embree&#39;, bounces = 1, diffusion = False, num_diffuse = None):
+        def __init__(self, spacecraft, rays, kernel = &#39;Embree&#39;, bounces = 1, diffusion = False, num_diffuse = 10):
+
+
 
                 self.kernel = kernel
                 self.bounces = bounces
@@ -133,7 +137,7 @@ class RayTracer():
                 self.spacecraft = spacecraft
                 self.norm_factor = rays.norm_factor
 
-                if self.diffusion and num_diffuse is None:
+                if self.diffusion and self.num_diffuse == None:
                         raise ValueError(&#39;The diffusion computation is activated but the number of diffused rays was not specified&#39;)
         
 

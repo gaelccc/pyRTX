@@ -4,9 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.8.1" />
-<title>pyRTX API documentation</title>
-<meta name="description" content="&#34;
-TEST TEST" />
+<title>pyRTX.visual.utils API documentation</title>
+<meta name="description" content="" />
 <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
 <link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
@@ -18,52 +17,43 @@ TEST TEST" />
 <main>
 <article id="content">
 <header>
-<h1 class="title">Package <code>pyRTX</code></h1>
+<h1 class="title">Module <code>pyRTX.visual.utils</code></h1>
 </header>
 <section id="section-intro">
-<p>"
-TEST TEST</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;&#34;
-TEST TEST
-&#34;&#34;&#34;</code></pre>
+<pre><code class="python">import matplotlib.colors as col
+
+
+def color_convert(color, size = 1):
+    color = col.to_rgba_array(color)*255.0
+    return list(color)*size</code></pre>
 </details>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt><code class="name"><a title="pyRTX.classes" href="classes/index.html">pyRTX.classes</a></code></dt>
+<dt id="pyRTX.visual.utils.color_convert"><code class="name flex">
+<span>def <span class="ident">color_convert</span></span>(<span>color, size=1)</span>
+</code></dt>
 <dd>
 <div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="pyRTX.constants" href="constants.html">pyRTX.constants</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="pyRTX.core" href="core/index.html">pyRTX.core</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="pyRTX.defaults" href="defaults.html">pyRTX.defaults</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="pyRTX.helpers" href="helpers.html">pyRTX.helpers</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="pyRTX.visual" href="visual/index.html">pyRTX.visual</a></code></dt>
-<dd>
-<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def color_convert(color, size = 1):
+    color = col.to_rgba_array(color)*255.0
+    return list(color)*size</code></pre>
+</details>
 </dd>
 </dl>
-</section>
-<section>
-</section>
-<section>
 </section>
 <section>
 </section>
@@ -74,14 +64,14 @@ TEST TEST
 <ul></ul>
 </div>
 <ul id="index">
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pyRTX.classes" href="classes/index.html">pyRTX.classes</a></code></li>
-<li><code><a title="pyRTX.constants" href="constants.html">pyRTX.constants</a></code></li>
-<li><code><a title="pyRTX.core" href="core/index.html">pyRTX.core</a></code></li>
-<li><code><a title="pyRTX.defaults" href="defaults.html">pyRTX.defaults</a></code></li>
-<li><code><a title="pyRTX.helpers" href="helpers.html">pyRTX.helpers</a></code></li>
-<li><code><a title="pyRTX.visual" href="visual/index.html">pyRTX.visual</a></code></li>
+<li><code><a title="pyRTX.visual" href="index.html">pyRTX.visual</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="pyRTX.visual.utils.color_convert" href="#pyRTX.visual.utils.color_convert">color_convert</a></code></li>
 </ul>
 </li>
 </ul>
