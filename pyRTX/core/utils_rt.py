@@ -418,23 +418,33 @@ def diffuse(normals, num = 10):
 def compute_secondary_bounce(location, index_tri, mesh_obj, ray_directions, index_ray, diffusion = False, num_diffuse = None):
 	"""Prepare the quantities required for iterating the raytracer
 
-	Parameters:
-	location: UNUSED. This input is maintained just to change the variable name
-	index_tri: [numpy array (N,)] indexes of the faces intersected by the rays
-	mesh_obj: [trimesh.Trimesh] the mesh object
-	ray_directions: [numpy array (L, 3)] the directions of the incoming rays
-	index_ray: [numpy array (M,)] the indexes of the rays that effectively intersected the N faces
-	diffusion: [bool] boolean flag to select wether to compute the secondary diffusion rays (Default: False)
-	num_diffuse: [None or int] number of samples for the diffusion computation (Default: None)
+	Parameters
+	----------
+	location : np.array (n_rays,3)
+		the location of the intersection points
+	index_tri : np.array (n_rays,)
+		the indexes of the faces  intersected by the rays
+	mesh_obj : trimesh.Trimesh
+		the mesh object
+	ray_directions : np.array (n_rays,3)
+		the directions of the incoming rays
+	index_ray : np.array (n_rays,)
+		the indexes of the rays that effectively intersected the n faces
+	diffusion : bool
+		boolean flag to select wether to compute the secondary diffusion rays (Default: False)
+	num_diffuse : None or int
+		number of samples for the diffusion computation (Default: None)
 
-	Returns:
-	location: same as location in input
-	reflect_dirs: [numpy array (L,3)] the specularly reflected directions of the rays
-	diffuse_dirs [numpy array (L*num_diffuse, 3) or -1] (if requested) the direction of the diffused rays
-
-
-
+	Returns
+	-------
+	location : np.array (n_rays,3)
+		same as location in input
+	reflect_dirs : np.array (n_rays,3)
+		the specularly reflected directions of the rays
+	diffuse_dirs np.array (n_rays*num_diffuse, 3) or -1
+		(if requested) the direction of the diffused rays
 	"""
+
 	reflect_dirs = np.zeros_like(location)
 	normals = mesh_obj.face_normals
 
@@ -455,22 +465,30 @@ def compute_secondary_bounce(location, index_tri, mesh_obj, ray_directions, inde
 # Saving utilities
 
 def save_for_visualization(outputFilePath, mesh, ray_origins, ray_directions, location, index_tri, diffusion_pack ):
-	"""
-	Save a pickled dictionary useful for visualization scripts (see visual_utils)
+	"""Save a pickled dictionary useful for visualization scripts (see visual_utils)
 
-	Parameters:
-	outputFilePath: [str] output file for saving (should end with .pkl)
-	mesh: [trimesh.Trimesh] mesh object
-	ray_origins: [numpy array (bounce_number, N, 3)] output of the raytracer
-	ray_directions: [numpy array (bounce_number, N, 3)] output of the raytracer
-	location: [numpy array (bounce_number, N, 3)] locations of intersection points
-	index_tri: [numpy array (bounce_number, M, 3)] indexes of intersected triangles
-	diffusion_pack: [list] output of the raytracer with the same name
+	Parameters
+	----------
+	outputFilePath : str
+		output file for saving (should end with .pkl)
+	mesh : trimesh.Trimesh
+		mesh object
+	ray_origins : np.array (bounce_number, n_rays,3)
+		output of the raytracer
+	ray_directions : np.array (bounce_number, n_rays,3)
+		output of the raytracer
+	location : np.array (bounce_number, n_rays,3)
+		locations of intersection points
+	index_tri : np.array (bounce_number, n_rays,)
+		indexes of intersected triangles
+	diffusion_pack : list
+		output of the raytracer with the same name
 
-	Returns:
+	Returns
+	-------
 	None
-
 	"""
+
 	outdict = {'mesh': mesh, 'ray_origins': ray_origins, 'ray_directions': ray_directions, 'locations': location, 'index_tri': index_tri, 'diffusion_pack': diffusion_pack}
 
 	with open(outputFilePath, 'wb') as f:
@@ -478,7 +496,7 @@ def save_for_visualization(outputFilePath, mesh, ray_origins, ray_directions, lo
 
 
 
-def exportEXAC(satelliteID, data,tstep, startTime, endTime, outFileName):
+def _exportEXAC(satelliteID, data,tstep, startTime, endTime, outFileName):
 	"""
 	GEODYN-EXAC file exporter
 	Parameters:
@@ -520,17 +538,22 @@ def exportEXAC(satelliteID, data,tstep, startTime, endTime, outFileName):
 # (Provided by Sam Potter)
 
 def Embree3_init_geometry(mesh_obj):
+	""" NOTE all the embree 3 utilities (the python wrappers) have been developed by Sam Potter
+	(https://github.com/sampotter/python-embree)
 
-	"""
 	Perform initial task for geometry initialization for the Embree3 kernel
-	Parameters:
-	mesh_obj: the mesh object provided via trimesh
+	Parameters
+	----------
+	mesh_obj : trimesh.Trimesh
+		the mesh object provided via trimesh
 
-	Returns:
-	scene: embree.Scene object
-	context: embree.Context object
-	V:  mesh vertices
-	F: mesh faces
+
+	Returns
+	-------
+	scene : embree.Scene
+	context : embree.Context
+	V : np.array (n_vertices, 3)
+	F : np.array (n_faces, 3)
 	"""
 	V = np.array(mesh_obj.vertices, dtype=np.float64)
 	F = np.array(mesh_obj.faces, dtype=np.int64)
@@ -547,15 +570,19 @@ def Embree3_init_geometry(mesh_obj):
 	return scene, context, V, F
 
 def Embree3_init_rayhit(ray_origins, ray_directions):
-	"""
-	Initialize the rayhit object of Embree3
+	"""Initialize the rayhit object of Embree3
 
-	Parameters:
-	ray_origins: [np.array (N,3)]  ray_origins
-	ray_directions: [np.array (N,3)]  ray_directions
+	Parameters
+	----------
+	ray_origins: np.array (N,3)
+		ray_origins
+	ray_directions: np.array (N,3)
+		ray_directions
 
-	Returns: 
-	rayhit: the initialized embree.rayhit object
+	Returns
+	-------
+	rayhit: embree.rayhit
+		the initialized embree.rayhit object
 
 	"""
 	nb = np.shape(ray_origins)[0] # Number of tracked rays
@@ -573,20 +600,25 @@ def Embree3_init_rayhit(ray_origins, ray_directions):
 	return rayhit
 
 def Embree3_dump_solution(rayhit, V, F):
-	"""
-	Process the output of the embree ray intersector kernel
+	"""Process the output of the embree ray intersector kernel
 
-	Parameters: 
-	rayhit: embree.rayhit object
-	V: vertices
-	F: faces
+	Parameters
+	----------
+	rayhit : embree.rayhit
+	V : np.array (n_vertices, 3)
+		vertices of the mesh
+	F : np.array (n_faces, 3)
+		faces of the mesh
 
-	Returns:
-	hits: indexes of hit faces
-	nhits: number of hits
-	idh: indexez of hitting rays
-	Ph: hit points on the mesh
-
+	Returns
+	-------
+	hist : np.array (n_vertices, 3)
+	nhits : int
+		number of hits
+	idh : np.array (nhits,)
+		indexes of hitting rays
+	Ph : np.array (nhits, 3)
+		hit points on the mesh
 	"""
 	ishit=rayhit.prim_id!=embree.INVALID_GEOMETRY_ID
 	idh=np.nonzero(ishit)[0]
@@ -611,38 +643,115 @@ def Embree3_dump_solution(rayhit, V, F):
 
 
 def get_centroids(V, F):
-    return V[F].mean(axis=1)
+	"""Given `V` and `F`, return the centroids of the faces in `F`.
+	Parameters
+	----------
+	V : np.array (n_vertices, 3)
+		vertices of the mesh
+	F : np.array (n_faces, 3)
+		faces of the mesh
+	Returns
+	-------
+	P : np.array (n_faces, 3)
+		centroids of the faces
+
+	"""
+	return V[F].mean(axis=1)
  
 def get_cross_products(V, F):
-    V0 = V[F][:, 0, :]
-    C = np.cross(V[F][:, 1, :] - V0, V[F][:, 2, :] - V0)
-    return C
+	"""Given `V` and `F`, return the cross products of the faces in `F`.
+	Parameters
+	----------
+	V : np.array (n_vertices, 3)
+		vertices of the mesh
+	F : np.array (n_faces, 3)
+		faces of the mesh
+	Returns
+	-------
+	C : np.array (n_faces, 3)
+		cross products of the faces
+	"""
+	V0 = V[F][:, 0, :]
+	C = np.cross(V[F][:, 1, :] - V0, V[F][:, 2, :] - V0)
+	return C
  
  
 def get_face_areas(V, F):
-    C = get_cross_products(V, F)
-    C_norms = np.sqrt(np.sum(C**2, axis=1))
-    A = C_norms/2
-    return A
+	"""Given `V` and `F`, return the areas of the faces in `F`.
+	Parameters
+	----------
+	V : np.array (n_vertices, 3)
+		vertices of the mesh
+	F : np.array (n_faces, 3)
+		faces of the mesh
+	Returns
+	-------
+	A : np.array (n_faces,)
+		areas of the faces
+	"""
+
+	C = get_cross_products(V, F)
+	C_norms = np.sqrt(np.sum(C**2, axis=1))
+	A = C_norms/2
+	return A
  
  
 def get_surface_normals(V, F):
-    C = get_cross_products(V, F)
-    C_norms = np.sqrt(np.sum(C**2, axis=1))
-    N = C/C_norms.reshape(C.shape[0], 1)
-    return N
+	"""Given `V` and `F`, return the surface normals of the faces in `F`.
+	Parameters
+	----------
+	V : np.array (n_vertices, 3)
+		vertices of the mesh
+	F : np.array (n_faces, 3)
+		faces of the mesh
+	Returns
+	-------
+	N : np.array (n_faces, 3)
+		surface normals of the faces
+	"""
+
+	C = get_cross_products(V, F)
+	C_norms = np.sqrt(np.sum(C**2, axis=1))
+	N = C/C_norms.reshape(C.shape[0], 1)
+	return N
+
 
 def get_surface_normals_and_face_areas(V, F):
-    C = get_cross_products(V, F)
-    C_norms = np.sqrt(np.sum(C**2, axis=1))
-    N = C/C_norms.reshape(C.shape[0], 1)
-    A = C_norms/2
-    return N, A
+	"""Given `V` and `F`, return the surface normals and areas of the faces in `F`.
+	Parameters
+	----------
+	V : np.array (n_vertices, 3)
+		vertices of the mesh
+	F : np.array (n_faces, 3)
+		faces of the mesh
+	Returns
+	-------
+	N : np.array (n_faces, 3)
+		surface normals of the faces
+	A : np.array (n_faces,)
+		areas of the faces
+	"""
+
+	C = get_cross_products(V, F)
+	C_norms = np.sqrt(np.sum(C**2, axis=1))
+	N = C/C_norms.reshape(C.shape[0], 1)
+	A = C_norms/2
+	return N, A
+#def get_surface_normals_and_face_areas(V, F):
+	# C = get_cross_products(V, F)
+	# C_norms = np.sqrt(np.sum(C**2, axis=1))
+	# N = C/C_norms.reshape(C.shape[0], 1)
+	# A = C_norms/2
+	# return N, A
+	#return N, A
+
+
+
 
 
 
 class ShapeModel(ABC):
-    pass
+	pass
 
 
 class TrimeshShapeModel(ShapeModel):
@@ -759,9 +868,9 @@ class TrimeshShapeModel(ShapeModel):
 #-----------------------------------------------------------------------------------------------------#
 
 def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces = 1,  kernel = 'Embree', diffusion = False, num_diffuse = None, errorMsg = True):
-	"""
-	Wrapper for trimesh RTX kernel
-	Parameters:
+	"""Wrapper for trimesh RTX kernel
+	Parameters
+	----------
 	mesh_obj: Mesh (or geometry) object 
 	ray_origins: numpy array of ray origins (n, 3)
 	ray_directions: numpy array of ray directions (does not need to be normalized) (n,3)

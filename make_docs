@@ -1,6 +1,7 @@
 #!/bin/bash
 rm -rf docs/*
 pdoc --html --output-dir docs pyRTX  --force
+#pdoc pyRTX -o docs
 cd docs 
 mv pyRTX/* .
 

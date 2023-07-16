@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="69ef55f3-232d-4129-b441-f0cc982e9513" name="Changes" comment="Merge remote-tracking branch 'origin/master'">
+    <list default="true" id="a4206d1d-fb48-4531-a88f-7662a48240f8" name="Changes" comment="Added hooks">
+      <change afterPath="$PROJECT_DIR$/pyRTX/classes/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pyRTX/core/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes/Atmosphere.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes/Atmosphere.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes/Drag.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes/Drag.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes/PixelPlane.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes/PixelPlane.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes/Planet.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes/Planet.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes/Radiation.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes/Radiation.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/classes/RayTracer.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes/RayTracer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes/SRP.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes/SRP.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/classes/Spacecraft.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes/Spacecraft.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/classes/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/constants.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/constants.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/core/analysis_utils.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/core/analysis_utils.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/core/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/core/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/core/physical_utils.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/core/physical_utils.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/core/shadow_utils.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/core/shadow_utils.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/core/utils_rt.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/core/utils_rt.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/defaults.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/defaults.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/helpers.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/helpers.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/visual/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/visual/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/visual/utils.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/visual/utils.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/make_docs" beforeDir="false" afterPath="$PROJECT_DIR$/make_docs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyRTX.egg-info/SOURCES.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pyRTX.egg-info/SOURCES.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pyRTX/core/utils_rt.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyRTX/core/utils_rt.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -15,46 +38,51 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GithubProjectSettings">
-    <option name="branchProtectionPatterns">
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
       <list>
-        <option value="master" />
+        <option value="Python Script" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2SZkXPMo9reTRKMYtSmgZmrhd4R" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="2SfSKoseLXRw5LTvzanVjXWSuaJ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  }
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="69ef55f3-232d-4129-b441-f0cc982e9513" name="Changes" comment="" />
-      <created>1689361529571</created>
+      <changelist id="a4206d1d-fb48-4531-a88f-7662a48240f8" name="Changes" comment="" />
+      <created>1689536081250</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1689361529571</updated>
+      <updated>1689536081250</updated>
     </task>
-    <task id="LOCAL-00001" summary="minor mods">
-      <created>1689362555811</created>
+    <task id="LOCAL-00001" summary="Added hooks">
+      <created>1689536751920</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1689362555811</updated>
+      <updated>1689536751920</updated>
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
@@ -71,7 +99,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="minor mods" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor mods" />
+    <MESSAGE value="Added hooks" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added hooks" />
   </component>
 </project>

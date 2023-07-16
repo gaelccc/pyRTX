@@ -3,15 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
-<meta name="generator" content="pdoc 0.8.1" />
+<meta name="generator" content="pdoc 0.10.0" />
 <title>pyRTX.core.utils_rt API documentation</title>
 <meta name="description" content="" />
-<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
-<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
-<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
 <style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
 <style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
 </head>
 <body>
 <main>
@@ -52,6 +54,12 @@ except:
 ############################################################
 # Define general utils
 ###########################################################
+
+&#34;&#34;&#34;
+Core utilities used in most functions and classes
+&#34;&#34;&#34;
+
+
 
 def parallelize( iterator, function, chunks ):
         &#34;&#34;&#34;Define a general parallelization framework to speedup computations
@@ -216,11 +224,6 @@ def pixel_plane(d0, lon, lat, width = 1, height = 1, ray_spacing = .1):
 
 
 
-        &#34;&#34;&#34;
-        Further accelerate the ray vector generation using numba&#39;s jit vectorization
-        &#34;&#34;&#34;
-
-
 @jit(nopython = True)
 def fast_vector_build(linsp1, linsp2, dim1, dim2):
         &#34;&#34;&#34;Build the pixel array using numba&#39;s jit vectorization
@@ -250,23 +253,38 @@ def fast_vector_build(linsp1, linsp2, dim1, dim2):
         return basic_coords     
 
 
+
+
+
 def pixel_plane_opt(d0, lon, lat, width = 1, height = 1, ray_spacing = .1, packets = 1):
         &#34;&#34;&#34;&#34;Generate a pixel array for raytracing ad defined in Li et al., 2018
         This is the &#34;optimized version&#34;. To explicitly see the algorithm refer to the function definition
         without _opt extension.
-        Parameters:
-        d0: [float] Distance of the pixel array from the center (in meters)
-        lat: [float] Latitude of the pixel array center (in rad)
-        lon: [float] Longitude of the pixel array center (in rad)
-        width: [float] The width of the plane(in meters). Default = 1
-        height: [float] the height of the plane(in meters). Default = 1
-        ray_spacing: [float] the spacing of the rays (in meters). Default = 0.1
-        packets: [int] the number of &#39;ray packets&#39; to return. This is implemented to avoid the segmentation
-                 fault triggered by the raytracer when the number of rays is too high
 
-        Returns: 
-        locs: [numpy array (n_rays, 3)] Pixel locations as a numpy array
-        dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array
+        Parameters
+        ----------
+        d0 : float
+                Distance of the pixel array from the center (in meters)
+        lat : float
+                Latitude of the pixel array center (in rad)
+        lon : float
+                Longitude of the pixel array center (in rad)
+        width : float
+                The width of the plane(in meters). Default = 1
+        height : float
+                the height of the plane(in meters). Default = 1
+        ray_spacing : float
+                the spacing of the rays (in meters). Default = 0.1
+        packets : int
+                the number of &#39;ray packets&#39; to return. This is implemented to avoid the segmentation
+                fault triggered by the raytracer when the number of rays is too high
+
+        Returns
+        -------
+        locs: np.array (n_rays,3)
+                Pixel locations as a numpy array
+        dirs: np.array (n_rays,3)
+                the ray directions as a numpy array
         &#34;&#34;&#34;
 
 
@@ -313,31 +331,40 @@ def pixel_plane_opt(d0, lon, lat, width = 1, height = 1, ray_spacing = .1, packe
         return basic_coords, basic_dirs
 
 def reflected(incoming, normal):
-        &#34;&#34;&#34;
-        Compute the reflected unit vector given the incoming and the normal
-        Numpy vectorized version of &#39;reflected&#39; 
-        Parameters:
-        incoming: [numpy array (number of rays, 3)]  incoming rays
-        normal: [numpy array (number of rays, 3)] surface normals associated to each incoming ray
+        &#34;&#34;&#34;Compute the reflected unit vector given the incoming and the normal
+        Numpy vectorized version of &#39;reflected&#39;
+        This function uses np.einsum to compute the dot product between the incoming and the normal for
+        improved performance
 
-        Returns:
-        reflected: [numpy array (number of rays, 3)] reflected rays
-
+        Parameters
+        ----------
+        incoming : np.array (n_rays,3)
+                the incoming rays
+        normal : np.array (n_rays,3)
+                the surface normals associated to each incoming ray
+        Returns
+        -------
+        reflected : np.array (n_rays,3)
+                the reflected rays
         &#34;&#34;&#34;
 
         return incoming - 2*np.multiply(normal.T,np.einsum(&#39;ij,ij-&gt;i&#39;,incoming, normal)).T
 
 @jit(nopython = True)
 def get_orthogonal(v):
-        &#34;&#34;&#34;
-        Get a unit vector orthogonal to v
+        &#34;&#34;&#34;Get a unit vector orthogonal to v
 
-        Parameters:
-        v: [numpy array (3,)]
-
-        Returns: 
-        x: [numpy array(3,)]
+        Parameters
+        ----------
+        v : np.array (3,)
+                the vector to which the orthogonal is required
+        Returns
+        -------
+        x : np.array (3,)
+                the orthogonal vector
         &#34;&#34;&#34;
+
+
         x = np.random.random(3)
         x -= x.dot(v)*v
         x  = x/ np.linalg.norm(x)
@@ -346,15 +373,18 @@ def get_orthogonal(v):
 
 @jit(nopython = True)
 def sample_lambert_dist(normal, num = 100):
-        &#34;&#34;&#34;
-        Generate a cloud of vectors following the Lambert cosine distribution
+        &#34;&#34;&#34;Generate a cloud of vectors following the Lambert cosine distribution
 
-        Parameters: 
-        normals: [numpy array] the normal vector to the face
-        num: [int] the number of samples required
-        
-        Returns:
-        v: [numpy array (num, 3)] array of the sampled vectors
+        Parameters
+        ----------
+        normal : np.array (3,)
+                the normal vector to the face
+        num : int
+                the number of samples required
+        Returns
+        -------
+        v : np.array (num, 3)
+                array of the sampled vectors
         &#34;&#34;&#34;
 
         theta = np.arccos(np.sqrt(np.random.random(num)))
@@ -387,17 +417,20 @@ def _core_diffuse(normals, diffuse_directions, num):
 
 
 def diffuse(normals, num = 10):
-        &#34;&#34;&#34;
-        Compute num diffuse reflection directions sampling a lambert cosine distribution
+        &#34;&#34;&#34;Compute num diffuse reflection directions sampling a lambert cosine distribution
         
-        Parameters:
-        normals: [numpy array (N, 3)] normal unit vectors
-        num: number of samples for each normal
-
-        Returns:
-        diffuse_directions: [numpy array (N*num, 3)] 
-
+        Parameters
+        ----------
+        normals : np.array (n_rays,3)
+                the unit vectors normal to the surface
+        num : int
+                the number of samples required for each normal vectror
+        Returns
+        -------
+        diffuse_directions : np.array (n_rays*num,3)
+                the sampled directions
         &#34;&#34;&#34;
+
 
         diffuse_directions = np.repeat(normals, num, axis = 0)*0.0  
 
@@ -411,26 +444,35 @@ def diffuse(normals, num = 10):
         #return _core_diffuse(normals, diffuse_directions, num)
 
 def compute_secondary_bounce(location, index_tri, mesh_obj, ray_directions, index_ray, diffusion = False, num_diffuse = None):
+        &#34;&#34;&#34;Prepare the quantities required for iterating the raytracer
+
+        Parameters
+        ----------
+        location : np.array (n_rays,3)
+                the location of the intersection points
+        index_tri : np.array (n_rays,)
+                the indexes of the faces  intersected by the rays
+        mesh_obj : trimesh.Trimesh
+                the mesh object
+        ray_directions : np.array (n_rays,3)
+                the directions of the incoming rays
+        index_ray : np.array (n_rays,)
+                the indexes of the rays that effectively intersected the n faces
+        diffusion : bool
+                boolean flag to select wether to compute the secondary diffusion rays (Default: False)
+        num_diffuse : None or int
+                number of samples for the diffusion computation (Default: None)
+
+        Returns
+        -------
+        location : np.array (n_rays,3)
+                same as location in input
+        reflect_dirs : np.array (n_rays,3)
+                the specularly reflected directions of the rays
+        diffuse_dirs np.array (n_rays*num_diffuse, 3) or -1
+                (if requested) the direction of the diffused rays
         &#34;&#34;&#34;
-        Prepare the quantities required for iterating the raytracer
 
-        Parameters:
-        location: UNUSED. This input is maintained just to change the variable name
-        index_tri: [numpy array (N,)] indexes of the faces intersected by the rays
-        mesh_obj: [trimesh.Trimesh] the mesh object
-        ray_directions: [numpy array (L, 3)] the directions of the incoming rays
-        index_ray: [numpy array (M,)] the indexes of the rays that effectively intersected the N faces
-        diffusion: [bool] boolean flag to select wether to compute the secondary diffusion rays (Default: False)
-        num_diffuse: [None or int] number of samples for the diffusion computation (Default: None)
-
-        Returns:
-        location: same as location in input
-        reflect_dirs: [numpy array (L,3)] the specularly reflected directions of the rays
-        diffuse_dirs [numpy array (L*num_diffuse, 3) or -1] (if requested) the direction of the diffused rays
-
-
-
-        &#34;&#34;&#34;
         reflect_dirs = np.zeros_like(location)
         normals = mesh_obj.face_normals
 
@@ -451,22 +493,30 @@ def compute_secondary_bounce(location, index_tri, mesh_obj, ray_directions, inde
 # Saving utilities
 
 def save_for_visualization(outputFilePath, mesh, ray_origins, ray_directions, location, index_tri, diffusion_pack ):
-        &#34;&#34;&#34;
-        Save a pickled dictionary useful for visualization scripts (see visual_utils)
+        &#34;&#34;&#34;Save a pickled dictionary useful for visualization scripts (see visual_utils)
 
-        Parameters:
-        outputFilePath: [str] output file for saving (should end with .pkl)
-        mesh: [trimesh.Trimesh] mesh object
-        ray_origins: [numpy array (bounce_number, N, 3)] output of the raytracer
-        ray_directions: [numpy array (bounce_number, N, 3)] output of the raytracer
-        location: [numpy array (bounce_number, N, 3)] locations of intersection points
-        index_tri: [numpy array (bounce_number, M, 3)] indexes of intersected triangles
-        diffusion_pack: [list] output of the raytracer with the same name
+        Parameters
+        ----------
+        outputFilePath : str
+                output file for saving (should end with .pkl)
+        mesh : trimesh.Trimesh
+                mesh object
+        ray_origins : np.array (bounce_number, n_rays,3)
+                output of the raytracer
+        ray_directions : np.array (bounce_number, n_rays,3)
+                output of the raytracer
+        location : np.array (bounce_number, n_rays,3)
+                locations of intersection points
+        index_tri : np.array (bounce_number, n_rays,)
+                indexes of intersected triangles
+        diffusion_pack : list
+                output of the raytracer with the same name
 
-        Returns:
+        Returns
+        -------
         None
-
         &#34;&#34;&#34;
+
         outdict = {&#39;mesh&#39;: mesh, &#39;ray_origins&#39;: ray_origins, &#39;ray_directions&#39;: ray_directions, &#39;locations&#39;: location, &#39;index_tri&#39;: index_tri, &#39;diffusion_pack&#39;: diffusion_pack}
 
         with open(outputFilePath, &#39;wb&#39;) as f:
@@ -474,7 +524,7 @@ def save_for_visualization(outputFilePath, mesh, ray_origins, ray_directions, lo
 
 
 
-def exportEXAC(satelliteID, data,tstep, startTime, endTime, outFileName):
+def _exportEXAC(satelliteID, data,tstep, startTime, endTime, outFileName):
         &#34;&#34;&#34;
         GEODYN-EXAC file exporter
         Parameters:
@@ -516,17 +566,22 @@ def exportEXAC(satelliteID, data,tstep, startTime, endTime, outFileName):
 # (Provided by Sam Potter)
 
 def Embree3_init_geometry(mesh_obj):
+        &#34;&#34;&#34; NOTE all the embree 3 utilities (the python wrappers) have been developed by Sam Potter
+        (https://github.com/sampotter/python-embree)
 
-        &#34;&#34;&#34;
         Perform initial task for geometry initialization for the Embree3 kernel
-        Parameters:
-        mesh_obj: the mesh object provided via trimesh
+        Parameters
+        ----------
+        mesh_obj : trimesh.Trimesh
+                the mesh object provided via trimesh
 
-        Returns:
-        scene: embree.Scene object
-        context: embree.Context object
-        V:  mesh vertices
-        F: mesh faces
+
+        Returns
+        -------
+        scene : embree.Scene
+        context : embree.Context
+        V : np.array (n_vertices, 3)
+        F : np.array (n_faces, 3)
         &#34;&#34;&#34;
         V = np.array(mesh_obj.vertices, dtype=np.float64)
         F = np.array(mesh_obj.faces, dtype=np.int64)
@@ -543,15 +598,19 @@ def Embree3_init_geometry(mesh_obj):
         return scene, context, V, F
 
 def Embree3_init_rayhit(ray_origins, ray_directions):
-        &#34;&#34;&#34;
-        Initialize the rayhit object of Embree3
+        &#34;&#34;&#34;Initialize the rayhit object of Embree3
 
-        Parameters:
-        ray_origins: [np.array (N,3)]  ray_origins
-        ray_directions: [np.array (N,3)]  ray_directions
+        Parameters
+        ----------
+        ray_origins: np.array (N,3)
+                ray_origins
+        ray_directions: np.array (N,3)
+                ray_directions
 
-        Returns: 
-        rayhit: the initialized embree.rayhit object
+        Returns
+        -------
+        rayhit: embree.rayhit
+                the initialized embree.rayhit object
 
         &#34;&#34;&#34;
         nb = np.shape(ray_origins)[0] # Number of tracked rays
@@ -569,19 +628,19 @@ def Embree3_init_rayhit(ray_origins, ray_directions):
         return rayhit
 
 def Embree3_dump_solution(rayhit, V, F):
-        &#34;&#34;&#34;
-        Process the output of the embree ray intersector kernel
+        &#34;&#34;&#34;Process the output of the embree ray intersector kernel
 
-        Parameters: 
-        rayhit: embree.rayhit object
-        V: vertices
-        F: faces
+        Args:
+                rayhit (embree.rayhit) :
+                V (np.array (n_vertices, 3)) : Vertices of the mesh
+                F (np.array (n_faces, 3)) : Faces of the mesh
+
 
         Returns:
-        hits: indexes of hit faces
-        nhits: number of hits
-        idh: indexez of hitting rays
-        Ph: hit points on the mesh
+                hits (np.array (nhits,)) :      indexes of hit faces
+        nhits (int) : number of hits
+        idh (np.array (nhits,)) :       indexes of hitting rays
+        Ph (np.array (nhits, 3)) : hit points on the mesh
 
         &#34;&#34;&#34;
         ishit=rayhit.prim_id!=embree.INVALID_GEOMETRY_ID
@@ -971,33 +1030,35 @@ if __name__ == &#34;__main__&#34;:
 </code></dt>
 <dd>
 <div class="desc"><p>Process the output of the embree ray intersector kernel</p>
-<p>Parameters:
-rayhit: embree.rayhit object
-V: vertices
-F: faces</p>
-<p>Returns:
-hits: indexes of hit faces
-nhits: number of hits
-idh: indexez of hitting rays
-Ph: hit points on the mesh</p></div>
+<h2 id="args">Args</h2>
+<p>rayhit (embree.rayhit) :
+V (np.array (n_vertices, 3)) : Vertices of the mesh
+F (np.array (n_faces, 3)) : Faces of the mesh</p>
+<h2 id="returns">Returns</h2>
+<p>hits (np.array (nhits,)) :
+indexes of hit faces
+nhits (int) : number of hits
+idh (np.array (nhits,)) :
+indexes of hitting rays
+Ph (np.array (nhits, 3)) : hit points on the mesh</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def Embree3_dump_solution(rayhit, V, F):
-        &#34;&#34;&#34;
-        Process the output of the embree ray intersector kernel
+        &#34;&#34;&#34;Process the output of the embree ray intersector kernel
 
-        Parameters: 
-        rayhit: embree.rayhit object
-        V: vertices
-        F: faces
+        Args:
+                rayhit (embree.rayhit) :
+                V (np.array (n_vertices, 3)) : Vertices of the mesh
+                F (np.array (n_faces, 3)) : Faces of the mesh
+
 
         Returns:
-        hits: indexes of hit faces
-        nhits: number of hits
-        idh: indexez of hitting rays
-        Ph: hit points on the mesh
+                hits (np.array (nhits,)) :      indexes of hit faces
+        nhits (int) : number of hits
+        idh (np.array (nhits,)) :       indexes of hitting rays
+        Ph (np.array (nhits, 3)) : hit points on the mesh
 
         &#34;&#34;&#34;
         ishit=rayhit.prim_id!=embree.INVALID_GEOMETRY_ID
@@ -1024,31 +1085,47 @@ Ph: hit points on the mesh</p></div>
 <span>def <span class="ident">Embree3_init_geometry</span></span>(<span>mesh_obj)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Perform initial task for geometry initialization for the Embree3 kernel
-Parameters:
-mesh_obj: the mesh object provided via trimesh</p>
-<p>Returns:
-scene: embree.Scene object
-context: embree.Context object
-V:
-mesh vertices
-F: mesh faces</p></div>
+<div class="desc"><p>NOTE all the embree 3 utilities (the python wrappers) have been developed by Sam Potter
+(<a href="https://github.com/sampotter/python-embree">https://github.com/sampotter/python-embree</a>)</p>
+<p>Perform initial task for geometry initialization for the Embree3 kernel
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>mesh_obj</code></strong> :&ensp;<code>trimesh.Trimesh</code></dt>
+<dd>the mesh object provided via trimesh</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>scene</code></strong> :&ensp;<code>embree.Scene</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>context</code></strong> :&ensp;<code>embree.Context</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>V</code></strong> :&ensp;<code>np.array (n_vertices, 3)</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>F</code></strong> :&ensp;<code>np.array (n_faces, 3)</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def Embree3_init_geometry(mesh_obj):
+        &#34;&#34;&#34; NOTE all the embree 3 utilities (the python wrappers) have been developed by Sam Potter
+        (https://github.com/sampotter/python-embree)
 
-        &#34;&#34;&#34;
         Perform initial task for geometry initialization for the Embree3 kernel
-        Parameters:
-        mesh_obj: the mesh object provided via trimesh
+        Parameters
+        ----------
+        mesh_obj : trimesh.Trimesh
+                the mesh object provided via trimesh
 
-        Returns:
-        scene: embree.Scene object
-        context: embree.Context object
-        V:  mesh vertices
-        F: mesh faces
+
+        Returns
+        -------
+        scene : embree.Scene
+        context : embree.Context
+        V : np.array (n_vertices, 3)
+        F : np.array (n_faces, 3)
         &#34;&#34;&#34;
         V = np.array(mesh_obj.vertices, dtype=np.float64)
         F = np.array(mesh_obj.faces, dtype=np.int64)
@@ -1070,27 +1147,36 @@ F: mesh faces</p></div>
 </code></dt>
 <dd>
 <div class="desc"><p>Initialize the rayhit object of Embree3</p>
-<p>Parameters:
-ray_origins: [np.array (N,3)]
-ray_origins
-ray_directions: [np.array (N,3)]
-ray_directions</p>
-<p>Returns:
-rayhit: the initialized embree.rayhit object</p></div>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>ray_origins</code></strong> :&ensp;<code>np.array (N,3)</code></dt>
+<dd>ray_origins</dd>
+<dt><strong><code>ray_directions</code></strong> :&ensp;<code>np.array (N,3)</code></dt>
+<dd>ray_directions</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>rayhit</code></strong> :&ensp;<code>embree.rayhit</code></dt>
+<dd>the initialized embree.rayhit object</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def Embree3_init_rayhit(ray_origins, ray_directions):
-        &#34;&#34;&#34;
-        Initialize the rayhit object of Embree3
+        &#34;&#34;&#34;Initialize the rayhit object of Embree3
 
-        Parameters:
-        ray_origins: [np.array (N,3)]  ray_origins
-        ray_directions: [np.array (N,3)]  ray_directions
+        Parameters
+        ----------
+        ray_origins: np.array (N,3)
+                ray_origins
+        ray_directions: np.array (N,3)
+                ray_directions
 
-        Returns: 
-        rayhit: the initialized embree.rayhit object
+        Returns
+        -------
+        rayhit: embree.rayhit
+                the initialized embree.rayhit object
 
         &#34;&#34;&#34;
         nb = np.shape(ray_origins)[0] # Number of tracked rays
@@ -1435,43 +1521,67 @@ location_diffusion: (3,N np.array) location og the diffusion hit points</p></div
 </code></dt>
 <dd>
 <div class="desc"><p>Prepare the quantities required for iterating the raytracer</p>
-<p>Parameters:
-location: UNUSED. This input is maintained just to change the variable name
-index_tri: [numpy array (N,)] indexes of the faces intersected by the rays
-mesh_obj: [trimesh.Trimesh] the mesh object
-ray_directions: [numpy array (L, 3)] the directions of the incoming rays
-index_ray: [numpy array (M,)] the indexes of the rays that effectively intersected the N faces
-diffusion: [bool] boolean flag to select wether to compute the secondary diffusion rays (Default: False)
-num_diffuse: [None or int] number of samples for the diffusion computation (Default: None)</p>
-<p>Returns:
-location: same as location in input
-reflect_dirs: [numpy array (L,3)] the specularly reflected directions of the rays
-diffuse_dirs [numpy array (L*num_diffuse, 3) or -1] (if requested) the direction of the diffused rays</p></div>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>location</code></strong> :&ensp;<code>np.array (n_rays,3)</code></dt>
+<dd>the location of the intersection points</dd>
+<dt><strong><code>index_tri</code></strong> :&ensp;<code>np.array (n_rays,)</code></dt>
+<dd>the indexes of the faces
+intersected by the rays</dd>
+<dt><strong><code>mesh_obj</code></strong> :&ensp;<code>trimesh.Trimesh</code></dt>
+<dd>the mesh object</dd>
+<dt><strong><code>ray_directions</code></strong> :&ensp;<code>np.array (n_rays,3)</code></dt>
+<dd>the directions of the incoming rays</dd>
+<dt><strong><code>index_ray</code></strong> :&ensp;<code>np.array (n_rays,)</code></dt>
+<dd>the indexes of the rays that effectively intersected the n faces</dd>
+<dt><strong><code>diffusion</code></strong> :&ensp;<code>bool</code></dt>
+<dd>boolean flag to select wether to compute the secondary diffusion rays (Default: False)</dd>
+<dt><strong><code>num_diffuse</code></strong> :&ensp;<code>None</code> or <code>int</code></dt>
+<dd>number of samples for the diffusion computation (Default: None)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>location</code></strong> :&ensp;<code>np.array (n_rays,3)</code></dt>
+<dd>same as location in input</dd>
+<dt><strong><code>reflect_dirs</code></strong> :&ensp;<code>np.array (n_rays,3)</code></dt>
+<dd>the specularly reflected directions of the rays</dd>
+</dl>
+<p>diffuse_dirs np.array (n_rays*num_diffuse, 3) or -1
+(if requested) the direction of the diffused rays</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def compute_secondary_bounce(location, index_tri, mesh_obj, ray_directions, index_ray, diffusion = False, num_diffuse = None):
+        &#34;&#34;&#34;Prepare the quantities required for iterating the raytracer
+
+        Parameters
+        ----------
+        location : np.array (n_rays,3)
+                the location of the intersection points
+        index_tri : np.array (n_rays,)
+                the indexes of the faces  intersected by the rays
+        mesh_obj : trimesh.Trimesh
+                the mesh object
+        ray_directions : np.array (n_rays,3)
+                the directions of the incoming rays
+        index_ray : np.array (n_rays,)
+                the indexes of the rays that effectively intersected the n faces
+        diffusion : bool
+                boolean flag to select wether to compute the secondary diffusion rays (Default: False)
+        num_diffuse : None or int
+                number of samples for the diffusion computation (Default: None)
+
+        Returns
+        -------
+        location : np.array (n_rays,3)
+                same as location in input
+        reflect_dirs : np.array (n_rays,3)
+                the specularly reflected directions of the rays
+        diffuse_dirs np.array (n_rays*num_diffuse, 3) or -1
+                (if requested) the direction of the diffused rays
         &#34;&#34;&#34;
-        Prepare the quantities required for iterating the raytracer
 
-        Parameters:
-        location: UNUSED. This input is maintained just to change the variable name
-        index_tri: [numpy array (N,)] indexes of the faces intersected by the rays
-        mesh_obj: [trimesh.Trimesh] the mesh object
-        ray_directions: [numpy array (L, 3)] the directions of the incoming rays
-        index_ray: [numpy array (M,)] the indexes of the rays that effectively intersected the N faces
-        diffusion: [bool] boolean flag to select wether to compute the secondary diffusion rays (Default: False)
-        num_diffuse: [None or int] number of samples for the diffusion computation (Default: None)
-
-        Returns:
-        location: same as location in input
-        reflect_dirs: [numpy array (L,3)] the specularly reflected directions of the rays
-        diffuse_dirs [numpy array (L*num_diffuse, 3) or -1] (if requested) the direction of the diffused rays
-
-
-
-        &#34;&#34;&#34;
         reflect_dirs = np.zeros_like(location)
         normals = mesh_obj.face_normals
 
@@ -1493,27 +1603,37 @@ diffuse_dirs [numpy array (L*num_diffuse, 3) or -1] (if requested) the direction
 </code></dt>
 <dd>
 <div class="desc"><p>Compute num diffuse reflection directions sampling a lambert cosine distribution</p>
-<p>Parameters:
-normals: [numpy array (N, 3)] normal unit vectors
-num: number of samples for each normal</p>
-<p>Returns:
-diffuse_directions: [numpy array (N*num, 3)]</p></div>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>normals</code></strong> :&ensp;<code>np.array (n_rays,3)</code></dt>
+<dd>the unit vectors normal to the surface</dd>
+<dt><strong><code>num</code></strong> :&ensp;<code>int</code></dt>
+<dd>the number of samples required for each normal vectror</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>diffuse_directions</code></strong> :&ensp;<code>np.array (n_rays*num,3)</code></dt>
+<dd>the sampled directions</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def diffuse(normals, num = 10):
-        &#34;&#34;&#34;
-        Compute num diffuse reflection directions sampling a lambert cosine distribution
+        &#34;&#34;&#34;Compute num diffuse reflection directions sampling a lambert cosine distribution
         
-        Parameters:
-        normals: [numpy array (N, 3)] normal unit vectors
-        num: number of samples for each normal
-
-        Returns:
-        diffuse_directions: [numpy array (N*num, 3)] 
-
+        Parameters
+        ----------
+        normals : np.array (n_rays,3)
+                the unit vectors normal to the surface
+        num : int
+                the number of samples required for each normal vectror
+        Returns
+        -------
+        diffuse_directions : np.array (n_rays*num,3)
+                the sampled directions
         &#34;&#34;&#34;
+
 
         diffuse_directions = np.repeat(normals, num, axis = 0)*0.0  
 
@@ -1525,59 +1645,6 @@ diffuse_directions: [numpy array (N*num, 3)]</p></div>
         return diffuse_directions
 
         #return _core_diffuse(normals, diffuse_directions, num)</code></pre>
-</details>
-</dd>
-<dt id="pyRTX.core.utils_rt.exportEXAC"><code class="name flex">
-<span>def <span class="ident">exportEXAC</span></span>(<span>satelliteID, data, tstep, startTime, endTime, outFileName)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>GEODYN-EXAC file exporter
-Parameters:
-satelliteID: [int] satellite identifier
-data: [np.array (N, 3)] acceleration data to be written
-tstep: [int or float] time step (in seconds)
-startTime: [datetime.datetime] start time of data
-endTime: [datetime.datetime] end time of data
-outFileName: [str] name of output file</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def exportEXAC(satelliteID, data,tstep, startTime, endTime, outFileName):
-        &#34;&#34;&#34;
-        GEODYN-EXAC file exporter
-        Parameters:
-        satelliteID: [int] satellite identifier
-        data: [np.array (N, 3)] acceleration data to be written
-        tstep: [int or float] time step (in seconds)
-        startTime: [datetime.datetime] start time of data
-        endTime: [datetime.datetime] end time of data
-        outFileName: [str] name of output file
-        &#34;&#34;&#34;
-        from scipy.io import FortranFile
-        import datetime
-
-        satid = satelliteID
-        date0 = startTime
-        date1 = endTime
-        dt = tstep
-        deltatime = datetime.timedelta(seconds = dt)
-        outfile = FortranFile(outFileName, &#39;w&#39;)
-        
-        # General Header
-        masterhdr = np.array([-6666666.0, 1, 1, 0, 0, 0, 0, 0, 0])
-        outfile.write_record(masterhdr)
-
-        # Satellite specific header
-        sathdr=np.array([-7777777.0, 1, satid, dt, float(date0.strftime(&#39;%Y%m%d%H%M%S&#39;)[2:]), float(date0.strftime(&#39;%f&#39;)), float(date1.strftime(&#39;%Y%m%d%H%M%S&#39;)[2:]), float(date1.strftime(&#39;%f&#39;)), 0])
-        outfile.write_record(sathdr)
-
-        # Data records
-        date = date0-deltatime
-        for d_elem in data:
-                date = date + deltatime
-                datarec = np.array([float(date.strftime(&#39;%Y%m%d%H%M%S&#39;)[2:]), float(date.strftime(&#39;%f&#39;)), d_elem[0], d_elem[1], d_elem[2], 0, 0, 0, 0])
-                outfile.write_record(datarec)</code></pre>
 </details>
 </dd>
 <dt id="pyRTX.core.utils_rt.fast_vector_build"><code class="name flex">
@@ -1683,25 +1750,35 @@ def fast_vector_build(linsp1, linsp2, dim1, dim2):
 </code></dt>
 <dd>
 <div class="desc"><p>Get a unit vector orthogonal to v</p>
-<p>Parameters:
-v: [numpy array (3,)]</p>
-<p>Returns:
-x: [numpy array(3,)]</p></div>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>v</code></strong> :&ensp;<code>np.array (3,)</code></dt>
+<dd>the vector to which the orthogonal is required</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>np.array (3,)</code></dt>
+<dd>the orthogonal vector</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@jit(nopython = True)
 def get_orthogonal(v):
-        &#34;&#34;&#34;
-        Get a unit vector orthogonal to v
+        &#34;&#34;&#34;Get a unit vector orthogonal to v
 
-        Parameters:
-        v: [numpy array (3,)]
-
-        Returns: 
-        x: [numpy array(3,)]
+        Parameters
+        ----------
+        v : np.array (3,)
+                the vector to which the orthogonal is required
+        Returns
+        -------
+        x : np.array (3,)
+                the orthogonal vector
         &#34;&#34;&#34;
+
+
         x = np.random.random(3)
         x -= x.dot(v)*v
         x  = x/ np.linalg.norm(x)
@@ -1877,15 +1954,7 @@ This is the "fully exposed version" to explicitly show the algorithm.</p>
 
 
         # Return the output in the shape required by trimesh
-        return basic_coords, basic_dirs
-
-
-
-
-
-        &#34;&#34;&#34;
-        Further accelerate the ray vector generation using numba&#39;s jit vectorization
-        &#34;&#34;&#34;</code></pre>
+        return basic_coords, basic_dirs</code></pre>
 </details>
 </dd>
 <dt id="pyRTX.core.utils_rt.pixel_plane_opt"><code class="name flex">
@@ -1894,19 +1963,32 @@ This is the "fully exposed version" to explicitly show the algorithm.</p>
 <dd>
 <div class="desc"><p>"Generate a pixel array for raytracing ad defined in Li et al., 2018
 This is the "optimized version". To explicitly see the algorithm refer to the function definition
-without _opt extension.
-Parameters:
-d0: [float] Distance of the pixel array from the center (in meters)
-lat: [float] Latitude of the pixel array center (in rad)
-lon: [float] Longitude of the pixel array center (in rad)
-width: [float] The width of the plane(in meters). Default = 1
-height: [float] the height of the plane(in meters). Default = 1
-ray_spacing: [float] the spacing of the rays (in meters). Default = 0.1
-packets: [int] the number of 'ray packets' to return. This is implemented to avoid the segmentation
-fault triggered by the raytracer when the number of rays is too high</p>
-<p>Returns:
-locs: [numpy array (n_rays, 3)] Pixel locations as a numpy array
-dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array</p></div>
+without _opt extension.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>d0</code></strong> :&ensp;<code>float</code></dt>
+<dd>Distance of the pixel array from the center (in meters)</dd>
+<dt><strong><code>lat</code></strong> :&ensp;<code>float</code></dt>
+<dd>Latitude of the pixel array center (in rad)</dd>
+<dt><strong><code>lon</code></strong> :&ensp;<code>float</code></dt>
+<dd>Longitude of the pixel array center (in rad)</dd>
+<dt><strong><code>width</code></strong> :&ensp;<code>float</code></dt>
+<dd>The width of the plane(in meters). Default = 1</dd>
+<dt><strong><code>height</code></strong> :&ensp;<code>float</code></dt>
+<dd>the height of the plane(in meters). Default = 1</dd>
+<dt><strong><code>ray_spacing</code></strong> :&ensp;<code>float</code></dt>
+<dd>the spacing of the rays (in meters). Default = 0.1</dd>
+<dt><strong><code>packets</code></strong> :&ensp;<code>int</code></dt>
+<dd>the number of 'ray packets' to return. This is implemented to avoid the segmentation
+fault triggered by the raytracer when the number of rays is too high</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>locs</code></strong> :&ensp;<code>np.array (n_rays,3)</code></dt>
+<dd>Pixel locations as a numpy array</dd>
+<dt><strong><code>dirs</code></strong> :&ensp;<code>np.array (n_rays,3)</code></dt>
+<dd>the ray directions as a numpy array</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1915,19 +1997,31 @@ dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array</p></div>
         &#34;&#34;&#34;&#34;Generate a pixel array for raytracing ad defined in Li et al., 2018
         This is the &#34;optimized version&#34;. To explicitly see the algorithm refer to the function definition
         without _opt extension.
-        Parameters:
-        d0: [float] Distance of the pixel array from the center (in meters)
-        lat: [float] Latitude of the pixel array center (in rad)
-        lon: [float] Longitude of the pixel array center (in rad)
-        width: [float] The width of the plane(in meters). Default = 1
-        height: [float] the height of the plane(in meters). Default = 1
-        ray_spacing: [float] the spacing of the rays (in meters). Default = 0.1
-        packets: [int] the number of &#39;ray packets&#39; to return. This is implemented to avoid the segmentation
-                 fault triggered by the raytracer when the number of rays is too high
 
-        Returns: 
-        locs: [numpy array (n_rays, 3)] Pixel locations as a numpy array
-        dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array
+        Parameters
+        ----------
+        d0 : float
+                Distance of the pixel array from the center (in meters)
+        lat : float
+                Latitude of the pixel array center (in rad)
+        lon : float
+                Longitude of the pixel array center (in rad)
+        width : float
+                The width of the plane(in meters). Default = 1
+        height : float
+                the height of the plane(in meters). Default = 1
+        ray_spacing : float
+                the spacing of the rays (in meters). Default = 0.1
+        packets : int
+                the number of &#39;ray packets&#39; to return. This is implemented to avoid the segmentation
+                fault triggered by the raytracer when the number of rays is too high
+
+        Returns
+        -------
+        locs: np.array (n_rays,3)
+                Pixel locations as a numpy array
+        dirs: np.array (n_rays,3)
+                the ray directions as a numpy array
         &#34;&#34;&#34;
 
 
@@ -2022,27 +2116,40 @@ dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array</p></div>
 <dd>
 <div class="desc"><p>Compute the reflected unit vector given the incoming and the normal
 Numpy vectorized version of 'reflected'
-Parameters:
-incoming: [numpy array (number of rays, 3)]
-incoming rays
-normal: [numpy array (number of rays, 3)] surface normals associated to each incoming ray</p>
-<p>Returns:
-reflected: [numpy array (number of rays, 3)] reflected rays</p></div>
+This function uses np.einsum to compute the dot product between the incoming and the normal for
+improved performance</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>incoming</code></strong> :&ensp;<code>np.array (n_rays,3)</code></dt>
+<dd>the incoming rays</dd>
+<dt><strong><code>normal</code></strong> :&ensp;<code>np.array (n_rays,3)</code></dt>
+<dd>the surface normals associated to each incoming ray</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>reflected</code></strong> :&ensp;<code>np.array (n_rays,3)</code></dt>
+<dd>the reflected rays</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def reflected(incoming, normal):
-        &#34;&#34;&#34;
-        Compute the reflected unit vector given the incoming and the normal
-        Numpy vectorized version of &#39;reflected&#39; 
-        Parameters:
-        incoming: [numpy array (number of rays, 3)]  incoming rays
-        normal: [numpy array (number of rays, 3)] surface normals associated to each incoming ray
+        &#34;&#34;&#34;Compute the reflected unit vector given the incoming and the normal
+        Numpy vectorized version of &#39;reflected&#39;
+        This function uses np.einsum to compute the dot product between the incoming and the normal for
+        improved performance
 
-        Returns:
-        reflected: [numpy array (number of rays, 3)] reflected rays
-
+        Parameters
+        ----------
+        incoming : np.array (n_rays,3)
+                the incoming rays
+        normal : np.array (n_rays,3)
+                the surface normals associated to each incoming ray
+        Returns
+        -------
+        reflected : np.array (n_rays,3)
+                the reflected rays
         &#34;&#34;&#34;
 
         return incoming - 2*np.multiply(normal.T,np.einsum(&#39;ij,ij-&gt;i&#39;,incoming, normal)).T</code></pre>
@@ -2053,26 +2160,36 @@ reflected: [numpy array (number of rays, 3)] reflected rays</p></div>
 </code></dt>
 <dd>
 <div class="desc"><p>Generate a cloud of vectors following the Lambert cosine distribution</p>
-<p>Parameters:
-normals: [numpy array] the normal vector to the face
-num: [int] the number of samples required</p>
-<p>Returns:
-v: [numpy array (num, 3)] array of the sampled vectors</p></div>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>normal</code></strong> :&ensp;<code>np.array (3,)</code></dt>
+<dd>the normal vector to the face</dd>
+<dt><strong><code>num</code></strong> :&ensp;<code>int</code></dt>
+<dd>the number of samples required</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>v</code></strong> :&ensp;<code>np.array (num, 3)</code></dt>
+<dd>array of the sampled vectors</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@jit(nopython = True)
 def sample_lambert_dist(normal, num = 100):
-        &#34;&#34;&#34;
-        Generate a cloud of vectors following the Lambert cosine distribution
+        &#34;&#34;&#34;Generate a cloud of vectors following the Lambert cosine distribution
 
-        Parameters: 
-        normals: [numpy array] the normal vector to the face
-        num: [int] the number of samples required
-        
-        Returns:
-        v: [numpy array (num, 3)] array of the sampled vectors
+        Parameters
+        ----------
+        normal : np.array (3,)
+                the normal vector to the face
+        num : int
+                the number of samples required
+        Returns
+        -------
+        v : np.array (num, 3)
+                array of the sampled vectors
         &#34;&#34;&#34;
 
         theta = np.arccos(np.sqrt(np.random.random(num)))
@@ -2099,37 +2216,57 @@ def sample_lambert_dist(normal, num = 100):
 </code></dt>
 <dd>
 <div class="desc"><p>Save a pickled dictionary useful for visualization scripts (see visual_utils)</p>
-<p>Parameters:
-outputFilePath: [str] output file for saving (should end with .pkl)
-mesh: [trimesh.Trimesh] mesh object
-ray_origins: [numpy array (bounce_number, N, 3)] output of the raytracer
-ray_directions: [numpy array (bounce_number, N, 3)] output of the raytracer
-location: [numpy array (bounce_number, N, 3)] locations of intersection points
-index_tri: [numpy array (bounce_number, M, 3)] indexes of intersected triangles
-diffusion_pack: [list] output of the raytracer with the same name</p>
-<p>Returns:
-None</p></div>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>outputFilePath</code></strong> :&ensp;<code>str</code></dt>
+<dd>output file for saving (should end with .pkl)</dd>
+<dt><strong><code>mesh</code></strong> :&ensp;<code>trimesh.Trimesh</code></dt>
+<dd>mesh object</dd>
+<dt><strong><code>ray_origins</code></strong> :&ensp;<code>np.array (bounce_number, n_rays,3)</code></dt>
+<dd>output of the raytracer</dd>
+<dt><strong><code>ray_directions</code></strong> :&ensp;<code>np.array (bounce_number, n_rays,3)</code></dt>
+<dd>output of the raytracer</dd>
+<dt><strong><code>location</code></strong> :&ensp;<code>np.array (bounce_number, n_rays,3)</code></dt>
+<dd>locations of intersection points</dd>
+<dt><strong><code>index_tri</code></strong> :&ensp;<code>np.array (bounce_number, n_rays,)</code></dt>
+<dd>indexes of intersected triangles</dd>
+<dt><strong><code>diffusion_pack</code></strong> :&ensp;<code>list</code></dt>
+<dd>output of the raytracer with the same name</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>None</code></dt>
+<dd>&nbsp;</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def save_for_visualization(outputFilePath, mesh, ray_origins, ray_directions, location, index_tri, diffusion_pack ):
-        &#34;&#34;&#34;
-        Save a pickled dictionary useful for visualization scripts (see visual_utils)
+        &#34;&#34;&#34;Save a pickled dictionary useful for visualization scripts (see visual_utils)
 
-        Parameters:
-        outputFilePath: [str] output file for saving (should end with .pkl)
-        mesh: [trimesh.Trimesh] mesh object
-        ray_origins: [numpy array (bounce_number, N, 3)] output of the raytracer
-        ray_directions: [numpy array (bounce_number, N, 3)] output of the raytracer
-        location: [numpy array (bounce_number, N, 3)] locations of intersection points
-        index_tri: [numpy array (bounce_number, M, 3)] indexes of intersected triangles
-        diffusion_pack: [list] output of the raytracer with the same name
+        Parameters
+        ----------
+        outputFilePath : str
+                output file for saving (should end with .pkl)
+        mesh : trimesh.Trimesh
+                mesh object
+        ray_origins : np.array (bounce_number, n_rays,3)
+                output of the raytracer
+        ray_directions : np.array (bounce_number, n_rays,3)
+                output of the raytracer
+        location : np.array (bounce_number, n_rays,3)
+                locations of intersection points
+        index_tri : np.array (bounce_number, n_rays,)
+                indexes of intersected triangles
+        diffusion_pack : list
+                output of the raytracer with the same name
 
-        Returns:
+        Returns
+        -------
         None
-
         &#34;&#34;&#34;
+
         outdict = {&#39;mesh&#39;: mesh, &#39;ray_origins&#39;: ray_origins, &#39;ray_directions&#39;: ray_directions, &#39;locations&#39;: location, &#39;index_tri&#39;: index_tri, &#39;diffusion_pack&#39;: diffusion_pack}
 
         with open(outputFilePath, &#39;wb&#39;) as f:
@@ -2369,7 +2506,6 @@ def num_faces(self):
 <li><code><a title="pyRTX.core.utils_rt.chunker" href="#pyRTX.core.utils_rt.chunker">chunker</a></code></li>
 <li><code><a title="pyRTX.core.utils_rt.compute_secondary_bounce" href="#pyRTX.core.utils_rt.compute_secondary_bounce">compute_secondary_bounce</a></code></li>
 <li><code><a title="pyRTX.core.utils_rt.diffuse" href="#pyRTX.core.utils_rt.diffuse">diffuse</a></code></li>
-<li><code><a title="pyRTX.core.utils_rt.exportEXAC" href="#pyRTX.core.utils_rt.exportEXAC">exportEXAC</a></code></li>
 <li><code><a title="pyRTX.core.utils_rt.fast_vector_build" href="#pyRTX.core.utils_rt.fast_vector_build">fast_vector_build</a></code></li>
 <li><code><a title="pyRTX.core.utils_rt.get_centroids" href="#pyRTX.core.utils_rt.get_centroids">get_centroids</a></code></li>
 <li><code><a title="pyRTX.core.utils_rt.get_cross_products" href="#pyRTX.core.utils_rt.get_cross_products">get_cross_products</a></code></li>
@@ -2404,9 +2540,7 @@ def num_faces(self):
 </nav>
 </main>
 <footer id="footer">
-<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.8.1</a>.</p>
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
 </footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-<script>hljs.initHighlightingOnLoad()</script>
 </body>
 </html>

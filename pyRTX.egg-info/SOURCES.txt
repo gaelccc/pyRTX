@@ -9,4 +9,5 @@ pyRTX.egg-info/SOURCES.txt
 pyRTX.egg-info/dependency_links.txt
 pyRTX.egg-info/requires.txt
 pyRTX.egg-info/top_level.txt
+tests/test_lut.py
 tests/test_suite_core.py
