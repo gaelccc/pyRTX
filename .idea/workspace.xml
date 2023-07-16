@@ -4,34 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a4206d1d-fb48-4531-a88f-7662a48240f8" name="Changes" comment="Added hooks">
-      <change afterPath="$PROJECT_DIR$/pyRTX/classes/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pyRTX/core/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="a4206d1d-fb48-4531-a88f-7662a48240f8" name="Changes" comment="Improved documentation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes/Atmosphere.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes/Atmosphere.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes/Drag.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes/Drag.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes/PixelPlane.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes/PixelPlane.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes/Planet.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes/Planet.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes/Radiation.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes/Radiation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes/RayTracer.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes/RayTracer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes/SRP.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes/SRP.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes/Spacecraft.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes/Spacecraft.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/classes/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/classes/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/constants.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/constants.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/core/analysis_utils.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/core/analysis_utils.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/core/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/core/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/core/physical_utils.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/core/physical_utils.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/core/shadow_utils.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/core/shadow_utils.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docs/core/utils_rt.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/core/utils_rt.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/defaults.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/defaults.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/helpers.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/helpers.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/visual/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/visual/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/visual/utils.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/visual/utils.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/make_docs" beforeDir="false" afterPath="$PROJECT_DIR$/make_docs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyRTX.egg-info/SOURCES.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pyRTX.egg-info/SOURCES.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyRTX/core/utils_rt.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyRTX/core/utils_rt.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyRTX/helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyRTX/helpers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyRTX/visual/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/pyRTX/visual/utils.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +61,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689536751920</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Improved documentation">
+      <created>1689540365509</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1689540365509</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -100,6 +84,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added hooks" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added hooks" />
+    <MESSAGE value="Improved documentation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved documentation" />
   </component>
 </project>

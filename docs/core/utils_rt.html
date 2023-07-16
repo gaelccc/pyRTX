@@ -630,18 +630,23 @@ def Embree3_init_rayhit(ray_origins, ray_directions):
 def Embree3_dump_solution(rayhit, V, F):
         &#34;&#34;&#34;Process the output of the embree ray intersector kernel
 
-        Args:
-                rayhit (embree.rayhit) :
-                V (np.array (n_vertices, 3)) : Vertices of the mesh
-                F (np.array (n_faces, 3)) : Faces of the mesh
+        Parameters
+        ----------
+        rayhit : embree.rayhit
+        V : np.array (n_vertices, 3)
+                vertices of the mesh
+        F : np.array (n_faces, 3)
+                faces of the mesh
 
-
-        Returns:
-                hits (np.array (nhits,)) :      indexes of hit faces
-        nhits (int) : number of hits
-        idh (np.array (nhits,)) :       indexes of hitting rays
-        Ph (np.array (nhits, 3)) : hit points on the mesh
-
+        Returns
+        -------
+        hist : np.array (n_vertices, 3)
+        nhits : int
+                number of hits
+        idh : np.array (nhits,)
+                indexes of hitting rays
+        Ph : np.array (nhits, 3)
+                hit points on the mesh
         &#34;&#34;&#34;
         ishit=rayhit.prim_id!=embree.INVALID_GEOMETRY_ID
         idh=np.nonzero(ishit)[0]
@@ -666,38 +671,115 @@ def Embree3_dump_solution(rayhit, V, F):
 
 
 def get_centroids(V, F):
-    return V[F].mean(axis=1)
+        &#34;&#34;&#34;Given `V` and `F`, return the centroids of the faces in `F`.
+        Parameters
+        ----------
+        V : np.array (n_vertices, 3)
+                vertices of the mesh
+        F : np.array (n_faces, 3)
+                faces of the mesh
+        Returns
+        -------
+        P : np.array (n_faces, 3)
+                centroids of the faces
+
+        &#34;&#34;&#34;
+        return V[F].mean(axis=1)
  
 def get_cross_products(V, F):
-    V0 = V[F][:, 0, :]
-    C = np.cross(V[F][:, 1, :] - V0, V[F][:, 2, :] - V0)
-    return C
+        &#34;&#34;&#34;Given `V` and `F`, return the cross products of the faces in `F`.
+        Parameters
+        ----------
+        V : np.array (n_vertices, 3)
+                vertices of the mesh
+        F : np.array (n_faces, 3)
+                faces of the mesh
+        Returns
+        -------
+        C : np.array (n_faces, 3)
+                cross products of the faces
+        &#34;&#34;&#34;
+        V0 = V[F][:, 0, :]
+        C = np.cross(V[F][:, 1, :] - V0, V[F][:, 2, :] - V0)
+        return C
  
  
 def get_face_areas(V, F):
-    C = get_cross_products(V, F)
-    C_norms = np.sqrt(np.sum(C**2, axis=1))
-    A = C_norms/2
-    return A
+        &#34;&#34;&#34;Given `V` and `F`, return the areas of the faces in `F`.
+        Parameters
+        ----------
+        V : np.array (n_vertices, 3)
+                vertices of the mesh
+        F : np.array (n_faces, 3)
+                faces of the mesh
+        Returns
+        -------
+        A : np.array (n_faces,)
+                areas of the faces
+        &#34;&#34;&#34;
+
+        C = get_cross_products(V, F)
+        C_norms = np.sqrt(np.sum(C**2, axis=1))
+        A = C_norms/2
+        return A
  
  
 def get_surface_normals(V, F):
-    C = get_cross_products(V, F)
-    C_norms = np.sqrt(np.sum(C**2, axis=1))
-    N = C/C_norms.reshape(C.shape[0], 1)
-    return N
+        &#34;&#34;&#34;Given `V` and `F`, return the surface normals of the faces in `F`.
+        Parameters
+        ----------
+        V : np.array (n_vertices, 3)
+                vertices of the mesh
+        F : np.array (n_faces, 3)
+                faces of the mesh
+        Returns
+        -------
+        N : np.array (n_faces, 3)
+                surface normals of the faces
+        &#34;&#34;&#34;
+
+        C = get_cross_products(V, F)
+        C_norms = np.sqrt(np.sum(C**2, axis=1))
+        N = C/C_norms.reshape(C.shape[0], 1)
+        return N
+
 
 def get_surface_normals_and_face_areas(V, F):
-    C = get_cross_products(V, F)
-    C_norms = np.sqrt(np.sum(C**2, axis=1))
-    N = C/C_norms.reshape(C.shape[0], 1)
-    A = C_norms/2
-    return N, A
+        &#34;&#34;&#34;Given `V` and `F`, return the surface normals and areas of the faces in `F`.
+        Parameters
+        ----------
+        V : np.array (n_vertices, 3)
+                vertices of the mesh
+        F : np.array (n_faces, 3)
+                faces of the mesh
+        Returns
+        -------
+        N : np.array (n_faces, 3)
+                surface normals of the faces
+        A : np.array (n_faces,)
+                areas of the faces
+        &#34;&#34;&#34;
+
+        C = get_cross_products(V, F)
+        C_norms = np.sqrt(np.sum(C**2, axis=1))
+        N = C/C_norms.reshape(C.shape[0], 1)
+        A = C_norms/2
+        return N, A
+#def get_surface_normals_and_face_areas(V, F):
+        # C = get_cross_products(V, F)
+        # C_norms = np.sqrt(np.sum(C**2, axis=1))
+        # N = C/C_norms.reshape(C.shape[0], 1)
+        # A = C_norms/2
+        # return N, A
+        #return N, A
+
+
+
 
 
 
 class ShapeModel(ABC):
-    pass
+        pass
 
 
 class TrimeshShapeModel(ShapeModel):
@@ -814,9 +896,9 @@ class TrimeshShapeModel(ShapeModel):
 #-----------------------------------------------------------------------------------------------------#
 
 def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces = 1,  kernel = &#39;Embree&#39;, diffusion = False, num_diffuse = None, errorMsg = True):
-        &#34;&#34;&#34;
-        Wrapper for trimesh RTX kernel
-        Parameters:
+        &#34;&#34;&#34;Wrapper for trimesh RTX kernel
+        Parameters
+        ----------
         mesh_obj: Mesh (or geometry) object 
         ray_origins: numpy array of ray origins (n, 3)
         ray_directions: numpy array of ray directions (does not need to be normalized) (n,3)
@@ -1030,17 +1112,26 @@ if __name__ == &#34;__main__&#34;:
 </code></dt>
 <dd>
 <div class="desc"><p>Process the output of the embree ray intersector kernel</p>
-<h2 id="args">Args</h2>
-<p>rayhit (embree.rayhit) :
-V (np.array (n_vertices, 3)) : Vertices of the mesh
-F (np.array (n_faces, 3)) : Faces of the mesh</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>rayhit</code></strong> :&ensp;<code>embree.rayhit</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>V</code></strong> :&ensp;<code>np.array (n_vertices, 3)</code></dt>
+<dd>vertices of the mesh</dd>
+<dt><strong><code>F</code></strong> :&ensp;<code>np.array (n_faces, 3)</code></dt>
+<dd>faces of the mesh</dd>
+</dl>
 <h2 id="returns">Returns</h2>
-<p>hits (np.array (nhits,)) :
-indexes of hit faces
-nhits (int) : number of hits
-idh (np.array (nhits,)) :
-indexes of hitting rays
-Ph (np.array (nhits, 3)) : hit points on the mesh</p></div>
+<dl>
+<dt><strong><code>hist</code></strong> :&ensp;<code>np.array (n_vertices, 3)</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>nhits</code></strong> :&ensp;<code>int</code></dt>
+<dd>number of hits</dd>
+<dt><strong><code>idh</code></strong> :&ensp;<code>np.array (nhits,)</code></dt>
+<dd>indexes of hitting rays</dd>
+<dt><strong><code>Ph</code></strong> :&ensp;<code>np.array (nhits, 3)</code></dt>
+<dd>hit points on the mesh</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -1048,18 +1139,23 @@ Ph (np.array (nhits, 3)) : hit points on the mesh</p></div>
 <pre><code class="python">def Embree3_dump_solution(rayhit, V, F):
         &#34;&#34;&#34;Process the output of the embree ray intersector kernel
 
-        Args:
-                rayhit (embree.rayhit) :
-                V (np.array (n_vertices, 3)) : Vertices of the mesh
-                F (np.array (n_faces, 3)) : Faces of the mesh
+        Parameters
+        ----------
+        rayhit : embree.rayhit
+        V : np.array (n_vertices, 3)
+                vertices of the mesh
+        F : np.array (n_faces, 3)
+                faces of the mesh
 
-
-        Returns:
-                hits (np.array (nhits,)) :      indexes of hit faces
-        nhits (int) : number of hits
-        idh (np.array (nhits,)) :       indexes of hitting rays
-        Ph (np.array (nhits, 3)) : hit points on the mesh
-
+        Returns
+        -------
+        hist : np.array (n_vertices, 3)
+        nhits : int
+                number of hits
+        idh : np.array (nhits,)
+                indexes of hitting rays
+        Ph : np.array (nhits, 3)
+                hit points on the mesh
         &#34;&#34;&#34;
         ishit=rayhit.prim_id!=embree.INVALID_GEOMETRY_ID
         idh=np.nonzero(ishit)[0]
@@ -1199,30 +1295,41 @@ Parameters</p>
 </code></dt>
 <dd>
 <div class="desc"><p>Wrapper for trimesh RTX kernel
-Parameters:
-mesh_obj: Mesh (or geometry) object
-ray_origins: numpy array of ray origins (n, 3)
-ray_directions: numpy array of ray directions (does not need to be normalized) (n,3)
-bounces: (int) number of bounces to compute
-kernel: one of Embree, Native or Embree3. To chose wether to use the Intel Embree kernel or the native python kernel
-diffusion: (bool) Boolean flag to activate diffused raytracing for the first bounce. Note: if this is false, the output "diffusion pack" will be "None"
-num_diffuse: (int) number of samples for first-bounce diffuse computation
-errorMsg: (bool) flag to control wether to pring the warning when no bounces are found</p>
-<p>Returns:
-index_tri_container: (list of np.array) a list containing the index of the hit faces of the mesh.
-[ [hit indexes bounce 1], [hit indexes bounce 2], &hellip;]
-index_ray_container: (list of np.array) list containing the index of the ray that have hit the mesh
-[ [ray hitting idx bounce 1], [ray hitting idx bounce 2], &hellip;]</p>
-<p>locations_container: (list of (3,N) np.array)
-list containing coordinates of the hit points
-[ [(3,N) np.array of locations of bounce 1], [(3,N) np.array of locations of bounce 2], &hellip;]
-ray_origins_container: (list of (3,N) np.array) list containing the origins of the rays
-[ [(3,N) np.array of ray origins of bounce 1], &hellip;]
-Note that ray_origins_container[0] corresponds with the ray_origins input
-ray_directions_container: (list of (3,N) np.array) list containing the directions of the rays
-[ [directions of bounce 1], [directions of bounce 2], &hellip;]. Note that the directions of bounce 1
-correspond with the ray_directions input value.
-None or diffusion_pack:
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>mesh_obj</code></strong> :&ensp;<code>Mesh (or geometry) object </code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>ray_origins</code></strong> :&ensp;<code>numpy array</code> of <code>ray origins (n, 3)</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>ray_directions</code></strong> :&ensp;<code>numpy array</code> of <code>ray directions (does not need to be normalized) (n,3)</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>bounces</code></strong> :&ensp;<code>(int) number</code> of <code>bounces to compute</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>kernel</code></strong> :&ensp;<code>one</code> of <code>Embree, Native</code> or <code>Embree3. To chose wether to use the Intel Embree kernel</code> or <code>the native python kernel</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>diffusion</code></strong> :&ensp;<code>(bool) Boolean flag to activate diffused raytracing for the first bounce. Note: if this is false, the output "diffusion pack" will be "None"</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>num_diffuse</code></strong> :&ensp;<code>(int) number</code> of <code>samples for first-bounce diffuse computation</code></dt>
+<dd>&nbsp;</dd>
+<dt><strong><code>errorMsg</code></strong> :&ensp;<code>(bool) flag to control wether to pring the warning when no bounces are found</code></dt>
+<dd>&nbsp;</dd>
+<dt>Returns:</dt>
+<dt>index_tri_container: (list of np.array) a list containing the index of the hit faces of the mesh.</dt>
+<dt>[ [hit indexes bounce 1], [hit indexes bounce 2], &hellip;]</dt>
+<dt><strong><code>index_ray_container</code></strong> :&ensp;<code>(list</code> of <code>np.array) list containing the index</code> of <code>the ray that have hit the mesh</code></dt>
+<dd>[ [ray hitting idx bounce 1], [ray hitting idx bounce 2], &hellip;]</dd>
+<dt><strong><code>locations_container</code></strong> :&ensp;<code>(list</code> of <code>(3,N) np.array)
+list containing coordinates</code> of <code>the hit points</code></dt>
+<dd>[ [(3,N) np.array of locations of bounce 1], [(3,N) np.array of locations of bounce 2], &hellip;]</dd>
+<dt><strong><code>ray_origins_container</code></strong> :&ensp;<code>(list</code> of <code>(3,N) np.array) list containing the origins</code> of <code>the rays</code></dt>
+<dd>[ [(3,N) np.array of ray origins of bounce 1], &hellip;]
+Note that ray_origins_container[0] corresponds with the ray_origins input</dd>
+<dt><strong><code>ray_directions_container</code></strong> :&ensp;<code>(list</code> of <code>(3,N) np.array) list containing the directions</code> of <code>the rays</code></dt>
+<dd>[ [directions of bounce 1], [directions of bounce 2], &hellip;]. Note that the directions of bounce 1
+correspond with the ray_directions input value.</dd>
+</dl>
+<p>None or diffusion_pack:
 (list of lists):
 A list containing:
 index_tri_diffusion: (np.array) indexes of the mesh faces hit by diffusion
@@ -1234,9 +1341,9 @@ location_diffusion: (3,N np.array) location og the diffusion hit points</p></div
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces = 1,  kernel = &#39;Embree&#39;, diffusion = False, num_diffuse = None, errorMsg = True):
-        &#34;&#34;&#34;
-        Wrapper for trimesh RTX kernel
-        Parameters:
+        &#34;&#34;&#34;Wrapper for trimesh RTX kernel
+        Parameters
+        ----------
         mesh_obj: Mesh (or geometry) object 
         ray_origins: numpy array of ray origins (n, 3)
         ray_directions: numpy array of ray directions (does not need to be normalized) (n,3)
@@ -1705,44 +1812,121 @@ def fast_vector_build(linsp1, linsp2, dim1, dim2):
 <span>def <span class="ident">get_centroids</span></span>(<span>V, F)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Given <code>V</code> and <code>F</code>, return the centroids of the faces in <code>F</code>.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>V</code></strong> :&ensp;<code>np.array (n_vertices, 3)</code></dt>
+<dd>vertices of the mesh</dd>
+<dt><strong><code>F</code></strong> :&ensp;<code>np.array (n_faces, 3)</code></dt>
+<dd>faces of the mesh</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>P</code></strong> :&ensp;<code>np.array (n_faces, 3)</code></dt>
+<dd>centroids of the faces</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_centroids(V, F):
-    return V[F].mean(axis=1)</code></pre>
+        &#34;&#34;&#34;Given `V` and `F`, return the centroids of the faces in `F`.
+        Parameters
+        ----------
+        V : np.array (n_vertices, 3)
+                vertices of the mesh
+        F : np.array (n_faces, 3)
+                faces of the mesh
+        Returns
+        -------
+        P : np.array (n_faces, 3)
+                centroids of the faces
+
+        &#34;&#34;&#34;
+        return V[F].mean(axis=1)</code></pre>
 </details>
 </dd>
 <dt id="pyRTX.core.utils_rt.get_cross_products"><code class="name flex">
 <span>def <span class="ident">get_cross_products</span></span>(<span>V, F)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Given <code>V</code> and <code>F</code>, return the cross products of the faces in <code>F</code>.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>V</code></strong> :&ensp;<code>np.array (n_vertices, 3)</code></dt>
+<dd>vertices of the mesh</dd>
+<dt><strong><code>F</code></strong> :&ensp;<code>np.array (n_faces, 3)</code></dt>
+<dd>faces of the mesh</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>C</code></strong> :&ensp;<code>np.array (n_faces, 3)</code></dt>
+<dd>cross products of the faces</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_cross_products(V, F):
-    V0 = V[F][:, 0, :]
-    C = np.cross(V[F][:, 1, :] - V0, V[F][:, 2, :] - V0)
-    return C</code></pre>
+        &#34;&#34;&#34;Given `V` and `F`, return the cross products of the faces in `F`.
+        Parameters
+        ----------
+        V : np.array (n_vertices, 3)
+                vertices of the mesh
+        F : np.array (n_faces, 3)
+                faces of the mesh
+        Returns
+        -------
+        C : np.array (n_faces, 3)
+                cross products of the faces
+        &#34;&#34;&#34;
+        V0 = V[F][:, 0, :]
+        C = np.cross(V[F][:, 1, :] - V0, V[F][:, 2, :] - V0)
+        return C</code></pre>
 </details>
 </dd>
 <dt id="pyRTX.core.utils_rt.get_face_areas"><code class="name flex">
 <span>def <span class="ident">get_face_areas</span></span>(<span>V, F)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Given <code>V</code> and <code>F</code>, return the areas of the faces in <code>F</code>.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>V</code></strong> :&ensp;<code>np.array (n_vertices, 3)</code></dt>
+<dd>vertices of the mesh</dd>
+<dt><strong><code>F</code></strong> :&ensp;<code>np.array (n_faces, 3)</code></dt>
+<dd>faces of the mesh</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>A</code></strong> :&ensp;<code>np.array (n_faces,)</code></dt>
+<dd>areas of the faces</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_face_areas(V, F):
-    C = get_cross_products(V, F)
-    C_norms = np.sqrt(np.sum(C**2, axis=1))
-    A = C_norms/2
-    return A</code></pre>
+        &#34;&#34;&#34;Given `V` and `F`, return the areas of the faces in `F`.
+        Parameters
+        ----------
+        V : np.array (n_vertices, 3)
+                vertices of the mesh
+        F : np.array (n_faces, 3)
+                faces of the mesh
+        Returns
+        -------
+        A : np.array (n_faces,)
+                areas of the faces
+        &#34;&#34;&#34;
+
+        C = get_cross_products(V, F)
+        C_norms = np.sqrt(np.sum(C**2, axis=1))
+        A = C_norms/2
+        return A</code></pre>
 </details>
 </dd>
 <dt id="pyRTX.core.utils_rt.get_orthogonal"><code class="name flex">
@@ -1790,33 +1974,96 @@ def get_orthogonal(v):
 <span>def <span class="ident">get_surface_normals</span></span>(<span>V, F)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Given <code>V</code> and <code>F</code>, return the surface normals of the faces in <code>F</code>.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>V</code></strong> :&ensp;<code>np.array (n_vertices, 3)</code></dt>
+<dd>vertices of the mesh</dd>
+<dt><strong><code>F</code></strong> :&ensp;<code>np.array (n_faces, 3)</code></dt>
+<dd>faces of the mesh</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>N</code></strong> :&ensp;<code>np.array (n_faces, 3)</code></dt>
+<dd>surface normals of the faces</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_surface_normals(V, F):
-    C = get_cross_products(V, F)
-    C_norms = np.sqrt(np.sum(C**2, axis=1))
-    N = C/C_norms.reshape(C.shape[0], 1)
-    return N</code></pre>
+        &#34;&#34;&#34;Given `V` and `F`, return the surface normals of the faces in `F`.
+        Parameters
+        ----------
+        V : np.array (n_vertices, 3)
+                vertices of the mesh
+        F : np.array (n_faces, 3)
+                faces of the mesh
+        Returns
+        -------
+        N : np.array (n_faces, 3)
+                surface normals of the faces
+        &#34;&#34;&#34;
+
+        C = get_cross_products(V, F)
+        C_norms = np.sqrt(np.sum(C**2, axis=1))
+        N = C/C_norms.reshape(C.shape[0], 1)
+        return N</code></pre>
 </details>
 </dd>
 <dt id="pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="name flex">
 <span>def <span class="ident">get_surface_normals_and_face_areas</span></span>(<span>V, F)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Given <code>V</code> and <code>F</code>, return the surface normals and areas of the faces in <code>F</code>.
+Parameters</p>
+<hr>
+<dl>
+<dt><strong><code>V</code></strong> :&ensp;<code>np.array (n_vertices, 3)</code></dt>
+<dd>vertices of the mesh</dd>
+<dt><strong><code>F</code></strong> :&ensp;<code>np.array (n_faces, 3)</code></dt>
+<dd>faces of the mesh</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>N</code></strong> :&ensp;<code>np.array (n_faces, 3)</code></dt>
+<dd>surface normals of the faces</dd>
+<dt><strong><code>A</code></strong> :&ensp;<code>np.array (n_faces,)</code></dt>
+<dd>areas of the faces</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_surface_normals_and_face_areas(V, F):
-    C = get_cross_products(V, F)
-    C_norms = np.sqrt(np.sum(C**2, axis=1))
-    N = C/C_norms.reshape(C.shape[0], 1)
-    A = C_norms/2
-    return N, A</code></pre>
+        &#34;&#34;&#34;Given `V` and `F`, return the surface normals and areas of the faces in `F`.
+        Parameters
+        ----------
+        V : np.array (n_vertices, 3)
+                vertices of the mesh
+        F : np.array (n_faces, 3)
+                faces of the mesh
+        Returns
+        -------
+        N : np.array (n_faces, 3)
+                surface normals of the faces
+        A : np.array (n_faces,)
+                areas of the faces
+        &#34;&#34;&#34;
+
+        C = get_cross_products(V, F)
+        C_norms = np.sqrt(np.sum(C**2, axis=1))
+        N = C/C_norms.reshape(C.shape[0], 1)
+        A = C_norms/2
+        return N, A
+#def get_surface_normals_and_face_areas(V, F):
+        # C = get_cross_products(V, F)
+        # C_norms = np.sqrt(np.sum(C**2, axis=1))
+        # N = C/C_norms.reshape(C.shape[0], 1)
+        # A = C_norms/2
+        # return N, A
+        #return N, A</code></pre>
 </details>
 </dd>
 <dt id="pyRTX.core.utils_rt.parallelize"><code class="name flex">
@@ -2289,7 +2536,7 @@ inheritance.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class ShapeModel(ABC):
-    pass</code></pre>
+        pass</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
