@@ -27,6 +27,12 @@ except:
 # Define general utils
 ###########################################################
 
+"""
+Core utilities used in most functions and classes
+"""
+
+
+
 def parallelize( iterator, function, chunks ):
 	"""Define a general parallelization framework to speedup computations
 	        Parameters
