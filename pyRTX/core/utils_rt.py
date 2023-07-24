@@ -754,7 +754,7 @@ class ShapeModel(ABC):
 	pass
 
 
-class TrimeshShapeModel(ShapeModel):
+class TrimeshShapeModel_temp(ShapeModel):
     """A shape model consisting of a single triangle mesh."""
 
     def __init__(self, V, F, N=None, P=None, A=None):
@@ -811,7 +811,14 @@ class TrimeshShapeModel(ShapeModel):
         assert self.A.dtype == self.dtype
 
         self._make_scene()
-        
+
+    def __reduce__(self):
+             return (self.__class__, (self.V, self.F, self.N, self.P, self.A))
+
+
+
+
+class TrimeshShapeModel(TrimeshShapeModel_temp):
 
     def _make_scene(self):
         '''Set up an Embree scene. This function allocates some memory that
@@ -821,10 +828,11 @@ class TrimeshShapeModel(ShapeModel):
         is our mesh.
         '''
         device = embree.Device()
-        geometry = device.make_geometry(embree.GeometryType.Triangle)
         scene = device.make_scene()
+        geometry = device.make_geometry(embree.GeometryType.Triangle)
+
 	
-        
+        #print('1')
         vertex_buffer = geometry.set_new_buffer(
             embree.BufferType.Vertex, # buf_type
             0, # slot
@@ -850,8 +858,8 @@ class TrimeshShapeModel(ShapeModel):
         # (I think)
         self.scene = scene
         self.device = device
-    def __reduce__(self):
-        return (self.__class__, (self.V, self.F, self.N, self.P, self.A))
+    #def __reduce__(self):
+    #    return (self.__class__, (self.V, self.F, self.N, self.P, self.A))
 
     @property
     def num_faces(self):
@@ -1018,8 +1026,12 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces = 1,  kernel = 'Emb
 				ray_directions_container.append(ray_directions) 
 
 				if i != bounces-1:
-					ray_origins, ray_directions = compute_secondary_bounce(location, index_tri, mesh_obj, ray_directions, index_ray)
-
+					#ray_origins, ray_directions = compute_secondary_bounce(location, index_tri, mesh_obj, ray_directions, index_ray)
+					ray_origins, ray_directions, diffuse_directions = compute_secondary_bounce(location, index_tri,
+																							   mesh_obj, ray_directions,
+																							   index_ray,
+																							   diffusion=diffusion_control,
+																							   num_diffuse=num_diffuse)
 
 
 

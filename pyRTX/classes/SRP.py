@@ -11,8 +11,6 @@ from pyRTX.core.physical_utils import compute_srp
 
 
 
-
-
 class SunShadow():
 	"""
 	A Class to compute the Solar flux ratio that impacts the spacecraft
