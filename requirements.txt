@@ -1,10 +1,12 @@
-numpy
-trimesh
 numba
-spiceypy
+numpy
 matplotlib
-rtree 
 pyembree
+pyglet
+rtree
 scipy
 shapely
-pyglet
+spiceypy
+tqdm
+trimesh
+wget
