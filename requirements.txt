@@ -10,3 +10,4 @@ spiceypy
 tqdm
 trimesh
 wget
+pathos
