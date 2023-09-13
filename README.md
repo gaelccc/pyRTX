@@ -13,6 +13,10 @@ Installation in a new environment called "py38" with Anaconda (suggested).
 
 Several examples are provided in the examples folder. See the README.txt in the examples folder for a description of the various examples.
 
+## Quickstart and installation testing
+Download the data required for running the examples running in the `examples` folder:
+`python download_lro_kernels.py` 
+
 # [Documentation](https://gaelccc.github.io/pyRTX)
 (work in progress)
 
