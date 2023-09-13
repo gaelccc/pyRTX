@@ -17,7 +17,10 @@ try:
 except:
     pass
 
-from aabb import AABB
+try:
+        from aabb import AABB
+except: 
+        pass
 
 
 # except ImportError:

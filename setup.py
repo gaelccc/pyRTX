@@ -5,7 +5,7 @@ with open("README.md", "r", encoding = "utf-8") as fh:
 
 setuptools.setup(
 	name = 'pyRTX',
-	version = '0.0.1',
+	version = '0.0.2',
 	author = 'Gael Cascioli',
 	author_email = 'gael.cascioli@umbc.edu',
 	description = 'A collection of tools for non-gravitational acceleration computation leveraging ray tracing techniques',
@@ -17,6 +17,6 @@ setuptools.setup(
 		"Operating System :: OS Independent",
 	],
 	python_requires='~=3.8',
-	install_requires = [ 'numpy'],
+	install_requires = [ 'numpy']
 	)
 
