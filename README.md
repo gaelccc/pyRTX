@@ -7,9 +7,9 @@ A collection of functions, classes and tools for the computation of non-gravitat
 Installation in a new environment called "py38" with Anaconda (suggested).
 
 1) Download pyRTX folder
-2) conda create --name py38 python=3.8 --file requirements.txt --channel default --channel anaconda
-3) conda activate py38
-4) pip install "PATH_TO_MAIN_FOLDER" (e.g., pip install ~/username/pyRTX)
+2) `conda create --name py38 python=3.8  --channel default --channel anaconda`
+3) `conda activate py38`
+4) `pip install "PATH_TO_MAIN_FOLDER" -r requirements.txt` (e.g., pip install -e ~/username/pyRTX -r requirements.txt)
 
 Several examples are provided in the examples folder. See the README.txt in the examples folder for a description of the various examples.
 
