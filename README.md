@@ -28,8 +28,21 @@ Enter the Embree directory and
 You can test the succesfull installation of Embree 2 by opening a python terminal and:
 `from pyembree import rtcore_scene`
 
-### Additional dependencies (Embree 2, 3 and CGAL)
-7) `pip install "PATH_TO_MAIN_FOLDER" -r requirements-post.txt`
+### Installing Embree3
+
+
+### Installing CGAL
+Download CGAL from the official website (e.g., https://github.com/CGAL/cgal/releases/tag/v5.6)
+`tar xf CGAL-5.6.tar.xz`
+Download Boost from the official website (e.g., https://www.boost.org/users/history/version_1_82_0.html)
+`tar xf boost_1_82_0.tar.gz`
+Install the `aabb` binder
+`git clone https://github.com/steo85it/py-cgal-aabb.git`
+modify the setup.py file and add the path to the `include` dirs of CGAL and Boost
+from inside the `py-cgal-aabb` folder:
+`python setup.py build_ext --inplace`
+`pip install .`
+
 
 Several examples are provided in the examples folder. See the README.txt in the examples folder for a description of the various examples.
 
