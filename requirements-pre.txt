@@ -1,0 +1,14 @@
+numba
+numpy
+matplotlib
+pyembree
+pyglet
+rtree
+scipy
+shapely
+spiceypy
+tqdm
+trimesh
+wget
+pathos
+cython
