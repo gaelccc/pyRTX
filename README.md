@@ -20,13 +20,13 @@ Here we will detail the installation procedures for Embree 2, Embree 3 and CGAL.
 The user can decide to install only one of the three kernels.
 
 ### Installing Embree 2
-Fetch and download the Embree version which suits your needs (e.g., https://github.com/embree/embree/releases/tag/v2.17.7)
-Unzip/untar the downloaded archive and place the resulting folder somewhere (e.g., in ~/usr/lib)
-Enter the Embree directory and 
-`source embree-vars.sh` (or .csh depending on the shell in use)
+Fetch and download the Embree version which suits your needs (e.g., https://github.com/embree/embree/releases/tag/v2.17.7)  
+Unzip/untar the downloaded archive and place the resulting folder somewhere (e.g., in ~/usr/lib)  
+Enter the Embree directory and   
+`source embree-vars.sh` (or .csh depending on the shell in use)  
 
-You can test the succesfull installation of Embree 2 by opening a python terminal and:
-`from pyembree import rtcore_scene`
+You can test the succesfull installation of Embree 2 by opening a python terminal and: 
+`from pyembree import rtcore_scene` 
 
 ### Installing Embree3
 
