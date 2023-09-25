@@ -29,9 +29,9 @@ You can test the succesfull installation of Embree 2 by opening a python termina
 `from pyembree import rtcore_scene` 
 
 ### Installing Embree3
-This procedure is similar to the installation of Embree 2
-Fetch and download the Embree version which better suits your needs (e.g., https://github.com/embree/embree/releases/tag/v3.13.5)
-Unzip/untar the downloaded archive
+This procedure is similar to the installation of Embree 2  
+Fetch and download the Embree version which better suits your needs (e.g., https://github.com/embree/embree/releases/tag/v3.13.5)  
+Unzip/untar the downloaded archive  
 
 
 ### Installing CGAL
