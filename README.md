@@ -6,7 +6,7 @@ A collection of functions, classes and tools for the computation of non-gravitat
 
 Installation in a new environment called "py38" with Anaconda (suggested).
 
-(Installation tested on Linux 3.10.0-1160.95.1.el7.x86_64) 
+(Installation tested on Linux 3.10.0-1160.95.1.el7.x86_64) with gcc 9.2 compiler
 ### Download pyRTX and setup an empty environment
 1) Download pyRTX folder
 2) `conda create --name py38 python=3.8  --channel default --channel anaconda`
@@ -36,7 +36,7 @@ Download CGAL from the official website (e.g., https://github.com/CGAL/cgal/rele
 `tar xf CGAL-5.6.tar.xz`  
 Download Boost from the official website (e.g., https://www.boost.org/users/history/version_1_82_0.html)  
 `tar xf boost_1_82_0.tar.gz`  
-Install the `aabb` binder  
+Install the `aabb` binder  (thanks @steo85it !)  
 `git clone https://github.com/steo85it/py-cgal-aabb.git`  
 modify the setup.py file and add the path to the `include` dirs of CGAL and Boost  
 from inside the `py-cgal-aabb` folder:  
