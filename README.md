@@ -32,6 +32,11 @@ You can test the succesfull installation of Embree 2 by opening a python termina
 This procedure is similar to the installation of Embree 2  
 Fetch and download the Embree version which better suits your needs (e.g., https://github.com/embree/embree/releases/tag/v3.13.5)  
 Unzip/untar the downloaded archive  
+Enter the uncompressed folder and  
+`source embree-vars.sh` (or .csh depending on the shell in use)  
+
+Install the python binder with anaconda (or directly from source https://github.com/sampotter/python-embree)
+`conda install python-embree --channel -conda-forge`   
 
 
 ### Installing CGAL
