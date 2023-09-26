@@ -5,19 +5,21 @@ A collection of functions, classes and tools for the computation of non-gravitat
 # Installation
 
 The installation process is quite convoluted, because of the dependencies on external libraries. 
-For this reason we detail here two separate procedures: [automatic installation](##Automatic Installation), [manual installation](##Manual Installation)  
+For this reason we detail here two separate procedures: [automatic installation](#automatic-installation), [manual installation](#manual-installation)  
+
 ## Automatic Installation 
 Clone the repository:
-`git clone 
-After cloning this repository, just  `bash simple_install.sh` inside the pyRTX folder.
+`git clone git@github.com:gaelccc/pyRTX.git`  
+After cloning this repository, just `bash simple_install.sh` inside the pyRTX folder.  
 
-The install script will perform the steps detailed in the [manual installation][##Manual Installation] section.    
-Please note: the installation script will need to download some files (notably the Embree libraries). The default download folder will be
+The install script will perform the steps detailed in the [manual installation][#manual-installation] section.    
+Please note: 
+- the installation script will need to download some files (notably the Embree libraries). The default download folder will be
 `pyRTX/lib`. You can change this behavior in the header of the installation script.
+- the installation process assumes that `conda` is available to the user.
 
 
-Installation in a new environment called "py38" with Anaconda (suggested).
-(Installation tested on Linux 3.10.0-1160.95.1.el7.x86_64) with gcc 9.2 compiler
+(Installation tested on Linux (3.10.0-1160.95.1.el7.x86_64) with gcc 9.2 compiler.
 
 ## Manual Installation
 If for any reason the simple installation should fail, please follow carefully the following steps. 
