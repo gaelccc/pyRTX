@@ -13,7 +13,7 @@ Clone the repository:
 `git clone git@github.com:gaelccc/pyRTX.git`  
 After cloning this repository, just `bash simple_install.sh` inside the pyRTX folder.  
 
-The install script will perform the steps detailed in the [manual installation][#manual-installation] section.    
+The install script will perform the steps detailed in the [manual installation](#manual-installation) section.    
 Please note: 
 - the installation script will need to download some files (notably the Embree libraries). The default download folder will be
 `pyRTX/lib`. You can change this behavior in the header of the installation script.
