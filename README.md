@@ -20,7 +20,7 @@ Please note:
 - the installation process assumes that `conda` is available to the user.
 
 
-(Installation tested on Linux (3.10.0-1160.95.1.el7.x86_64) with gcc 9.2 compiler.
+Installation tested on Linux (3.10.0-1160.95.1.el7.x86_64) with gcc 9.2 compiler.
 
 ## Manual Installation
 If for any reason the simple installation should fail, please follow carefully the following steps. 
