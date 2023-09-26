@@ -6,6 +6,7 @@
 from context import core
 import numpy as np
 import pytest
+import importlib.util as importlib 
 
 # Settings
 tols = {'rel':1e-6, 'abs':1e-6} # pytest.approx tolerances
@@ -24,6 +25,25 @@ def test_block_normalize():
 
 	assert norms == pytest.approx(compare)
 
+def test_embree2():
+	# Test here that the three kernels work nominally
+	# Embree 2 test
+	load = importlib.find_spec('pyembree')
+	found = load is not None
+	assert found
+
+def test_embree3():
+	# Test here that the three kernels work nominally
+	# Embree 3 test
+	load = importlib.find_spec('embree')
+	found = load is not None
+	assert found
 
 
+def test_CGAL():
+	# Test here that the three kernels work nominally
+	# CGAL test
+	load = importlib.find_spec('aabb')
+	found = load is not None
+	assert found
 # ADD MORE
