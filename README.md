@@ -9,7 +9,7 @@ The installation process is quite convoluted, because of the dependencies on ext
 For this reason we detail here two separate procedures: [automatic installation](#automatic-installation), [manual installation](#manual-installation)  
 
 ## Automatic Installation 
-Clone the repository:
+Clone the repository:  
 `git clone git@github.com:gaelccc/pyRTX.git`  
 After cloning this repository, just `bash simple_install.sh` inside the pyRTX folder.  
 
