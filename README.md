@@ -1,3 +1,4 @@
+![resized](https://github.com/gaelccc/pyRTX/assets/74771467/137f6c0a-197c-4139-862c-07b7d9a3ee78)
 # pyRTX v0.0.2
 
 A collection of functions, classes and tools for the computation of non-gravitational acceleration on space probes leveraging ray tracing techniques.
