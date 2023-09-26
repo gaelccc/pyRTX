@@ -112,7 +112,7 @@ rays = PixelPlane(
 rtx = RayTracer(        
                         lro,                    # Spacecraft object
                         rays,                   # pixelPlane object
-                        kernel = 'Embree',      # The RTX kernel to use
+                        kernel = 'Embree3',      # The RTX kernel to use
                         bounces = 2,            # The number of bounces to account for
                         diffusion = False,       # Account for secondary diffusion
                         ) 
