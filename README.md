@@ -29,7 +29,7 @@ If for any reason the simple installation should fail, please follow carefully t
 2) `conda create --name py38 python=3.8  --channel default --channel anaconda`
 3) `conda activate py38`
 ### Install dependencies
-5) `pip install "PATH_TO_MAIN_FOLDER" -r requirements-pre.txt` (e.g., pip install -e ~/username/pyRTX -r requirements.txt)
+5) `pip install "PATH_TO_MAIN_FOLDER" -r requirements.txt` (e.g., pip install -e ~/username/pyRTX -r requirements.txt)
 
 ### Minimal ray tracing dependencies
 For the ray-tracing algorithms to work the ray tracing kernel programs need to be installed. 
