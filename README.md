@@ -35,8 +35,11 @@ Unzip/untar the downloaded archive
 Enter the uncompressed folder and  
 `source embree-vars.sh` (or .csh depending on the shell in use)  
 
-Install the python binder with anaconda (or directly from source https://github.com/sampotter/python-embree)
-`conda install python-embree --channel -conda-forge`   
+#### Temporary fix to compilation issues with python-embree ([open issue](https://github.com/sampotter/python-embree/issues/23)) 
+Clone python-embree (https://github.com/sampotter/python-embree)  
+in the `python-embree` folder open `embree.pyx` with a text editor and comment `line 548` (i.e., `rtcSetDeviceErrorFunction(self._device, simple_error_function, NULL);`)  
+And then:  
+`pip install .`   
 
 
 ### Installing CGAL
