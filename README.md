@@ -3,10 +3,13 @@
 A collection of functions, classes and tools for the computation of non-gravitational acceleration on space probes leveraging ray tracing techniques.
 
 # Installation
+The installation process is quite convoluted, because of the dependencies on external libraries. 
+We are currently working on a simplified "one step" solution.  
+For the moment please follow carefully the following steps. 
 
 Installation in a new environment called "py38" with Anaconda (suggested).
-
 (Installation tested on Linux 3.10.0-1160.95.1.el7.x86_64) with gcc 9.2 compiler
+
 ### Download pyRTX and setup an empty environment
 1) Download pyRTX folder
 2) `conda create --name py38 python=3.8  --channel default --channel anaconda`
