@@ -3,10 +3,13 @@
 A collection of functions, classes and tools for the computation of non-gravitational acceleration on space probes leveraging ray tracing techniques.
 
 # Installation
+The installation process is quite convoluted, because of the dependencies on external libraries. 
+We are currently working on a simplified "one step" solution.  
+For the moment please follow carefully the following steps. 
 
 Installation in a new environment called "py38" with Anaconda (suggested).
-
 (Installation tested on Linux 3.10.0-1160.95.1.el7.x86_64) with gcc 9.2 compiler
+
 ### Download pyRTX and setup an empty environment
 1) Download pyRTX folder
 2) `conda create --name py38 python=3.8  --channel default --channel anaconda`
@@ -29,6 +32,17 @@ You can test the succesfull installation of Embree 2 by opening a python termina
 `from pyembree import rtcore_scene` 
 
 ### Installing Embree3
+This procedure is similar to the installation of Embree 2  
+Fetch and download the Embree version which better suits your needs (e.g., https://github.com/embree/embree/releases/tag/v3.13.5)  
+Unzip/untar the downloaded archive  
+Enter the uncompressed folder and  
+`source embree-vars.sh` (or .csh depending on the shell in use)  
+
+#### Temporary fix to compilation issues with python-embree ([open issue](https://github.com/sampotter/python-embree/issues/23)) 
+Clone python-embree (https://github.com/sampotter/python-embree)  
+in the `python-embree` folder open `embree.pyx` with a text editor and comment `line 548` (i.e., `rtcSetDeviceErrorFunction(self._device, simple_error_function, NULL);`)  
+And then:  
+`pip install .`   
 
 
 ### Installing CGAL
