@@ -1,1 +1,0 @@
-git+https://github.com/steo85it/py-cgal-aabb.git
