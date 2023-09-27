@@ -29,13 +29,9 @@ density models (e.g., VenusGRAM, MCD, etc.). [(Example 1)](examples/lro_drag.py)
 Handful classes for computing, storing and reading lookup tables for improved computational performance. ([Example 1](examples/generate_lro_accel_lookup.py),[Example 2](examples/generate_crossection_lut.py))
 
 # Installation
-<<<<<<< HEAD
-Installation in a new environment called "py38" with Anaconda (suggested).
-=======
 
 The installation process is quite convoluted, because of the dependencies on external libraries. 
 For this reason we detail here two separate procedures: [automatic installation](#automatic-installation), [manual installation](#manual-installation)  
->>>>>>> develop
 
 ## Automatic Installation 
 Clone the repository:  
