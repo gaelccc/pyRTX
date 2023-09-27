@@ -85,3 +85,10 @@ pip install .
 
 cd ..
 rm -f *.tar*
+
+
+# Run tests
+echo "...... Running Tests ......."
+cd ../tests
+bash run_tests.sh
+
