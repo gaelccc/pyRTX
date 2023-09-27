@@ -1,11 +1,19 @@
 Metadata-Version: 2.1
 Name: pyRTX
-Version: 0.0.1
+Version: 0.0.2
 Summary: A collection of tools for non-gravitational acceleration computation leveraging ray tracing techniques
 Home-page: 
 Author: Gael Cascioli
 Author-email: gael.cascioli@umbc.edu
+<<<<<<< HEAD
+=======
+License: UNKNOWN
+Platform: UNKNOWN
+>>>>>>> develop
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
 Requires-Python: ~=3.8
+
+UNKNOWN
+
