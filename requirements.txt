@@ -11,3 +11,5 @@ tqdm
 trimesh
 wget
 pathos
+cython
+pytest

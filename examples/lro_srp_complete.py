@@ -103,7 +103,7 @@ rays = PixelPlane(
 			source = 'Sun',     # Source body (used to compute the orientation of the rays wrt. spacecraft)
 			width = 10,	    # Width of the pixel plane
 			height = 10,        # Height of the pixel plane
-			ray_spacing = 0.01, # Ray spacing (in m)
+			ray_spacing = 0.1, # Ray spacing (in m)
 		)
 
 
@@ -112,7 +112,7 @@ rays = PixelPlane(
 rtx = RayTracer(        
                         lro,                    # Spacecraft object
                         rays,                   # pixelPlane object
-                        kernel = 'Embree',      # The RTX kernel to use
+                        kernel = 'Embree3',      # The RTX kernel to use
                         bounces = 2,            # The number of bounces to account for
                         diffusion = False,       # Account for secondary diffusion
                         ) 
