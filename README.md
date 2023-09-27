@@ -101,9 +101,9 @@ from inside the `py-cgal-aabb` folder:
 To verify the succesful outcome of the installation process, from the `tests` folder run 
 `bash run_tests.sh`
 
-Several examples are provided in the examples folder. See the README.txt in the examples folder for a description of the various examples.
 
-## Quickstart and installation testing
+
+# Quickstart and installation testing
 Download the data required for running the examples running in the `examples` folder:
 
 `python download_lro_kernels.py` 
