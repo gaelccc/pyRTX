@@ -4,5 +4,7 @@
 *.bpc
 *.bc
 *.pkl
+lib/
+build/
 .DS_Store
 docs/.DS_Store
