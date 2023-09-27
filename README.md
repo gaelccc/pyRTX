@@ -30,6 +30,9 @@ density models (e.g., VenusGRAM, MCD, etc.). [(Example 1)](examples/lro_drag.py)
 ### Lookup tables generation and handling
 Handful classes for computing, storing and reading lookup tables for improved computational performance. ([Example 1](examples/generate_lro_accel_lookup.py),[Example 2](examples/generate_crossection_lut.py))
 
+# Installation
+The installation process is quite convoluted, because of the dependencies on external libraries. 
+For this reason we detail here two separate procedures: [automatic installation](#automatic-installation), [manual installation](#manual-installation)  
 
 ## Automatic Installation 
 Clone the repository:  
@@ -94,6 +97,9 @@ from inside the `py-cgal-aabb` folder:
 `python setup.py build_ext --inplace`  
 `pip install .`  
 
+### Run tests
+To verify the succesful outcome of the installation process, from the `tests` folder run 
+`bash run_tests.sh`
 
 Several examples are provided in the examples folder. See the README.txt in the examples folder for a description of the various examples.
 
