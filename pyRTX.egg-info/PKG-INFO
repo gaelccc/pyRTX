@@ -5,12 +5,7 @@ Summary: A collection of tools for non-gravitational acceleration computation le
 Home-page: 
 Author: Gael Cascioli
 Author-email: gael.cascioli@umbc.edu
-License: UNKNOWN
-Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
 Requires-Python: ~=3.8
-
-UNKNOWN
-

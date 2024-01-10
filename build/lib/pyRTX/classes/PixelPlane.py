@@ -97,6 +97,7 @@ class PixelPlane():
 			lon = self.lon
 			lat = self.lat
 			d0 = self.d0
+			packets = self.packets
 			ray_spacing = self.ray_spacing
 
 
@@ -109,8 +110,7 @@ class PixelPlane():
 
 			# Projecting polygon in the direction of rays
 			polygonProjected=tm.path.polygons.projected(self.spacecraft.dump(),x0_unit,x0)
-			if polygonProjected == None:
-				print('Warning: the shape projected in the provided direction is null')
+			print(self.spacecraft.dump())
 			# Finding rectangular area around the polygon 
 			minx, miny, maxx, maxy = polygonProjected.bounds
 			nx = int((maxx - minx)/ray_spacing)
@@ -149,6 +149,8 @@ class PixelPlane():
 		return basic_coords, basic_dirs
 
 
+
+
 	def update_latlon(self,lon = None, lat = None):
 		self.lon = lon
 		self.lat = lat
@@ -163,9 +165,8 @@ class PixelPlane():
 		self.x0 = x0
 		x0_unit = x0/np.linalg.norm(x0)
 		# Projecting polygon in the direction of rays
+		print(self.spacecraft.dump())
 		polygonProjected=tm.path.polygons.projected(self.spacecraft.dump(),x0_unit,x0)
-		if polygonProjected == None:
-				print('Warning: the shape projected in the provided direction is null')
 		minx, miny, maxx, maxy = polygonProjected.bounds
 		width = np.amax(np.abs([minx, maxx]))*2
 		height = np.amax(np.abs([miny, maxy]))*2
