@@ -14,9 +14,9 @@ def get_ncores(lst, **kwargs):
     If not specified, the number of cores is set to the number available on your machine.
     """
       
-    if ('n_cores' in kwargs.keys()) and (isinstance(kwargs['n_cores'], int)) and (os.cpu_count() >= kwargs['n_cores'] >= 1): 
+    if ('n_cores' in kwargs.keys()) and (isinstance(kwargs['n_cores'], int)) and (os.cpu_count() > kwargs['n_cores'] >= 1): 
         n_cores = kwargs['n_cores']
-    else: n_cores = os.cpu_count() 
+    else: n_cores = os.cpu_count() - 1
     
     n_cores = min(len(lst), n_cores) if len(lst) else 1
     
