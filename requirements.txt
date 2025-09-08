@@ -14,3 +14,4 @@ pathos
 cython
 pytest
 xarray
+basemap
