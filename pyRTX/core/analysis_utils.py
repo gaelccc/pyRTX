@@ -176,7 +176,6 @@ class LookupTableND():
 		self.interpType = 'linear'
 
 	def _interpolator(self, vals):
-		
 		return interpolate.interpn(self.axes,self.values, vals, method = 'linear') 
 
 
@@ -567,3 +566,63 @@ def get_spacecraft_area(spacecraft, ra = 0.0, dec = 0.0, epoch = None):
 	hit_rays = rtx.index_ray_container
 	Area =  len(hit_rays[0])/rays.norm_factor
 	return Area
+
+
+### ------------------------------- User-Defined functions ------------------------------ ###
+
+from pyRTX.core.parallel_utils import parallel
+
+@parallel
+def get_sun_exposed_area(sc, rtx, epoch):
+
+	'''
+	Compute a pyRTX.Spacecraft apparent area as seen by the direction specified 
+	by a pair of right ascension - declination
+
+	Input:
+	spacecraft [pyRTX.Spacecraft] 	: the spacecraft object
+	ra [float] 						: right ascension (in rad)
+	dec [float] 					: declination (rad)
+	epoch [float or None]			: epoch for the computation (this is used when moving Spice
+										frames are used for the Spacecraft definition)
+
+	Output:
+	area [float] 					: the apparent area. The measurement units depend on the units of the
+				   						Spacecraft object
+
+	TODO: avoid hardcoded width/height but rather use an automated method
+
+	'''
+
+	# Get ra, dec of the solar direction
+	sundir  = sp.spkezr( 'Sun', epoch, sc.base_frame, 'LT+S', sc.name )[0][0:3]
+	sundir  = sundir / np.linalg.norm(sundir)
+	_, ra, dec = sp.recrad(sundir)
+
+	# Update the ray tracer
+	rtx.rays.update_latlon(lon = ra, lat = dec)
+
+	# Get area
+	rtx.trace(epoch)
+	hit_rays = rtx.index_ray_container
+	Area =  len(hit_rays[0])/rtx.rays.norm_factor
+ 
+	return Area
+
+def compute_body_positions(target, epochs, frame, obs, abcorr = 'LT + S'):
+	"""
+	Functions to compute the relative positions of a target
+	body with respect to an observing body.
+
+	Parameters:
+	-	target: target body name
+	-	epochs: list of epochs
+	-	frame: reference frame of output position vector
+	-	obs: observing body name
+	-	abcorr: aberration correction flag.
+	"""
+	pos = sp.spkezr(target, np.array(epochs), frame, abcorr, obs)
+
+	return [pos[0][i][0:3] for i in range(len(epochs))]
+
+### ------------------------------------------------------------------------------------- ###

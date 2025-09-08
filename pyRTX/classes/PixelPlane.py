@@ -1,7 +1,8 @@
 import numpy as np
-from pyRTX.core.utils_rt import fast_vector_build
 import spiceypy as sp
+
 from pyRTX import constants
+from pyRTX.core.utils_rt import fast_vector_build
 
 class PixelPlane():
 
@@ -48,7 +49,7 @@ class PixelPlane():
 		self.ray_spacing = ray_spacing * conversion_factor
 		self.norm_factor = 1.0/self.ray_spacing**2  # THIS HAS BEEN MOD
 		self.source = source
-
+  
 		if width is not None and height is not None:
 			self.width = width*conversion_factor
 			self.height = height*conversion_factor
@@ -60,8 +61,7 @@ class PixelPlane():
 		# Instantiate the ray data at __init__ to gain time. Unless when instantiating the object for shadow computation
 		self._core_dump(instantiate = True)
 
-
-		
+		self.sp_data = None
 
 
 	def dump(self, epoch = None):
@@ -71,13 +71,18 @@ class PixelPlane():
 			basic_coords, basic_dirs = self._core_dump()
 
 		elif self.mode == 'Dynamic':
+
 			if isinstance(epoch, str):
 				et = sp.str2et( epoch )
 			else:
 				et = epoch
 
-			sourcedir = sp.spkezr(self.source, epoch, self.spacecraft.base_frame, 'LT+S', self.spacecraft.name )
-			sourcedir = sourcedir[0][0:3]
+			if self.sp_data != None:
+				sourcedir = self.sp_data.getPosition(epoch, self.spacecraft.name, self.source, self.spacecraft.base_frame, 'LT+S')
+			else:
+				sourcedir = sp.spkezr(self.source, epoch, self.spacecraft.base_frame, 'LT+S', self.spacecraft.name )
+				sourcedir = sourcedir[0][0:3]
+    
 			sourcedir = np.array(sourcedir)/np.linalg.norm(sourcedir)
 			_, self.lon, self.lat = sp.recrad(sourcedir)
 			
@@ -86,11 +91,10 @@ class PixelPlane():
 		return basic_coords, basic_dirs
 
 
-
 	def _core_dump(self, instantiate = False):
 
-
 		if instantiate:
+      
 			w2 = self.width/2
 			h2 = self.height/2
 			lon = 0
@@ -99,14 +103,14 @@ class PixelPlane():
 			packets = self.packets
 			ray_spacing = self.ray_spacing
 
-
-
-
 			# Build the direction vector
+   
 			x0 = np.array([-d0*np.cos(lon)*np.cos(lat), -d0*np.sin(lon)*np.cos(lat), -d0*np.sin(lat)])
 			self.x0 = x0
 			x0_unit = x0/np.linalg.norm(x0)
+   
 			# Build the transformation matrix
+   
 			R1 = np.array( [[np.cos(lon), -np.sin(lon), 0],
 							[np.sin(lon), np.cos(lon), 0],
 							[0,0,1]]
@@ -115,7 +119,6 @@ class PixelPlane():
 							[0,1,0],
 							[-np.sin(-lat), 0, np.cos(-lat)]])
 			R = R1@R2
-
 
 			# Build the pixel matrix
 
@@ -127,7 +130,6 @@ class PixelPlane():
 			linsp1 = np.linspace(-w2, w2, num = dim1 )
 			linsp2 = np.linspace(-h2, h2, num = dim2)
 
-
 			basic_coords = fast_vector_build(linsp1, linsp2, dim1, dim2)
 
 			self.basic_coords0 = basic_coords
@@ -135,10 +137,10 @@ class PixelPlane():
 			basic_coords = np.dot(np.array(basic_coords), R.T)
 			basic_coords -= x0
 
-
 			# Return the output in the shape required by trimesh
 
 		else:
+      
 			w2 = self.width/2
 			h2 = self.height/2
 			lon = self.lon
@@ -146,10 +148,13 @@ class PixelPlane():
 			d0 = self.d0
 			packets = self.packets
 			ray_spacing = self.ray_spacing
+   
 			x0 = np.array([-d0*np.cos(lon)*np.cos(lat), -d0*np.sin(lon)*np.cos(lat), -d0*np.sin(lat)])
 			self.x0 = x0
 			x0_unit = x0/np.linalg.norm(x0)
+   
 			# Build the transformation matrix
+   
 			R1 = np.array( [[np.cos(lon), -np.sin(lon), 0],
 							[np.sin(lon), np.cos(lon), 0],
 							[0,0,1]]
@@ -158,19 +163,17 @@ class PixelPlane():
 							[0,1,0],
 							[-np.sin(-lat), 0, np.cos(-lat)]])
 			R = R1@R2
-			
 
 			basic_coords = np.dot(np.array(self.basic_coords0), R.T)
 			basic_coords -= x0
 			basic_dirs = np.full(basic_coords.shape, x0_unit)
 
 		if not packets == 1:
+      
 			basic_coords = np.array_split(basic_coords, packets)
 			basic_dirs = np.array_split(basic_dirs, packets)
 
 		return basic_coords, basic_dirs
-
-
 
 
 	def update_latlon(self,lon = None, lat = None):

@@ -2,14 +2,15 @@ numba
 numpy
 matplotlib
 pyembree
-pyglet
+pyglet==1.5.15
 rtree
 scipy
 shapely
 spiceypy
 tqdm
-trimesh
+trimesh==3.10.7
 wget
 pathos
 cython
 pytest
+xarray

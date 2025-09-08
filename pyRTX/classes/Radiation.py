@@ -1,14 +1,20 @@
 import numpy as np
+import sys
 import spiceypy as sp
 from pyRTX.core.utils_rt import get_surface_normals_and_face_areas, block_dot
 from timeit import default_timer as dT
+from scipy import interpolate
+from pyRTX.core.parallel_utils import parallel
 from pyRTX.constants import stefan_boltzmann as sb
+from pyRTX.constants import au 
+
 """
 Main class for Albedo computations.
 """
+
 class Albedo():
 
-        def __init__(self, Planet = None, spacecraftName = None, spacecraftFrame = None):
+        def __init__(self, Planet = None, spacecraftName = None, spacecraftFrame = None, spacecraftMass = None, lookup = None, precomputation = None, baseflux = 1361.5,):
                 """
                 Parameters
                 ----------
@@ -19,13 +25,31 @@ class Albedo():
                 spacecraftFrame : str
                         The name of the spacecraft body fixed frame
                 """
-                self.Planet = Planet
-                self.scname = spacecraftName
-                self.scFrame = spacecraftFrame
+                self.Planet   = Planet
+                self.scname   = spacecraftName
+                self.scFrame  = spacecraftFrame
+                self.lookup   = lookup
+                self.sp_data  = precomputation
+                self.baseflux = baseflux
+                if isinstance(spacecraftMass, (float,int)): self.scMass = spacecraftMass
+                else:
+                        self.scMass   = interpolate.interp1d(spacecraftMass.time.data, spacecraftMass.mass.data, kind='previous', assume_sorted=True)
 
 
+        def _store_precomputations(self):
+                """
+                Method to store precomputed data.
 
-        def compute(self, epoch):
+                Parameters:
+                -	sp_data: object of the class Precompute
+                """
+
+                self.Planet.sp_data = self.sp_data
+                self.lookup.sp_data = self.sp_data
+                
+
+        @parallel
+        def run(self, epoch):
 
                 """
                 Compute the fundamental quantities for the albedo force computation
@@ -44,19 +68,59 @@ class Albedo():
 
                 """
 
-                norm_fluxes, scRelative, albedoIdxs, albedoVals = self._core_compute(epoch)
-                rotMat = self.Planet.rot_toSCframe(epoch, scFrame = self.scFrame)
+                normFluxes, scRelative, albedoIdxs, albedoVals = self._core_compute(epoch)
+
+                if self.sp_data != None:
+                        rotMat = self.sp_data.getRotation(epoch, self.Planet.sunFixedFrame, self.scFrame)
+                        rotMat = rotMat[:3,:3]
+                else:
+                        rotMat = self.Planet.rot_toSCframe(epoch, scFrame = self.scFrame)
 
                 dirs_to_sc = np.dot(scRelative, rotMat.T)
-                dirs = np.zeros((len(norm_fluxes), 2))
-                
+                dirs = np.zeros((len(normFluxes), 2))
 
                 for i, ddir in enumerate(dirs_to_sc):
                         [_, dirs[i,0], dirs[i, 1]] = sp.recrad(ddir)
 
-                return norm_fluxes, dirs, albedoVals #self.Planet.albedo[albedoIdxs]
+                # Compute normalized fluxes, directions and albedo values
+                lll         = self.lookup.query(epoch, dirs[:,0]*180/np.pi, dirs[:,1]*180/np.pi)
+                norm_fluxes = np.expand_dims(normFluxes, axis = 1)
+                alb_values  = np.expand_dims(albedoVals, axis = 1)
+        
+                # Compute scaled flux
+                sundir  = self.sp_data.getPosition(epoch, self.Planet.name, 'Sun', self.Planet.bodyFrame, 'CN')
+                sunflux = self.baseflux * (1.0/(np.linalg.norm(sundir)/au))**2
+                
+                # Compute acceleration	
+                mass = self.scMass(epoch) if not isinstance(self.scMass, (float,int)) else self.scMass
+                alb_accel = np.sum(alb_values * sunflux/mass * norm_fluxes * lll, axis = 0) 
+ 
+                return alb_accel, normFluxes, dirs, albedoVals
+        
 
+        def compute(self, epochs, n_cores = None):
+                """
+                Method to perform the computations for albedo acceleration.
+                """
+                
+                self._store_precomputations()
+                
+                alb_accel   = np.zeros((len(epochs), 3))
+                norm_fluxes = [0.] * len(epochs)
+                dirs        = [0.] * len(epochs)
+                albedoVals  = [0.] * len(epochs)
+                
+                results = self.run(epochs, n_cores = n_cores)
+                
+                #for r, result in enumerate(results): alb_accel[r,:] = result[0]
 
+                for r, result in enumerate(results): 
+                        alb_accel[r,:] = result[0]
+                        norm_fluxes[r] = result[1]
+                        dirs[r]        = result[2]
+                        albedoVals[r]  = result[3]
+                        
+                return alb_accel, norm_fluxes, dirs, albedoVals
 
 
         def _core_compute(self, epoch):
@@ -66,17 +130,15 @@ class Albedo():
 
                 albedoIdxs, albedoVals = self.Planet.albedoFaces(epoch, self.scname)
 
-                scPos = self.Planet.getScPosSunFixed(epoch, self.scname)
-
-
+                if self.sp_data != None:
+                        scPos = self.sp_data.getPosition(epoch, self.Planet.name, self.scname, self.Planet.sunFixedFrame, 'CN')
+                else:
+                        scPos = self.Planet.getScPosSunFixed(epoch, self.scname)
 
                 # Get the direction of the rays in the SC frame
                 centers = C[albedoIdxs]
                 scRelative = - centers + scPos
                 dirs = scRelative / np.linalg.norm(scRelative, axis = 1).reshape(len(scRelative), 1)
-                rot = sp.pxform(self.Planet.sunFixedFrame, self.scFrame, epoch)
-                sc_dirs = np.dot(dirs, rot.T)
-
 
                 # Get normal-to-spacecraft angles
                 normals = N[albedoIdxs]
@@ -87,8 +149,6 @@ class Albedo():
 
                 # Distance between sc and each element mesh
                 scRelativeMag = np.sum(np.array(scRelative)**2, axis = 1)
-
-
 
                 # Compute the geometric contribution to the flux
                 _, dA = get_surface_normals_and_face_areas(V, F)
@@ -102,14 +162,42 @@ class Albedo():
                 
 class Emissivity():
 
-        @classmethod
-        def __init__(self, Planet = None, spacecraftName = None, spacecraftFrame = None):
+        def __init__(self, Planet = None, spacecraftName = None, spacecraftFrame = None, spacecraftMass = None, lookup = None, precomputation = None, baseflux = 1361.5):
+                """
+                Parameters
+                ----------
+                Planet : pyRTX.classes.Planet
+                        The planet object the Albedo is for
+                spacecraftName : str
+                        The name of the spacecraft
+                spacecraftFrame : str
+                        The name of the spacecraft body fixed frame
+                """
+                self.Planet   = Planet
+                self.scname   = spacecraftName
+                self.scFrame  = spacecraftFrame
+                self.sp_data  = precomputation
+                self.lookup   = lookup
+                self.baseflux = baseflux
+                if isinstance(spacecraftMass, (float,int)): self.scMass = spacecraftMass
+                else:
+                        self.scMass   = interpolate.interp1d(spacecraftMass.time.data, spacecraftMass.mass.data, kind='previous', assume_sorted=True)
 
-                self.Planet = Planet
-                self.scname = spacecraftName
-                self.scFrame = spacecraftFrame
 
-        def compute(self, epoch):
+        def _store_precomputations(self):
+                """
+                Method to store precomputed data.
+
+                Parameters:
+                -	sp_data: object of the class Precompute
+                """
+
+                self.Planet.sp_data = self.sp_data
+                self.lookup.sp_data = self.sp_data
+
+                
+        @parallel   
+        def run(self, epoch):
 
                 """
                 Compute the fundamental quantities for the emissivity force computation
@@ -120,38 +208,80 @@ class Emissivity():
 
                 """
 
-                norm_fluxes, scRelative, emiIdxs, faceEmi = self._core_compute(epoch)
-                rotMat = self.Planet.rot_toSCframe(epoch, scFrame = self.scFrame)
+                normFluxes, scRelative, emiIdxs, faceEmi = self._core_compute(epoch)
+                
+                if self.sp_data != None:
+                        rotMat = self.sp_data.getRotation(epoch, self.Planet.sunFixedFrame, self.scFrame)
+                        rotMat = rotMat[:3,:3]
+                else:
+                        rotMat = self.Planet.rot_toSCframe(epoch, scFrame = self.scFrame)
 
                 dirs_to_sc = np.dot(scRelative, rotMat.T)
-                dirs = np.zeros((len(norm_fluxes), 2))
+                
+                dirs = np.zeros((len(normFluxes), 2))
+                
                 for i, ddir in enumerate(dirs_to_sc):
                         [_, dirs[i,0], dirs[i, 1]] = sp.recrad(ddir)
+                        
+                lll         = self.lookup.query(epoch, dirs[:,0]*180/np.pi, dirs[:,1]*180/np.pi)
+                norm_fluxes = np.expand_dims(normFluxes, axis = 1)
+                emi_values  = np.expand_dims(faceEmi, axis = 1)
+ 
+                # Compute acceleration	
+                mass = self.scMass(epoch) if not isinstance(self.scMass, (float,int)) else self.scMass
+                ir_accel = np.sum(emi_values * 1/mass * norm_fluxes * lll, axis = 0) 
                 
-                return norm_fluxes, dirs, faceEmi
+                return ir_accel, normFluxes, dirs, faceEmi
 
-        @classmethod
+
+        def compute(self, epochs, n_cores = None):
+                """
+                Method to perform the computations for albedo acceleration.
+                """
+                self._store_precomputations()
+
+                ir_accel    = np.zeros((len(epochs), 3))
+                norm_fluxes = [0.] * len(epochs)
+                dirs        = [0.] * len(epochs)
+                faceEmi     = [0.] * len(epochs)
+                               
+                results     = self.run(epochs, n_cores = n_cores)
+
+                for r, result in enumerate(results): 
+                        ir_accel[r,:]  = result[0]
+                        norm_fluxes[r] = result[1]
+                        dirs[r]        = result[2]
+                        faceEmi[r]     = result[3]
+
+                # accel, norm_fluxes, dirs, faceEmi = self.run(epochs, n_cores = n_cores)
+                # print('accel')
+                # for r, acc in enumerate(accel): ir_accel[r,:] = acc
+                
+                return ir_accel, norm_fluxes, dirs, faceEmi
+        
+        
         def _core_compute(self, epoch):
                 " Get the rays to be used in the computation "
 
                 V, F, N, C = self.Planet.VFNC(epoch)
+                
                 emiIdxs, faceTemps, faceEmi = self.Planet.emissivityFaces(epoch, self.scname)
-                scPos = self.Planet.getScPosSunFixed(epoch, self.scname)
 
-
+                if self.sp_data != None:
+                        scPos = self.sp_data.getPosition(epoch, self.Planet.name, self.scname, self.Planet.sunFixedFrame, 'CN')
+                else:
+                        scPos = self.Planet.getScPosSunFixed(epoch, self.scname)
+                
                 # Get the direction of the rays in the SC frame
                 centers = C[emiIdxs]
                 scRelative = - centers + scPos
                 
                 dirs = scRelative / np.linalg.norm(scRelative, axis = 1).reshape(len(scRelative), 1)
-                rot = sp.pxform(self.Planet.sunFixedFrame, self.scFrame, epoch)
-                sc_dirs = np.dot(dirs, rot.T)
 
                 # Get normal-to-spacecraft angles
                 normals = N[emiIdxs]
                 #cos_theta = np.dot(normals, scPos/np.linalg.norm(scPos))
                 cos_theta = block_dot(normals, dirs)
-
 
                 # Distance between sc and each element mesh
                 scRelativeMag = np.sum(np.array(scRelative)**2, axis=1)
@@ -160,22 +290,7 @@ class Emissivity():
                 _, dA = get_surface_normals_and_face_areas(V, F)
                 dA = dA[emiIdxs]
                 
-
                 norm_fluxes =  sb * faceTemps**4 * cos_theta * dA / np.pi / scRelativeMag 
-
-
-
-
-                #print(np.linalg.norm(scPos))   
+                 
                 return norm_fluxes, -scRelative, emiIdxs, faceEmi
-
-
-                
-
-                
-
-
-
-                
-
 
