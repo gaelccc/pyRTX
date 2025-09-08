@@ -3,8 +3,8 @@ import spiceypy as sp
 
 from pyRTX import constants
 
-from classes.PixelPlane import PixelPlane
-from classes.Planet import Planet
+from pyRTX.classes.PixelPlane import PixelPlane
+from pyRTX.classes.Planet import Planet
 
 from pyRTX.core import utils_rt
 from pyRTX.core.shadow_utils import circular_mask, circular_rim, compute_directions, compute_beta, compute_pixel_intensities
@@ -151,7 +151,7 @@ class SunShadow():
 
 class SolarPressure():
 	
-	def __init__(self, spacecraft, rayTracer = None, baseflux = 1361.5, grouped = True, shadowObj = None, spacecraftMass = None, lookup = None, precomputation = None):
+	def __init__(self, spacecraft, rayTracer = None, baseflux = 1361.5, grouped = True, shadowObj = None, lookup = None, precomputation = None):
 
 		self.spacecraft = spacecraft
 		self.rayTracer  = rayTracer
@@ -160,10 +160,12 @@ class SolarPressure():
 		self.shadowObj  = shadowObj
 		self.lookup     = lookup
 		self.sp_data    = precomputation
-		if isinstance(spacecraftMass, (float,int)): 
-			self.scMass = spacecraftMass
+		if isinstance(spacecraft.mass, (float,int)): 
+			self.scMass = spacecraft.mass
 		else:
-			self.scMass = interpolate.interp1d(spacecraftMass.time.data, spacecraftMass.mass.data, kind='previous', assume_sorted=True)
+			mass_times = spacecraft.mass.time.data
+			mass_data = spacecraft.mass.mass.data
+			self.scMass = interpolate.interp1d(mass_times, mass_data, kind='previous', assume_sorted=True)
 
 
 	def _store_precomputations(self):
