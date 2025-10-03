@@ -109,7 +109,7 @@ def parallel(func):
             # Run the multiprocessing pool from 'pathos' library (it does not use pickle).
             task = partial(func, *args[:-1])
             with ProcessingPool(n_cores) as p: results = p.map(task, lst)
-            
+
         return results
 
     return wrapper

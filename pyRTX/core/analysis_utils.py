@@ -621,8 +621,24 @@ def compute_body_positions(target, epochs, frame, obs, abcorr = 'LT + S'):
 	-	obs: observing body name
 	-	abcorr: aberration correction flag.
 	"""
-	pos = sp.spkezr(target, np.array(epochs), frame, abcorr, obs)
+	state = sp.spkezr(target, np.array(epochs), frame, abcorr, obs)
 
-	return [pos[0][i][0:3] for i in range(len(epochs))]
+	return [state[0][i][0:3] for i in range(len(epochs))]
+
+def compute_body_states(target, epochs, frame, obs, abcorr = 'LT + S'):
+	"""
+	Functions to compute the relative position and velocity of a target
+	body with respect to an observing body.
+
+	Parameters:
+	-	target: target body name
+	-	epochs: list of epochs
+	-	frame: reference frame of output position vector
+	-	obs: observing body name
+	-	abcorr: aberration correction flag.
+	"""
+	state = sp.spkezr(target, np.array(epochs), frame, abcorr, obs)
+
+	return [state[0][i][:] for i in range(len(epochs))]
 
 ### ------------------------------------------------------------------------------------- ###

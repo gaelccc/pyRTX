@@ -1,5 +1,8 @@
 import os
 import subprocess
+
+import sys
+sys.path.append('../')
 from pyRTX import helpers
 
 # Scope: 

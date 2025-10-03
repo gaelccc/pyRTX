@@ -4,8 +4,7 @@ import spiceypy as sp
 import numpy as np
 import xarray as xr
 
-from pyRTX.classes.Spacecraft import Spacecraft
-from pyRTX.core.analysis_utils import compute_body_positions
+from pyRTX.core.analysis_utils import compute_body_positions, compute_body_states
 from pyRTX.constants import au 
 
 
@@ -51,6 +50,31 @@ class Precompute():
 			self._config['position']['coordinates']['pos_param'].append(param)
 
 
+	def addState(self, observer: str, target: str, frame: str, correction: str = 'CN'):
+		"""
+		Method to precompute state vectors.
+  
+		Params:
+  		- observer body (str)
+		- target body (str)
+		- frame (str)
+		- aberration correction (str)
+		"""
+    
+		if 'state' not in self._config.keys():
+			self._config['state'] = {
+				'dimensions': ("time", "state_param", "posvel"),
+				'coordinates': {
+					'time'	    : self._epochs,
+					'state_param' : [],
+					},
+				}
+
+		param = observer + ' / ' + target + ' / ' + frame + ' / ' + correction
+		if param not in self._config['state']['coordinates']['state_param']:
+			self._config['state']['coordinates']['state_param'].append(param)
+   
+   
 	def addRotation(self, base_frame: str, target_frame: str):
 		"""
 		Method to precompute position vectors.
@@ -108,7 +132,7 @@ class Precompute():
 			self.addRotation(base_frame=base, target_frame=target_frames[i])
 
 
-	def precomputePlanetaryRadiation(self, sc_name, sc_frame, planet, moving_frames, correction = 'CN'):
+	def precomputePlanetaryRadiation(self, sc, planet, moving_frames = [], correction = 'CN'):
 		"""
 		Method to perform precalculation for albedo and 
   		thermal infrared acceleration.
@@ -117,8 +141,10 @@ class Precompute():
 		- sc: object of the class Spacecraft
 		- planet: object of the class Planet
 		"""
-
+		
 		# Get data
+		sc_name		  = sc.name
+		sc_frame	  = sc.base_frame
 		planet_name   = planet.name
 		planet_frame  = planet.bodyFrame
 		sunfix_frame  = planet.sunFixedFrame
@@ -137,20 +163,37 @@ class Precompute():
 
 		for i, base in enumerate(base_frames):
 			self.addRotation(base_frame=base, target_frame=target_frames[i])
-  
 
-	def precomputeSpacecraftRadiation(self, sc, planet, moving_frames, correction = 'LT+S'):
+
+	def precomputeDrag(self, sc, planet_name, moving_frames = [], accel_frame = '', correction = 'LT+S'):
 		"""
-		Method to perform precalculation for thermal recoil 
-  		pressure acceleration.
+		Method to perform precalculation for drag acceleration.
     
 		Params:
 		- sc: object of the class Spacecraft
-		- planet: object of the class Planet
+		- planet_name: name of the body
+		- accel_frame: frame of the acceleration
 		"""
+		
+		# Get data
+		sc_name		  = sc.name
+		sc_frame	  = sc.base_frame
+		if accel_frame == '': accel_frame = 'IAU_%s'%planet_name.upper()
+  
+		# Add state
+		observers = [planet_name,] 
+		targets   = [sc_name,] 
+		frames    = [accel_frame,] 
+		abcorr    = [correction,]
+		for i, obs in enumerate(observers):
+			self.addState(observer=obs, target=targets[i], frame=frames[i], correction=abcorr[i])
 
-		self.precomputeSolarPressure(sc, planet)
-		self.precomputePlanetaryRadiation(sc, planet, moving_frames)
+		# Add rotations	
+		base_frames   = [accel_frame,] + moving_frames
+		target_frames = [sc_frame,] + [sc_frame]*len(moving_frames)
+
+		for i, base in enumerate(base_frames):
+			self.addRotation(base_frame=base, target_frame=target_frames[i])
   
   
 	def dump(self):
@@ -184,6 +227,19 @@ class Precompute():
 					corr     = splitted[3].lstrip().rstrip()
 					data[:,i,:] = compute_body_positions(target, times, frame, observer, abcorr = corr)
 
+			if datavar == 'state':
+		
+				params  = coords[f'state_param']
+				data  	= np.zeros( (len(times), len(params), 6) )
+		
+				for i, param in enumerate(params):
+					splitted = param.split('/')
+					observer = splitted[0].lstrip().rstrip()
+					target   = splitted[1].lstrip().rstrip()
+					frame    = splitted[2].lstrip().rstrip()
+					corr     = splitted[3].lstrip().rstrip()
+					data[:,i,:] = compute_body_states(target, times, frame, observer, abcorr = corr)
+     
 			elif datavar == 'rotation':
 
 				params  = coords[f'rot_param']
@@ -209,6 +265,14 @@ class Precompute():
 		"""
 		param = f'{observer} / {target} / {frame} / {correction}'
 		return self._dataset.position.sel(time = epoch, pos_param = param).data
+
+
+	def getState(self, epoch, observer: str, target: str, frame: str, correction: str):
+		"""
+		Method to get state vector.
+		"""
+		param = f'{observer} / {target} / {frame} / {correction}'
+		return self._dataset.state.sel(time = epoch, state_param = param).data
 
 
 	def getRotation(self, epoch, base_frame: str, target_frame: str):

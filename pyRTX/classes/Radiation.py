@@ -1,5 +1,5 @@
 import numpy as np
-import sys
+import xarray
 import spiceypy as sp
 from pyRTX.core.utils_rt import get_surface_normals_and_face_areas, block_dot
 from timeit import default_timer as dT
@@ -7,6 +7,8 @@ from scipy import interpolate
 from pyRTX.core.parallel_utils import parallel
 from pyRTX.constants import stefan_boltzmann as sb
 from pyRTX.constants import au 
+from pyRTX.classes.LookUpTable import LookUpTable
+from pyRTX.core.analysis_utils import compute_body_positions
 
 """
 Main class for Albedo computations.
@@ -14,27 +16,34 @@ Main class for Albedo computations.
 
 class Albedo():
 
-        def __init__(self, Planet = None, spacecraftName = None, spacecraftFrame = None, spacecraftMass = None, lookup = None, precomputation = None, baseflux = 1361.5,):
+        def __init__(self, spacecraft, lookup, Planet, precomputation = None, baseflux = 1361.5,):
                 """
                 Parameters
                 ----------
                 Planet : pyRTX.classes.Planet
                         The planet object the Albedo is for
-                spacecraftName : str
-                        The name of the spacecraft
-                spacecraftFrame : str
-                        The name of the spacecraft body fixed frame
+                spacecraft : pyRTX.classes.Spacecraft
+                        The spacecraft object the Albedo is for
                 """
+                self.scname   = spacecraft.name
+                self.scFrame  = spacecraft.base_frame
                 self.Planet   = Planet
-                self.scname   = spacecraftName
-                self.scFrame  = spacecraftFrame
-                self.lookup   = lookup
                 self.sp_data  = precomputation
                 self.baseflux = baseflux
-                if isinstance(spacecraftMass, (float,int)): self.scMass = spacecraftMass
+                
+                if isinstance(spacecraft.mass, (float,int)): 
+                        self.scMass = spacecraft.mass
+                elif isinstance(spacecraft.mass, xarray.core.dataset.Dataset): 
+                        mass_times = spacecraft.mass.time.data
+                        mass_data = spacecraft.mass.mass.data
+                        self.scMass = interpolate.interp1d(mass_times, mass_data, kind='previous', assume_sorted=True)
                 else:
-                        self.scMass   = interpolate.interp1d(spacecraftMass.time.data, spacecraftMass.mass.data, kind='previous', assume_sorted=True)
-
+                        print('\n *** WARNING: SC mass should be float, int or xarray!')
+                        self.scMass = None
+                
+                if not isinstance(lookup, LookUpTable):
+                        raise TypeError('Error: the input lookup table must be a classes.LookUpTable object')
+                self.lookup = lookup
 
         def _store_precomputations(self):
                 """
@@ -73,8 +82,10 @@ class Albedo():
                 if self.sp_data != None:
                         rotMat = self.sp_data.getRotation(epoch, self.Planet.sunFixedFrame, self.scFrame)
                         rotMat = rotMat[:3,:3]
+                        sundir  = self.sp_data.getPosition(epoch, self.Planet.name, 'Sun', self.Planet.bodyFrame, 'CN')
                 else:
                         rotMat = self.Planet.rot_toSCframe(epoch, scFrame = self.scFrame)
+                        sundir = sp.spkezr( 'Sun', epoch, self.Planet.bodyFrame, 'CN', self.Planet.name)[0][0:3]
 
                 dirs_to_sc = np.dot(scRelative, rotMat.T)
                 dirs = np.zeros((len(normFluxes), 2))
@@ -87,8 +98,7 @@ class Albedo():
                 norm_fluxes = np.expand_dims(normFluxes, axis = 1)
                 alb_values  = np.expand_dims(albedoVals, axis = 1)
         
-                # Compute scaled flux
-                sundir  = self.sp_data.getPosition(epoch, self.Planet.name, 'Sun', self.Planet.bodyFrame, 'CN')
+                # Scale flux
                 sunflux = self.baseflux * (1.0/(np.linalg.norm(sundir)/au))**2
                 
                 # Compute acceleration	
@@ -111,8 +121,6 @@ class Albedo():
                 albedoVals  = [0.] * len(epochs)
                 
                 results = self.run(epochs, n_cores = n_cores)
-                
-                #for r, result in enumerate(results): alb_accel[r,:] = result[0]
 
                 for r, result in enumerate(results): 
                         alb_accel[r,:] = result[0]
@@ -162,26 +170,34 @@ class Albedo():
                 
 class Emissivity():
 
-        def __init__(self, Planet = None, spacecraftName = None, spacecraftFrame = None, spacecraftMass = None, lookup = None, precomputation = None, baseflux = 1361.5):
+        def __init__(self, spacecraft, lookup, Planet, precomputation = None, baseflux = 1361.5):
                 """
                 Parameters
                 ----------
                 Planet : pyRTX.classes.Planet
                         The planet object the Albedo is for
-                spacecraftName : str
-                        The name of the spacecraft
-                spacecraftFrame : str
-                        The name of the spacecraft body fixed frame
+                spacecraft : pyRTX.classes.Spacecraft
+                        The spacecraft object the Albedo is for
                 """
+                self.scname   = spacecraft.name
+                self.scFrame  = spacecraft.base_frame
                 self.Planet   = Planet
-                self.scname   = spacecraftName
-                self.scFrame  = spacecraftFrame
                 self.sp_data  = precomputation
-                self.lookup   = lookup
                 self.baseflux = baseflux
-                if isinstance(spacecraftMass, (float,int)): self.scMass = spacecraftMass
+                
+                if isinstance(spacecraft.mass, (float,int)): 
+                        self.scMass = spacecraft.mass
+                elif isinstance(spacecraft.mass, xarray.core.dataset.Dataset): 
+                        mass_times = spacecraft.mass.time.data
+                        mass_data = spacecraft.mass.mass.data
+                        self.scMass = interpolate.interp1d(mass_times, mass_data, kind='previous', assume_sorted=True)
                 else:
-                        self.scMass   = interpolate.interp1d(spacecraftMass.time.data, spacecraftMass.mass.data, kind='previous', assume_sorted=True)
+                        print('\n *** WARNING: SC mass should be float, int or xarray!')
+                        self.scMass = None
+                
+                if not isinstance(lookup, LookUpTable):
+                        raise TypeError('Error: the input lookup table must be a classes.LookUpTable object')
+                self.lookup = lookup
 
 
         def _store_precomputations(self):
@@ -252,10 +268,6 @@ class Emissivity():
                         norm_fluxes[r] = result[1]
                         dirs[r]        = result[2]
                         faceEmi[r]     = result[3]
-
-                # accel, norm_fluxes, dirs, faceEmi = self.run(epochs, n_cores = n_cores)
-                # print('accel')
-                # for r, acc in enumerate(accel): ir_accel[r,:] = acc
                 
                 return ir_accel, norm_fluxes, dirs, faceEmi
         

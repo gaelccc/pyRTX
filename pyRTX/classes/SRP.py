@@ -1,5 +1,6 @@
 import numpy as np
 import spiceypy as sp
+import xarray
 
 from pyRTX import constants
 
@@ -160,12 +161,19 @@ class SolarPressure():
 		self.shadowObj  = shadowObj
 		self.lookup     = lookup
 		self.sp_data    = precomputation
+  
 		if isinstance(spacecraft.mass, (float,int)): 
-			self.scMass = spacecraft.mass
+				self.scMass = spacecraft.mass
+		elif isinstance(spacecraft.mass, xarray.core.dataset.Dataset): 
+				mass_times = spacecraft.mass.time.data
+				mass_data = spacecraft.mass.mass.data
+				self.scMass = interpolate.interp1d(mass_times, mass_data, kind='previous', assume_sorted=True)
 		else:
-			mass_times = spacecraft.mass.time.data
-			mass_data = spacecraft.mass.mass.data
-			self.scMass = interpolate.interp1d(mass_times, mass_data, kind='previous', assume_sorted=True)
+				print('\n *** WARNING: SC mass should be float, int or xarray!')
+				self.scMass = None
+   
+		if self.baseflux is None and (not isinstance(self.scMass, (float,int)) or int(self.scMass) != 1):
+			print('\n *** WARNING: For LUT computation SC mass should be set to 1.0!')
 
 
 	def _store_precomputations(self):
@@ -174,9 +182,12 @@ class SolarPressure():
 		"""
 
 		if self.shadowObj is not None and self.shadowObj.sp_data == None:
-			self.shadowObj.sp_data   = self.sp_data
-		self.spacecraft.sp_data      = self.sp_data
-		self.rayTracer.rays.sp_data  = self.sp_data
+			self.shadowObj.sp_data = self.sp_data
+		if self.rayTracer is not None: 
+			self.rayTracer.rays.sp_data = self.sp_data
+		if self.lookup is not None: 
+			self.lookup.sp_data = self.sp_data
+		self.spacecraft.sp_data = self.sp_data
 
 
 	@parallel
@@ -222,7 +233,7 @@ class SolarPressure():
   
 	def compute(self, epochs, n_cores = None):
 		"""
-		Method to compute the solar pressure force.
+		Method to compute the solar pressure acceleration.
 
 		Parameters:
 		-	epochs: list of epochs
@@ -237,7 +248,7 @@ class SolarPressure():
 			self.shadow_ratios = self.shadowObj.compute(epochs, n_cores = n_cores)
 			self._epochs_idxs  = {epoch: idx for idx, epoch in enumerate(epochs)}
 
-		return self.run(epochs, n_cores = n_cores) 
+		return np.array(self.run(epochs, n_cores = n_cores))
 
 
 	def lookupCompute(self, epochs):
@@ -248,6 +259,10 @@ class SolarPressure():
 		-	epochs: list of epochs
 		"""
 
+		if isinstance(epochs, float): epochs = [epochs]
+  
+		self._store_precomputations()
+  
 		acc = np.zeros((len(epochs),3))
   
 		for i, epoch in enumerate(epochs):

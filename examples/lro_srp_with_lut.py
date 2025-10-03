@@ -4,23 +4,24 @@
 # Show the object-oriented interface of the pyRTX library
 #
 # Example case:
-# Compute the drag acceleration for LRO spacecraft, using the SPICE trajectory and frames and the crossection
-# values stored in a lookup table.
+# Compute the srp acceleration for LRO spacecraft, using the values stored in a lookup table.
 
 ### ------------------------------------------------------------------------------------------------------- ###
 ### IMPORTS
 
 import spiceypy as sp
-import xarray as xr
-import numpy as np
 import matplotlib.pyplot as plt
+import logging, timeit
 
-import timeit
 from pyRTX.classes.Spacecraft import Spacecraft
-from pyRTX.classes.Drag import Drag
-from pyRTX.classes.LookUpTable import LookUpTable
+from pyRTX.classes.Planet import Planet
+from pyRTX.classes.SRP import SunShadow, SolarPressure 
 from pyRTX.classes.Precompute import Precompute
+from pyRTX.classes.LookUpTable import LookUpTable
 from pyRTX.core.analysis_utils import epochRange2
+import logging
+
+from numpy import floor, mod
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -28,20 +29,15 @@ warnings.filterwarnings('ignore')
 ### ------------------------------------------------------------------------------------------------------- ###
 ### INPUTS
 
-ref_epc 	=  "2010 may 10 09:25:00"
-duration    =  10000  									   # seconds
-timestep    =  100
-METAKR      =  '../example_data/LRO/metakernel_lro.tm'     # metakernel
-obj_path    =  '../example_data/LRO/'				       # folder with shape .obj files
-accel_frame =  'MOON_PA'
-body	    =  'Moon'
-lutfile     =  'luts/lro_cross_lut.nc'					   # lookup table file
-n_cores	    =  10
-
-# The spacecraft mass can be a float, int or a xarray with times and values [kg]
-sc_mass = xr.open_dataset('mass/lro_mass.nc')
-sc_mass.load()
-sc_mass.close()
+ref_epc 	= "2010 may 10 09:25:00"
+duration    = 10000  									  # seconds
+sc_mass		= 2000  									  # can be a float, int or xarray [kg]
+timestep    = 100
+METAKR      = '../example_data/LRO/metakernel_lro.tm'     # metakernel
+obj_path    = '../example_data/LRO/'				      # folder with .obj files
+lutfile     = 'luts/lro_accel_lut.nc'					  # lookup table file
+base_flux   =  1361.5
+ref_radius  =  1737.4
 
 ### ------------------------------------------------------------------------------------------------------- ###
 ### OBJECTS DEFINITION
@@ -97,29 +93,65 @@ lro = Spacecraft( name = 'LRO',
 					)
 
 
+# Define the Moon object
+moon = Planet(  fromFile      = None,
+                radius        = ref_radius,
+                name          = 'Moon',
+                bodyFrame     = 'MOON_PA',
+                sunFixedFrame = 'GSE_MOON',
+                units         = 'km',
+                subdivs       = 5,
+                )
+
+
+# Precomputation object. This object performs all the calls to spiceypy before 
+# calculating the acceleration. This is necessary when calculating the acceleration
+# with parallel cores.
+prec = Precompute(epochs = epochs,)
+prec.precomputeSolarPressure(lro, moon, correction='LT+S')
+prec.dump()
+
+# Define the shadow function object
+shadow = SunShadow( spacecraft     = lro,
+				    body           = 'Moon',
+				    bodyShape      = moon,
+				    limbDarkening  = 'Eddington',
+        			precomputation = prec,
+				    )
+
 # Load the Look up table
 LUT  = LookUpTable(lutfile)
 
-# The computation of the drag requires to specify a density function [kg/m**3]
-# The density function must have a call sign like: dens = dens(h), where h is the height
-# Here we define a dummy exponential function.
-# More complex models can be defined through the classes in pyRTX.classes.Atmosphere
-def density(h):
-	return (1e-6)*np.exp(-h/100)	# kg/m**3
+# Define the solar pressure object (LUT mode)
+srp = SolarPressure( lro, 
+				     rayTracer      = None,
+				     baseflux       = base_flux,   
+				     shadowObj      = shadow,
+					 precomputation = prec,
+					 lookup         = LUT,
+				     )
 
-# Define the CD
-CD = 2.2
+# Managing Error messages from trimesh
+# (when concatenating textures, in this case, withouth .mtl definition, trimesh returns a warning that
+#  would fill the stdout. Deactivate it for a clean output)
+log = logging.getLogger('trimesh')
+log.disabled = True
 
-# Precomputation object
-prec = Precompute(epochs = epochs,)
-prec.precomputeDrag(lro, body, LUT.moving_frames, accel_frame)
-prec.dump()
+# Compute the SRP acceleration at different epochs and plot it
+accel = srp.lookupCompute(epochs) * 1e3
+        
+log.disabled = False
 
-# Define the drag object
-drag = Drag(lro, LUT, density, CD, body, precomputation = prec)
+# Always unload the SPICE kernels
+sp.unload(METAKR)
 
-# Compute drag acceleration
-accel = drag.compute(epochs, frame = accel_frame, n_cores = 3)[0] * 1e3
+### ... Elapsed time
+toc = timeit.default_timer()
+time_min = int(floor((toc-tic)/60))
+time_sec = int(mod((toc-tic), 60))
+print("")
+print("\t Elapsed time: %d min, %d sec" %(time_min, time_sec))
+print("")
 
 ### ------------------------------------------------------------------------------------------------------- ###
 ### PLOT
@@ -135,10 +167,10 @@ ax[1].set_ylabel('Y [m/s^2]')
 ax[2].plot(epochs, accel[:,2], linewidth = 2, color = "tab:blue")
 ax[2].set_ylabel('Z [m/s^2]')
 ax[2].set_xlabel('Hours from t0')
-fig.suptitle('Drag in S/C body frame')
 
 plt.tight_layout()
 plt.show()
 
 ### ------------------------------------------------------------------------------------------------------- ###
+
 

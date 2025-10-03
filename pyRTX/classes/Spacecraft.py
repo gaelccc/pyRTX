@@ -28,28 +28,34 @@ class Spacecraft():
 			dict of {file:str, frame_type:str, frame_name:str, center:list, specular:float, diffuse:float, UD_rotation:trimesh.rotation}
         	a dictionary with keys the name of
 
-		file: str 
-		    the obj file for the part
+			file: str 
+				the obj file for the part
 
-		frame_type: str 
-			'Spice' or 'UD' to choose wether to define a reference to a spice frame or UserDefined one
-			in the case of 'UD' a rotation matrix must be specified in the UD_rotation (optional) key
+			frame_type: str 
+				'Spice' or 'UD' to choose wether to define a reference to a spice frame or UserDefined one
+				in the case of 'UD' a rotation matrix must be specified in the UD_rotation (optional) key
 
-		frame_name: str 
-			The name of the Spice (or UD) frame
+			frame_name: str 
+				The name of the Spice (or UD) frame
 
-		center: list  
-			position of the origin of the object (in km) with respect to the base frame
+			center: list  
+				position of the origin of the object (in km) with respect to the base frame
 
-		specular: float 
-			specular coefficient
+			specular: float 
+				specular coefficient
 
-		diffuse: float 
-			diffuse coefficient
-			
-		UD_rotation: trimesh.rotation
-			optional specify a user defined rotations matrix
+			diffuse: float 
+				diffuse coefficient
+				
+			UD_rotation: trimesh.rotation
+				optional specify a user defined rotations matrix
 
+		units : str 
+			units for transformations
+   
+		mass : float or .nc file
+			Spacecraft mass. Can be a float value or an xarray with times and mass values
+   
 		Returns
 		-------
 		bla : pyRTX.classes.Spacecraft
