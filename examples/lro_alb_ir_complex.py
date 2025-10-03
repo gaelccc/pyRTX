@@ -49,11 +49,13 @@ sc_mass.close()
 fromFile = 'moon_obj/fib_1e4_v2.obj'	
 
 # Albedo grids
+# Reference: https://ode.rsl.wustl.edu/moon/pagehelp/Content/Missions_Instruments/LRO/LOLA/GDR/GDRDAM.htm
 alb_grid = 'grids/bond_albedo.npy'  
 alb_lon  = 'grids/ldam_4_lon.npy'
 alb_lat  = 'grids/ldam_4_lat.npy'
 
 # Temperature grids
+# Reference: https://doi.org/10.1016/j.icarus.2016.08.012
 temp_grid = 'grids/temp.npy'  
 temp_lon  = 'grids/temp_lon.npy'
 temp_lat  = 'grids/temp_lat.npy'
