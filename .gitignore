@@ -6,3 +6,5 @@
 *.pkl
 .DS_Store
 docs/.DS_Store
+lib/
+build/
