@@ -67,35 +67,51 @@ def parallelize(iterator, function, chunks):
 
 
 def chunker(iterator, chunks):
-    """Chunk an iterator or array into chunks
-
+    """
+    Divide an iterator or array into approximately equal-sized chunks for
+    parallel processing.
+    
     Parameters
     ----------
     iterator : array_like
-        the array-like object to chunk
+        The array-like object to divide into chunks.
     chunks : int
-        number of chunks
+        Number of chunks to create.
+    
     Returns
     -------
-    result : array_like
-        the chunked array
+    result : list of arrays
+        List containing the chunked arrays. Chunks will be approximately equal
+        in size, with the last chunk potentially being smaller.
+    
+    Notes
+    -----
+    Uses numpy.array_split which handles uneven divisions automatically.
     """
     return np.array_split(iterator, chunks)
 
 
 def pxform_convert(pxform):
-    """ Convert a spice-generated rotation matrix (pxform) to the format required by trimesh
-
+    """
+    Convert a SPICE-generated rotation matrix (pxform) to the 4x4 homogeneous
+    transformation matrix format required by trimesh.
+    
     Parameters
     ----------
-    pxform : array_like
-        the spice-generated rotation matrix
+    pxform : array_like, shape (3, 3)
+        The 3x3 rotation matrix from SPICE (obtained via spiceypy.pxform).
+    
     Returns
     -------
-    result : array_like
-        the rotation matrix in the format required by trimesh
-
-
+    result : ndarray, shape (4, 4)
+        The 4x4 homogeneous transformation matrix with the rotation in the
+        upper-left 3x3 block, zeros in the translation column, and [0,0,0,0]
+        in the bottom row.
+    
+    Notes
+    -----
+    Trimesh uses 4x4 homogeneous transformation matrices for geometric operations.
+    This function adds the necessary padding to convert a pure rotation matrix.
     """
     pxform = np.array([pxform[0], pxform[1], pxform[2]], dtype=dFloat)
 
@@ -107,16 +123,24 @@ def pxform_convert(pxform):
 
 
 def block_normalize(V):
-    """Get the unit vectors associated to a block of vectors of shape (N,3)
-
+    """
+    Compute unit vectors for a block of vectors efficiently using vectorized
+    operations.
+    
     Parameters
     ----------
-    V : array_like (N,3)
-        the array of vectors to normalize
+    V : ndarray, shape (N, 3) or (3,)
+        Array of vectors to normalize. Can be a single vector or multiple vectors.
+    
     Returns
     -------
-    result : array_like (N,3)
-        the normalized vectors
+    result : ndarray, same shape as V
+        The normalized vectors (unit vectors with magnitude 1).
+    
+    Notes
+    -----
+    Uses vectorized numpy operations for efficiency with large arrays. Handles
+    both single vectors and arrays of vectors automatically.
     """
 
     if V.ndim > 1:
@@ -126,17 +150,26 @@ def block_normalize(V):
 
 
 def block_dot(a, b):
-    """Perform block dot product between two arrays of shape (N,m), (N,m)
-
+    """
+    Perform element-wise dot product between corresponding vectors in two arrays.
+    
     Parameters
     ----------
-    a, b :  np.array (N,m)
-        the arrays to dot product
-
+    a : ndarray, shape (N, m)
+        First array of vectors.
+    b : ndarray, shape (N, m)
+        Second array of vectors (must have same shape as a).
+    
     Returns
     -------
-    result : np.array (N,)
-        the dot product of the two arrays
+    result : ndarray, shape (N,)
+        Array containing the dot product of each pair of corresponding vectors.
+        result[i] = a[i] · b[i]
+    
+    Notes
+    -----
+    This is more efficient than using a loop for computing many dot products.
+    Equivalent to np.einsum('ij,ij->i', a, b) but more readable.
     """
 
 
@@ -144,31 +177,58 @@ def block_dot(a, b):
 
 
 def pixel_plane(d0, lon, lat, width=1, height=1, ray_spacing=.1):
-    """"Generate a pixel array for raytracing ad defined in Li et al., 2018
-    This is the "fully exposed version" to explicitly show the algorithm.
-
+    """
+    Generate a rectangular pixel array (grid of rays) for ray tracing, as defined
+    in Li et al., 2018. This is the explicit implementation showing the full
+    algorithm.
+    
+    This function creates a planar grid of ray origins and directions pointing
+    toward a specified direction in 3D space, useful for simulating parallel
+    light sources like the Sun.
+    
     Parameters
     ----------
     d0 : float
-        Distance of the pixel array from the center (in meters)
-    lat : float
-        Latitude of the pixel array center (in rad)
+        Distance of the pixel plane from the origin (in meters). This defines
+        how far the ray origins are from the coordinate system origin.
     lon : float
-        Longitude of the pixel array center (in rad)
-    width : float
-        The width of the plane(in meters). Default = 1
-    height : float
-        the height of the plane(in meters). Default = 1
-    ray_spacing : float
-        the spacing of the rays (in meters). Default = 0.1
-
+        Longitude of the pixel plane's center direction (in radians). Defines
+        the azimuthal angle in spherical coordinates.
+    lat : float
+        Latitude of the pixel plane's center direction (in radians). Defines
+        the elevation angle in spherical coordinates.
+    width : float, default=1
+        Width of the plane (in meters). The plane extends ±width/2 in the
+        horizontal direction.
+    height : float, default=1
+        Height of the plane (in meters). The plane extends ±height/2 in the
+        vertical direction.
+    ray_spacing : float, default=0.1
+        Spacing between adjacent rays (in meters). Smaller values create denser
+        ray grids but increase computation time.
+    
     Returns
     -------
-    locs: np.array (N,3)
-        Pixel locations as a numpy array
-    dirs: np.array (N,3)
-        the ray directions as a numpy array
+    locs : ndarray, shape (N, 3)
+        Ray origin positions in 3D space. N = (width/ray_spacing + 1) × 
+        (height/ray_spacing + 1).
+    dirs : ndarray, shape (N, 3)
+        Ray direction unit vectors. All rays point toward the origin (or away
+        from the direction specified by lon/lat).
+    
+    Notes
+    -----
+    The pixel plane is oriented perpendicular to the direction vector defined
+    by (lon, lat) and positioned at distance d0 from the origin. This creates
+    a uniform grid of parallel rays suitable for simulating distant light sources.
+    
+    For performance-critical applications, use pixel_plane_opt instead.
+    
+    References
+    ----------
+    Li et al., 2018 - Solar radiation pressure modeling methodology
     """
+
 
 
 
@@ -203,22 +263,32 @@ def pixel_plane(d0, lon, lat, width=1, height=1, ray_spacing=.1):
 
 @jit(nopython=True)
 def fast_vector_build(linsp1, linsp2, dim1, dim2):
-    """Build the pixel array using numba's jit vectorization
-
+    """
+    Efficiently build a pixel array coordinate grid using Numba's JIT compilation
+    for performance.
+    
     Parameters
     ----------
-    linsp1 : np.array (N,)
-        the first linspace
-    linsp2 : np.array (N,)
-        the second linspace
+    linsp1 : ndarray, shape (dim1,)
+        Linear space defining positions along the first dimension (typically width).
+    linsp2 : ndarray, shape (dim2,)
+        Linear space defining positions along the second dimension (typically height).
     dim1 : int
-        the first dimension of the pixel array
+        Number of points in the first dimension.
     dim2 : int
-        the second dimension of the pixel array
+        Number of points in the second dimension.
+    
     Returns
     -------
-    result : np.array (N,3)
-        the pixel array
+    result : ndarray, shape (dim1 × dim2, 3)
+        Array of 3D coordinates forming a rectangular grid in the y-z plane
+        (x=0 for all points). The grid is built by nested iteration over linsp1
+        and linsp2.
+    
+    Notes
+    -----
+    This function is JIT-compiled with Numba for significant performance improvement
+    over pure Python loops. Used internally by pixel_plane_opt.
     """
     basic_coords = np.zeros((dim1 * dim2, 3))
     counter = 0
@@ -231,34 +301,50 @@ def fast_vector_build(linsp1, linsp2, dim1, dim2):
 
 
 def pixel_plane_opt(d0, lon, lat, width=1, height=1, ray_spacing=.1, packets=1):
-    """"Generate a pixel array for raytracing ad defined in Li et al., 2018
-    This is the "optimized version". To explicitly see the algorithm refer to the function definition
-    without _opt extension.
-
+    """
+    Generate a rectangular pixel array for ray tracing - optimized version with
+    optional ray packet subdivision.
+    
+    This is a performance-optimized implementation of pixel_plane that uses
+    vectorized operations and Numba JIT compilation. It also supports dividing
+    the rays into packets to avoid segmentation faults with very large ray counts.
+    
     Parameters
     ----------
     d0 : float
-        Distance of the pixel array from the center (in meters)
-    lat : float
-        Latitude of the pixel array center (in rad)
+        Distance of the pixel plane from the origin (in meters).
     lon : float
-        Longitude of the pixel array center (in rad)
-    width : float
-        The width of the plane(in meters). Default = 1
-    height : float
-        the height of the plane(in meters). Default = 1
-    ray_spacing : float
-        the spacing of the rays (in meters). Default = 0.1
-    packets : int
-        the number of 'ray packets' to return. This is implemented to avoid the segmentation
-        fault triggered by the raytracer when the number of rays is too high
-
+        Longitude of the pixel plane's center direction (in radians).
+    lat : float
+        Latitude of the pixel plane's center direction (in radians).
+    width : float, default=1
+        Width of the plane (in meters).
+    height : float, default=1
+        Height of the plane (in meters).
+    ray_spacing : float, default=0.1
+        Spacing between adjacent rays (in meters). Determines ray grid density.
+    packets : int, default=1
+        Number of ray packets to subdivide the rays into. Use values > 1 to
+        avoid segmentation faults or memory issues with very large numbers of
+        rays (typically > 10^6). Each packet is processed separately by the
+        ray tracer.
+    
     Returns
     -------
-    locs: np.array (n_rays,3)
-        Pixel locations as a numpy array
-    dirs: np.array (n_rays,3)
-        the ray directions as a numpy array
+    locs : ndarray or list of ndarrays
+        Ray origin positions. If packets=1, returns single array of shape (N, 3).
+        If packets>1, returns list of arrays, each containing a subset of rays.
+    dirs : ndarray or list of ndarrays
+        Ray direction unit vectors. Same structure as locs.
+    
+    Notes
+    -----
+    This is the recommended function for pixel plane generation due to its
+    performance optimizations. Use packets > 1 when dealing with very dense
+    ray grids (small ray_spacing values).
+    
+    The function uses Numba JIT compilation via fast_vector_build for efficient
+    coordinate grid generation.
     """
     w2 = width / 2
     h2 = height / 2
@@ -300,21 +386,35 @@ def pixel_plane_opt(d0, lon, lat, width=1, height=1, ray_spacing=.1, packets=1):
 
 
 def reflected(incoming, normal):
-    """Compute the reflected unit vector given the incoming and the normal
-    Numpy vectorized version of 'reflected'
-    This function uses np.einsum to compute the dot product between the incoming and the normal for
-    improved performance
-
+    """
+    Compute reflected ray directions given incoming rays and surface normals.
+    Uses the law of reflection: r = i - 2(i·n)n
+    
+    This is a vectorized implementation using numpy.einsum for efficient
+    computation of many reflections simultaneously.
+    
     Parameters
     ----------
-    incoming : np.array (n_rays,3)
-        the incoming rays
-    normal : np.array (n_rays,3)
-        the surface normals associated to each incoming ray
+    incoming : ndarray, shape (N, 3)
+        Incoming ray direction vectors (do not need to be normalized).
+    normal : ndarray, shape (N, 3)
+        Surface normal vectors at reflection points (should be unit vectors).
+    
     Returns
     -------
-    reflected : np.array (n_rays,3)
-        the reflected rays
+    reflected : ndarray, shape (N, 3)
+        Reflected ray direction vectors. These are NOT normalized - maintain
+        the same magnitude as the incoming vectors.
+    
+    Notes
+    -----
+    The reflection formula used is: r = i - 2(i·n)n, where:
+    - i is the incoming direction
+    - n is the surface normal
+    - r is the reflected direction
+    
+    This formula gives the specular (mirror-like) reflection direction.
+    Uses np.einsum for efficient vectorized dot product computation.
     """
 
     return incoming - 2 * np.multiply(normal.T, np.einsum('ij,ij->i', incoming, normal)).T
@@ -322,16 +422,26 @@ def reflected(incoming, normal):
 
 @jit(nopython=True)
 def get_orthogonal(v):
-    """Get a unit vector orthogonal to v
-
+    """
+    Generate a unit vector orthogonal to the input vector using randomization.
+    
     Parameters
     ----------
-    v : np.array (3,)
-        the vector to which the orthogonal is required
+    v : ndarray, shape (3,)
+        Input vector to which the result should be orthogonal.
+    
     Returns
     -------
-    x : np.array (3,)
-        the orthogonal vector
+    x : ndarray, shape (3,)
+        Unit vector orthogonal to v (x · v = 0 and ||x|| = 1).
+    
+    Notes
+    -----
+    Uses a random vector projection method: generates a random 3D vector,
+    projects out the component parallel to v, and normalizes. This is used
+    internally for constructing local coordinate systems on surface normals.
+    
+    JIT-compiled with Numba for performance.
     """
 
     x = np.random.random(3)
@@ -343,18 +453,45 @@ def get_orthogonal(v):
 
 @jit(nopython=True)
 def sample_lambert_dist(normal, num=100):
-    """Generate a cloud of vectors following the Lambert cosine distribution
-
+    """
+    Generate a cloud of direction vectors following the Lambert cosine
+    distribution (also known as Lambertian distribution or cosine-weighted
+    hemisphere sampling).
+    
+    The Lambert distribution models ideal diffuse reflection where the
+    probability of a ray being reflected in a given direction is proportional
+    to the cosine of the angle between that direction and the surface normal.
+    This is physically accurate for perfectly diffuse (Lambertian) surfaces.
+    
     Parameters
     ----------
-    normal : np.array (3,)
-        the normal vector to the face
-    num : int
-        the number of samples required
+    normal : ndarray, shape (3,)
+        Surface normal vector defining the hemisphere orientation (should be
+        a unit vector).
+    num : int, default=100
+        Number of sample directions to generate.
+    
     Returns
     -------
-    v : np.array (num, 3)
-        array of the sampled vectors
+    v : ndarray, shape (num, 3)
+        Array of sampled direction vectors distributed according to Lambert's
+        cosine law. All vectors point into the hemisphere defined by the normal.
+    
+    Notes
+    -----
+    The sampling uses spherical coordinates with:
+    - θ (polar angle): sampled as θ = arccos(√ξ) where ξ ~ U(0,1)
+    - ψ (azimuthal angle): sampled uniformly as ψ ~ U(0, 2π)
+    
+    This ensures that the probability density is proportional to cos(θ), which
+    is characteristic of ideal diffuse reflection (Lambert's cosine law).
+    
+    JIT-compiled with Numba for performance. Used for modeling diffuse
+    reflection in ray tracing.
+    
+    References
+    ----------
+    Lambert's Cosine Law: I = I₀ cos(θ) where θ is the angle from the normal
     """
 
     theta = np.arccos(np.sqrt(np.random.random(num)))
@@ -384,18 +521,45 @@ def _core_diffuse(normals, diffuse_directions, num):
 
 
 def diffuse(normals, num=10):
-    """Compute num diffuse reflection directions sampling a lambert cosine distribution
+        """
+    Compute multiple diffuse reflection directions for an array of surface
+    normals by sampling the Lambert cosine distribution.
+    
+    For each input normal, generates num diffusely reflected ray directions
+    following Lambert's cosine law. This models realistic diffuse scattering
+    from rough surfaces.
     
     Parameters
     ----------
-    normals : np.array (n_rays,3)
-        the unit vectors normal to the surface
-    num : int
-        the number of samples required for each normal vectror
+    normals : ndarray, shape (N, 3)
+        Array of surface normal unit vectors at reflection points.
+    num : int, default=10
+        Number of diffuse samples to generate for each normal. Higher values
+        give more accurate diffuse reflection modeling but increase computation.
+    
     Returns
     -------
-    diffuse_directions : np.array (n_rays*num,3)
-        the sampled directions
+    diffuse_directions : ndarray, shape (N × num, 3)
+        Array of sampled diffuse direction vectors. For each of the N input
+        normals, generates num directions, resulting in N×num total directions.
+        Directions are ordered so that directions [i×num : (i+1)×num] correspond
+        to normal i.
+    
+    Notes
+    -----
+    This function is used to model non-specular (rough) surface reflections.
+    Each diffuse direction is randomly sampled from the hemisphere above the
+    surface, weighted by the cosine of the angle from the normal (Lambert's law).
+    
+    The returned array can be fed directly into the ray tracer to simulate
+    secondary illumination from diffuse reflections.
+    
+    Example
+    -------
+    >>> normals = np.array([[0, 0, 1], [0, 1, 0]])  # Two normals
+    >>> dirs = diffuse(normals, num=5)  # 5 samples each
+    >>> dirs.shape
+    (10, 3)  # 2 normals × 5 samples = 10 directions
     """
 
 
@@ -413,33 +577,57 @@ def diffuse(normals, num=10):
 
 def compute_secondary_bounce(location, index_tri, mesh_obj, ray_directions, index_ray, diffusion=False,
                              num_diffuse=None):
-    """Prepare the quantities required for iterating the raytracer
-
+     """
+    Prepare ray origins and directions for subsequent ray tracing bounces by
+    computing specular and optionally diffuse reflection directions.
+    
+    This function takes the results of a ray-surface intersection and computes
+    the reflected rays needed for the next bounce iteration in multi-bounce
+    ray tracing.
+    
     Parameters
     ----------
-    location : np.array (n_rays,3)
-        the location of the intersection points
-    index_tri : np.array (n_rays,)
-        the indexes of the faces  intersected by the rays
+    location : ndarray, shape (N_hits, 3)
+        3D coordinates of ray-surface intersection points.
+    index_tri : ndarray, shape (N_hits,)
+        Indices of the mesh faces (triangles) that were intersected by rays.
     mesh_obj : trimesh.Trimesh
-        the mesh object
-    ray_directions : np.array (n_rays,3)
-        the directions of the incoming rays
-    index_ray : np.array (n_rays,)
-        the indexes of the rays that effectively intersected the n faces
-    diffusion : bool
-        boolean flag to select wether to compute the secondary diffusion rays (Default: False)
-    num_diffuse : None or int
-        number of samples for the diffusion computation (Default: None)
-
+        The mesh object containing geometry information (vertices, faces, normals).
+    ray_directions : ndarray, shape (N_rays, 3)
+        Direction vectors of the incident rays (before intersection).
+    index_ray : ndarray, shape (N_hits,)
+        Indices of the rays that successfully intersected the mesh. Used to
+        map from the original ray array to the subset that hit surfaces.
+    diffusion : bool, default=False
+        If True, compute diffuse reflection directions in addition to specular
+        reflections. Used for modeling rough surface scattering.
+    num_diffuse : int or None, default=None
+        Number of diffuse samples per intersection point. Required if
+        diffusion=True, ignored otherwise.
+    
     Returns
     -------
-    location : np.array (n_rays,3)
-        same as location in input
-    reflect_dirs : np.array (n_rays,3)
-        the specularly reflected directions of the rays
-    diffuse_dirs np.array (n_rays*num_diffuse, 3) or -1
-        (if requested) the direction of the diffused rays
+    location : ndarray, shape (N_hits, 3)
+        Same as input location (pass-through for convenience).
+    reflect_dirs : ndarray, shape (N_hits, 3)
+        Specularly reflected ray directions for each intersection point.
+        Computed using the law of reflection with surface normals.
+    diffuse_dirs : ndarray, shape (N_hits × num_diffuse, 3) or int
+        If diffusion=True: array of diffusely reflected directions sampled
+        from Lambert distribution for each intersection point.
+        If diffusion=False: returns -1 (dummy value for consistent return signature).
+    
+    Notes
+    -----
+    This function is typically called iteratively in multi-bounce ray tracing:
+    1. First bounce: rays from source hit surface
+    2. Compute secondary bounces from intersection points
+    3. Trace secondary rays
+    4. Repeat for N bounces
+    
+    The specular reflections follow the law of reflection, while diffuse
+    reflections sample the Lambert cosine distribution, providing physically
+    accurate modeling of both mirror-like and rough surfaces.
     """
     reflect_dirs = np.zeros_like(location)
     normals = mesh_obj.face_normals
@@ -459,29 +647,60 @@ def compute_secondary_bounce(location, index_tri, mesh_obj, ray_directions, inde
 # Saving utilities
 
 def save_for_visualization(outputFilePath, mesh, ray_origins, ray_directions, location, index_tri, diffusion_pack):
-    """Save a pickled dictionary useful for visualization scripts (see visual_utils)
-
+    """
+    Save ray tracing results to a pickled dictionary for post-processing and
+    visualization.
+    
+    Creates a standardized output format that can be loaded by visualization
+    scripts (see visual_utils module) for analyzing ray tracing results,
+    creating visualizations, and debugging ray path geometries.
+    
     Parameters
     ----------
     outputFilePath : str
-        output file for saving (should end with .pkl)
+        Path to output file. Should end with '.pkl' extension. Parent directory
+        must exist.
     mesh : trimesh.Trimesh
-        mesh object
-    ray_origins : np.array (bounce_number, n_rays,3)
-        output of the raytracer
-    ray_directions : np.array (bounce_number, n_rays,3)
-        output of the raytracer
-    location : np.array (bounce_number, n_rays,3)
-        locations of intersection points
-    index_tri : np.array (bounce_number, n_rays,)
-        indexes of intersected triangles
-    diffusion_pack : list
-        output of the raytracer with the same name
-
+        The mesh object that was ray-traced. Contains geometry (vertices, faces,
+        normals) for visualization.
+    ray_origins : list of ndarrays
+        List containing ray origin arrays for each bounce. Each element is an
+        array of shape (N_rays_i, 3) where i is the bounce number.
+    ray_directions : list of ndarrays
+        List containing ray direction arrays for each bounce. Same structure
+        as ray_origins.
+    location : list of ndarrays
+        List containing intersection point coordinates for each bounce. Each
+        element is shape (N_hits_i, 3).
+    index_tri : list of ndarrays
+        List containing indices of intersected triangles for each bounce.
+        Each element is shape (N_hits_i,).
+    diffusion_pack : list or None
+        Diffuse ray tracing data if computed, otherwise None. Contains:
+        [index_tri_diffusion, index_ray_diffusion, ray_directions_diffusion,
+         location_diffusion] for visualization of diffuse scattering.
+    
     Returns
     -------
     None
+        Data is written to file at outputFilePath.
+    
+    Notes
+    -----
+    The output file contains a dictionary with keys:
+    - 'mesh': trimesh.Trimesh object
+    - 'ray_origins': list of origin arrays per bounce
+    - 'ray_directions': list of direction arrays per bounce  
+    - 'locations': list of intersection point arrays per bounce
+    - 'index_tri': list of triangle index arrays per bounce
+    - 'diffusion_pack': diffuse ray data or None
+    
+    This standardized format allows visualization scripts to recreate the full
+    ray tracing geometry including multiple bounces and diffuse scattering.
+    
+    The file is saved using pickle protocol 4 for Python 3 compatibility.
     """
+
     outdict = {'mesh': mesh, 'ray_origins': ray_origins, 'ray_directions': ray_directions, 'locations': location,
                'index_tri': index_tri, 'diffusion_pack': diffusion_pack}
 
@@ -491,15 +710,60 @@ def save_for_visualization(outputFilePath, mesh, ray_origins, ray_directions, lo
 
 def exportEXAC(satelliteID, data, tstep, startTime, endTime, outFileName):
     """
-	GEODYN-EXAC file exporter
-	Parameters:
-	satelliteID: [int] satellite identifier
-	data: [np.array (N, 3)] acceleration data to be written
-	tstep: [int or float] time step (in seconds)
-	startTime: [datetime.datetime] start time of data
-	endTime: [datetime.datetime] end time of data
-	outFileName: [str] name of output file
-	"""
+    Export acceleration data to GEODYN EXAC (External Accelerations) file format.
+    
+    GEODYN is NASA's precision orbit determination software. The EXAC format is
+    a Fortran-formatted binary file used to provide time-varying external
+    accelerations (such as solar radiation pressure) to the orbit propagator.
+    
+    Parameters
+    ----------
+    satelliteID : int
+        Satellite identifier code used in GEODYN processing.
+    data : ndarray, shape (N, 3)
+        Acceleration data to be written, in km/s². Each row is [ax, ay, az]
+        at one time step.
+    tstep : int or float
+        Time step between data records in seconds (e.g., 60 for 1-minute data).
+    startTime : datetime.datetime
+        Start time of the data series. Must include date and time information
+        down to microseconds.
+    endTime : datetime.datetime
+        End time of the data series. Must be consistent with len(data) and tstep.
+    outFileName : str
+        Path to output EXAC file. Typically uses .exac or .bin extension.
+    
+    Returns
+    -------
+    None
+        Data is written to binary file at outFileName.
+    
+    Notes
+    -----
+    EXAC File Structure:
+    - Master header record: Control parameters and file type identifier
+    - Satellite-specific header: Satellite ID, time step, start/end times
+    - Data records: Time stamp + 3D acceleration vector + padding zeros
+    
+    Time Format:
+    - Stored as YYMMDDHHMMSSμμμμμμ (year-month-day-hour-minute-second-microsecond)
+    - Year uses 2-digit format (YY)
+    
+    Coordinate System:
+    - Accelerations should be in the same reference frame as the GEODYN
+      orbit integration (typically J2000 or ICRF)
+    
+    Units:
+    - Accelerations: km/s²
+    - Time step: seconds
+    
+    This format is used for high-precision orbit determination where external
+    non-gravitational forces (solar pressure, atmospheric drag, etc.) need to
+    be accurately modeled.
+    
+    Requires scipy.io.FortranFile for binary I/O operations.
+    """
+
     from scipy.io import FortranFile
     import datetime
 
@@ -534,22 +798,48 @@ def exportEXAC(satelliteID, data, tstep, startTime, endTime, outFileName):
 # (Provided by Sam Potter)
 
 def Embree3_init_geometry(mesh_obj):
-    """ NOTE all the embree 3 utilities (the python wrappers) have been developed by Sam Potter
-    (https://github.com/sampotter/python-embree)
-
-    Perform initial task for geometry initialization for the Embree3 kernel
+    """
+    Initialize mesh geometry for ray tracing using the Embree 3 ray tracing kernel.
+    
+    Converts a trimesh mesh object into an EmbreeTrimeshShapeModel that can be
+    efficiently ray-traced using Intel's Embree library. Precomputes surface
+    normals and face areas for performance.
+    
     Parameters
     ----------
     mesh_obj : trimesh.Trimesh
-        the mesh object provided via trimesh
-
-
+        Input mesh object containing vertices and faces. Must be a valid
+        triangular mesh.
+    
     Returns
     -------
-    scene : embree.Scene
-    context : embree.Context
-    V : np.array (n_vertices, 3)
-    F : np.array (n_faces, 3)
+    scene : EmbreeTrimeshShapeModel
+        Shape model object containing:
+        - V: vertex coordinates array
+        - F: face index array
+        - N: face normal vectors
+        - A: face areas
+        - scene: Embree scene object for ray tracing
+    
+    Notes
+    -----
+    This function performs initial geometry setup required by Embree:
+    1. Extracts vertices (V) and faces (F) from mesh
+    2. Computes face normals (N) and areas (A)
+    3. Creates Embree device, geometry, and scene objects
+    4. Loads vertex and index buffers into Embree
+    
+    The returned object can be used with Embree's ray intersection functions
+    for high-performance ray tracing. Embree uses hardware-accelerated BVH
+    (Bounding Volume Hierarchy) structures for fast ray-triangle intersections.
+    
+    NOTE: The Embree 3 wrapper functions were developed by Sam Potter
+    (https://github.com/sampotter/python-embree)
+    
+    See Also
+    --------
+    EmbreeTrimeshShapeModel : The shape model class
+    RTXkernel : Main ray tracing interface
     """
     V = np.array(mesh_obj.vertices, dtype=np.float64)
     F = np.array(mesh_obj.faces, dtype=np.int64)
@@ -561,20 +851,45 @@ def Embree3_init_geometry(mesh_obj):
 
 
 def Embree3_init_rayhit(ray_origins, ray_directions):
-    """Initialize the rayhit object of Embree3
-
+    """
+    Initialize Embree 3 RayHit data structure for ray tracing queries.
+    
+    Creates and configures an Embree RayHit1M object that stores ray information
+    (origins, directions, parameters) and will be populated with hit information
+    (intersection distances, geometry IDs) by the ray tracer.
+    
     Parameters
     ----------
-    ray_origins: np.array (N,3)
-        ray_origins
-    ray_directions: np.array (N,3)
-        ray_directions
-
+    ray_origins : ndarray, shape (N, 3)
+        Starting positions of rays in 3D space.
+    ray_directions : ndarray, shape (N, 3)
+        Direction vectors of rays (do not need to be normalized; Embree handles
+        this internally).
+    
     Returns
     -------
-    rayhit: embree.rayhit
-        the initialized embree.rayhit object
-
+    rayhit : embree.RayHit1M
+        Initialized RayHit structure containing:
+        - org: ray origin coordinates (set from ray_origins)
+        - dir: ray direction vectors (set from ray_directions)
+        - tnear: minimum ray parameter (set to 0.0 to trace from origin)
+        - tfar: maximum ray parameter (set to infinity for unbounded rays)
+        - prim_id: primitive (triangle) ID (initialized to INVALID, filled by tracer)
+        - geom_id: geometry ID (initialized to INVALID, filled by tracer)
+    
+    Notes
+    -----
+    The RayHit1M structure supports tracing multiple rays simultaneously (the "1M"
+    indicates "1 Million" rays capability). After calling Embree's intersect
+    function, the structure will contain:
+    - Updated tnear/tfar values indicating intersection distances
+    - prim_id: index of intersected triangle (-1 if no hit)
+    - geom_id: geometry identifier (-1 if no hit)
+    - uv: barycentric coordinates of intersection point within triangle
+    
+    The tnear parameter is set to 0.0 rather than a small epsilon to avoid
+    missing intersections, but this may cause numerical issues with very close
+    surfaces. Adjust if needed for specific applications.
     """
     nb = np.shape(ray_origins)[0]  # Number of tracked rays
     rayhit = embree.RayHit1M(nb)
@@ -592,26 +907,52 @@ def Embree3_init_rayhit(ray_origins, ray_directions):
 
 
 def Embree3_dump_solution(rayhit, V, F):
-    """Process the output of the embree ray intersector kernel
-
+    """
+    Extract and process ray-surface intersection results from Embree RayHit structure.
+    
+    After Embree's ray tracing kernel completes, this function extracts the
+    intersection data and converts it into standard numpy arrays. It computes
+    actual 3D intersection point coordinates from barycentric coordinates.
+    
     Parameters
     ----------
-    rayhit : embree.rayhit
-    V : np.array (n_vertices, 3)
-        vertices of the mesh
-    F : np.array (n_faces, 3)
-        faces of the mesh
-
+    rayhit : embree.RayHit1M
+        RayHit structure populated by Embree's intersect function, containing
+        primitive IDs, geometry IDs, barycentric coordinates, etc.
+    V : ndarray, shape (N_vertices, 3)
+        Vertex coordinates of the mesh.
+    F : ndarray, shape (N_faces, 3)
+        Face indices of the mesh (each row contains indices of 3 vertices
+        forming a triangle).
+    
     Returns
     -------
-    hist : np.array (n_vertices, 3)
+    hits : ndarray, shape (N_hits,) or int
+        Indices of triangles that were intersected. Returns -1 if no hits.
     nhits : int
-        number of hits
-    idh : np.array (nhits,)
-        indexes of hitting rays
-    Ph : np.array (nhits, 3)
-        hit points on the mesh
+        Number of rays that intersected the mesh. Returns -1 if no hits.
+    idh : ndarray, shape (N_hits,) or int
+        Indices of rays that successfully hit the mesh (mapping from original
+        ray array to hit subset). Returns -1 if no hits.
+    Ph : ndarray, shape (N_hits, 3) or int
+        3D coordinates of intersection points computed from barycentric
+        coordinates. Returns -1 if no hits.
+    
+    Notes
+    -----
+    The function identifies valid hits by checking if prim_id != INVALID_GEOMETRY_ID.
+    
+    For valid hits, intersection points are computed using barycentric interpolation:
+        Ph = v1 + (v2 - v1) * u + (v3 - v1) * v
+    where:
+    - v1, v2, v3 are the triangle vertices
+    - u, v are barycentric coordinates from rayhit.uv
+    - Ph is the 3D intersection point
+    
+    If no intersections occurred (nhits=0), all return values are -1 to indicate
+    no valid data.
     """
+
     ishit = rayhit.prim_id != embree.INVALID_GEOMETRY_ID
     idh = np.nonzero(ishit)[0]
     hits = rayhit.prim_id[idh]
@@ -636,13 +977,41 @@ def Embree3_dump_solution(rayhit, V, F):
 
 def cgal_init_geometry(mesh_obj):
     """
-	Perform initial task for geometry initialization for the Embree3 kernel
-	Parameters:
-	mesh_obj: the mesh object provided via trimesh
-
-	Returns:
-	CGALTrimeshShapeModel: TrimeshShapeModel
-	"""
+    Initialize mesh geometry for ray tracing using the CGAL (Computational Geometry
+    Algorithms Library) ray tracing kernel.
+    
+    Converts a trimesh mesh object into a CgalTrimeshShapeModel that uses CGAL's
+    AABB (Axis-Aligned Bounding Box) tree for efficient ray-triangle intersections.
+    
+    Parameters
+    ----------
+    mesh_obj : trimesh.Trimesh
+        Input mesh object containing vertices and faces.
+    
+    Returns
+    -------
+    CgalTrimeshShapeModel : shape model object
+        Shape model configured for CGAL ray tracing, containing:
+        - V: vertex coordinates
+        - F: face indices
+        - N: face normals
+        - A: face areas
+        - aabb: CGAL AABB tree structure for fast queries
+    
+    Notes
+    -----
+    CGAL is a C++ library providing robust geometric algorithms. The AABB tree
+    structure enables efficient ray tracing through hierarchical spatial subdivision.
+    
+    This function is adapted from python-flux. CGAL may be more robust than
+    Embree for certain edge cases (nearly degenerate triangles, numerical precision
+    issues) but is typically slower for large numbers of rays.
+    
+    See Also
+    --------
+    CgalTrimeshShapeModel : The CGAL-based shape model class
+    RTXkernel : Main ray tracing interface that can use CGAL kernel
+    """
     V = np.array(mesh_obj.vertices, dtype=np.float64)
     F = np.array(mesh_obj.faces, dtype=np.int64)
 
@@ -654,34 +1023,61 @@ def cgal_init_geometry(mesh_obj):
 ######################### from python-flux.src.flux.shape.py
 
 def get_centroids(V, F):
-    """Given `V` and `F`, return the centroids of the faces in `F`.
+    """
+    Compute the geometric centroids of all triangular faces in a mesh.
+    
+    The centroid of a triangle is the arithmetic mean of its three vertices,
+    representing the triangle's center of mass (assuming uniform density).
+    
     Parameters
     ----------
-    V : np.array (n_vertices, 3)
-        vertices of the mesh
-    F : np.array (n_faces, 3)
-        faces of the mesh
+    V : ndarray, shape (N_vertices, 3)
+        Vertex coordinates of the mesh.
+    F : ndarray, shape (N_faces, 3)
+        Face indices. Each row contains three vertex indices forming a triangle.
+    
     Returns
     -------
-    P : np.array (n_faces, 3)
-        centroids of the faces
+    P : ndarray, shape (N_faces, 3)
+        Centroid coordinates for each face. P[i] = (V[F[i][0]] + V[F[i][1]] +
+        V[F[i][2]]) / 3
+    
+    Notes
+    -----
+    Uses vectorized numpy operations: V[F] creates shape (N_faces, 3, 3) array
+    where V[F][i] is the 3×3 matrix of vertices for face i. Taking mean along
+    axis=1 computes centroids efficiently for all faces simultaneously.
 
     """
+
     return V[F].mean(axis=1)
 
 
 def get_cross_products(V, F):
-    """Given `V` and `F`, return the cross products of the faces in `F`.
+    """
+    Compute cross products of edge vectors for all triangular faces in a mesh.
+    
+    For each triangle, computes the cross product of two edge vectors. The
+    magnitude of this cross product equals twice the triangle's area, and its
+    direction is perpendicular to the triangle plane (unnormalized normal).
+    
     Parameters
     ----------
-    V : np.array (n_vertices, 3)
-        vertices of the mesh
-    F : np.array (n_faces, 3)
-        faces of the mesh
+    V : ndarray, shape (N_vertices, 3)
+        Vertex coordinates of the mesh.
+    F : ndarray, shape (N_faces, 3)
+        Face indices. Each row contains three vertex indices [v0, v1, v2].
+    
     Returns
     -------
-    C : np.array (n_faces, 3)
-        cross products of the faces
+    C : ndarray, shape (N_faces, 3)
+        Cross product vectors for each face. C[i] = (v1 - v0) × (v2 - v0)
+        where v0, v1, v2 are the vertices of triangle i.
+    
+    Notes
+    -----
+    Used internally by get_face_areas and get_surface_normals for efficient
+    vectorized computation of geometric properties.
     """
     V0 = V[F][:, 0, :]
     C = np.cross(V[F][:, 1, :] - V0, V[F][:, 2, :] - V0)
@@ -689,18 +1085,24 @@ def get_cross_products(V, F):
 
 
 def get_face_areas(V, F):
-    """Given `V` and `F`, return the areas of the faces in `F`.
+    """
+    Compute the areas of all triangular faces in a mesh.
+    
     Parameters
     ----------
-    V : np.array (n_vertices, 3)
-        vertices of the mesh
-    F : np.array (n_faces, 3)
-        faces of the mesh
+    V : ndarray, shape (N_vertices, 3)
+        Vertex coordinates of the mesh.
+    F : ndarray, shape (N_faces, 3)
+        Face indices.
+    
     Returns
     -------
-    A : np.array (n_faces,)
-        areas of the faces
+    A : ndarray, shape (N_faces,)
+        Area of each face in the same units as V (e.g., if V is in meters,
+        areas are in square meters).
+    
     """
+
     C = get_cross_products(V, F)
     C_norms = np.sqrt(np.sum(C ** 2, axis=1))
     A = C_norms / 2
@@ -708,18 +1110,26 @@ def get_face_areas(V, F):
 
 
 def get_surface_normals(V, F):
-    """Given `V` and `F`, return the surface normals of the faces in `F`.
+    """
+    Compute outward-pointing unit normal vectors for all triangular faces.
+    
     Parameters
     ----------
-    V : np.array (n_vertices, 3)
-        vertices of the mesh
-    F : np.array (n_faces, 3)
-        faces of the mesh
+    V : ndarray, shape (N_vertices, 3)
+        Vertex coordinates of the mesh.
+    F : ndarray, shape (N_faces, 3)
+        Face indices.
+    
     Returns
     -------
-    N : np.array (n_faces, 3)
-        surface normals of the faces
+    N : ndarray, shape (N_faces, 3)
+        Unit normal vectors perpendicular to each face. Direction follows
+        right-hand rule with respect to vertex ordering in F.
+    
+
+ 
     """
+
     C = get_cross_products(V, F)
     C_norms = np.sqrt(np.sum(C ** 2, axis=1))
     N = C / C_norms.reshape(C.shape[0], 1)
@@ -727,19 +1137,36 @@ def get_surface_normals(V, F):
 
 
 def get_surface_normals_and_face_areas(V, F):
-    """Given `V` and `F`, return the surface normals and areas of the faces in `F`.
+    """
+    Efficiently compute both surface normals and face areas simultaneously.
+    
+    This is more efficient than calling get_surface_normals and get_face_areas
+    separately because it computes the cross products only once.
+    
     Parameters
     ----------
-    V : np.array (n_vertices, 3)
-        vertices of the mesh
-    F : np.array (n_faces, 3)
-        faces of the mesh
+    V : ndarray, shape (N_vertices, 3)
+        Vertex coordinates of the mesh.
+    F : ndarray, shape (N_faces, 3)
+        Face indices.
+    
     Returns
     -------
-    N : np.array (n_faces, 3)
-        surface normals of the faces
-    A : np.array (n_faces,)
-        areas of the faces
+    N : ndarray, shape (N_faces, 3)
+        Unit normal vectors for each face.
+    A : ndarray, shape (N_faces,)
+        Area of each face.
+    
+    Notes
+    -----
+    Computation steps:
+    1. Compute cross products C = (v1 - v0) × (v2 - v0)
+    2. Compute magnitudes ||C||
+    3. Normals: N = C / ||C||
+    4. Areas: A = ||C|| / 2
+    
+    This is the recommended function when both quantities are needed, as it
+    avoids redundant cross product calculations.
     """
     C = get_cross_products(V, F)
     C_norms = np.sqrt(np.sum(C ** 2, axis=1))
@@ -931,42 +1358,115 @@ trimesh_shape_models = [
 # Main definition of the kernel wrapper
 # -----------------------------------------------------------------------------------------------------#
 
-def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree', diffusion=False, num_diffuse=None,
+def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3', diffusion=False, num_diffuse=None,
               errorMsg=True):
-    """Wrapper for  RTX kernels
-    Parameters
-    ----------
-    mesh_obj: Mesh (or geometry) object 
-    ray_origins: numpy array of ray origins (n, 3)
-    ray_directions: numpy array of ray directions (does not need to be normalized) (n,3)
-    bounces: (int) number of bounces to compute
-    kernel: one of Embree, Native or Embree3. To chose wether to use the Intel Embree kernel or the native python kernel
-    diffusion: (bool) Boolean flag to activate diffused raytracing for the first bounce. Note: if this is false, the output "diffusion pack" will be "None"
-    num_diffuse: (int) number of samples for first-bounce diffuse computation
-    errorMsg: (bool) flag to control wether to pring the warning when no bounces are found
-
-    Returns:
-    index_tri_container: (list of np.array) a list containing the index of the hit faces of the mesh.
-                        [ [hit indexes bounce 1], [hit indexes bounce 2], ...]
-    index_ray_container: (list of np.array) list containing the index of the ray that have hit the mesh
-                        [ [ray hitting idx bounce 1], [ray hitting idx bounce 2], ...]
-
-    locations_container: (list of (3,N) np.array)  list containing coordinates of the hit points
-                        [ [(3,N) np.array of locations of bounce 1], [(3,N) np.array of locations of bounce 2], ...]
-    ray_origins_container: (list of (3,N) np.array) list containing the origins of the rays
-                        [ [(3,N) np.array of ray origins of bounce 1], ...]
-                        Note that ray_origins_container[0] corresponds with the ray_origins input
-    ray_directions_container: (list of (3,N) np.array) list containing the directions of the rays
-                        [ [directions of bounce 1], [directions of bounce 2], ...]. Note that the directions of bounce 1
-                        correspond with the ray_directions input value.
-    None or diffusion_pack:  (list of lists):
-        A list containing:
-            index_tri_diffusion: (np.array) indexes of the mesh faces hit by diffusion
-            index_ray_diffusion: (np.array) indexes of the diffused rays hitting the surface
-            ray_directions_diffusion: (3,N np.array) directions of the diffused rays
-            location_diffusion: (3,N np.array) location og the diffusion hit points
 
     """
+    Main ray tracing kernel wrapper supporting multiple ray tracing backends and
+    multi-bounce simulations.
+    
+    This is the primary interface for performing ray tracing operations in pyRTX.
+    It supports various ray tracing kernels (Embree, CGAL, Native), multiple
+    reflection bounces, and optional diffuse scattering for realistic radiation
+    momentum exchange calculatons.
+    
+    Parameters
+    ----------
+    mesh_obj : trimesh.Trimesh
+        The mesh geometry to ray trace against. Must be a valid triangular mesh.
+    ray_origins : ndarray, shape (N_rays, 3)
+        Starting positions of rays in 3D space (in same coordinate system as mesh).
+    ray_directions : ndarray, shape (N_rays, 3)
+        Direction vectors of rays. Do not need to be normalized.
+    bounces : int, default=1
+        Number of reflection bounces to simulate. bounces=1 means direct
+        illumination only, bounces=2 includes one reflection, etc.
+    kernel : str, default='Embree'
+        Ray tracing backend to use:
+        - 'Embree3': Intel Embree library (fastest, recommended)
+        - 'Embree' : Intel Embree library (Version 2, slower than 3)
+        - 'CGAL': CGAL AABB tree implementation (robust, slower)
+        - 'Native': Pure Python implementation (very slow, for reference only)
+    diffusion : bool, default=False
+        If True, compute diffuse (Lambertian) reflections in addition to
+        specular reflections. Only applied to the first bounce. Enables
+        realistic modeling of rough surfaces.
+    num_diffuse : int or None, default=None
+        Number of diffuse samples per intersection point. Required if
+        diffusion=True. Typical values: 10-100 depending on accuracy needs.
+    errorMsg : bool, default=True
+        If True, print warning messages when no intersections are found for
+        a bounce. Set to False to suppress warnings in batch processing.
+    
+    Returns
+    -------
+    index_tri_container : list of ndarrays
+        List containing triangle indices for each bounce. Each element is an
+        array of shape (N_hits_i,) containing indices of faces hit at bounce i.
+        Length equals number of computed bounces (≤ bounces parameter).
+    index_ray_container : list of ndarrays
+        List containing ray indices for each bounce. index_ray_container[i]
+        maps from the original ray array to rays that hit at bounce i.
+    locations_container : list of ndarrays
+        List of intersection point coordinates for each bounce. Each element
+        has shape (N_hits_i, 3).
+    ray_origins_container : list of ndarrays
+        List of ray origin positions for each bounce. Note that
+        ray_origins_container[0] equals the input ray_origins parameter.
+    ray_directions_container : list of ndarrays
+        List of ray direction vectors for each bounce. Element [0] contains
+        input directions, subsequent elements contain reflected directions.
+    diffusion_pack : list or None
+        If diffusion=True, contains diffuse ray tracing results:
+        [index_tri_diffusion, index_ray_diffusion, ray_directions_diffusion,
+         location_diffusion]. If diffusion=False, returns None.
+    
+    Notes
+    -----
+    Algorithm Overview:
+    1. Initialize ray tracing kernel (Embree, CGAL, or Native)
+    2. For each bounce:
+       a. Add small offset to ray origins (avoids self-intersection)
+       b. Trace rays to find intersections
+       c. If no hits found, terminate and return results up to current bounce
+       d. Compute specular reflection directions for next bounce
+       e. If diffusion enabled and bounce==1, also compute diffuse reflections
+    3. Return accumulated results for all bounces
+    
+    Performance Notes:
+    - Embree is typically 10-100× faster than Native for large meshes
+    - CGAL offers good robustness for edge cases but slower than Embree
+    - Diffusion increases computation by factor of num_diffuse
+    - Memory usage scales linearly with bounces and num_diffuse
+    
+    Kernel-Specific Details:
+    - Embree/Embree3: Uses BVH acceleration, highly optimized for x86 CPUs
+    - CGAL: Uses AABB tree, more robust numerical handling
+    - Native: Pure Python/Trimesh, no special acceleration
+    
+    The 1e-3 offset added to ray origins prevents numerical precision issues
+    where a reflected ray might re-intersect the same surface it just bounced
+    from (self-intersection artifact).
+    
+    Examples
+    --------
+    >>> # Simple direct illumination
+    >>> results = RTXkernel(mesh, origins, directions, bounces=1, kernel='Embree')
+    >>> hits, ray_ids, locations, _, _, _ = results
+    >>> 
+    >>> # Multi-bounce with diffuse scattering
+    >>> results = RTXkernel(mesh, origins, directions, bounces=3, 
+    ...                     kernel='Embree', diffusion=True, num_diffuse=50)
+    >>> hits, ray_ids, locs, origins, dirs, diffuse_data = results
+    
+    See Also
+    --------
+    pixel_plane_opt : Generate ray grids for illumination sources
+    compute_secondary_bounce : Compute reflection directions
+    diffuse : Generate diffuse reflection samples
+    """
+
+
 
     ray_origins_container = []
     ray_directions_container = []
@@ -1134,24 +1634,3 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree',
         return index_tri_container, index_ray_container, locations_container, ray_origins_container, ray_directions_container, None
 
 
-if __name__ == "__main__":
-    d0 = 2
-    lat = 90 * np.pi / 180
-    lon = 45 * np.pi / 180
-    locs, dirs = pixel_plane(d0, lon, lat, width=1, height=1, ray_spacing=.5)
-
-    import matplotlib.pyplot as plt
-    from mpl_toolkits import mplot3d
-
-    ax = plt.axes(projection='3d')
-    ax.scatter3D(locs[:, 0], locs[:, 1], locs[:, 2])
-    ax.set_xlabel('x')
-    ax.set_ylabel('y')
-    ax.set_zlabel('z')
-    ax.quiver(0, 0, 0, 1, 0, 0,
-              arrow_length_ratio=0.1, color='r')
-    ax.quiver(0, 0, 0, 0, 1, 0,
-              arrow_length_ratio=0.1, color='g')
-    ax.quiver(0, 0, 0, 0, 0, 1,
-              arrow_length_ratio=0.1, color='b')
-    plt.show()

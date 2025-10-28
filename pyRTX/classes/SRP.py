@@ -19,12 +19,214 @@ from scipy import interpolate
 
 class SunShadow():
 	"""
-	A Class to compute the Solar flux ratio that impacts the spacecraft
-	For the moment, limited to airless bodies
+	SunShadow Class Documentation
+	==============================
 
-	spacecraft [scClass.Spacecraft object]
-	body
+	A class to compute the solar flux ratio that impacts a spacecraft, accounting for
+	eclipse effects from airless celestial bodies. This class simulates the shadow cast
+	by a planetary body on the spacecraft and can incorporate solar limb darkening effects.
 
+	Overview
+	--------
+	The SunShadow class performs ray-tracing calculations to determine what fraction of
+	the Sun's disk is visible from a spacecraft's perspective when partially or fully
+	occulted by a planetary body. It discretizes the Sun's disk into a grid of rays and
+	traces each ray to determine if it is blocked by the intervening body.
+
+	Parameters
+	----------
+	spacecraft : Spacecraft object, optional
+		The spacecraft object containing position and orientation information.
+		
+	body : str, optional
+		Name of the occulting body (e.g., 'Moon', 'Mars'). Used for SPICE queries.
+		
+	bodyRadius : float, optional
+		Radius of the occulting body in kilometers. Used if bodyShape is not provided.
+		
+	numrays : int, default=100
+		Number of rays across the Sun's disk diameter. Total rays = numrays^2.
+		Higher values increase accuracy but computational cost.
+		
+	sunRadius : float, default=600000 km
+		Radius of the Sun in kilometers. Default is approximate photospheric radius.
+		
+	bodyShape : Planet object or str, optional
+		Either a Planet object with mesh data, or path to a shape model file.
+		If None, uses a sphere with bodyRadius.
+		
+	bodyFrame : str, optional
+		SPICE reference frame for the body shape model orientation.
+		
+	limbDarkening : str, default='Standard'
+		Solar limb darkening model to use. Options:
+		- 'Standard': Quadratic model (most commonly used)
+		- 'Eddington': Eddington approximation model
+		- None: Uniform solar disk (no limb darkening)
+		
+	precomputation : Precompute object, optional
+		Precomputed SPICE data for faster ephemeris queries.
+
+	Attributes
+	----------
+	sunRadius : float
+		Radius of the Sun in kilometers.
+		
+	spacecraft : Spacecraft object
+		Reference to the spacecraft object.
+		
+	body : str
+		Name of the occulting body.
+		
+	limbDarkening : str or None
+		Solar limb darkening model being used.
+		
+	pxPlane : PixelPlane object
+		Discretized representation of the Sun's disk as viewed from spacecraft.
+		
+	shape : Planet object
+		Geometric representation of the occulting body.
+		
+	sp_data : Precompute object
+		Precomputed SPICE data for ephemeris queries.
+
+	Solar Limb Darkening Models
+	----------------------------
+
+	Solar limb darkening is the observed decrease in brightness from the center to the 
+	edge (limb) of the solar disk. This occurs because light from the limb travels through
+	more of the Sun's atmosphere, causing greater absorption.
+
+	1. Standard (Quadratic) Model
+	---------------------------
+	The most commonly used empirical model, particularly accurate for optical wavelengths:
+	
+	I(β) = a₀ + a₁·cos(β) + a₂·cos²(β)
+	
+	where:
+	- β is the angle between the ray direction and the Sun center
+	- a₀ = 0.3  : constant term
+	- a₁ = 0.93 : linear coefficient
+	- a₂ = -0.23: quadratic coefficient
+	
+	This model provides:
+	- Center-to-limb intensity ratio of ~0.6
+	- Good agreement with observations in visible spectrum
+	- Fast computation
+	- Widely validated for spacecraft applications
+	
+	Use when: Standard solar radiation modeling, most accurate for visible wavelengths
+
+	2. Eddington Approximation Model
+	-------------------------------
+	A physically-based model derived from radiative transfer theory:
+	
+	I(μ) = (3/4) · [(7/12) + (μ/2) - (μ²/3) + (μ³/12)·ln((1+μ)/μ)]
+	
+	where:
+	- μ = cos(β), the cosine of the heliocentric angle
+	
+	This model:
+	- Based on stellar atmosphere theory (Eddington 1926)
+	- Assumes gray atmosphere in radiative equilibrium
+	- More physically rigorous than empirical models
+	- Slightly more computationally expensive
+	- Better for theoretical studies
+	
+	Use when: Theoretical accuracy is paramount, or for consistency with 
+				astrophysical modeling conventions
+
+	3. No Limb Darkening (None)
+	-------------------------
+	Uniform solar disk assumption:
+	
+	I(β) = 1.0 (constant)
+	
+	Use when:
+	- Quick approximations needed
+	- Limb darkening effects are negligible (<1% accuracy requirement)
+	- Testing or debugging purposes
+
+	Methods
+	-------
+	run(epoch)
+		Compute eclipse ratio at a single epoch using ray-tracing.
+		
+		Parameters
+		----------
+		epoch : float
+			SPICE ephemeris time (seconds past J2000).
+			
+		Returns
+		-------
+		float
+			Solar flux ratio: 1.0 = full Sun visible, 0.0 = total eclipse,
+			0.0-1.0 = partial eclipse. Accounts for limb darkening if enabled.
+
+	compute(epochs, n_cores=None)
+		Compute eclipse ratios for multiple epochs, with optional parallelization.
+		
+		Parameters
+		----------
+		epochs : float, list, or array
+			Single epoch or array of epochs (SPICE ephemeris times).
+		n_cores : int, optional
+			Number of CPU cores for parallel computation. Default uses all available.
+			
+		Returns
+		-------
+		float or array
+			Eclipse ratio(s) corresponding to input epoch(s).
+
+	Algorithm Details
+	-----------------
+	1. Create a PixelPlane representing the Sun's disk as viewed from spacecraft
+	2. Generate a grid of rays across the solar disk
+	3. For each ray:
+	a. Check if ray direction intersects the occulting body using ray-tracing
+	b. If limb darkening enabled, weight ray by intensity based on position
+	4. Compute eclipse ratio as (blocked rays) / (total rays)
+	5. If limb darkening: use weighted sum instead of simple count
+
+	Example Usage
+	-------------
+	>>> from pyRTX.classes.SunShadow import SunShadow
+	>>> import spiceypy as sp
+	>>> 
+	>>> # Initialize with standard limb darkening
+	>>> shadow = SunShadow(
+	...     spacecraft=my_spacecraft,
+	...     body='Moon',
+	...     bodyRadius=1737.4,  # km
+	...     numrays=200,
+	...     limbDarkening='Standard'
+	... )
+	>>> 
+	>>> # Compute at single epoch
+	>>> epoch = sp.str2et('2024-01-01T12:00:00')
+	>>> flux_ratio = shadow.compute(epoch)
+	>>> print(f"Visible solar flux: {flux_ratio*100:.1f}%")
+	>>>
+	>>> # Compute over time series
+	>>> epochs = sp.str2et(['2024-01-01T{:02d}:00:00'.format(h) for h in range(24)])
+	>>> flux_ratios = shadow.compute(epochs, n_cores=4)
+
+	Notes
+	-----
+	- Currently limited to airless bodies (no atmospheric effects)
+	- Uses Embree ray-tracing kernel for efficient intersection tests
+	- Limb darkening coefficients are wavelength-dependent; default values are 
+	for optical wavelengths (~500 nm)
+	- For very close approaches, increase numrays for better accuracy
+	- Precomputation of SPICE data recommended for large time series
+
+	References
+	----------
+	- Pierce, A.K. & Slaughter, C.D. (1977), "Solar limb darkening", 
+	Solar Physics, 51, 25-41
+	- Eddington, A.S. (1926), "The Internal Constitution of the Stars"
+	- Neckel, H. & Labs, D. (1994), "Solar limb darkening 1986-1990", 
+	Solar Physics, 153, 91-114
 	"""
 
 	def __init__(self, spacecraft = None, body = None, bodyRadius = None, numrays = 100, sunRadius = 600e3, bodyShape = None, bodyFrame = None, limbDarkening = 'Standard', precomputation = None):
@@ -117,15 +319,6 @@ class SunShadow():
 
 		numerator = len(index_ray)
 		denominator = len(ray_origins)
-
-		# Repeated block!
-		#if self.limbDarkening is not None:
-		#	betas= compute_beta(-newCoord, origin, self.sunRadius)
-		#	pixelIntensities = compute_pixel_intensities(betas)
-		#	sum_of_weights= np.sum(pixelIntensities)
-
-		#	numerator = np.sum(pixelIntensities[index_ray])/sum_of_weights
-		#	denominator = 1
 
 		if self.limbDarkening is not None:
 			numerator = np.sum(pixelIntensities[index_ray])/sum_of_weights
