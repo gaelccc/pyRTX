@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## Setup configuration
-ENV_NAME="prt-testing" # The name of the conda environment to be created
+ENV_NAME="prt-new" # The name of the conda environment to be created
 MAIN_FLD="." # The folder where pyRTX lives
 LIB_FLD="./lib/" # The folder where to download and install embree and cgal
 EMBREE2_VERSION="2.17.7"
