@@ -1,0 +1,10 @@
+include README.md
+include LICENSE
+include requirements.txt
+include requirements-build.txt
+include install_deps.py
+include pyproject.toml
+recursive-include pyRTX/data *
+recursive-include pyRTX/lib *
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]

@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyRTX"
+version = "0.1.0"
+description = "Non grav. forces modelling for deep space probes using raytracing"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}  
+authors = [
+    {name = "Gael Cascioli", email = "gael.cascioli@nasa.gov"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Astronomy",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+
+# No dependencies listed - handled by install_deps.py
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov>=2.10",
+    "black>=21.0",
+    "flake8>=3.9",
+]
+docs = [
+    "sphinx>=4.0",
+    "sphinx-rtd-theme>=0.5",
+]
+
+[project.urls]
+Homepage = "https://github.com/gaelccc/pyRTX"
+Repository = "https://github.com/gaelccc/pyRTX"
+Issues = "https://github.com/gaelccc/pyRTX/issues"
+
+[tool.setuptools]
+packages = ["pyRTX"]
+zip-safe = false
+
+[tool.setuptools.package-data]
+pyRTX = ["lib/*", "data/*"]
+
+[tool.black]
+line-length = 100
+target-version = ['py38', 'py39', 'py310', 'py311']
+include = '\.pyi?$'
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
