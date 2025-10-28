@@ -31,6 +31,23 @@ density models (e.g., VenusGRAM, MCD, etc.). [(Example 1)](examples/lro_drag.py)
 Handful classes for computing, storing and reading lookup tables for improved computational performance. ([Example 1](examples/generate_lro_accel_lookup.py),[Example 2](examples/generate_crossection_lut.py))
 
 # Installation
+`pyRTX` requires the installation of a few C++ libraries, supporting the raytracing kernels. 
+This is automatically taken care of by the install script provided. 
+Given the amount of dependencies, the use of a virtual environment (e.g., conda or venv) is strongly required. 
+
+1) clone the repository
+   `git clone git@github.com:gaelccc/pyRTX.git`
+2) create an environment with `python>=3.8`
+   `conda create --name pyrtx python=3.8`
+3) run the installation
+   `pip install .`
+
+### NOTE: at the moment the installation has been tested only on Linux
+
+
+<details>
+<summary>In case the automatic installation doesn't work, here is a run through of all the steps required. </summary>
+
 The installation process is quite convoluted, because of the dependencies on external libraries. 
 For this reason we detail here two separate procedures: [automatic installation](#automatic-installation), [manual installation](#manual-installation)  
 
@@ -101,7 +118,7 @@ from inside the `py-cgal-aabb` folder:
 To verify the succesful outcome of the installation process, from the `tests` folder run 
 `bash run_tests.sh`
 
-
+</details>
 
 # Quickstart and installation testing
 Download the data required for running the examples running in the `examples` folder:
