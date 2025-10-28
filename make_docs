@@ -1,5 +1,3 @@
 #!/bin/bash
-pdoc --html --output-dir docs pyRTX  --force
-cd docs 
-mv pyRTX/* .
+pdoc pyRTX -o docs
 
