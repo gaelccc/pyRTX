@@ -23,8 +23,11 @@ except ImportError as e:
 from pyRTX.defaults import dFloat, dInt
 
 __all__ = [
-    '__version__',
-    'EMBREE_AVAILABLE',
-    'dFloat',
-    'dInt',
+    'classes', 
+    'core', 
+    'defaults',
+    'visual', 
+    'helpers',
+    'constants',
+
 ]
