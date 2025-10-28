@@ -11,11 +11,19 @@ import pickle as pkl
 from numba import jit
 import multiprocessing as mproc
 from pyRTX.defaults import dFloat, dInt
+from pyRTX import EMBREE_AVAILABLE
 
-try:
+if EMBREE_AVAILABLE:
     import embree
-except:
-    pass
+    
+else:
+    # Provide fallback or informative error
+    raise ImportError(
+            "Embree is not available. This feature requires Embree.\n"
+            "Please install it by running: python install_deps.py\n"
+            "On Linux, the environment should be configured automatically.\n"
+            "On other platforms, you may need to manually source embree-vars.sh"
+        )
 
 try:
         from aabb import AABB

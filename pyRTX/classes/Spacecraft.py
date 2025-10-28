@@ -210,7 +210,7 @@ class Spacecraft():
 		return self.material_dict
 
 
-	def dump(self,epoch = None):
+	def dump(self,epoch = None, split = False):
 
 		mesh_todump =[]
   
@@ -234,8 +234,10 @@ class Spacecraft():
 				mesh_todump.append(np.sum(self.spacecraft_model[elem]['mesh'].dump()))
 			except AttributeError:
 				mesh_todump.append(self.spacecraft_model[elem]['mesh'])
-
-		mesh = np.array(mesh_todump).sum()
+		if not split:
+			mesh = np.array(mesh_todump).sum()
+		else:
+			mesh = mesh_todump
 		#self._last_mesh = np.array(mesh_todump).sum()
 		#self._last_epoch = et
 
@@ -259,7 +261,7 @@ class Spacecraft():
 
 
 	def _elem_info(self, elem):
-		print(self.spacecraft_model[elem]['frame_name'])
+		# print(self.spacecraft_model[elem]['frame_name'])
 		return f"{elem}: Proper Frame: {self.spacecraft_model[elem]['frame_name']} | Frame Type: {self.spacecraft_model[elem]['frame_type']}"
 
 
@@ -269,7 +271,7 @@ class Spacecraft():
 		printstr = f"Spacecraft {self.name} composed of {n_parts} elements: \n"
 		for i,elem in enumerate(elems):
 			printstr += f'{i+1}) ' + self._elem_info(elem) + ' \n'
-		return printstr
+		print(printstr)
 
 
 	def __str__(self):
