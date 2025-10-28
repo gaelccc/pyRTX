@@ -521,7 +521,7 @@ def _core_diffuse(normals, diffuse_directions, num):
 
 
 def diffuse(normals, num=10):
-        """
+    """
     Compute multiple diffuse reflection directions for an array of surface
     normals by sampling the Lambert cosine distribution.
     
@@ -577,7 +577,7 @@ def diffuse(normals, num=10):
 
 def compute_secondary_bounce(location, index_tri, mesh_obj, ray_directions, index_ray, diffusion=False,
                              num_diffuse=None):
-     """
+    """
     Prepare ray origins and directions for subsequent ray tracing bounces by
     computing specular and optionally diffuse reflection directions.
     
