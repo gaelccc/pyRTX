@@ -94,9 +94,12 @@ class Spacecraft():
 
 		for elem in input_model.keys():
 			
-
-			self.spacecraft_model[elem]['base_mesh'] = self._load_obj(input_model[elem]['file'])
+			if isinstance(input_model[elem]['file'], tm.Trimesh):
+				self.spacecraft_model[elem]['base_mesh'] = input_model[elem]['file'].apply_transform(tmt.scale_matrix(self.conversion_factor, [0,0,0]))
+			else:
+				self.spacecraft_model[elem]['base_mesh'] = self._load_obj(input_model[elem]['file'])
 			self.spacecraft_model[elem]['translation'] = tmt.translation_matrix(np.array(input_model[elem]['center']) * self.conversion_factor)
+
 
 			#print(tmt.translation_matrix(input_model[elem]['center']))
 
@@ -200,7 +203,7 @@ class Spacecraft():
 				self.spacecraft_model[elem]['mesh'].apply_transform(tmatrix)
     
 			else:
-       
+				
 				self.spacecraft_model[elem]['mesh'].apply_transform(self.spacecraft_model[elem]['UD_rotation'])
 
 			self.spacecraft_model[elem]['mesh'].apply_transform(self.spacecraft_model[elem]['translation'])
