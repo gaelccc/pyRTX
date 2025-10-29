@@ -1358,9 +1358,284 @@ trimesh_shape_models = [
 # Main definition of the kernel wrapper
 # -----------------------------------------------------------------------------------------------------#
 
+# def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3', diffusion=False, num_diffuse=None,
+#               errorMsg=True):
+
+#     """
+#     Main ray tracing kernel wrapper supporting multiple ray tracing backends and
+#     multi-bounce simulations.
+    
+#     This is the primary interface for performing ray tracing operations in pyRTX.
+#     It supports various ray tracing kernels (Embree, CGAL, Native), multiple
+#     reflection bounces, and optional diffuse scattering for realistic radiation
+#     momentum exchange calculatons.
+    
+#     Parameters
+#     ----------
+#     mesh_obj : trimesh.Trimesh
+#         The mesh geometry to ray trace against. Must be a valid triangular mesh.
+#     ray_origins : ndarray, shape (N_rays, 3)
+#         Starting positions of rays in 3D space (in same coordinate system as mesh).
+#     ray_directions : ndarray, shape (N_rays, 3)
+#         Direction vectors of rays. Do not need to be normalized.
+#     bounces : int, default=1
+#         Number of reflection bounces to simulate. bounces=1 means direct
+#         illumination only, bounces=2 includes one reflection, etc.
+#     kernel : str, default='Embree'
+#         Ray tracing backend to use:
+#         - 'Embree3': Intel Embree library (fastest, recommended)
+#         - 'Embree' : Intel Embree library (Version 2, slower than 3)
+#         - 'CGAL': CGAL AABB tree implementation (robust, slower)
+#         - 'Native': Pure Python implementation (very slow, for reference only)
+#     diffusion : bool, default=False
+#         If True, compute diffuse (Lambertian) reflections in addition to
+#         specular reflections. Only applied to the first bounce. Enables
+#         realistic modeling of rough surfaces.
+#     num_diffuse : int or None, default=None
+#         Number of diffuse samples per intersection point. Required if
+#         diffusion=True. Typical values: 10-100 depending on accuracy needs.
+#     errorMsg : bool, default=True
+#         If True, print warning messages when no intersections are found for
+#         a bounce. Set to False to suppress warnings in batch processing.
+    
+#     Returns
+#     -------
+#     index_tri_container : list of ndarrays
+#         List containing triangle indices for each bounce. Each element is an
+#         array of shape (N_hits_i,) containing indices of faces hit at bounce i.
+#         Length equals number of computed bounces (≤ bounces parameter).
+#     index_ray_container : list of ndarrays
+#         List containing ray indices for each bounce. index_ray_container[i]
+#         maps from the original ray array to rays that hit at bounce i.
+#     locations_container : list of ndarrays
+#         List of intersection point coordinates for each bounce. Each element
+#         has shape (N_hits_i, 3).
+#     ray_origins_container : list of ndarrays
+#         List of ray origin positions for each bounce. Note that
+#         ray_origins_container[0] equals the input ray_origins parameter.
+#     ray_directions_container : list of ndarrays
+#         List of ray direction vectors for each bounce. Element [0] contains
+#         input directions, subsequent elements contain reflected directions.
+#     diffusion_pack : list or None
+#         If diffusion=True, contains diffuse ray tracing results:
+#         [index_tri_diffusion, index_ray_diffusion, ray_directions_diffusion,
+#          location_diffusion]. If diffusion=False, returns None.
+    
+#     Notes
+#     -----
+#     Algorithm Overview:
+#     1. Initialize ray tracing kernel (Embree, CGAL, or Native)
+#     2. For each bounce:
+#        a. Add small offset to ray origins (avoids self-intersection)
+#        b. Trace rays to find intersections
+#        c. If no hits found, terminate and return results up to current bounce
+#        d. Compute specular reflection directions for next bounce
+#        e. If diffusion enabled and bounce==1, also compute diffuse reflections
+#     3. Return accumulated results for all bounces
+    
+#     Performance Notes:
+#     - Embree is typically 10-100× faster than Native for large meshes
+#     - CGAL offers good robustness for edge cases but slower than Embree
+#     - Diffusion increases computation by factor of num_diffuse
+#     - Memory usage scales linearly with bounces and num_diffuse
+    
+#     Kernel-Specific Details:
+#     - Embree/Embree3: Uses BVH acceleration, highly optimized for x86 CPUs
+#     - CGAL: Uses AABB tree, more robust numerical handling
+#     - Native: Pure Python/Trimesh, no special acceleration
+    
+#     The 1e-3 offset added to ray origins prevents numerical precision issues
+#     where a reflected ray might re-intersect the same surface it just bounced
+#     from (self-intersection artifact).
+    
+#     Examples
+#     --------
+#     >>> # Simple direct illumination
+#     >>> results = RTXkernel(mesh, origins, directions, bounces=1, kernel='Embree')
+#     >>> hits, ray_ids, locations, _, _, _ = results
+#     >>> 
+#     >>> # Multi-bounce with diffuse scattering
+#     >>> results = RTXkernel(mesh, origins, directions, bounces=3, 
+#     ...                     kernel='Embree', diffusion=True, num_diffuse=50)
+#     >>> hits, ray_ids, locs, origins, dirs, diffuse_data = results
+    
+#     See Also
+#     --------
+#     pixel_plane_opt : Generate ray grids for illumination sources
+#     compute_secondary_bounce : Compute reflection directions
+#     diffuse : Generate diffuse reflection samples
+#     """
+
+
+
+#     ray_origins_container = []
+#     ray_directions_container = []
+#     locations_container = []
+#     index_tri_container = []
+#     index_ray_container = []
+
+#     # Set variables for diffusion computation
+#     diffusion_directions = 0
+#     diffusion_pack = []
+#     diffusion_control = False
+
+#     # Select the kernel
+#     if kernel in ['Embree', 'Native']:
+#         for i in range(bounces):
+
+#             ray_origins_container.append(ray_origins)
+
+#             if kernel == 'Embree':
+#                 intersector = trimesh.ray.ray_pyembree.RayMeshIntersector(mesh_obj)
+
+#             elif kernel == 'Native':
+#                 intersector = trimesh.ray.ray_triangle.RayMeshIntersector(mesh_obj)
+
+#             # Avoid numerical problems
+#             ray_origins = ray_origins + 1e-3 * ray_directions
+
+#             # If computing bounce number 1 and the diffusion computation has been requested
+#             # do a separate raytracing also for the diffused rays
+#             # and pack results in the variable: diffusion pack
+#             if i == 1 and diffusion:
+#                 ray_origins_diffusion = np.repeat(ray_origins, num_diffuse, axis=0)  # this should be correct
+#                 ray_directions_diffusion = diffuse_directions
+
+#                 index_tri_diffusion, index_ray_diffusion, location_diffusion = intersector.intersects_id(
+#                     ray_origins=ray_origins_diffusion,
+#                     ray_directions=ray_directions_diffusion,
+#                     multiple_hits=False,
+#                     return_locations=True)
+#                 diffusion_pack = [index_tri_diffusion, index_ray_diffusion, ray_directions_diffusion,
+#                                   location_diffusion]
+
+#             # Main Raytracer
+#             index_tri, index_ray, location = intersector.intersects_id(
+#                 ray_origins=ray_origins,
+#                 ray_directions=ray_directions,
+#                 multiple_hits=False,
+#                 return_locations=True)
+#             # Get the number of hits
+#             n_hits = len(index_tri)
+
+#             # Manage the possibility of no hits
+#             if n_hits == 0 and errorMsg:
+#                 print('No intersections found for bounce {}. Results provided up to bounce {}'.format(i + 1, i))
+#                 break
+#             else:
+#                 locations_container.append(location)
+#                 index_tri_container.append(index_tri)
+#                 index_ray_container.append(index_ray)
+#                 ray_directions_container.append(ray_directions)
+
+#                 if i != bounces - 1:
+#                     # If at bounce number 1 compute the diffused directions:
+#                     if diffusion and i == 0:
+#                         diffusion_control = True
+
+#                     ray_origins, ray_directions, diffuse_directions = compute_secondary_bounce(location, index_tri,
+#                                                                                                mesh_obj, ray_directions,
+#                                                                                                index_ray,
+#                                                                                                diffusion=diffusion_control,
+#                                                                                                num_diffuse=num_diffuse)
+
+#                     # Set back to false the diffusion computation control flag
+#                     diffusion_control = False
+
+
+
+
+#     elif kernel == 'Embree3':
+
+#         # Initialize the geometry
+#         shape_model = Embree3_init_geometry(mesh_obj)
+#         context = embree.IntersectContext()
+
+#         for i in range(bounces):
+#             ray_origins_container.append(ray_origins)
+
+#             # Initialize the rayhit object
+#             ray_origins = ray_origins + 1e-3 * ray_directions
+#             rayhit = Embree3_init_rayhit(ray_origins, ray_directions)
+
+#             # Run the intersector
+#             shape_model.scene.intersect1M(context, rayhit)
+
+#             # Post-process the results
+#             index_tri, n_hits, index_ray, location = Embree3_dump_solution(rayhit, shape_model.V, shape_model.F)
+
+#             # embree.Device().release()
+#             # Handle: not bounces found
+#             if n_hits == -1:
+#                 print('No intersections found for bounce {}. Results provided up to bounce {}'.format(i + 1, i))
+#                 break
+
+
+#             # Otherwise append results and proceed with next bounce
+#             else:
+#                 locations_container.append(location)
+#                 index_tri_container.append(index_tri)
+#                 index_ray_container.append(index_ray)
+#                 ray_directions_container.append(ray_directions)
+
+#                 if i != bounces - 1:
+#                     ray_origins, ray_directions, _ = compute_secondary_bounce(location, index_tri, mesh_obj,
+#                                                                               ray_directions, index_ray)
+#         # # release memory
+#         # scene.release()
+#         shape_model.scene.release()
+
+#     elif kernel == 'CGAL':
+
+#         # Initialize the geometry
+#         shape_model = cgal_init_geometry(mesh_obj)
+
+#         for i in range(bounces):
+#             ray_origins_container.append(ray_origins)
+
+#             # Initialize the rayhit object
+#             # ray_origins = ray_origins + 1e-3 * ray_directions
+
+#             index_tri, location = shape_model.intersect1_2d_with_coords(ray_origins, ray_directions)
+
+#             index_ray = np.arange(len(ray_origins))
+#             n_hits = len(np.where(index_tri > -1))
+
+#             index_ray = index_ray[np.where(index_tri > -1)]
+#             location = location[np.where(index_tri > -1)]
+#             index_tri = index_tri[np.where(index_tri > -1)]
+
+#             # print(index_tri, n_hits, index_ray, location)
+
+#             # Handle: not bounces found
+#             if n_hits == -1:
+#                 print('No intersections found for bounce {}. Results provided up to bounce {}'.format(i + 1, i))
+#                 break
+
+
+#             # Otherwise append results and proceed with next bounce
+#             else:
+#                 locations_container.append(location)
+#                 index_tri_container.append(index_tri)
+#                 index_ray_container.append(index_ray)
+#                 ray_directions_container.append(ray_directions)
+
+#                 if i != bounces - 1:
+#                     ray_origins, ray_directions, _ = compute_secondary_bounce(location, index_tri, mesh_obj,
+#                                                                               ray_directions, index_ray)
+
+#     else:
+#         print('No Recognized kernel')
+
+#     # Manage output variables
+#     if diffusion:
+#         return index_tri_container, index_ray_container, locations_container, ray_origins_container, ray_directions_container, diffusion_pack
+#     else:
+#         return index_tri_container, index_ray_container, locations_container, ray_origins_container, ray_directions_container, None
+
+
 def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3', diffusion=False, num_diffuse=None,
               errorMsg=True):
-
     """
     Main ray tracing kernel wrapper supporting multiple ray tracing backends and
     multi-bounce simulations.
@@ -1368,7 +1643,7 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
     This is the primary interface for performing ray tracing operations in pyRTX.
     It supports various ray tracing kernels (Embree, CGAL, Native), multiple
     reflection bounces, and optional diffuse scattering for realistic radiation
-    momentum exchange calculatons.
+    momentum exchange calculations.
     
     Parameters
     ----------
@@ -1381,7 +1656,7 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
     bounces : int, default=1
         Number of reflection bounces to simulate. bounces=1 means direct
         illumination only, bounces=2 includes one reflection, etc.
-    kernel : str, default='Embree'
+    kernel : str, default='Embree3'
         Ray tracing backend to use:
         - 'Embree3': Intel Embree library (fastest, recommended)
         - 'Embree' : Intel Embree library (Version 2, slower than 3)
@@ -1451,12 +1726,12 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
     Examples
     --------
     >>> # Simple direct illumination
-    >>> results = RTXkernel(mesh, origins, directions, bounces=1, kernel='Embree')
+    >>> results = RTXkernel(mesh, origins, directions, bounces=1, kernel='Embree3')
     >>> hits, ray_ids, locations, _, _, _ = results
     >>> 
     >>> # Multi-bounce with diffuse scattering
     >>> results = RTXkernel(mesh, origins, directions, bounces=3, 
-    ...                     kernel='Embree', diffusion=True, num_diffuse=50)
+    ...                     kernel='Embree3', diffusion=True, num_diffuse=50)
     >>> hits, ray_ids, locs, origins, dirs, diffuse_data = results
     
     See Also
@@ -1465,8 +1740,6 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
     compute_secondary_bounce : Compute reflection directions
     diffuse : Generate diffuse reflection samples
     """
-
-
 
     ray_origins_container = []
     ray_directions_container = []
@@ -1498,7 +1771,7 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
             # do a separate raytracing also for the diffused rays
             # and pack results in the variable: diffusion pack
             if i == 1 and diffusion:
-                ray_origins_diffusion = np.repeat(ray_origins, num_diffuse, axis=0)  # this should be correct
+                ray_origins_diffusion = np.repeat(ray_origins, num_diffuse, axis=0)
                 ray_directions_diffusion = diffuse_directions
 
                 index_tri_diffusion, index_ray_diffusion, location_diffusion = intersector.intersects_id(
@@ -1542,9 +1815,6 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
                     # Set back to false the diffusion computation control flag
                     diffusion_control = False
 
-
-
-
     elif kernel == 'Embree3':
 
         # Initialize the geometry
@@ -1554,8 +1824,34 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
         for i in range(bounces):
             ray_origins_container.append(ray_origins)
 
-            # Initialize the rayhit object
+            # Avoid numerical problems
             ray_origins = ray_origins + 1e-3 * ray_directions
+
+            # If computing bounce number 1 and the diffusion computation has been requested
+            # do a separate raytracing also for the diffused rays
+            if i == 1 and diffusion:
+                ray_origins_diffusion = np.repeat(ray_origins, num_diffuse, axis=0)
+                ray_directions_diffusion = diffuse_directions
+
+                # Initialize rayhit for diffusion rays
+                rayhit_diffusion = Embree3_init_rayhit(ray_origins_diffusion, ray_directions_diffusion)
+                
+                # Run the intersector for diffusion
+                shape_model.scene.intersect1M(context, rayhit_diffusion)
+                
+                # Post-process diffusion results
+                index_tri_diffusion, n_hits_diffusion, index_ray_diffusion, location_diffusion = \
+                    Embree3_dump_solution(rayhit_diffusion, shape_model.V, shape_model.F)
+                
+                # Pack diffusion results
+                if n_hits_diffusion != -1:
+                    diffusion_pack = [index_tri_diffusion, index_ray_diffusion, ray_directions_diffusion,
+                                      location_diffusion]
+                else:
+                    # No diffusion hits, create empty diffusion pack
+                    diffusion_pack = [np.array([]), np.array([]), np.array([]), np.array([])]
+
+            # Initialize the rayhit object for main rays
             rayhit = Embree3_init_rayhit(ray_origins, ray_directions)
 
             # Run the intersector
@@ -1564,12 +1860,11 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
             # Post-process the results
             index_tri, n_hits, index_ray, location = Embree3_dump_solution(rayhit, shape_model.V, shape_model.F)
 
-            # embree.Device().release()
-            # Handle: not bounces found
+            # Handle: no bounces found
             if n_hits == -1:
-                print('No intersections found for bounce {}. Results provided up to bounce {}'.format(i + 1, i))
+                if errorMsg:
+                    print('No intersections found for bounce {}. Results provided up to bounce {}'.format(i + 1, i))
                 break
-
 
             # Otherwise append results and proceed with next bounce
             else:
@@ -1579,10 +1874,18 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
                 ray_directions_container.append(ray_directions)
 
                 if i != bounces - 1:
-                    ray_origins, ray_directions, _ = compute_secondary_bounce(location, index_tri, mesh_obj,
-                                                                              ray_directions, index_ray)
-        # # release memory
-        # scene.release()
+                    # If at bounce number 1 compute the diffused directions:
+                    if diffusion and i == 0:
+                        diffusion_control = True
+
+                    ray_origins, ray_directions, diffuse_directions = compute_secondary_bounce(
+                        location, index_tri, mesh_obj, ray_directions, index_ray,
+                        diffusion=diffusion_control, num_diffuse=num_diffuse)
+
+                    # Set back to false the diffusion computation control flag
+                    diffusion_control = False
+
+        # Release memory
         shape_model.scene.release()
 
     elif kernel == 'CGAL':
@@ -1593,25 +1896,44 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
         for i in range(bounces):
             ray_origins_container.append(ray_origins)
 
-            # Initialize the rayhit object
-            # ray_origins = ray_origins + 1e-3 * ray_directions
+            # Avoid numerical problems
+            ray_origins = ray_origins + 1e-3 * ray_directions
 
+            # If computing bounce number 1 and the diffusion computation has been requested
+            # do a separate raytracing also for the diffused rays
+            if i == 1 and diffusion:
+                ray_origins_diffusion = np.repeat(ray_origins, num_diffuse, axis=0)
+                ray_directions_diffusion = diffuse_directions
+
+                index_tri_diffusion, location_diffusion = shape_model.intersect1_2d_with_coords(
+                    ray_origins_diffusion, ray_directions_diffusion)
+
+                # Process diffusion results
+                index_ray_diffusion = np.arange(len(ray_origins_diffusion))
+                valid_diffusion = index_tri_diffusion > -1
+                
+                index_ray_diffusion = index_ray_diffusion[valid_diffusion]
+                location_diffusion = location_diffusion[valid_diffusion]
+                index_tri_diffusion = index_tri_diffusion[valid_diffusion]
+
+                diffusion_pack = [index_tri_diffusion, index_ray_diffusion, ray_directions_diffusion[valid_diffusion],
+                                  location_diffusion]
+
+            # Main ray tracing
             index_tri, location = shape_model.intersect1_2d_with_coords(ray_origins, ray_directions)
 
             index_ray = np.arange(len(ray_origins))
-            n_hits = len(np.where(index_tri > -1))
+            n_hits = len(np.where(index_tri > -1)[0])
 
             index_ray = index_ray[np.where(index_tri > -1)]
             location = location[np.where(index_tri > -1)]
             index_tri = index_tri[np.where(index_tri > -1)]
 
-            # print(index_tri, n_hits, index_ray, location)
-
-            # Handle: not bounces found
-            if n_hits == -1:
-                print('No intersections found for bounce {}. Results provided up to bounce {}'.format(i + 1, i))
+            # Handle: no bounces found
+            if n_hits == 0:
+                if errorMsg:
+                    print('No intersections found for bounce {}. Results provided up to bounce {}'.format(i + 1, i))
                 break
-
 
             # Otherwise append results and proceed with next bounce
             else:
@@ -1621,8 +1943,16 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
                 ray_directions_container.append(ray_directions)
 
                 if i != bounces - 1:
-                    ray_origins, ray_directions, _ = compute_secondary_bounce(location, index_tri, mesh_obj,
-                                                                              ray_directions, index_ray)
+                    # If at bounce number 1 compute the diffused directions:
+                    if diffusion and i == 0:
+                        diffusion_control = True
+
+                    ray_origins, ray_directions, diffuse_directions = compute_secondary_bounce(
+                        location, index_tri, mesh_obj, ray_directions, index_ray,
+                        diffusion=diffusion_control, num_diffuse=num_diffuse)
+
+                    # Set back to false the diffusion computation control flag
+                    diffusion_control = False
 
     else:
         print('No Recognized kernel')
@@ -1632,5 +1962,3 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
         return index_tri_container, index_ray_container, locations_container, ray_origins_container, ray_directions_container, diffusion_pack
     else:
         return index_tri_container, index_ray_container, locations_container, ray_origins_container, ray_directions_container, None
-
-
