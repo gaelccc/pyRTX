@@ -379,8 +379,13 @@ class SolarPressure():
 		if self.rayTracer is not None: 
 			self.rayTracer.rays.sp_data = self.sp_data
 		if self.lookup is not None: 
-			self.lookup.sp_data = self.sp_data
-		self.spacecraft.sp_data = self.sp_data
+			#self.lookup.sp_data = self.sp_data
+			self.lookup.attrs['sp_data'] = self.sp_data
+		#self.spacecraft.sp_data = self.sp_data
+		if hasattr(self.spacecraft, 'attrs'):
+			self.spacecraft.attrs['sp_data'] = self.sp_data
+		else:
+			self.spacecraft.sp_data = self.sp_data
 
 
 	@parallel

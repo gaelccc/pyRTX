@@ -123,6 +123,8 @@ class LookUpTable():
 		query += [ra, dec]
   
 		query  = tuple(query)
+	
+
   
 		output = np.squeeze(interpolate.interpn(self.axes, self.data, query, method = 'linear'))
 
