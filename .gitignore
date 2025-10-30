@@ -12,3 +12,4 @@ build/
 examples/.ipynb_checkpoints/
 pyRTX/visual/.ipynb_checkpoints/
 pyRTX/__pycache__/
+Notebooks/outputs/*

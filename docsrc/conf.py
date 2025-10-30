@@ -94,8 +94,17 @@ html_theme_options = {
     'collapse_navigation': False,
     'sticky_navigation': True,
     'includehidden': True,
-    'titles_only': False
+    'titles_only': False,
+    # Add GitHub link
+    'display_version': True,
+    'prev_next_buttons_location': 'bottom',
+    'style_external_links': False,
+    'vcs_pageview_mode': '',
+    # GitHub repository
+    'github_url': 'https://github.com/gaelccc/pyRTX',
 }
+
+
 
 # Add any paths that contain custom static files (such as style sheets)
 html_static_path = ['_static']

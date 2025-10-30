@@ -1,5 +1,11 @@
-pyRTX Documentation
-===================
+pyRTX v1.0
+==========
+
+.. image:: _static/pyrtx_banner.png
+   :width: 100%
+   :align: center
+   :alt: pyRTX Banner
+
 
 **pyRTX** is a Python library for non-gravitational forces modelling for deep space probes using ray tracing.
 
@@ -16,43 +22,44 @@ pyRTX Documentation
 Introduction
 ------------
 
-pyRTX provides high-performance ray tracing capabilities for modeling:
+Welcome to the pyRTX documentation. 
 
-* Solar radiation pressure
-* Thermal radiation
-* Surface reflections (specular and diffuse)
-* Multi-bounce light transport
+This library is thought to help scientists and engineers working in orbit determination, navigation, GNC, and
+similar applications, by providing a framework for precise computation of non-gravitational forces.
 
-The library uses Intel Embree for fast ray-triangle intersections and supports
-complex spacecraft geometries.
+Main features currently supported by pyRTX:
 
-Features
---------
+**Spacecraft modeling**
 
-* **Fast Ray Tracing**: Intel Embree backend for performance
-* **Multi-Bounce**: Support for multiple reflection bounces
-* **Diffuse Scattering**: Lambert cosine distribution for rough surfaces
-* **Solar Modeling**: Eclipse calculations and solar flux variations
-* **Flexible Geometry**: Support for complex 3D mesh models
+Support for basic and complex, static and moveable spacecraft shapes. The spacecraft shape can be directly imported 
+from the main 3D file formats. Flexible definition of the thermo-optical properties of every spacecraft surface.
 
-Quick Example
--------------
+**Solar radiation pressure**
 
-.. code-block:: python
+Precise computation of the solar radiation pressure force and acceleration on the spacecraft. Automatic computation 
+of self-shadowing, secondary reflections and diffusive effects. Eclipse times computation using user-defined planet 
+shapes and solar limb darkening. 
 
-   from pyRTX.classes import SunShadow
-   import spiceypy as sp
-   
-   # Create shadow calculator
-   shadow = SunShadow(
-       spacecraft=my_spacecraft,
-       body='Moon',
-       bodyRadius=1737.4
-   )
-   
-   # Compute eclipse ratio
-   epoch = sp.str2et('2024-01-01T12:00:00')
-   flux_ratio = shadow.compute(epoch)
+**Planetary radiation pressure**
+
+Albedo and thermal infrared pressure computations based on user-defined planetary properties. Easy implementation of 
+planetary characteristics maps (e.g., albedo and temperature or emissivity). Possibility of using planetary shapes 
+based on digital terrain models for maximum accuracy.
+
+**Atmospheric drag**
+
+Precise computation of effective area. User defined density models. Plug-in structure allowing to use complex density 
+models (e.g., VenusGRAM, MCD, etc.).
+
+**Lookup tables generation and handling**
+
+Handful classes for computing, storing and reading lookup tables for improved computational performance.
+
+Credits
+-------
+
+If you find this software useful you are more than welcome to use it in your research.
+If you do so, please acknowledge pyRTX! 
 
 Indices and tables
 ==================
