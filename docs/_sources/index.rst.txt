@@ -1,6 +1,12 @@
 pyRTX v1.0
 ==========
 
+.. image:: _static/pyrtx_banner.png
+   :width: 100%
+   :align: center
+   :alt: pyRTX Banner
+
+
 **pyRTX** is a Python library for non-gravitational forces modelling for deep space probes using ray tracing.
 
 .. toctree::
