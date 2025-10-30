@@ -59,6 +59,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../tutorials/Notebook1.html">Notebook n. 1:</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../tutorials/Notebook1.html#Spacecraft-shape-definition">Spacecraft shape definition</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../tutorials/Notebook1.html#Speeding-up-the-code">Speeding up the code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tutorials/Notebook1.html#Exporting-the-data">Exporting the data</a></li>
 </ul>
 </li>
 </ul>
@@ -73,6 +74,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials/index.html#tutorial-3-lookup-tables">Tutorial 3: Lookup Tables</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../tutorials/Notebook3.html">Lookup Tables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../tutorials/Notebook3.html#Computing-the-LUT">Computing the LUT</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/index.html#tutorial-3-planetary-radiation">Tutorial 3: Planetary Radiation</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -93,7 +97,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.exportEXAC"><code class="docutils literal notranslate"><span class="pre">exportEXAC()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
@@ -110,7 +113,14 @@
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../core.html#shadow-utilities">Shadow Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../core.html#module-pyRTX.core.shadow_utils">Shadow Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../core.html#module-pyRTX.core.physical_utils">Physical Utilities</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
@@ -129,7 +139,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../classes.html">Classes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../classes.html#sunshadow">SunShadow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../classes.html#solarpressure">SolarPressure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes.html#solarpressure">SolarPressure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../classes.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../classes.html#planet">Planet</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../classes.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
 </ul>
@@ -207,76 +220,73 @@
 <p class="rubric">Functions</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.Embree3_dump_solution" title="pyRTX.core.utils_rt.Embree3_dump_solution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Embree3_dump_solution</span></code></a>(rayhit, V, F)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.Embree3_dump_solution" title="pyRTX.core.utils_rt.Embree3_dump_solution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Embree3_dump_solution</span></code></a>(rayhit, V, F)</p></td>
 <td><p>Extract and process ray-surface intersection results from Embree RayHit structure.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.Embree3_init_geometry" title="pyRTX.core.utils_rt.Embree3_init_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Embree3_init_geometry</span></code></a>(mesh_obj)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.Embree3_init_geometry" title="pyRTX.core.utils_rt.Embree3_init_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Embree3_init_geometry</span></code></a>(mesh_obj)</p></td>
 <td><p>Initialize mesh geometry for ray tracing using the Embree 3 ray tracing kernel.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.Embree3_init_rayhit" title="pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Embree3_init_rayhit</span></code></a>(ray_origins, ray_directions)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.Embree3_init_rayhit" title="pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Embree3_init_rayhit</span></code></a>(ray_origins, ray_directions)</p></td>
 <td><p>Initialize Embree 3 RayHit data structure for ray tracing queries.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.RTXkernel" title="pyRTX.core.utils_rt.RTXkernel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RTXkernel</span></code></a>(mesh_obj, ray_origins, ray_directions)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.RTXkernel" title="pyRTX.core.utils_rt.RTXkernel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RTXkernel</span></code></a>(mesh_obj, ray_origins, ray_directions)</p></td>
 <td><p>Main ray tracing kernel wrapper supporting multiple ray tracing backends and multi-bounce simulations.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.block_dot" title="pyRTX.core.utils_rt.block_dot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">block_dot</span></code></a>(a, b)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.block_dot" title="pyRTX.core.utils_rt.block_dot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">block_dot</span></code></a>(a, b)</p></td>
 <td><p>Perform element-wise dot product between corresponding vectors in two arrays.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.block_normalize" title="pyRTX.core.utils_rt.block_normalize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">block_normalize</span></code></a>(V)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.block_normalize" title="pyRTX.core.utils_rt.block_normalize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">block_normalize</span></code></a>(V)</p></td>
 <td><p>Compute unit vectors for a block of vectors efficiently using vectorized operations.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.cgal_init_geometry" title="pyRTX.core.utils_rt.cgal_init_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cgal_init_geometry</span></code></a>(mesh_obj)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.cgal_init_geometry" title="pyRTX.core.utils_rt.cgal_init_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cgal_init_geometry</span></code></a>(mesh_obj)</p></td>
 <td><p>Initialize mesh geometry for ray tracing using the CGAL (Computational Geometry Algorithms Library) ray tracing kernel.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.chunker" title="pyRTX.core.utils_rt.chunker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">chunker</span></code></a>(iterator, chunks)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.chunker" title="pyRTX.core.utils_rt.chunker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">chunker</span></code></a>(iterator, chunks)</p></td>
 <td><p>Divide an iterator or array into approximately equal-sized chunks for parallel processing.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.compute_secondary_bounce" title="pyRTX.core.utils_rt.compute_secondary_bounce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_secondary_bounce</span></code></a>(location, ...[, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.compute_secondary_bounce" title="pyRTX.core.utils_rt.compute_secondary_bounce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_secondary_bounce</span></code></a>(location, ...[, ...])</p></td>
 <td><p>Prepare ray origins and directions for subsequent ray tracing bounces by computing specular and optionally diffuse reflection directions.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.diffuse" title="pyRTX.core.utils_rt.diffuse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diffuse</span></code></a>(normals[, num])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.diffuse" title="pyRTX.core.utils_rt.diffuse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diffuse</span></code></a>(normals[, num])</p></td>
 <td><p>Compute multiple diffuse reflection directions for an array of surface normals by sampling the Lambert cosine distribution.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.exportEXAC" title="pyRTX.core.utils_rt.exportEXAC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exportEXAC</span></code></a>(satelliteID, data, tstep, ...)</p></td>
-<td><p>Export acceleration data to GEODYN EXAC (External Accelerations) file format.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.fast_vector_build" title="pyRTX.core.utils_rt.fast_vector_build"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fast_vector_build</span></code></a>(linsp1, linsp2, dim1, dim2)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.fast_vector_build" title="pyRTX.core.utils_rt.fast_vector_build"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fast_vector_build</span></code></a>(linsp1, linsp2, dim1, dim2)</p></td>
 <td><p>Efficiently build a pixel array coordinate grid using Numba's JIT compilation for performance.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.get_centroids" title="pyRTX.core.utils_rt.get_centroids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_centroids</span></code></a>(V, F)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_centroids" title="pyRTX.core.utils_rt.get_centroids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_centroids</span></code></a>(V, F)</p></td>
 <td><p>Compute the geometric centroids of all triangular faces in a mesh.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.get_cross_products" title="pyRTX.core.utils_rt.get_cross_products"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cross_products</span></code></a>(V, F)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_cross_products" title="pyRTX.core.utils_rt.get_cross_products"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cross_products</span></code></a>(V, F)</p></td>
 <td><p>Compute cross products of edge vectors for all triangular faces in a mesh.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.get_face_areas" title="pyRTX.core.utils_rt.get_face_areas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_face_areas</span></code></a>(V, F)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_face_areas" title="pyRTX.core.utils_rt.get_face_areas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_face_areas</span></code></a>(V, F)</p></td>
 <td><p>Compute the areas of all triangular faces in a mesh.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.get_orthogonal" title="pyRTX.core.utils_rt.get_orthogonal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_orthogonal</span></code></a>(v)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_orthogonal" title="pyRTX.core.utils_rt.get_orthogonal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_orthogonal</span></code></a>(v)</p></td>
 <td><p>Generate a unit vector orthogonal to the input vector using randomization.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.get_surface_normals" title="pyRTX.core.utils_rt.get_surface_normals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_surface_normals</span></code></a>(V, F)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_surface_normals" title="pyRTX.core.utils_rt.get_surface_normals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_surface_normals</span></code></a>(V, F)</p></td>
 <td><p>Compute outward-pointing unit normal vectors for all triangular faces.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas" title="pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_surface_normals_and_face_areas</span></code></a>(V, F)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_surface_normals_and_face_areas" title="pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_surface_normals_and_face_areas</span></code></a>(V, F)</p></td>
 <td><p>Efficiently compute both surface normals and face areas simultaneously.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.pixel_plane" title="pyRTX.core.utils_rt.pixel_plane"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pixel_plane</span></code></a>(d0, lon, lat[, width, height, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.pixel_plane" title="pyRTX.core.utils_rt.pixel_plane"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pixel_plane</span></code></a>(d0, lon, lat[, width, height, ...])</p></td>
 <td><p>Generate a rectangular pixel array (grid of rays) for ray tracing, as defined in Li et al., 2018.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.pixel_plane_opt" title="pyRTX.core.utils_rt.pixel_plane_opt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pixel_plane_opt</span></code></a>(d0, lon, lat[, width, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.pixel_plane_opt" title="pyRTX.core.utils_rt.pixel_plane_opt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pixel_plane_opt</span></code></a>(d0, lon, lat[, width, ...])</p></td>
 <td><p>Generate a rectangular pixel array for ray tracing - optimized version with optional ray packet subdivision.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.pxform_convert" title="pyRTX.core.utils_rt.pxform_convert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pxform_convert</span></code></a>(pxform)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.pxform_convert" title="pyRTX.core.utils_rt.pxform_convert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pxform_convert</span></code></a>(pxform)</p></td>
 <td><p>Convert a SPICE-generated rotation matrix (pxform) to the 4x4 homogeneous transformation matrix format required by trimesh.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.reflected" title="pyRTX.core.utils_rt.reflected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reflected</span></code></a>(incoming, normal)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.reflected" title="pyRTX.core.utils_rt.reflected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reflected</span></code></a>(incoming, normal)</p></td>
 <td><p>Compute reflected ray directions given incoming rays and surface normals.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.sample_lambert_dist" title="pyRTX.core.utils_rt.sample_lambert_dist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_lambert_dist</span></code></a>(normal[, num])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.sample_lambert_dist" title="pyRTX.core.utils_rt.sample_lambert_dist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_lambert_dist</span></code></a>(normal[, num])</p></td>
 <td><p>Generate a cloud of direction vectors following the Lambert cosine distribution (also known as Lambertian distribution or cosine-weighted hemisphere sampling).</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.save_for_visualization" title="pyRTX.core.utils_rt.save_for_visualization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_for_visualization</span></code></a>(outputFilePath, mesh, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.save_for_visualization" title="pyRTX.core.utils_rt.save_for_visualization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_for_visualization</span></code></a>(outputFilePath, mesh, ...)</p></td>
 <td><p>Save ray tracing results to a pickled dictionary for post-processing and visualization.</p></td>
 </tr>
 </tbody>
@@ -284,16 +294,16 @@
 <p class="rubric">Classes</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel" title="pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a>(V, F[, N, P, A])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.CgalTrimeshShapeModel" title="pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a>(V, F[, N, P, A])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel" title="pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a>(V, F[, N, P, A])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel" title="pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a>(V, F[, N, P, A])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.ShapeModel" title="pyRTX.core.utils_rt.ShapeModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ShapeModel</span></code></a>()</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.ShapeModel" title="pyRTX.core.utils_rt.ShapeModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ShapeModel</span></code></a>()</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.TrimeshShapeModel" title="pyRTX.core.utils_rt.TrimeshShapeModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a>(V, F[, N, P, A])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.TrimeshShapeModel" title="pyRTX.core.utils_rt.TrimeshShapeModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a>(V, F[, N, P, A])</p></td>
 <td><p>A shape model consisting of a single triangle mesh.</p></td>
 </tr>
 </tbody>
@@ -765,57 +775,6 @@ ray tracing geometry including multiple bounces and diffuse scattering.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="pyRTX.core.utils_rt.exportEXAC">
-<span class="sig-prename descclassname"><span class="pre">pyRTX.core.utils_rt.</span></span><span class="sig-name descname"><span class="pre">exportEXAC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">satelliteID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">startTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outFileName</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/utils_rt.html#exportEXAC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.utils_rt.exportEXAC" title="Permalink to this definition"></a></dt>
-<dd><p>Export acceleration data to GEODYN EXAC (External Accelerations) file format.</p>
-<p>GEODYN is NASA’s precision orbit determination software. The EXAC format is
-a Fortran-formatted binary file used to provide time-varying external
-accelerations (such as solar radiation pressure) to the orbit propagator.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>satelliteID</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) – Satellite identifier code used in GEODYN processing.</p></li>
-<li><p><strong>data</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(N</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">3)</span></code>) – Acceleration data to be written, in km/s². Each row is [ax, ay, az]
-at one time step.</p></li>
-<li><p><strong>tstep</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Time step between data records in seconds (e.g., 60 for 1-minute data).</p></li>
-<li><p><strong>startTime</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>) – Start time of the data series. Must include date and time information
-down to microseconds.</p></li>
-<li><p><strong>endTime</strong> (<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a>) – End time of the data series. Must be consistent with len(data) and tstep.</p></li>
-<li><p><strong>outFileName</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Path to output EXAC file. Typically uses .exac or .bin extension.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Data is written to binary file at outFileName.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a></p>
-</dd>
-</dl>
-<div class="admonition-notes admonition">
-<p class="admonition-title">Notes</p>
-<p>EXAC File Structure:
-- Master header record: Control parameters and file type identifier
-- Satellite-specific header: Satellite ID, time step, start/end times
-- Data records: Time stamp + 3D acceleration vector + padding zeros</p>
-<p>Time Format:
-- Stored as YYMMDDHHMMSSμμμμμμ (year-month-day-hour-minute-second-microsecond)
-- Year uses 2-digit format (YY)</p>
-<p>Coordinate System:
-- Accelerations should be in the same reference frame as the GEODYN</p>
-<blockquote>
-<div><p>orbit integration (typically J2000 or ICRF)</p>
-</div></blockquote>
-<p>Units:
-- Accelerations: km/s²
-- Time step: seconds</p>
-<p>This format is used for high-precision orbit determination where external
-non-gravitational forces (solar pressure, atmospheric drag, etc.) need to
-be accurately modeled.</p>
-<p>Requires scipy.io.FortranFile for binary I/O operations.</p>
-</div>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.utils_rt.Embree3_init_geometry">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.utils_rt.</span></span><span class="sig-name descname"><span class="pre">Embree3_init_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh_obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/utils_rt.html#Embree3_init_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.utils_rt.Embree3_init_geometry" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize mesh geometry for ray tracing using the Embree 3 ray tracing kernel.</p>
@@ -836,7 +795,7 @@ triangular mesh.</p>
 - scene: Embree scene object for ray tracing</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel" title="pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></p>
+<dd class="field-odd"><p><a class="reference internal" href="#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel" title="pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></p>
 </dd>
 </dl>
 <div class="admonition-notes admonition">
@@ -855,9 +814,9 @@ for high-performance ray tracing. Embree uses hardware-accelerated BVH
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel" title="pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></dt><dd><p>The shape model class</p>
+<dt><a class="reference internal" href="#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel" title="pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></dt><dd><p>The shape model class</p>
 </dd>
-<dt><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.RTXkernel" title="pyRTX.core.utils_rt.RTXkernel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RTXkernel</span></code></a></dt><dd><p>Main ray tracing interface</p>
+<dt><a class="reference internal" href="#pyRTX.core.utils_rt.RTXkernel" title="pyRTX.core.utils_rt.RTXkernel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RTXkernel</span></code></a></dt><dd><p>Main ray tracing interface</p>
 </dd>
 </dl>
 </div>
@@ -985,9 +944,9 @@ issues) but is typically slower for large numbers of rays.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel" title="pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a></dt><dd><p>The CGAL-based shape model class</p>
+<dt><a class="reference internal" href="#pyRTX.core.utils_rt.CgalTrimeshShapeModel" title="pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a></dt><dd><p>The CGAL-based shape model class</p>
 </dd>
-<dt><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.RTXkernel" title="pyRTX.core.utils_rt.RTXkernel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RTXkernel</span></code></a></dt><dd><p>Main ray tracing interface that can use CGAL kernel</p>
+<dt><a class="reference internal" href="#pyRTX.core.utils_rt.RTXkernel" title="pyRTX.core.utils_rt.RTXkernel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RTXkernel</span></code></a></dt><dd><p>Main ray tracing interface that can use CGAL kernel</p>
 </dd>
 </dl>
 </div>
@@ -1310,11 +1269,11 @@ from (self-intersection artifact).</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.pixel_plane_opt" title="pyRTX.core.utils_rt.pixel_plane_opt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pixel_plane_opt</span></code></a></dt><dd><p>Generate ray grids for illumination sources</p>
+<dt><a class="reference internal" href="#pyRTX.core.utils_rt.pixel_plane_opt" title="pyRTX.core.utils_rt.pixel_plane_opt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pixel_plane_opt</span></code></a></dt><dd><p>Generate ray grids for illumination sources</p>
 </dd>
-<dt><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.compute_secondary_bounce" title="pyRTX.core.utils_rt.compute_secondary_bounce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_secondary_bounce</span></code></a></dt><dd><p>Compute reflection directions</p>
+<dt><a class="reference internal" href="#pyRTX.core.utils_rt.compute_secondary_bounce" title="pyRTX.core.utils_rt.compute_secondary_bounce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_secondary_bounce</span></code></a></dt><dd><p>Compute reflection directions</p>
 </dd>
-<dt><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.diffuse" title="pyRTX.core.utils_rt.diffuse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diffuse</span></code></a></dt><dd><p>Generate diffuse reflection samples</p>
+<dt><a class="reference internal" href="#pyRTX.core.utils_rt.diffuse" title="pyRTX.core.utils_rt.diffuse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diffuse</span></code></a></dt><dd><p>Generate diffuse reflection samples</p>
 </dd>
 </dl>
 </div>

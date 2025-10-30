@@ -59,6 +59,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../tutorials/Notebook1.html">Notebook n. 1:</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../tutorials/Notebook1.html#Spacecraft-shape-definition">Spacecraft shape definition</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../tutorials/Notebook1.html#Speeding-up-the-code">Speeding up the code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tutorials/Notebook1.html#Exporting-the-data">Exporting the data</a></li>
 </ul>
 </li>
 </ul>
@@ -73,6 +74,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials/index.html#tutorial-3-lookup-tables">Tutorial 3: Lookup Tables</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../tutorials/Notebook3.html">Lookup Tables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../tutorials/Notebook3.html#Computing-the-LUT">Computing the LUT</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/index.html#tutorial-3-planetary-radiation">Tutorial 3: Planetary Radiation</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -93,7 +97,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.exportEXAC"><code class="docutils literal notranslate"><span class="pre">exportEXAC()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
@@ -110,7 +113,14 @@
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../core.html#shadow-utilities">Shadow Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../core.html#module-pyRTX.core.shadow_utils">Shadow Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../core.html#module-pyRTX.core.physical_utils">Physical Utilities</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
@@ -129,7 +139,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../classes.html">Classes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../classes.html#sunshadow">SunShadow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../classes.html#solarpressure">SolarPressure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes.html#solarpressure">SolarPressure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../classes.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../classes.html#planet">Planet</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../classes.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
 </ul>
@@ -207,16 +220,16 @@
 <p class="rubric">Functions</p>
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="../core.html#pyRTX.core.physical_utils.compute_srp" title="pyRTX.core.physical_utils.compute_srp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_srp</span></code></a>(flux, mesh_obj, index_tri, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.physical_utils.compute_srp" title="pyRTX.core.physical_utils.compute_srp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_srp</span></code></a>(flux, mesh_obj, index_tri, ...)</p></td>
 <td><p>Compute the SRP force</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry" title="pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preprocess_RTX_geometry</span></code></a>(mesh_obj)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.physical_utils.preprocess_RTX_geometry" title="pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preprocess_RTX_geometry</span></code></a>(mesh_obj)</p></td>
 <td><p>Preprocess the RTX output to obtain the information required</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="../core.html#pyRTX.core.physical_utils.preprocess_materials" title="pyRTX.core.physical_utils.preprocess_materials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preprocess_materials</span></code></a>(material_dict)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.physical_utils.preprocess_materials" title="pyRTX.core.physical_utils.preprocess_materials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preprocess_materials</span></code></a>(material_dict)</p></td>
 <td><p>Get the material properties and set up an array for handling Parameters: material_dict: a dictionary with the shape:         {'props': dictionary of properties for each material, 'idxs': indexes of faces associated with each material}</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="../core.html#pyRTX.core.physical_utils.srp_core" title="pyRTX.core.physical_utils.srp_core"><code class="xref py py-obj docutils literal notranslate"><span class="pre">srp_core</span></code></a>(flux, indexes_tri, indexes_ray, N, ...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.physical_utils.srp_core" title="pyRTX.core.physical_utils.srp_core"><code class="xref py py-obj docutils literal notranslate"><span class="pre">srp_core</span></code></a>(flux, indexes_tri, indexes_ray, N, ...)</p></td>
 <td><p>Core of SRP computation.</p></td>
 </tr>
 </tbody>

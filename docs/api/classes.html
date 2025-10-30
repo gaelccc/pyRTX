@@ -59,6 +59,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/Notebook1.html">Notebook n. 1:</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../tutorials/Notebook1.html#Spacecraft-shape-definition">Spacecraft shape definition</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../tutorials/Notebook1.html#Speeding-up-the-code">Speeding up the code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/Notebook1.html#Exporting-the-data">Exporting the data</a></li>
 </ul>
 </li>
 </ul>
@@ -73,6 +74,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#tutorial-3-lookup-tables">Tutorial 3: Lookup Tables</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/Notebook3.html">Lookup Tables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/Notebook3.html#Computing-the-LUT">Computing the LUT</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#tutorial-3-planetary-radiation">Tutorial 3: Planetary Radiation</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -93,7 +97,6 @@
 <li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.exportEXAC"><code class="docutils literal notranslate"><span class="pre">exportEXAC()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
@@ -110,7 +113,14 @@
 <li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="core.html#shadow-utilities">Shadow Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="core.html#module-pyRTX.core.shadow_utils">Shadow Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="core.html#module-pyRTX.core.physical_utils">Physical Utilities</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
@@ -129,7 +139,10 @@
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Classes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#sunshadow">SunShadow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#solarpressure">SolarPressure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#solarpressure">SolarPressure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#planet">Planet</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
 </ul>
@@ -208,6 +221,82 @@
 </section>
 <section id="solarpressure">
 <h2>SolarPressure<a class="headerlink" href="#solarpressure" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyRTX.classes.SRP.SolarPressure">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.classes.SRP.</span></span><span class="sig-name descname"><span class="pre">SolarPressure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rayTracer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseflux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1361.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grouped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shadowObj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookup</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precomputation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/SRP.html#SolarPressure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.SRP.SolarPressure" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.classes.SRP.SolarPressure.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rayTracer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseflux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1361.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grouped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shadowObj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookup</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precomputation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/SRP.html#SolarPressure.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.SRP.SolarPressure.__init__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.classes.SRP.SolarPressure.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/SRP.html#SolarPressure.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.SRP.SolarPressure.run" title="Permalink to this definition"></a></dt>
+<dd><p>Method to compute solar pressure acceleration at a single epoch.</p>
+<p>Parameters:
+-       epoch: spiceypy epoch</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.classes.SRP.SolarPressure.compute">
+<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/SRP.html#SolarPressure.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.SRP.SolarPressure.compute" title="Permalink to this definition"></a></dt>
+<dd><p>Method to compute the solar pressure acceleration.</p>
+<p>Parameters:
+-       epochs: list of epochs
+-   ncores: number of cores to use for parallel computations</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.classes.SRP.SolarPressure.lookupCompute">
+<span class="sig-name descname"><span class="pre">lookupCompute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/SRP.html#SolarPressure.lookupCompute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.SRP.SolarPressure.lookupCompute" title="Permalink to this definition"></a></dt>
+<dd><p>Method to compute the solar pressure force with Look Up Table.</p>
+<p>Parameters:
+-       epochs: list of epochs</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.classes.SRP.SolarPressure.get_flux">
+<span class="sig-name descname"><span class="pre">get_flux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/SRP.html#SolarPressure.get_flux"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.SRP.SolarPressure.get_flux" title="Permalink to this definition"></a></dt>
+<dd><p>Method to get the scaled solar flux.</p>
+<p>Parameters:
+-       epoch: requested epoch</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.classes.SRP.SolarPressure.get_force">
+<span class="sig-name descname"><span class="pre">get_force</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flux</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_tri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_ray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ray_origins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ray_directions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_spacing</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">materials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'None'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grouped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_diffuse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_pack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/SRP.html#SolarPressure.get_force"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.SRP.SolarPressure.get_force" title="Permalink to this definition"></a></dt>
+<dd><p>Compute the SRP force</p>
+<p>Parameters:
+flux: Solar input flux [W/m^2]
+A: areas of the mesh faces
+s: incident ray directions
+r: reflcted ray directions
+n: normal unit vector to the faces</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.classes.SRP.SolarPressure.srp_core">
+<span class="sig-name descname"><span class="pre">srp_core</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flux</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indexes_tri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indexes_ray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_factor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">materials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'None'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_diffuse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_pack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/SRP.html#SolarPressure.srp_core"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.SRP.SolarPressure.srp_core" title="Permalink to this definition"></a></dt>
+<dd><p>Core of SRP computation.
+Highly vectorized version. For explicit algorithm implementation refer to the old version</p>
+<p>Parameters:
+flux: solar flux (float, W/m^2)
+indexes_tri: indexes of intersected triangles
+indexes_ray: indexes of intersecting rays
+N: normals
+S: incident direction vectors
+norm_factor: normalization factor computed from ray spacing (float)
+mesh_obj: trimesh.Trimesh object [Not used for now, will be used when interrogating mesh</p>
+<blockquote>
+<div><p>for surface properties]</p>
+</div></blockquote>
+<p>Returns:
+force: np.array of SRP force</p>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="planet">
 <h2>Planet<a class="headerlink" href="#planet" title="Permalink to this heading"></a></h2>

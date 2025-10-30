@@ -32,3 +32,14 @@ Using pre-computed lookup tables for fast calculations.
    :maxdepth: 1
    
    Notebook3
+
+
+Tutorial 3: Planetary Radiation
+--------------------------
+
+Computing albedo and thermal infrared pressure
+
+.. toctree::
+   :maxdepth: 1
+   
+   Notebook4

@@ -23,7 +23,6 @@
       chunker
       compute_secondary_bounce
       diffuse
-      exportEXAC
       fast_vector_build
       get_centroids
       get_cross_products

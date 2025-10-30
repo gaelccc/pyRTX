@@ -59,6 +59,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../tutorials/Notebook1.html">Notebook n. 1:</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../tutorials/Notebook1.html#Spacecraft-shape-definition">Spacecraft shape definition</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../tutorials/Notebook1.html#Speeding-up-the-code">Speeding up the code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../tutorials/Notebook1.html#Exporting-the-data">Exporting the data</a></li>
 </ul>
 </li>
 </ul>
@@ -73,6 +74,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../tutorials/index.html#tutorial-3-lookup-tables">Tutorial 3: Lookup Tables</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../tutorials/Notebook3.html">Lookup Tables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../tutorials/Notebook3.html#Computing-the-LUT">Computing the LUT</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/index.html#tutorial-3-planetary-radiation">Tutorial 3: Planetary Radiation</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -93,7 +97,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.exportEXAC"><code class="docutils literal notranslate"><span class="pre">exportEXAC()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
@@ -110,7 +113,14 @@
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../core.html#shadow-utilities">Shadow Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../core.html#module-pyRTX.core.shadow_utils">Shadow Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../core.html#module-pyRTX.core.physical_utils">Physical Utilities</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
@@ -129,7 +139,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../classes.html">Classes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../classes.html#sunshadow">SunShadow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../classes.html#solarpressure">SolarPressure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes.html#solarpressure">SolarPressure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../classes.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../classes.html#planet">Planet</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../classes.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
 </ul>
@@ -202,8 +215,236 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="pyrtx-core-shadow-utils">
-<h1>pyRTX.core.shadow_utils<a class="headerlink" href="#pyrtx-core-shadow-utils" title="Permalink to this heading"></a></h1>
+  <section id="module-pyRTX.core.shadow_utils">
+<span id="pyrtx-core-shadow-utils"></span><h1>pyRTX.core.shadow_utils<a class="headerlink" href="#module-pyRTX.core.shadow_utils" title="Permalink to this heading"></a></h1>
+<p class="rubric">Functions</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.shadow_utils.circular_mask" title="pyRTX.core.shadow_utils.circular_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">circular_mask</span></code></a>(R, coords, origin)</p></td>
+<td><p>Identify points within a circular region of specified radius.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.shadow_utils.circular_rim" title="pyRTX.core.shadow_utils.circular_rim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">circular_rim</span></code></a>(R, coords, origin)</p></td>
+<td><p>Identify points on the rim (boundary) of a circular region.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.shadow_utils.compute_beta" title="pyRTX.core.shadow_utils.compute_beta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_beta</span></code></a>(coords, origin, R)</p></td>
+<td><p>Compute angular position (beta angle) of points on a spherical cap relative to the cap center.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.shadow_utils.compute_directions" title="pyRTX.core.shadow_utils.compute_directions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_directions</span></code></a>(pixelCoords)</p></td>
+<td><p>Convert pixel coordinates to normalized direction unit vectors.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.shadow_utils.compute_pixel_intensities" title="pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_pixel_intensities</span></code></a>(beta[, Type])</p></td>
+<td><p>Compute solar intensity at given angular positions using limb darkening models.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyRTX.core.shadow_utils.circular_mask">
+<span class="sig-prename descclassname"><span class="pre">pyRTX.core.shadow_utils.</span></span><span class="sig-name descname"><span class="pre">circular_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">R</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/shadow_utils.html#circular_mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.shadow_utils.circular_mask" title="Permalink to this definition"></a></dt>
+<dd><p>Identify points within a circular region of specified radius.</p>
+<p>Returns indices of points in the coords array that fall within a circle
+of radius R centered at origin. Used for selecting pixels within a
+circular aperture (e.g., the Sun’s disk).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>R</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – </p></li>
+<li><p><strong>coords</strong><strong>)</strong><strong>.</strong> (<em>Radius</em><em> of </em><em>the circular region</em><em> (</em><em>in same units as</em>) – </p></li>
+<li><p><strong>coords</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(N</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">3)</span></code>) – </p></li>
+<li><p><strong>test.</strong> (<em>Array</em><em> of </em><em>3D coordinate points to</em>) – </p></li>
+<li><p><strong>origin</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(3,)</span></code>) – </p></li>
+<li><p><strong>region.</strong> (<em>Center point</em><em> of </em><em>the circular</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>maskIds</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(M,)</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dtype=int32</span></code>)</p></li>
+<li><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Indices</span></code> of <code class="xref py py-class docutils literal notranslate"><span class="pre">points</span> <span class="pre">in</span> <span class="pre">coords</span> <span class="pre">that</span> <span class="pre">satisfy</span> <span class="pre">||coords[i]</span> <span class="pre">-</span> <span class="pre">origin||</span> <span class="pre">&lt;=</span> <span class="pre">R.</span></code> – M is the number of points within the circle.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#pyRTX.core.shadow_utils.circular_rim" title="pyRTX.core.shadow_utils.circular_rim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">circular_rim</span></code></a></dt><dd><p>Select points on the circle boundary</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyRTX.core.shadow_utils.circular_rim">
+<span class="sig-prename descclassname"><span class="pre">pyRTX.core.shadow_utils.</span></span><span class="sig-name descname"><span class="pre">circular_rim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">R</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/shadow_utils.html#circular_rim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.shadow_utils.circular_rim" title="Permalink to this definition"></a></dt>
+<dd><p>Identify points on the rim (boundary) of a circular region.</p>
+<p>Returns indices of points in the coords array that lie approximately on
+the circle of radius R centered at origin. Uses numerical tolerance for
+floating-point comparison.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>R</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Radius of the circle (in same units as coords).</p></li>
+<li><p><strong>coords</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(N</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">3)</span></code>) – Array of 3D coordinate points to test.</p></li>
+<li><p><strong>origin</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(3,)</span></code>) – Center point of the circle.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>maskIds</strong> – Indices of points in coords that satisfy ||coords[i] - origin|| ≈ R
+within relative tolerance of 0.001 (0.1%). M is the number of points
+on the rim.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(M,)</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">dtype=int32</span></code></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#pyRTX.core.shadow_utils.circular_mask" title="pyRTX.core.shadow_utils.circular_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">circular_mask</span></code></a></dt><dd><p>Select points within the circle</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyRTX.core.shadow_utils.compute_directions">
+<span class="sig-prename descclassname"><span class="pre">pyRTX.core.shadow_utils.</span></span><span class="sig-name descname"><span class="pre">compute_directions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixelCoords</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/shadow_utils.html#compute_directions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.shadow_utils.compute_directions" title="Permalink to this definition"></a></dt>
+<dd><p>Convert pixel coordinates to normalized direction unit vectors.</p>
+<p>For each pixel coordinate point, computes the unit vector pointing from
+the origin toward that point. This converts position vectors to direction
+vectors for ray tracing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pixelCoords</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(N</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">3)</span></code>) – Array of 3D pixel coordinate positions.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>dirs</strong> – Array of normalized direction unit vectors. Each row satisfies
+||dirs[i]|| = 1 and dirs[i] ∝ pixelCoords[i].</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(N</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">3)</span></code></p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p>This function is typically used to convert pixel plane coordinates into
+ray directions for ray tracing operations.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyRTX.core.shadow_utils.compute_beta">
+<span class="sig-prename descclassname"><span class="pre">pyRTX.core.shadow_utils.</span></span><span class="sig-name descname"><span class="pre">compute_beta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">R</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/shadow_utils.html#compute_beta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.shadow_utils.compute_beta" title="Permalink to this definition"></a></dt>
+<dd><p>Compute angular position (beta angle) of points on a spherical cap relative
+to the cap center.</p>
+<p>For each coordinate point on a sphere of radius R, computes the angle beta
+between the point’s position vector and the sphere center direction as viewed
+from origin. This angle is used in solar limb darkening calculations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coords</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(N</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">3)</span></code>) – Array of 3D coordinate points on or near the spherical surface.</p></li>
+<li><p><strong>origin</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(3,)</span></code>) – Observer position (e.g., spacecraft location). The viewing direction
+is computed from this point.</p></li>
+<li><p><strong>R</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – Radius of the sphere (e.g., solar radius in km).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>betas</strong> – Angular positions in radians. beta[i] represents the angle between
+the viewing direction to coords[i] and the sphere center direction.
+Range: [0, π/2] for visible hemisphere.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(N,)</span></code></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#pyRTX.core.shadow_utils.compute_pixel_intensities" title="pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_pixel_intensities</span></code></a></dt><dd><p>Uses beta to compute intensity with limb darkening</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyRTX.core.shadow_utils.compute_pixel_intensities">
+<span class="sig-prename descclassname"><span class="pre">pyRTX.core.shadow_utils.</span></span><span class="sig-name descname"><span class="pre">compute_pixel_intensities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Standard'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/shadow_utils.html#compute_pixel_intensities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.shadow_utils.compute_pixel_intensities" title="Permalink to this definition"></a></dt>
+<dd><p>Compute solar intensity at given angular positions using limb darkening models.</p>
+<p>Calculates the relative brightness of solar disk pixels based on their
+angular position (beta angle) from disk center. Implements two physically
+motivated limb darkening models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>beta</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(N,)</span></code>) – Angular positions in radians. beta = 0 at disk center, beta = π/2
+at limb. Typically computed by compute_beta function.</p></li>
+<li><p><strong>Type</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'Standard'</span></code>) – <p>Limb darkening model to use:</p>
+<ul>
+<li><p>’Standard’: Quadratic empirical model</p></li>
+<li><p>’Eddington’: Eddington approximation</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>intensities</strong> – Relative intensity values. Normalized so that disk-integrated intensity
+is preserved. Values range from ~0.6 (at limb) to 1.0 (at center) for
+Standard model.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">shape</span> <span class="pre">(N,)</span></code></p>
+</dd>
+</dl>
+<div class="admonition-notes admonition">
+<p class="admonition-title">Notes</p>
+<p><strong>Standard (Quadratic) Model:</strong></p>
+<p>I(β) = a₀ + a₁·cos(β) + a₂·cos²(β)</p>
+<p>Coefficients:
+- a₀ = 0.3  : constant term
+- a₁ = 0.93 : linear coefficient
+- a₂ = -0.23: quadratic coefficient</p>
+<p>This empirical model provides excellent agreement with observations in
+visible wavelengths. The center-to-limb intensity ratio is approximately 0.6.</p>
+<p><strong>Eddington Approximation Model:</strong></p>
+<p>I(μ) = (3/4) · [(7/12) + (μ/2) - (μ²/3) + (μ³/12)·ln((1+μ)/μ)]</p>
+<p>where μ = cos(β)</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#pyRTX.core.shadow_utils.compute_beta" title="pyRTX.core.shadow_utils.compute_beta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_beta</span></code></a></dt><dd><p>Compute angular positions for limb darkening</p>
+</dd>
+</dl>
+</div>
+<div class="admonition-references admonition">
+<p class="admonition-title">References</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Pierce, A.K. &amp; Slaughter, C.D. (1977), “Solar limb darkening”,</dt><dd><p>Solar Physics, 51, 25-41</p>
+</dd>
+</dl>
+</li>
+<li><p>Eddington, A.S. (1926), “The Internal Constitution of the Stars”</p></li>
+<li><dl class="simple">
+<dt>Neckel, H. &amp; Labs, D. (1994), “Solar limb darkening 1986-1990”,</dt><dd><p>Solar Physics, 153, 91-114</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="admonition-examples admonition">
+<p class="admonition-title">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Beta angles from center to limb</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">beta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">intensities</span> <span class="o">=</span> <span class="n">compute_pixel_intensities</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">Type</span><span class="o">=</span><span class="s1">&#39;Standard&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Center intensity: </span><span class="si">{</span><span class="n">intensities</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># ~1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Limb intensity: </span><span class="si">{</span><span class="n">intensities</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>    <span class="c1"># ~0.6</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
 </section>
 
 

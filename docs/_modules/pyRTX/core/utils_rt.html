@@ -43,13 +43,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#requirements">Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#from-source">From Source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">Dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../installation.html#build-dependencies">Build Dependencies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../installation.html#runtime-dependencies">Runtime Dependencies</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start Guide</a><ul>
@@ -62,6 +56,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../tutorials/Notebook1.html">Notebook n. 1:</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../tutorials/Notebook1.html#Spacecraft-shape-definition">Spacecraft shape definition</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../tutorials/Notebook1.html#Speeding-up-the-code">Speeding up the code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/Notebook1.html#Exporting-the-data">Exporting the data</a></li>
 </ul>
 </li>
 </ul>
@@ -76,6 +71,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#tutorial-3-lookup-tables">Tutorial 3: Lookup Tables</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../tutorials/Notebook3.html">Lookup Tables</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../tutorials/Notebook3.html#Computing-the-LUT">Computing the LUT</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#tutorial-3-planetary-radiation">Tutorial 3: Planetary Radiation</a><ul class="simple">
 </ul>
 </li>
 </ul>
@@ -96,7 +94,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.exportEXAC"><code class="docutils literal notranslate"><span class="pre">exportEXAC()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
@@ -113,7 +110,14 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#shadow-utilities">Shadow Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.shadow_utils">Shadow Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.physical_utils">Physical Utilities</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
@@ -132,7 +136,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/classes.html">Classes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#sunshadow">SunShadow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#solarpressure">SolarPressure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#solarpressure">SolarPressure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#planet">Planet</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
 </ul>
@@ -272,7 +279,7 @@
 <span class="c1">#     return result</span>
 
 
-<div class="viewcode-block" id="chunker"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.chunker">[docs]</a><span class="k">def</span> <span class="nf">chunker</span><span class="p">(</span><span class="n">iterator</span><span class="p">,</span> <span class="n">chunks</span><span class="p">):</span>
+<div class="viewcode-block" id="chunker"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.chunker">[docs]</a><span class="k">def</span> <span class="nf">chunker</span><span class="p">(</span><span class="n">iterator</span><span class="p">,</span> <span class="n">chunks</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Divide an iterator or array into approximately equal-sized chunks for</span>
 <span class="sd">    parallel processing.</span>
@@ -297,7 +304,7 @@
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array_split</span><span class="p">(</span><span class="n">iterator</span><span class="p">,</span> <span class="n">chunks</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="pxform_convert"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.pxform_convert">[docs]</a><span class="k">def</span> <span class="nf">pxform_convert</span><span class="p">(</span><span class="n">pxform</span><span class="p">):</span>
+<div class="viewcode-block" id="pxform_convert"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pxform_convert">[docs]</a><span class="k">def</span> <span class="nf">pxform_convert</span><span class="p">(</span><span class="n">pxform</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert a SPICE-generated rotation matrix (pxform) to the 4x4 homogeneous</span>
 <span class="sd">    transformation matrix format required by trimesh.</span>
@@ -328,7 +335,7 @@
     <span class="k">return</span> <span class="n">p</span></div>
 
 
-<div class="viewcode-block" id="block_normalize"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.block_normalize">[docs]</a><span class="k">def</span> <span class="nf">block_normalize</span><span class="p">(</span><span class="n">V</span><span class="p">):</span>
+<div class="viewcode-block" id="block_normalize"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.block_normalize">[docs]</a><span class="k">def</span> <span class="nf">block_normalize</span><span class="p">(</span><span class="n">V</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute unit vectors for a block of vectors efficiently using vectorized</span>
 <span class="sd">    operations.</span>
@@ -355,7 +362,7 @@
         <span class="k">return</span> <span class="n">V</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">V</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="block_dot"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.block_dot">[docs]</a><span class="k">def</span> <span class="nf">block_dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<div class="viewcode-block" id="block_dot"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.block_dot">[docs]</a><span class="k">def</span> <span class="nf">block_dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform element-wise dot product between corresponding vectors in two arrays.</span>
 <span class="sd">    </span>
@@ -382,7 +389,7 @@
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="pixel_plane"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.pixel_plane">[docs]</a><span class="k">def</span> <span class="nf">pixel_plane</span><span class="p">(</span><span class="n">d0</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ray_spacing</span><span class="o">=</span><span class="mf">.1</span><span class="p">):</span>
+<div class="viewcode-block" id="pixel_plane"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pixel_plane">[docs]</a><span class="k">def</span> <span class="nf">pixel_plane</span><span class="p">(</span><span class="n">d0</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ray_spacing</span><span class="o">=</span><span class="mf">.1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a rectangular pixel array (grid of rays) for ray tracing, as defined</span>
 <span class="sd">    in Li et al., 2018. This is the explicit implementation showing the full</span>
@@ -467,7 +474,7 @@
     <span class="k">return</span> <span class="n">basic_coords</span><span class="p">,</span> <span class="n">basic_dirs</span></div>
 
 
-<div class="viewcode-block" id="fast_vector_build"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.fast_vector_build">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="fast_vector_build"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.fast_vector_build">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">fast_vector_build</span><span class="p">(</span><span class="n">linsp1</span><span class="p">,</span> <span class="n">linsp2</span><span class="p">,</span> <span class="n">dim1</span><span class="p">,</span> <span class="n">dim2</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Efficiently build a pixel array coordinate grid using Numba&#39;s JIT compilation</span>
@@ -506,7 +513,7 @@
     <span class="k">return</span> <span class="n">basic_coords</span></div>
 
 
-<div class="viewcode-block" id="pixel_plane_opt"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.pixel_plane_opt">[docs]</a><span class="k">def</span> <span class="nf">pixel_plane_opt</span><span class="p">(</span><span class="n">d0</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ray_spacing</span><span class="o">=</span><span class="mf">.1</span><span class="p">,</span> <span class="n">packets</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="viewcode-block" id="pixel_plane_opt"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pixel_plane_opt">[docs]</a><span class="k">def</span> <span class="nf">pixel_plane_opt</span><span class="p">(</span><span class="n">d0</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ray_spacing</span><span class="o">=</span><span class="mf">.1</span><span class="p">,</span> <span class="n">packets</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a rectangular pixel array for ray tracing - optimized version with</span>
 <span class="sd">    optional ray packet subdivision.</span>
@@ -591,7 +598,7 @@
     <span class="k">return</span> <span class="n">basic_coords</span><span class="p">,</span> <span class="n">basic_dirs</span></div>
 
 
-<div class="viewcode-block" id="reflected"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.reflected">[docs]</a><span class="k">def</span> <span class="nf">reflected</span><span class="p">(</span><span class="n">incoming</span><span class="p">,</span> <span class="n">normal</span><span class="p">):</span>
+<div class="viewcode-block" id="reflected"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.reflected">[docs]</a><span class="k">def</span> <span class="nf">reflected</span><span class="p">(</span><span class="n">incoming</span><span class="p">,</span> <span class="n">normal</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute reflected ray directions given incoming rays and surface normals.</span>
 <span class="sd">    Uses the law of reflection: r = i - 2(i·n)n</span>
@@ -626,7 +633,7 @@
     <span class="k">return</span> <span class="n">incoming</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">normal</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s1">&#39;ij,ij-&gt;i&#39;</span><span class="p">,</span> <span class="n">incoming</span><span class="p">,</span> <span class="n">normal</span><span class="p">))</span><span class="o">.</span><span class="n">T</span></div>
 
 
-<div class="viewcode-block" id="get_orthogonal"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.get_orthogonal">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="get_orthogonal"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_orthogonal">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">get_orthogonal</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a unit vector orthogonal to the input vector using randomization.</span>
@@ -657,7 +664,7 @@
     <span class="k">return</span> <span class="n">x</span></div>
 
 
-<div class="viewcode-block" id="sample_lambert_dist"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.sample_lambert_dist">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="viewcode-block" id="sample_lambert_dist"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.sample_lambert_dist">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">sample_lambert_dist</span><span class="p">(</span><span class="n">normal</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate a cloud of direction vectors following the Lambert cosine</span>
@@ -726,7 +733,7 @@
     <span class="k">return</span> <span class="n">diffuse_directions</span>
 
 
-<div class="viewcode-block" id="diffuse"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.diffuse">[docs]</a><span class="k">def</span> <span class="nf">diffuse</span><span class="p">(</span><span class="n">normals</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<div class="viewcode-block" id="diffuse"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.diffuse">[docs]</a><span class="k">def</span> <span class="nf">diffuse</span><span class="p">(</span><span class="n">normals</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute multiple diffuse reflection directions for an array of surface</span>
 <span class="sd">    normals by sampling the Lambert cosine distribution.</span>
@@ -781,7 +788,7 @@
 
 <span class="c1"># return _core_diffuse(normals, diffuse_directions, num)</span>
 
-<div class="viewcode-block" id="compute_secondary_bounce"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.compute_secondary_bounce">[docs]</a><span class="k">def</span> <span class="nf">compute_secondary_bounce</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="n">index_tri</span><span class="p">,</span> <span class="n">mesh_obj</span><span class="p">,</span> <span class="n">ray_directions</span><span class="p">,</span> <span class="n">index_ray</span><span class="p">,</span> <span class="n">diffusion</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+<div class="viewcode-block" id="compute_secondary_bounce"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.compute_secondary_bounce">[docs]</a><span class="k">def</span> <span class="nf">compute_secondary_bounce</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="n">index_tri</span><span class="p">,</span> <span class="n">mesh_obj</span><span class="p">,</span> <span class="n">ray_directions</span><span class="p">,</span> <span class="n">index_ray</span><span class="p">,</span> <span class="n">diffusion</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                              <span class="n">num_diffuse</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Prepare ray origins and directions for subsequent ray tracing bounces by</span>
@@ -852,7 +859,7 @@
 <span class="c1">####################################################################################################</span>
 <span class="c1"># Saving utilities</span>
 
-<div class="viewcode-block" id="save_for_visualization"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.save_for_visualization">[docs]</a><span class="k">def</span> <span class="nf">save_for_visualization</span><span class="p">(</span><span class="n">outputFilePath</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">ray_origins</span><span class="p">,</span> <span class="n">ray_directions</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">index_tri</span><span class="p">,</span> <span class="n">diffusion_pack</span><span class="p">):</span>
+<div class="viewcode-block" id="save_for_visualization"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.save_for_visualization">[docs]</a><span class="k">def</span> <span class="nf">save_for_visualization</span><span class="p">(</span><span class="n">outputFilePath</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">ray_origins</span><span class="p">,</span> <span class="n">ray_directions</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">index_tri</span><span class="p">,</span> <span class="n">diffusion_pack</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Save ray tracing results to a pickled dictionary for post-processing and</span>
 <span class="sd">    visualization.</span>
@@ -914,96 +921,13 @@
         <span class="n">pkl</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">outdict</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">protocol</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="exportEXAC"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.exportEXAC">[docs]</a><span class="k">def</span> <span class="nf">exportEXAC</span><span class="p">(</span><span class="n">satelliteID</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">tstep</span><span class="p">,</span> <span class="n">startTime</span><span class="p">,</span> <span class="n">endTime</span><span class="p">,</span> <span class="n">outFileName</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Export acceleration data to GEODYN EXAC (External Accelerations) file format.</span>
-<span class="sd">    </span>
-<span class="sd">    GEODYN is NASA&#39;s precision orbit determination software. The EXAC format is</span>
-<span class="sd">    a Fortran-formatted binary file used to provide time-varying external</span>
-<span class="sd">    accelerations (such as solar radiation pressure) to the orbit propagator.</span>
-<span class="sd">    </span>
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    satelliteID : int</span>
-<span class="sd">        Satellite identifier code used in GEODYN processing.</span>
-<span class="sd">    data : ndarray, shape (N, 3)</span>
-<span class="sd">        Acceleration data to be written, in km/s². Each row is [ax, ay, az]</span>
-<span class="sd">        at one time step.</span>
-<span class="sd">    tstep : int or float</span>
-<span class="sd">        Time step between data records in seconds (e.g., 60 for 1-minute data).</span>
-<span class="sd">    startTime : datetime.datetime</span>
-<span class="sd">        Start time of the data series. Must include date and time information</span>
-<span class="sd">        down to microseconds.</span>
-<span class="sd">    endTime : datetime.datetime</span>
-<span class="sd">        End time of the data series. Must be consistent with len(data) and tstep.</span>
-<span class="sd">    outFileName : str</span>
-<span class="sd">        Path to output EXAC file. Typically uses .exac or .bin extension.</span>
-<span class="sd">    </span>
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    None</span>
-<span class="sd">        Data is written to binary file at outFileName.</span>
-<span class="sd">    </span>
-<span class="sd">    Notes</span>
-<span class="sd">    -----</span>
-<span class="sd">    EXAC File Structure:</span>
-<span class="sd">    - Master header record: Control parameters and file type identifier</span>
-<span class="sd">    - Satellite-specific header: Satellite ID, time step, start/end times</span>
-<span class="sd">    - Data records: Time stamp + 3D acceleration vector + padding zeros</span>
-<span class="sd">    </span>
-<span class="sd">    Time Format:</span>
-<span class="sd">    - Stored as YYMMDDHHMMSSμμμμμμ (year-month-day-hour-minute-second-microsecond)</span>
-<span class="sd">    - Year uses 2-digit format (YY)</span>
-<span class="sd">    </span>
-<span class="sd">    Coordinate System:</span>
-<span class="sd">    - Accelerations should be in the same reference frame as the GEODYN</span>
-<span class="sd">      orbit integration (typically J2000 or ICRF)</span>
-<span class="sd">    </span>
-<span class="sd">    Units:</span>
-<span class="sd">    - Accelerations: km/s²</span>
-<span class="sd">    - Time step: seconds</span>
-<span class="sd">    </span>
-<span class="sd">    This format is used for high-precision orbit determination where external</span>
-<span class="sd">    non-gravitational forces (solar pressure, atmospheric drag, etc.) need to</span>
-<span class="sd">    be accurately modeled.</span>
-<span class="sd">    </span>
-<span class="sd">    Requires scipy.io.FortranFile for binary I/O operations.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">FortranFile</span>
-    <span class="kn">import</span> <span class="nn">datetime</span>
-
-    <span class="n">satid</span> <span class="o">=</span> <span class="n">satelliteID</span>
-    <span class="n">date0</span> <span class="o">=</span> <span class="n">startTime</span>
-    <span class="n">date1</span> <span class="o">=</span> <span class="n">endTime</span>
-    <span class="n">dt</span> <span class="o">=</span> <span class="n">tstep</span>
-    <span class="n">deltatime</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
-    <span class="n">outfile</span> <span class="o">=</span> <span class="n">FortranFile</span><span class="p">(</span><span class="n">outFileName</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
-
-    <span class="c1"># General Header</span>
-    <span class="n">masterhdr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">6666666.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-    <span class="n">outfile</span><span class="o">.</span><span class="n">write_record</span><span class="p">(</span><span class="n">masterhdr</span><span class="p">)</span>
-
-    <span class="c1"># Satellite specific header</span>
-    <span class="n">sathdr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">7777777.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">satid</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">date0</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">%H%M%S&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">date0</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">)),</span>
-                       <span class="nb">float</span><span class="p">(</span><span class="n">date1</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">%H%M%S&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">date1</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">)),</span> <span class="mi">0</span><span class="p">])</span>
-    <span class="n">outfile</span><span class="o">.</span><span class="n">write_record</span><span class="p">(</span><span class="n">sathdr</span><span class="p">)</span>
-
-    <span class="c1"># Data records</span>
-    <span class="n">date</span> <span class="o">=</span> <span class="n">date0</span> <span class="o">-</span> <span class="n">deltatime</span>
-    <span class="k">for</span> <span class="n">d_elem</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-        <span class="n">date</span> <span class="o">=</span> <span class="n">date</span> <span class="o">+</span> <span class="n">deltatime</span>
-        <span class="n">datarec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-            <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">%H%M%S&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">)),</span> <span class="n">d_elem</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">d_elem</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">d_elem</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span>
-             <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-        <span class="n">outfile</span><span class="o">.</span><span class="n">write_record</span><span class="p">(</span><span class="n">datarec</span><span class="p">)</span></div>
 
 
 <span class="c1">#####################################################################################################</span>
 <span class="c1"># Define utils specific to Embree3 implementation</span>
 <span class="c1"># (Provided by Sam Potter)</span>
 
-<div class="viewcode-block" id="Embree3_init_geometry"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_init_geometry">[docs]</a><span class="k">def</span> <span class="nf">Embree3_init_geometry</span><span class="p">(</span><span class="n">mesh_obj</span><span class="p">):</span>
+<div class="viewcode-block" id="Embree3_init_geometry"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_init_geometry">[docs]</a><span class="k">def</span> <span class="nf">Embree3_init_geometry</span><span class="p">(</span><span class="n">mesh_obj</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initialize mesh geometry for ray tracing using the Embree 3 ray tracing kernel.</span>
 <span class="sd">    </span>
@@ -1056,7 +980,7 @@
     <span class="k">return</span> <span class="n">EmbreeTrimeshShapeModel</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">N</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="n">A</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Embree3_init_rayhit"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_init_rayhit">[docs]</a><span class="k">def</span> <span class="nf">Embree3_init_rayhit</span><span class="p">(</span><span class="n">ray_origins</span><span class="p">,</span> <span class="n">ray_directions</span><span class="p">):</span>
+<div class="viewcode-block" id="Embree3_init_rayhit"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_init_rayhit">[docs]</a><span class="k">def</span> <span class="nf">Embree3_init_rayhit</span><span class="p">(</span><span class="n">ray_origins</span><span class="p">,</span> <span class="n">ray_directions</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initialize Embree 3 RayHit data structure for ray tracing queries.</span>
 <span class="sd">    </span>
@@ -1112,7 +1036,7 @@
     <span class="k">return</span> <span class="n">rayhit</span></div>
 
 
-<div class="viewcode-block" id="Embree3_dump_solution"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_dump_solution">[docs]</a><span class="k">def</span> <span class="nf">Embree3_dump_solution</span><span class="p">(</span><span class="n">rayhit</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
+<div class="viewcode-block" id="Embree3_dump_solution"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_dump_solution">[docs]</a><span class="k">def</span> <span class="nf">Embree3_dump_solution</span><span class="p">(</span><span class="n">rayhit</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Extract and process ray-surface intersection results from Embree RayHit structure.</span>
 <span class="sd">    </span>
@@ -1181,7 +1105,7 @@
 <span class="c1"># Define utils specific to CGAL implementation</span>
 <span class="c1"># (from python-flux)</span>
 
-<div class="viewcode-block" id="cgal_init_geometry"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.cgal_init_geometry">[docs]</a><span class="k">def</span> <span class="nf">cgal_init_geometry</span><span class="p">(</span><span class="n">mesh_obj</span><span class="p">):</span>
+<div class="viewcode-block" id="cgal_init_geometry"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.cgal_init_geometry">[docs]</a><span class="k">def</span> <span class="nf">cgal_init_geometry</span><span class="p">(</span><span class="n">mesh_obj</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initialize mesh geometry for ray tracing using the CGAL (Computational Geometry</span>
 <span class="sd">    Algorithms Library) ray tracing kernel.</span>
@@ -1228,7 +1152,7 @@
 
 <span class="c1">######################### from python-flux.src.flux.shape.py</span>
 
-<div class="viewcode-block" id="get_centroids"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.get_centroids">[docs]</a><span class="k">def</span> <span class="nf">get_centroids</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
+<div class="viewcode-block" id="get_centroids"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_centroids">[docs]</a><span class="k">def</span> <span class="nf">get_centroids</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the geometric centroids of all triangular faces in a mesh.</span>
 <span class="sd">    </span>
@@ -1259,7 +1183,7 @@
     <span class="k">return</span> <span class="n">V</span><span class="p">[</span><span class="n">F</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_cross_products"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.get_cross_products">[docs]</a><span class="k">def</span> <span class="nf">get_cross_products</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
+<div class="viewcode-block" id="get_cross_products"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_cross_products">[docs]</a><span class="k">def</span> <span class="nf">get_cross_products</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute cross products of edge vectors for all triangular faces in a mesh.</span>
 <span class="sd">    </span>
@@ -1290,7 +1214,7 @@
     <span class="k">return</span> <span class="n">C</span></div>
 
 
-<div class="viewcode-block" id="get_face_areas"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.get_face_areas">[docs]</a><span class="k">def</span> <span class="nf">get_face_areas</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
+<div class="viewcode-block" id="get_face_areas"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_face_areas">[docs]</a><span class="k">def</span> <span class="nf">get_face_areas</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute the areas of all triangular faces in a mesh.</span>
 <span class="sd">    </span>
@@ -1315,7 +1239,7 @@
     <span class="k">return</span> <span class="n">A</span></div>
 
 
-<div class="viewcode-block" id="get_surface_normals"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.get_surface_normals">[docs]</a><span class="k">def</span> <span class="nf">get_surface_normals</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
+<div class="viewcode-block" id="get_surface_normals"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_surface_normals">[docs]</a><span class="k">def</span> <span class="nf">get_surface_normals</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compute outward-pointing unit normal vectors for all triangular faces.</span>
 <span class="sd">    </span>
@@ -1342,7 +1266,7 @@
     <span class="k">return</span> <span class="n">N</span></div>
 
 
-<div class="viewcode-block" id="get_surface_normals_and_face_areas"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas">[docs]</a><span class="k">def</span> <span class="nf">get_surface_normals_and_face_areas</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
+<div class="viewcode-block" id="get_surface_normals_and_face_areas"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas">[docs]</a><span class="k">def</span> <span class="nf">get_surface_normals_and_face_areas</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Efficiently compute both surface normals and face areas simultaneously.</span>
 <span class="sd">    </span>
@@ -1381,14 +1305,14 @@
     <span class="k">return</span> <span class="n">N</span><span class="p">,</span> <span class="n">A</span></div>
 
 
-<div class="viewcode-block" id="ShapeModel"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.ShapeModel">[docs]</a><span class="k">class</span> <span class="nc">ShapeModel</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+<div class="viewcode-block" id="ShapeModel"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.ShapeModel">[docs]</a><span class="k">class</span> <span class="nc">ShapeModel</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="TrimeshShapeModel"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel">[docs]</a><span class="k">class</span> <span class="nc">TrimeshShapeModel</span><span class="p">(</span><span class="n">ShapeModel</span><span class="p">):</span>
+<div class="viewcode-block" id="TrimeshShapeModel"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel">[docs]</a><span class="k">class</span> <span class="nc">TrimeshShapeModel</span><span class="p">(</span><span class="n">ShapeModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A shape model consisting of a single triangle mesh.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="TrimeshShapeModel.__init__"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">P</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="TrimeshShapeModel.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">P</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a triangle mesh shape model. No assumption is made about</span>
 <span class="sd">        the way vertices or faces are stored when building the shape</span>
 <span class="sd">        model except that V[F] yields the faces of the mesh. Vertices</span>
@@ -1462,7 +1386,7 @@
     <span class="k">def</span> <span class="nf">num_verts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-<div class="viewcode-block" id="TrimeshShapeModel.intersect1"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel.intersect1">[docs]</a>    <span class="k">def</span> <span class="nf">intersect1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+<div class="viewcode-block" id="TrimeshShapeModel.intersect1"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel.intersect1">[docs]</a>    <span class="k">def</span> <span class="nf">intersect1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Trace a single ray starting from `x` and in the direction `d`.  If</span>
 <span class="sd">        there is a hit, return the index (`i`) of the hit and a</span>
 <span class="sd">        parameter `t` such that the hit point is given by `x(t) = x +</span>
@@ -1471,7 +1395,7 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_intersect1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TrimeshShapeModel.intersect1_2d_with_coords"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel.intersect1_2d_with_coords">[docs]</a>    <span class="k">def</span> <span class="nf">intersect1_2d_with_coords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">D</span><span class="p">):</span>
+<div class="viewcode-block" id="TrimeshShapeModel.intersect1_2d_with_coords"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel.intersect1_2d_with_coords">[docs]</a>    <span class="k">def</span> <span class="nf">intersect1_2d_with_coords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">D</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Trace a single ray starting from `X` and in the direction `D`.  If</span>
 <span class="sd">        there is a hit, return the index (`i`) of the hit and the coordinates of</span>
 <span class="sd">        the centroid of the hit triangle `X(t) = X + t*D`.</span>
@@ -1479,7 +1403,7 @@
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_intersect1_2d_with_coords</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TrimeshShapeModel.intersect1_2d"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel.intersect1_2d">[docs]</a>    <span class="k">def</span> <span class="nf">intersect1_2d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">D</span><span class="p">):</span>
+<div class="viewcode-block" id="TrimeshShapeModel.intersect1_2d"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel.intersect1_2d">[docs]</a>    <span class="k">def</span> <span class="nf">intersect1_2d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">D</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Trace a single ray starting from `X` and in the direction `D`.  If</span>
 <span class="sd">        there is a hit, return the index (`i`).</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -1488,7 +1412,7 @@
 
         <span class="k">return</span> <span class="n">fint</span></div></div>
 
-<div class="viewcode-block" id="CgalTrimeshShapeModel"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel">[docs]</a><span class="k">class</span> <span class="nc">CgalTrimeshShapeModel</span><span class="p">(</span><span class="n">TrimeshShapeModel</span><span class="p">):</span>
+<div class="viewcode-block" id="CgalTrimeshShapeModel"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel">[docs]</a><span class="k">class</span> <span class="nc">CgalTrimeshShapeModel</span><span class="p">(</span><span class="n">TrimeshShapeModel</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">_make_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">aabb</span> <span class="o">=</span> <span class="n">AABB</span><span class="o">.</span><span class="n">from_trimesh</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uintp</span><span class="p">))</span>
@@ -1502,7 +1426,7 @@
     <span class="k">def</span> <span class="nf">_intersect1_2d_with_coords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">D</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">aabb</span><span class="o">.</span><span class="n">intersect1_2d_with_coords</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="EmbreeTrimeshShapeModel"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel">[docs]</a><span class="k">class</span> <span class="nc">EmbreeTrimeshShapeModel</span><span class="p">(</span><span class="n">TrimeshShapeModel</span><span class="p">):</span>
+<div class="viewcode-block" id="EmbreeTrimeshShapeModel"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel">[docs]</a><span class="k">class</span> <span class="nc">EmbreeTrimeshShapeModel</span><span class="p">(</span><span class="n">TrimeshShapeModel</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">_make_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&#39;&#39;&#39;Set up an Embree scene. This function allocates some memory that</span>
 <span class="sd">        Embree manages, and loads vertices and index lists for the</span>
@@ -1840,7 +1764,7 @@
 <span class="c1">#         return index_tri_container, index_ray_container, locations_container, ray_origins_container, ray_directions_container, None</span>
 
 
-<div class="viewcode-block" id="RTXkernel"><a class="viewcode-back" href="../../../api/core.html#pyRTX.core.utils_rt.RTXkernel">[docs]</a><span class="k">def</span> <span class="nf">RTXkernel</span><span class="p">(</span><span class="n">mesh_obj</span><span class="p">,</span> <span class="n">ray_origins</span><span class="p">,</span> <span class="n">ray_directions</span><span class="p">,</span> <span class="n">bounces</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;Embree3&#39;</span><span class="p">,</span> <span class="n">diffusion</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">num_diffuse</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<div class="viewcode-block" id="RTXkernel"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.RTXkernel">[docs]</a><span class="k">def</span> <span class="nf">RTXkernel</span><span class="p">(</span><span class="n">mesh_obj</span><span class="p">,</span> <span class="n">ray_origins</span><span class="p">,</span> <span class="n">ray_directions</span><span class="p">,</span> <span class="n">bounces</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="s1">&#39;Embree3&#39;</span><span class="p">,</span> <span class="n">diffusion</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">num_diffuse</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
               <span class="n">errorMsg</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Main ray tracing kernel wrapper supporting multiple ray tracing backends and</span>
