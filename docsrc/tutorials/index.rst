@@ -3,30 +3,32 @@ Tutorials
 
 These tutorials demonstrate how to use pyRTX for various applications.
 
+Tutorial 1: First Steps with pyRTX
+-----------------------------------
+
+Learn the basics of ray tracing and solar pressure modeling.
+
 .. toctree::
    :maxdepth: 1
-   :caption: Tutorial Notebooks:
    
-   First steps
-   Advanced SRP
-   Lookup Tables
+   Notebook1
 
-Getting Started
----------------
+Tutorial 2: Advanced SRP Calculations
+--------------------------------------
 
-Start with Tutorial 1 to learn the basics of pyRTX.
+Advanced solar radiation pressure techniques.
 
-Tutorial 1: Basic Ray Tracing
-------------------------------
+.. toctree::
+   :maxdepth: 1
+   
+   Notebook2
 
-.. include:: Notebook1.ipynb
+Tutorial 3: Lookup Tables
+--------------------------
 
-Tutorial 2: Solar Pressure Modeling
-------------------------------------
+Using pre-computed lookup tables for fast calculations.
 
-.. include:: Notebook2.ipynb
-
-Tutorial 3: Eclipse Calculations
----------------------------------
-
-.. include:: Notebook3.ipynb
+.. toctree::
+   :maxdepth: 1
+   
+   Notebook3
