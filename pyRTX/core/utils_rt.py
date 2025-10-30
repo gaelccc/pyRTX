@@ -44,26 +44,26 @@ except:
 ###########################################################
 
 
-def parallelize(iterator, function, chunks):
-    """Define a general parallelization framework to speedup computations
-            Parameters
-            ----------
-            iterator : array_like
-                the array-like object over which to parallelize
-            function : function handle
-                the function that must be called by each subprocess. The function should be of the form y = f(iterator)
-            chunks : int
-                number of parallel workers
-           Returns
-           -------
-           result : array_like
-                the result of the parallelized computation
-            """
+# def parallelize(iterator, function, chunks):
+#     """Define a general parallelization framework to speedup computations
+#         Parameters
+#         ----------
+#         iterator : array_like
+#             the array-like object over which to parallelize
+#         function : function handle
+#             the function that must be called by each subprocess. The function should be of the form y = f(iterator)
+#         chunks : int
+#             number of parallel workers
+#         Returns
+#         -------
+#         result : array_like
+#             the result of the parallelized computation
+#             """
 
-    with mproc.Pool(chunks) as p:
-        result = p.map(function, iterator)
+#     with mproc.Pool(chunks) as p:
+#         result = p.map(function, iterator)
 
-    return result
+#     return result
 
 
 def chunker(iterator, chunks):

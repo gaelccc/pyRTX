@@ -352,7 +352,7 @@ class SolarPressure():
 		self.baseflux   = baseflux
 		self.grouped    = grouped
 		self.shadowObj  = shadowObj
-		self.lookup     = lookup
+		self.lookup     = lookup # NOTE: check the type
 		self.sp_data    = precomputation
   
 		if isinstance(spacecraft.mass, (float,int)): 
@@ -380,7 +380,7 @@ class SolarPressure():
 			self.rayTracer.rays.sp_data = self.sp_data
 		if self.lookup is not None: 
 			#self.lookup.sp_data = self.sp_data
-			self.lookup.attrs['sp_data'] = self.sp_data
+			self.lookup.attrs['sp_data'] = self.sp_data #NOTE: check
 		#self.spacecraft.sp_data = self.sp_data
 		if hasattr(self.spacecraft, 'attrs'):
 			self.spacecraft.attrs['sp_data'] = self.sp_data
