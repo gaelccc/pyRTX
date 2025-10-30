@@ -1,0 +1,505 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyRTX.classes.Spacecraft &mdash; pyRTX 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=51279e30" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=2389946f"></script>
+      <script src="../../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pyRTX
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#from-source">From Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../installation.html#build-dependencies">Build Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../installation.html#runtime-dependencies">Runtime Dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#basic-usage">Basic Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html">Core Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.utils_rt">Ray Tracing Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.block_dot"><code class="docutils literal notranslate"><span class="pre">block_dot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.pixel_plane"><code class="docutils literal notranslate"><span class="pre">pixel_plane()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.fast_vector_build"><code class="docutils literal notranslate"><span class="pre">fast_vector_build()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.pixel_plane_opt"><code class="docutils literal notranslate"><span class="pre">pixel_plane_opt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.reflected"><code class="docutils literal notranslate"><span class="pre">reflected()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_orthogonal"><code class="docutils literal notranslate"><span class="pre">get_orthogonal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.sample_lambert_dist"><code class="docutils literal notranslate"><span class="pre">sample_lambert_dist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.exportEXAC"><code class="docutils literal notranslate"><span class="pre">exportEXAC()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.cgal_init_geometry"><code class="docutils literal notranslate"><span class="pre">cgal_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_centroids"><code class="docutils literal notranslate"><span class="pre">get_centroids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_cross_products"><code class="docutils literal notranslate"><span class="pre">get_cross_products()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_face_areas"><code class="docutils literal notranslate"><span class="pre">get_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_surface_normals"><code class="docutils literal notranslate"><span class="pre">get_surface_normals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="docutils literal notranslate"><span class="pre">get_surface_normals_and_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.ShapeModel"><code class="docutils literal notranslate"><span class="pre">ShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.shadow_utils">Shadow Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.physical_utils">Physical Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.srp_core"><code class="docutils literal notranslate"><span class="pre">srp_core()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.compute_srp"><code class="docutils literal notranslate"><span class="pre">compute_srp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.parallel_utils">Parallel Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.parallel_utils.get_ncores"><code class="docutils literal notranslate"><span class="pre">get_ncores()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.parallel_utils.is_method"><code class="docutils literal notranslate"><span class="pre">is_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.parallel_utils.get_unwrapped"><code class="docutils literal notranslate"><span class="pre">get_unwrapped()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.parallel_utils.parallel"><code class="docutils literal notranslate"><span class="pre">parallel()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/classes.html">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#sunshadow">SunShadow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#solarpressure">SolarPressure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#planet">Planet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#pixelplane">PixelPlane</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.PixelPlane.PixelPlane"><code class="docutils literal notranslate"><span class="pre">PixelPlane</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#spacecraft">Spacecraft</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.Spacecraft.Spacecraft"><code class="docutils literal notranslate"><span class="pre">Spacecraft</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/defaults.html">Default Values and Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/index.html#core-modules">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.core.html">pyRTX.core</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.analysis_utils.html">pyRTX.core.analysis_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.parallel_utils.html">pyRTX.core.parallel_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.physical_utils.html">pyRTX.core.physical_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.shadow_utils.html">pyRTX.core.shadow_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html">pyRTX.core.utils_rt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/index.html#classes">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.classes.html">pyRTX.classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Atmosphere.html">pyRTX.classes.Atmosphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Drag.html">pyRTX.classes.Drag</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.LookUpTable.html">pyRTX.classes.LookUpTable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.PixelPlane.html">pyRTX.classes.PixelPlane</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Planet.html">pyRTX.classes.Planet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Precompute.html">pyRTX.classes.Precompute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Radiation.html">pyRTX.classes.Radiation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.RayTracer.html">pyRTX.classes.RayTracer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.SRP.html">pyRTX.classes.SRP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Spacecraft.html">pyRTX.classes.Spacecraft</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyRTX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pyRTX.classes.Spacecraft</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pyRTX.classes.Spacecraft</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Spacecraft class</span>
+<span class="kn">import</span> <span class="nn">trimesh</span> <span class="k">as</span> <span class="nn">tm</span> 
+<span class="kn">import</span> <span class="nn">trimesh.transformations</span> <span class="k">as</span> <span class="nn">tmt</span> 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+<span class="kn">import</span> <span class="nn">spiceypy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">from</span> <span class="nn">pyRTX</span> <span class="kn">import</span> <span class="n">constants</span>
+
+
+<div class="viewcode-block" id="Spacecraft"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft">[docs]</a><span class="k">class</span> <span class="nc">Spacecraft</span><span class="p">():</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	This is the main class for defining spacecraft objects. </span>
+<span class="sd">	&quot;&quot;&quot;</span>
+	
+ 
+<div class="viewcode-block" id="Spacecraft.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">base_frame</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">spacecraft_model</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">mass</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd"> 		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		name : str </span>
+<span class="sd">			Spacecraft name</span>
+
+<span class="sd">		base_frame : str </span>
+<span class="sd">			Spacecraft body (base) frame</span>
+
+<span class="sd">		spacecraft_model : dict </span>
+<span class="sd">			dict of {file:str, frame_type:str, frame_name:str, center:list, specular:float, diffuse:float, UD_rotation:trimesh.rotation}</span>
+<span class="sd">        	a dictionary with keys the name of</span>
+
+<span class="sd">			file: str </span>
+<span class="sd">				the obj file for the part</span>
+
+<span class="sd">			frame_type: str </span>
+<span class="sd">				&#39;Spice&#39; or &#39;UD&#39; to choose wether to define a reference to a spice frame or UserDefined one</span>
+<span class="sd">				in the case of &#39;UD&#39; a rotation matrix must be specified in the UD_rotation (optional) key</span>
+
+<span class="sd">			frame_name: str </span>
+<span class="sd">				The name of the Spice (or UD) frame</span>
+
+<span class="sd">			center: list  </span>
+<span class="sd">				position of the origin of the object (in km) with respect to the base frame</span>
+
+<span class="sd">			specular: float </span>
+<span class="sd">				specular coefficient</span>
+
+<span class="sd">			diffuse: float </span>
+<span class="sd">				diffuse coefficient</span>
+<span class="sd">				</span>
+<span class="sd">			UD_rotation: trimesh.rotation</span>
+<span class="sd">				optional specify a user defined rotations matrix</span>
+
+<span class="sd">		units : str </span>
+<span class="sd">			units for transformations</span>
+<span class="sd">   </span>
+<span class="sd">		mass : float or .nc file</span>
+<span class="sd">			Spacecraft mass. Can be a float value or an xarray with times and mass values</span>
+<span class="sd">   </span>
+<span class="sd">		Returns</span>
+<span class="sd">		-------</span>
+<span class="sd">		bla : pyRTX.classes.Spacecraft</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+  
+		<span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">part_number</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">spacecraft_model</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">base_frame</span> <span class="o">=</span> <span class="n">base_frame</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">mesh_cont</span> <span class="o">=</span> <span class="p">{}</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">mesh_prop</span> <span class="o">=</span> <span class="p">{}</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">units</span> <span class="o">=</span> <span class="n">units</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">conversion_factor</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">unit_conversions</span><span class="p">[</span><span class="n">units</span><span class="p">]</span>
+		
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span> <span class="o">=</span> <span class="p">{}</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_initialize</span><span class="p">(</span><span class="n">spacecraft_model</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">material_dict</span> <span class="o">=</span> <span class="p">{}</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">dump_materials</span><span class="p">()</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">mass</span>    <span class="o">=</span> <span class="n">mass</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">=</span> <span class="kc">None</span></div>
+		<span class="c1">#self._last_epoch = 0</span>
+
+
+	<span class="k">def</span> <span class="nf">_load_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
+		<span class="n">mesh</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">load_mesh</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">skip_texture</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+		<span class="c1">#if isinstance(mesh, tm.Scene): mesh = mesh.dump(concatenate = True)</span>
+		<span class="n">mesh</span><span class="o">.</span><span class="n">apply_transform</span><span class="p">(</span><span class="n">tmt</span><span class="o">.</span><span class="n">scale_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conversion_factor</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+		<span class="k">return</span> <span class="n">mesh</span>
+
+
+	<span class="k">def</span> <span class="nf">_initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_model</span><span class="p">):</span>
+
+		<span class="c1"># Load the meshes</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">input_model</span><span class="p">)</span>
+
+		<span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">input_model</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+			
+			<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;file&#39;</span><span class="p">],</span> <span class="n">tm</span><span class="o">.</span><span class="n">Trimesh</span><span class="p">):</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;base_mesh&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;file&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply_transform</span><span class="p">(</span><span class="n">tmt</span><span class="o">.</span><span class="n">scale_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conversion_factor</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;base_mesh&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_obj</span><span class="p">(</span><span class="n">input_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;file&#39;</span><span class="p">])</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;translation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmt</span><span class="o">.</span><span class="n">translation_matrix</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">input_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;center&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">conversion_factor</span><span class="p">)</span>
+
+
+			<span class="c1">#print(tmt.translation_matrix(input_model[elem][&#39;center&#39;]))</span>
+
+
+	<span class="k">def</span> <span class="nf">_precompute_rot_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">convert</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Method to pre-compute rotation matrices.</span>
+
+<span class="sd">		Parameters:</span>
+<span class="sd">		-	epochs: list of epochs</span>
+<span class="sd">		-	convert: boolean flag to convert the output of pxform into a 4x4 matrix</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="c1"># Index - epochs mapping</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_epochs_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">epoch</span><span class="p">:</span> <span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">epochs</span><span class="p">)}</span>
+  
+		<span class="c1"># Initialize transformation matrices:</span>
+		<span class="n">dim</span> <span class="o">=</span> <span class="mi">4</span> <span class="k">if</span> <span class="n">convert</span> <span class="k">else</span> <span class="mi">3</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_rot_matrices</span> <span class="o">=</span> <span class="p">{</span><span class="n">elem</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">),</span> <span class="n">dim</span><span class="p">,</span> <span class="n">dim</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
+
+		<span class="c1"># Compute rotation matrices:</span>
+		<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+			<span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>	
+				<span class="n">bframe</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;frame_name&#39;</span><span class="p">]</span>
+				<span class="n">tframe</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_frame</span>
+				<span class="n">tmatrix</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">pxform</span><span class="p">(</span><span class="n">bframe</span><span class="p">,</span> <span class="n">tframe</span><span class="p">,</span> <span class="n">epoch</span><span class="p">)</span>
+				<span class="k">if</span> <span class="n">convert</span><span class="p">:</span> <span class="n">tmatrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pxform_convert</span><span class="p">(</span><span class="n">tmatrix</span><span class="p">)</span>
+				<span class="bp">self</span><span class="o">.</span><span class="n">_rot_matrices</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmatrix</span>
+    
+
+<div class="viewcode-block" id="Spacecraft.add_parts"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.add_parts">[docs]</a>	<span class="k">def</span> <span class="nf">add_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft_model</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Add parts to the model instance</span>
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		spacecraft_model : dict</span>
+<span class="sd">			See the main constructor documentation</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="k">if</span> <span class="n">name</span> <span class="ow">in</span>  <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+			<span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s1"> is already defined&#39;</span><span class="p">)</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">_initialize</span><span class="p">(</span><span class="n">spacecraft_model</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Spacecraft.subset"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.subset">[docs]</a>	<span class="k">def</span> <span class="nf">subset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elem_names</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">		Return an instance of Spacecraft with only the elements contained</span>
+<span class="sd">		in the list elem_names.</span>
+<span class="sd">		Suppose the Spacecraft (self) is composed of elements A,B,C</span>
+<span class="sd">		Spacecraft.subset([&#39;A&#39;,&#39;B&#39;]) would return a new instance</span>
+<span class="sd">		of Spacecraft with only the elements A and B</span>
+<span class="sd">		&#39;&#39;&#39;</span>
+		
+		<span class="n">cself</span>  <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+		<span class="n">orig_elems</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">cself</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+		<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">orig_elems</span><span class="p">:</span>
+			<span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">elem_names</span><span class="p">:</span>
+				<span class="n">cself</span><span class="o">.</span><span class="n">remove_part</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">cself</span></div>
+
+
+<div class="viewcode-block" id="Spacecraft.remove_part"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.remove_part">[docs]</a>	<span class="k">def</span> <span class="nf">remove_part</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+		<span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Spacecraft.pxform_convert"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.pxform_convert">[docs]</a>	<span class="k">def</span> <span class="nf">pxform_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">pxform</span><span class="p">):</span>
+		<span class="n">pxform</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">pxform</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">pxform</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">pxform</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+
+		<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pxform</span><span class="p">,[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span><span class="mi">0</span><span class="p">)</span>
+
+		<span class="n">mv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+		<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">,[[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">]],</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="k">return</span> <span class="n">p</span></div>
+
+
+<div class="viewcode-block" id="Spacecraft.apply_transforms"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.apply_transforms">[docs]</a>	<span class="k">def</span> <span class="nf">apply_transforms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Method to rotate and translate the components.</span>
+
+<span class="sd">		Parameters:</span>
+<span class="sd">		-	epoch: epoch of the transformation</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+
+			<span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;mesh&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;base_mesh&#39;</span><span class="p">])</span>
+			
+			<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;frame_type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Spice&#39;</span><span class="p">:</span>
+
+				<span class="n">bframe</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;frame_name&#39;</span><span class="p">]</span>
+				<span class="n">tframe</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_frame</span>
+    
+				<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+
+					<span class="n">tmatrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span><span class="o">.</span><span class="n">getRotation</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">bframe</span><span class="p">,</span> <span class="n">tframe</span><span class="p">)</span>
+     
+				<span class="k">else</span><span class="p">:</span>
+
+					<span class="n">tmatrix</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">pxform</span><span class="p">(</span><span class="n">bframe</span><span class="p">,</span> <span class="n">tframe</span><span class="p">,</span> <span class="n">epoch</span><span class="p">)</span>
+					<span class="n">tmatrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pxform_convert</span><span class="p">(</span><span class="n">tmatrix</span><span class="p">)</span>	
+     
+				<span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;mesh&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply_transform</span><span class="p">(</span><span class="n">tmatrix</span><span class="p">)</span>
+    
+			<span class="k">else</span><span class="p">:</span>
+				
+				<span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;mesh&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply_transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;UD_rotation&#39;</span><span class="p">])</span>
+
+			<span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;mesh&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply_transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;translation&#39;</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="Spacecraft.materials"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.materials">[docs]</a>	<span class="k">def</span> <span class="nf">materials</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">material_dict</span></div>
+
+
+<div class="viewcode-block" id="Spacecraft.dump"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.dump">[docs]</a>	<span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">epoch</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">split</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+
+		<span class="n">mesh_todump</span> <span class="o">=</span><span class="p">[]</span>
+  
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">epoch</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+				<span class="n">et</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">str2et</span><span class="p">(</span> <span class="n">epoch</span> <span class="p">)</span>
+			<span class="k">else</span><span class="p">:</span>
+				<span class="n">et</span> <span class="o">=</span> <span class="n">epoch</span>
+
+		<span class="c1">#if et == self._last_epoch:</span>
+		<span class="c1">#	return self._last_mesh</span>
+
+			<span class="bp">self</span><span class="o">.</span><span class="n">apply_transforms</span><span class="p">(</span><span class="n">et</span><span class="p">)</span>
+
+		<span class="k">else</span><span class="p">:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">apply_transforms</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+		<span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">:</span>
+
+			<span class="k">try</span><span class="p">:</span>
+				<span class="n">mesh_todump</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;mesh&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dump</span><span class="p">()))</span>
+			<span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+				<span class="n">mesh_todump</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;mesh&#39;</span><span class="p">])</span>
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">split</span><span class="p">:</span>
+			<span class="n">mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mesh_todump</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">mesh</span> <span class="o">=</span> <span class="n">mesh_todump</span>
+		<span class="c1">#self._last_mesh = np.array(mesh_todump).sum()</span>
+		<span class="c1">#self._last_epoch = et</span>
+
+		<span class="k">return</span> <span class="n">mesh</span></div>
+
+
+<div class="viewcode-block" id="Spacecraft.dump_materials"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.dump_materials">[docs]</a>	<span class="k">def</span> <span class="nf">dump_materials</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+		<span class="n">stored_idxs</span> <span class="o">=</span> <span class="p">[]</span>
+		<span class="n">props</span> <span class="o">=</span> <span class="p">{}</span>
+		<span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">:</span>
+			<span class="k">try</span><span class="p">:</span>
+				<span class="n">elemMesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;base_mesh&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dump</span><span class="p">())</span>
+			<span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+				<span class="n">elemMesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;base_mesh&#39;</span><span class="p">]</span>
+			<span class="n">stored_idxs</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">counter</span><span class="p">,</span> <span class="n">counter</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">elemMesh</span><span class="o">.</span><span class="n">faces</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+			<span class="n">counter</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">elemMesh</span><span class="o">.</span><span class="n">faces</span><span class="p">)</span>
+			<span class="n">props</span><span class="p">[</span><span class="n">elem</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;specular&#39;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;specular&#39;</span><span class="p">]</span> <span class="p">,</span> <span class="s1">&#39;diffuse&#39;</span> <span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;diffuse&#39;</span><span class="p">]</span> <span class="p">}</span>
+			
+		<span class="bp">self</span><span class="o">.</span><span class="n">material_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;idxs&#39;</span> <span class="p">:</span> <span class="n">stored_idxs</span><span class="p">,</span> <span class="s1">&#39;props&#39;</span><span class="p">:</span> <span class="n">props</span><span class="p">}</span></div>
+
+
+	<span class="k">def</span> <span class="nf">_elem_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elem</span><span class="p">):</span>
+		<span class="c1"># print(self.spacecraft_model[elem][&#39;frame_name&#39;])</span>
+		<span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">elem</span><span class="si">}</span><span class="s2">: Proper Frame: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;frame_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> | Frame Type: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;frame_type&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+
+
+<div class="viewcode-block" id="Spacecraft.info"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.info">[docs]</a>	<span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="n">elems</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+		<span class="n">n_parts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">elems</span><span class="p">)</span>
+		<span class="n">printstr</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Spacecraft </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> composed of </span><span class="si">{</span><span class="n">n_parts</span><span class="si">}</span><span class="s2"> elements: </span><span class="se">\n</span><span class="s2">&quot;</span>
+		<span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">elem</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">elems</span><span class="p">):</span>
+			<span class="n">printstr</span> <span class="o">+=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s1">) &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elem_info</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span>
+		<span class="nb">print</span><span class="p">(</span><span class="n">printstr</span><span class="p">)</span></div>
+
+
+	<span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">()</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Gael Cascioli.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

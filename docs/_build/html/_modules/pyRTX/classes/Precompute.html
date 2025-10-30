@@ -1,0 +1,531 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyRTX.classes.Precompute &mdash; pyRTX 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=51279e30" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=2389946f"></script>
+      <script src="../../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pyRTX
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#from-source">From Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../installation.html#build-dependencies">Build Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../installation.html#runtime-dependencies">Runtime Dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#basic-usage">Basic Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html">Core Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.utils_rt">Ray Tracing Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.block_dot"><code class="docutils literal notranslate"><span class="pre">block_dot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.pixel_plane"><code class="docutils literal notranslate"><span class="pre">pixel_plane()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.fast_vector_build"><code class="docutils literal notranslate"><span class="pre">fast_vector_build()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.pixel_plane_opt"><code class="docutils literal notranslate"><span class="pre">pixel_plane_opt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.reflected"><code class="docutils literal notranslate"><span class="pre">reflected()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_orthogonal"><code class="docutils literal notranslate"><span class="pre">get_orthogonal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.sample_lambert_dist"><code class="docutils literal notranslate"><span class="pre">sample_lambert_dist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.exportEXAC"><code class="docutils literal notranslate"><span class="pre">exportEXAC()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.cgal_init_geometry"><code class="docutils literal notranslate"><span class="pre">cgal_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_centroids"><code class="docutils literal notranslate"><span class="pre">get_centroids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_cross_products"><code class="docutils literal notranslate"><span class="pre">get_cross_products()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_face_areas"><code class="docutils literal notranslate"><span class="pre">get_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_surface_normals"><code class="docutils literal notranslate"><span class="pre">get_surface_normals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="docutils literal notranslate"><span class="pre">get_surface_normals_and_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.ShapeModel"><code class="docutils literal notranslate"><span class="pre">ShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.shadow_utils">Shadow Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.physical_utils">Physical Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.srp_core"><code class="docutils literal notranslate"><span class="pre">srp_core()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.compute_srp"><code class="docutils literal notranslate"><span class="pre">compute_srp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.parallel_utils">Parallel Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.parallel_utils.get_ncores"><code class="docutils literal notranslate"><span class="pre">get_ncores()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.parallel_utils.is_method"><code class="docutils literal notranslate"><span class="pre">is_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.parallel_utils.get_unwrapped"><code class="docutils literal notranslate"><span class="pre">get_unwrapped()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.parallel_utils.parallel"><code class="docutils literal notranslate"><span class="pre">parallel()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/classes.html">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#sunshadow">SunShadow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#solarpressure">SolarPressure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#planet">Planet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#pixelplane">PixelPlane</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.PixelPlane.PixelPlane"><code class="docutils literal notranslate"><span class="pre">PixelPlane</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#spacecraft">Spacecraft</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.Spacecraft.Spacecraft"><code class="docutils literal notranslate"><span class="pre">Spacecraft</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/defaults.html">Default Values and Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/index.html#core-modules">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.core.html">pyRTX.core</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.analysis_utils.html">pyRTX.core.analysis_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.parallel_utils.html">pyRTX.core.parallel_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.physical_utils.html">pyRTX.core.physical_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.shadow_utils.html">pyRTX.core.shadow_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html">pyRTX.core.utils_rt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/index.html#classes">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.classes.html">pyRTX.classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Atmosphere.html">pyRTX.classes.Atmosphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Drag.html">pyRTX.classes.Drag</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.LookUpTable.html">pyRTX.classes.LookUpTable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.PixelPlane.html">pyRTX.classes.PixelPlane</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Planet.html">pyRTX.classes.Planet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Precompute.html">pyRTX.classes.Precompute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Radiation.html">pyRTX.classes.Radiation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.RayTracer.html">pyRTX.classes.RayTracer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.SRP.html">pyRTX.classes.SRP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Spacecraft.html">pyRTX.classes.Spacecraft</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyRTX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pyRTX.classes.Precompute</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pyRTX.classes.Precompute</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">pickle</span> <span class="k">as</span> <span class="nn">pkl</span>
+<span class="kn">import</span> <span class="nn">spiceypy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
+<span class="kn">from</span> <span class="nn">pyRTX.core.analysis_utils</span> <span class="kn">import</span> <span class="n">compute_body_positions</span><span class="p">,</span> <span class="n">compute_body_states</span>
+<span class="kn">from</span> <span class="nn">pyRTX.constants</span> <span class="kn">import</span> <span class="n">au</span> 
+
+
+<div class="viewcode-block" id="Precompute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute">[docs]</a><span class="k">class</span> <span class="nc">Precompute</span><span class="p">():</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	A Class to perform calls to spiceypy in advance.</span>
+<span class="sd">	&quot;&quot;&quot;</span>	
+ 
+<div class="viewcode-block" id="Precompute.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">:</span> <span class="nb">list</span><span class="p">,):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Initialization method for the class.</span>
+<span class="sd">		Params:</span>
+<span class="sd">		- epochs (epochs of the precomputations)</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="c1"># Store inputs</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_epochs</span>    <span class="o">=</span> <span class="n">epochs</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_config</span> 	<span class="o">=</span> <span class="p">{}</span></div>
+
+
+<div class="viewcode-block" id="Precompute.addPosition"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.addPosition">[docs]</a>	<span class="k">def</span> <span class="nf">addPosition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observer</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">correction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;CN&#39;</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Method to precompute position vectors.</span>
+<span class="sd">  </span>
+<span class="sd">		Params:</span>
+<span class="sd">  		- observer body (str)</span>
+<span class="sd">		- target body (str)</span>
+<span class="sd">		- frame (str)</span>
+<span class="sd">		- aberration correction (str)</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+    
+		<span class="k">if</span> <span class="s1">&#39;position&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+				<span class="s1">&#39;dimensions&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;pos_param&quot;</span><span class="p">,</span> <span class="s2">&quot;pos&quot;</span><span class="p">),</span>
+				<span class="s1">&#39;coordinates&#39;</span><span class="p">:</span> <span class="p">{</span>
+					<span class="s1">&#39;time&#39;</span>	    <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_epochs</span><span class="p">,</span>
+					<span class="s1">&#39;pos_param&#39;</span> <span class="p">:</span> <span class="p">[],</span>
+					<span class="p">},</span>
+				<span class="p">}</span>
+
+		<span class="n">param</span> <span class="o">=</span> <span class="n">observer</span> <span class="o">+</span> <span class="s1">&#39; / &#39;</span> <span class="o">+</span> <span class="n">target</span> <span class="o">+</span> <span class="s1">&#39; / &#39;</span> <span class="o">+</span> <span class="n">frame</span> <span class="o">+</span> <span class="s1">&#39; / &#39;</span> <span class="o">+</span> <span class="n">correction</span>
+		<span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">][</span><span class="s1">&#39;coordinates&#39;</span><span class="p">][</span><span class="s1">&#39;pos_param&#39;</span><span class="p">]:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">][</span><span class="s1">&#39;coordinates&#39;</span><span class="p">][</span><span class="s1">&#39;pos_param&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">param</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Precompute.addState"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.addState">[docs]</a>	<span class="k">def</span> <span class="nf">addState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observer</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">correction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;CN&#39;</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Method to precompute state vectors.</span>
+<span class="sd">  </span>
+<span class="sd">		Params:</span>
+<span class="sd">  		- observer body (str)</span>
+<span class="sd">		- target body (str)</span>
+<span class="sd">		- frame (str)</span>
+<span class="sd">		- aberration correction (str)</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+    
+		<span class="k">if</span> <span class="s1">&#39;state&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+				<span class="s1">&#39;dimensions&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;state_param&quot;</span><span class="p">,</span> <span class="s2">&quot;posvel&quot;</span><span class="p">),</span>
+				<span class="s1">&#39;coordinates&#39;</span><span class="p">:</span> <span class="p">{</span>
+					<span class="s1">&#39;time&#39;</span>	    <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_epochs</span><span class="p">,</span>
+					<span class="s1">&#39;state_param&#39;</span> <span class="p">:</span> <span class="p">[],</span>
+					<span class="p">},</span>
+				<span class="p">}</span>
+
+		<span class="n">param</span> <span class="o">=</span> <span class="n">observer</span> <span class="o">+</span> <span class="s1">&#39; / &#39;</span> <span class="o">+</span> <span class="n">target</span> <span class="o">+</span> <span class="s1">&#39; / &#39;</span> <span class="o">+</span> <span class="n">frame</span> <span class="o">+</span> <span class="s1">&#39; / &#39;</span> <span class="o">+</span> <span class="n">correction</span>
+		<span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">][</span><span class="s1">&#39;coordinates&#39;</span><span class="p">][</span><span class="s1">&#39;state_param&#39;</span><span class="p">]:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">][</span><span class="s1">&#39;coordinates&#39;</span><span class="p">][</span><span class="s1">&#39;state_param&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">param</span><span class="p">)</span></div>
+   
+   
+<div class="viewcode-block" id="Precompute.addRotation"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.addRotation">[docs]</a>	<span class="k">def</span> <span class="nf">addRotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Method to precompute position vectors.</span>
+<span class="sd">  </span>
+<span class="sd">		Params:</span>
+<span class="sd">  		- base_frame (str)</span>
+<span class="sd">		- target_frame (str)</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+      
+		<span class="k">if</span> <span class="s1">&#39;rotation&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s1">&#39;rotation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+				<span class="s1">&#39;dimensions&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;rot_param&quot;</span><span class="p">,</span> <span class="s2">&quot;dim1&quot;</span><span class="p">,</span> <span class="s2">&quot;dim2&quot;</span><span class="p">),</span>
+				<span class="s1">&#39;coordinates&#39;</span><span class="p">:</span> <span class="p">{</span>
+					<span class="s1">&#39;time&#39;</span>	     <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_epochs</span><span class="p">,</span>
+					<span class="s1">&#39;rot_param&#39;</span>  <span class="p">:</span> <span class="p">[],</span>
+					<span class="p">},</span>
+				<span class="p">}</span>
+
+		<span class="n">param</span> <span class="o">=</span> <span class="n">base_frame</span> <span class="o">+</span> <span class="s1">&#39; / &#39;</span> <span class="o">+</span> <span class="n">target_frame</span> 
+		<span class="k">if</span> <span class="n">param</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s1">&#39;rotation&#39;</span><span class="p">][</span><span class="s1">&#39;coordinates&#39;</span><span class="p">][</span><span class="s1">&#39;rot_param&#39;</span><span class="p">]:</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s1">&#39;rotation&#39;</span><span class="p">][</span><span class="s1">&#39;coordinates&#39;</span><span class="p">][</span><span class="s1">&#39;rot_param&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">param</span><span class="p">)</span></div>
+   
+
+<div class="viewcode-block" id="Precompute.precomputeSolarPressure"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.precomputeSolarPressure">[docs]</a>	<span class="k">def</span> <span class="nf">precomputeSolarPressure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sc</span><span class="p">,</span> <span class="n">planet</span><span class="p">,</span> <span class="n">correction</span> <span class="o">=</span> <span class="s1">&#39;LT+S&#39;</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Method to perform precalculation for solar radiation pressure.</span>
+<span class="sd">  </span>
+<span class="sd">		Params:</span>
+<span class="sd">		- sc: object of the class Spacecraft</span>
+<span class="sd">		- planet: object of the class Planet</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="c1"># Get data</span>
+		<span class="n">sc_name</span>       <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">name</span>
+		<span class="n">sc_frame</span>      <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">base_frame</span>
+		<span class="n">planet_name</span>   <span class="o">=</span> <span class="n">planet</span><span class="o">.</span><span class="n">name</span>
+		<span class="n">planet_frame</span>  <span class="o">=</span> <span class="n">planet</span><span class="o">.</span><span class="n">bodyFrame</span>
+  
+		<span class="c1"># Add positions</span>
+		<span class="n">observers</span> <span class="o">=</span> <span class="p">[</span><span class="n">sc_name</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+		<span class="n">targets</span>   <span class="o">=</span> <span class="p">[</span><span class="n">planet_name</span><span class="p">,</span> <span class="s1">&#39;Sun&#39;</span><span class="p">]</span>
+		<span class="n">frames</span>    <span class="o">=</span> <span class="p">[</span><span class="n">sc_frame</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> 
+		<span class="n">abcorr</span>    <span class="o">=</span> <span class="p">[</span><span class="n">correction</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+		<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">obs</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">observers</span><span class="p">):</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">addPosition</span><span class="p">(</span><span class="n">observer</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">targets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">frame</span><span class="o">=</span><span class="n">frames</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">correction</span><span class="o">=</span><span class="n">abcorr</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+     
+     	<span class="c1"># Add rotations</span>
+		<span class="n">base_frames</span>   <span class="o">=</span> <span class="p">[</span><span class="n">sc_frame</span><span class="p">,</span> <span class="n">sc_frame</span><span class="p">]</span>
+		<span class="n">target_frames</span> <span class="o">=</span> <span class="p">[</span><span class="n">planet_frame</span><span class="p">,</span> <span class="n">sc_frame</span><span class="p">]</span>
+		<span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">sc</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+			<span class="k">if</span> <span class="n">sc</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;frame_name&#39;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">base_frames</span><span class="p">:</span>
+				<span class="n">base_frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;frame_name&#39;</span><span class="p">])</span>
+				<span class="n">target_frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sc_frame</span><span class="p">)</span>
+		<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">base_frames</span><span class="p">):</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">addRotation</span><span class="p">(</span><span class="n">base_frame</span><span class="o">=</span><span class="n">base</span><span class="p">,</span> <span class="n">target_frame</span><span class="o">=</span><span class="n">target_frames</span><span class="p">[</span><span class="n">i</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="Precompute.precomputePlanetaryRadiation"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.precomputePlanetaryRadiation">[docs]</a>	<span class="k">def</span> <span class="nf">precomputePlanetaryRadiation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sc</span><span class="p">,</span> <span class="n">planet</span><span class="p">,</span> <span class="n">moving_frames</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">correction</span> <span class="o">=</span> <span class="s1">&#39;CN&#39;</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Method to perform precalculation for albedo and </span>
+<span class="sd">  		thermal infrared acceleration.</span>
+<span class="sd">    </span>
+<span class="sd">		Params:</span>
+<span class="sd">		- sc: object of the class Spacecraft</span>
+<span class="sd">		- planet: object of the class Planet</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		
+		<span class="c1"># Get data</span>
+		<span class="n">sc_name</span>		  <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">name</span>
+		<span class="n">sc_frame</span>	  <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">base_frame</span>
+		<span class="n">planet_name</span>   <span class="o">=</span> <span class="n">planet</span><span class="o">.</span><span class="n">name</span>
+		<span class="n">planet_frame</span>  <span class="o">=</span> <span class="n">planet</span><span class="o">.</span><span class="n">bodyFrame</span>
+		<span class="n">sunfix_frame</span>  <span class="o">=</span> <span class="n">planet</span><span class="o">.</span><span class="n">sunFixedFrame</span>
+  
+		<span class="c1"># Add positions</span>
+		<span class="n">observers</span> <span class="o">=</span> <span class="p">[</span><span class="n">planet_name</span><span class="p">,</span> <span class="n">planet_name</span><span class="p">,</span> <span class="n">planet_name</span><span class="p">]</span> 
+		<span class="n">targets</span>   <span class="o">=</span> <span class="p">[</span><span class="n">sc_name</span><span class="p">,</span> <span class="n">sc_name</span><span class="p">,</span> <span class="s1">&#39;Sun&#39;</span><span class="p">]</span> 
+		<span class="n">frames</span>    <span class="o">=</span> <span class="p">[</span><span class="n">sunfix_frame</span><span class="p">,</span> <span class="n">planet_frame</span><span class="p">,</span> <span class="n">planet_frame</span><span class="p">]</span>	
+		<span class="n">abcorr</span>    <span class="o">=</span> <span class="p">[</span><span class="n">correction</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+		<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">obs</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">observers</span><span class="p">):</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">addPosition</span><span class="p">(</span><span class="n">observer</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">targets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">frame</span><span class="o">=</span><span class="n">frames</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">correction</span><span class="o">=</span><span class="n">abcorr</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+		<span class="c1"># Add rotations	</span>
+		<span class="n">base_frames</span>   <span class="o">=</span> <span class="p">[</span><span class="n">sunfix_frame</span><span class="p">,</span> <span class="n">planet_frame</span><span class="p">]</span> <span class="o">+</span> <span class="n">moving_frames</span>
+		<span class="n">target_frames</span> <span class="o">=</span> <span class="p">[</span><span class="n">sc_frame</span><span class="p">,</span> <span class="n">sunfix_frame</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">sc_frame</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">moving_frames</span><span class="p">)</span>
+
+		<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">base_frames</span><span class="p">):</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">addRotation</span><span class="p">(</span><span class="n">base_frame</span><span class="o">=</span><span class="n">base</span><span class="p">,</span> <span class="n">target_frame</span><span class="o">=</span><span class="n">target_frames</span><span class="p">[</span><span class="n">i</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="Precompute.precomputeDrag"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.precomputeDrag">[docs]</a>	<span class="k">def</span> <span class="nf">precomputeDrag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sc</span><span class="p">,</span> <span class="n">planet_name</span><span class="p">,</span> <span class="n">moving_frames</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">accel_frame</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">correction</span> <span class="o">=</span> <span class="s1">&#39;LT+S&#39;</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Method to perform precalculation for drag acceleration.</span>
+<span class="sd">    </span>
+<span class="sd">		Params:</span>
+<span class="sd">		- sc: object of the class Spacecraft</span>
+<span class="sd">		- planet_name: name of the body</span>
+<span class="sd">		- accel_frame: frame of the acceleration</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		
+		<span class="c1"># Get data</span>
+		<span class="n">sc_name</span>		  <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">name</span>
+		<span class="n">sc_frame</span>	  <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">base_frame</span>
+		<span class="k">if</span> <span class="n">accel_frame</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span> <span class="n">accel_frame</span> <span class="o">=</span> <span class="s1">&#39;IAU_</span><span class="si">%s</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">planet_name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+  
+		<span class="c1"># Add state</span>
+		<span class="n">observers</span> <span class="o">=</span> <span class="p">[</span><span class="n">planet_name</span><span class="p">,]</span> 
+		<span class="n">targets</span>   <span class="o">=</span> <span class="p">[</span><span class="n">sc_name</span><span class="p">,]</span> 
+		<span class="n">frames</span>    <span class="o">=</span> <span class="p">[</span><span class="n">accel_frame</span><span class="p">,]</span> 
+		<span class="n">abcorr</span>    <span class="o">=</span> <span class="p">[</span><span class="n">correction</span><span class="p">,]</span>
+		<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">obs</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">observers</span><span class="p">):</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">addState</span><span class="p">(</span><span class="n">observer</span><span class="o">=</span><span class="n">obs</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="n">targets</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">frame</span><span class="o">=</span><span class="n">frames</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">correction</span><span class="o">=</span><span class="n">abcorr</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+		<span class="c1"># Add rotations	</span>
+		<span class="n">base_frames</span>   <span class="o">=</span> <span class="p">[</span><span class="n">accel_frame</span><span class="p">,]</span> <span class="o">+</span> <span class="n">moving_frames</span>
+		<span class="n">target_frames</span> <span class="o">=</span> <span class="p">[</span><span class="n">sc_frame</span><span class="p">,]</span> <span class="o">+</span> <span class="p">[</span><span class="n">sc_frame</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">moving_frames</span><span class="p">)</span>
+
+		<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">base</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">base_frames</span><span class="p">):</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">addRotation</span><span class="p">(</span><span class="n">base_frame</span><span class="o">=</span><span class="n">base</span><span class="p">,</span> <span class="n">target_frame</span><span class="o">=</span><span class="n">target_frames</span><span class="p">[</span><span class="n">i</span><span class="p">])</span></div>
+  
+  
+<div class="viewcode-block" id="Precompute.dump"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.dump">[docs]</a>	<span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Method to perform precalculation.</span>
+<span class="sd">  </span>
+<span class="sd">		Params:</span>
+<span class="sd">		- filename: path to xarray</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="n">datavars</span>    <span class="o">=</span> <span class="p">{}</span>
+		<span class="n">coordinates</span> <span class="o">=</span> <span class="p">{}</span>
+
+		<span class="k">for</span> <span class="n">datavar</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+			
+			<span class="n">config</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="n">datavar</span><span class="p">]</span>
+			<span class="n">coords</span>  <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;coordinates&#39;</span><span class="p">]</span>
+			<span class="n">dims</span>    <span class="o">=</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;dimensions&#39;</span><span class="p">]</span>
+			<span class="n">times</span>   <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+
+			<span class="k">if</span> <span class="n">datavar</span> <span class="o">==</span> <span class="s1">&#39;position&#39;</span><span class="p">:</span>
+		
+				<span class="n">params</span>  <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;pos_param&#39;</span><span class="p">]</span>
+				<span class="n">data</span>  	<span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">),</span> <span class="mi">3</span><span class="p">)</span> <span class="p">)</span>
+		
+				<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+					<span class="n">splitted</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+					<span class="n">observer</span> <span class="o">=</span> <span class="n">splitted</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+					<span class="n">target</span>   <span class="o">=</span> <span class="n">splitted</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+					<span class="n">frame</span>    <span class="o">=</span> <span class="n">splitted</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+					<span class="n">corr</span>     <span class="o">=</span> <span class="n">splitted</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+					<span class="n">data</span><span class="p">[:,</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">compute_body_positions</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span> <span class="n">observer</span><span class="p">,</span> <span class="n">abcorr</span> <span class="o">=</span> <span class="n">corr</span><span class="p">)</span>
+
+			<span class="k">if</span> <span class="n">datavar</span> <span class="o">==</span> <span class="s1">&#39;state&#39;</span><span class="p">:</span>
+		
+				<span class="n">params</span>  <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;state_param&#39;</span><span class="p">]</span>
+				<span class="n">data</span>  	<span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">),</span> <span class="mi">6</span><span class="p">)</span> <span class="p">)</span>
+		
+				<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+					<span class="n">splitted</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+					<span class="n">observer</span> <span class="o">=</span> <span class="n">splitted</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+					<span class="n">target</span>   <span class="o">=</span> <span class="n">splitted</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+					<span class="n">frame</span>    <span class="o">=</span> <span class="n">splitted</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+					<span class="n">corr</span>     <span class="o">=</span> <span class="n">splitted</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+					<span class="n">data</span><span class="p">[:,</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">compute_body_states</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span> <span class="n">observer</span><span class="p">,</span> <span class="n">abcorr</span> <span class="o">=</span> <span class="n">corr</span><span class="p">)</span>
+     
+			<span class="k">elif</span> <span class="n">datavar</span> <span class="o">==</span> <span class="s1">&#39;rotation&#39;</span><span class="p">:</span>
+
+				<span class="n">params</span>  <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;rot_param&#39;</span><span class="p">]</span>
+				<span class="n">data</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">params</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="p">)</span>
+		
+				<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+					<span class="n">splitted</span>      <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+					<span class="n">base_frame</span>    <span class="o">=</span> <span class="n">splitted</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+					<span class="n">target_frame</span>  <span class="o">=</span> <span class="n">splitted</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+					<span class="n">data</span><span class="p">[:,</span><span class="n">i</span><span class="p">,:,:]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pxform_convert</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">pxform</span><span class="p">(</span><span class="n">base_frame</span><span class="p">,</span> <span class="n">target_frame</span><span class="p">,</span> <span class="n">epoch</span><span class="p">))</span> <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="n">times</span><span class="p">]</span> 
+		
+			<span class="n">datavars</span><span class="p">[</span><span class="n">datavar</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+		
+			<span class="k">for</span> <span class="n">coord</span> <span class="ow">in</span> <span class="n">coords</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+				<span class="k">if</span> <span class="n">coord</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">coordinates</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span> <span class="n">coordinates</span><span class="p">[</span><span class="n">coord</span><span class="p">]</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="n">coord</span><span class="p">]</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span> <span class="n">datavars</span><span class="p">,</span> <span class="n">coordinates</span> <span class="p">)</span></div>
+  
+
+<div class="viewcode-block" id="Precompute.getPosition"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.getPosition">[docs]</a>	<span class="k">def</span> <span class="nf">getPosition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">observer</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">correction</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Method to get position vector.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">param</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">observer</span><span class="si">}</span><span class="s1"> / </span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s1"> / </span><span class="si">{</span><span class="n">frame</span><span class="si">}</span><span class="s1"> / </span><span class="si">{</span><span class="n">correction</span><span class="si">}</span><span class="s1">&#39;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">pos_param</span> <span class="o">=</span> <span class="n">param</span><span class="p">)</span><span class="o">.</span><span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="Precompute.getState"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.getState">[docs]</a>	<span class="k">def</span> <span class="nf">getState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">observer</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">correction</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Method to get state vector.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">param</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">observer</span><span class="si">}</span><span class="s1"> / </span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s1"> / </span><span class="si">{</span><span class="n">frame</span><span class="si">}</span><span class="s1"> / </span><span class="si">{</span><span class="n">correction</span><span class="si">}</span><span class="s1">&#39;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">state_param</span> <span class="o">=</span> <span class="n">param</span><span class="p">)</span><span class="o">.</span><span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="Precompute.getRotation"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.getRotation">[docs]</a>	<span class="k">def</span> <span class="nf">getRotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">base_frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Method to get rotation matrix.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="n">param</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">base_frame</span><span class="si">}</span><span class="s1"> / </span><span class="si">{</span><span class="n">target_frame</span><span class="si">}</span><span class="s1">&#39;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">rotation</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">rot_param</span> <span class="o">=</span> <span class="n">param</span><span class="p">)</span><span class="o">.</span><span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="Precompute.getArray"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.getArray">[docs]</a>	<span class="k">def</span> <span class="nf">getArray</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Method to get precomputed array.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span></div>
+
+
+<div class="viewcode-block" id="Precompute.save"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.save">[docs]</a>	<span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">complev</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Method to save precomputed array.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span> <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">encoding</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;zlib&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;complevel&#39;</span><span class="p">:</span> <span class="n">complev</span><span class="p">}))</span></div>
+
+
+<div class="viewcode-block" id="Precompute.pxform_convert"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.pxform_convert">[docs]</a>	<span class="k">def</span> <span class="nf">pxform_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pxform</span><span class="p">):</span>
+     
+		<span class="n">pxform</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">pxform</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">pxform</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">pxform</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
+		<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pxform</span><span class="p">,[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span><span class="mi">0</span><span class="p">)</span>
+		<span class="n">mv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span>
+		<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">p</span><span class="p">,[[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">]],</span> <span class="mi">1</span><span class="p">)</span>
+  
+		<span class="k">return</span> <span class="n">p</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Gael Cascioli.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

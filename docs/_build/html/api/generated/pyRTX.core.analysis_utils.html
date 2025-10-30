@@ -1,0 +1,621 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyRTX.core.analysis_utils &mdash; pyRTX 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=51279e30" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js?v=2389946f"></script>
+      <script src="../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="pyRTX.core.parallel_utils" href="pyRTX.core.parallel_utils.html" />
+    <link rel="prev" title="pyRTX.core" href="pyRTX.core.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            pyRTX
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#from-source">From Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../installation.html#build-dependencies">Build Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../installation.html#runtime-dependencies">Runtime Dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#basic-usage">Basic Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../core.html">Core Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../core.html#module-pyRTX.core.utils_rt">Ray Tracing Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.block_dot"><code class="docutils literal notranslate"><span class="pre">block_dot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.pixel_plane"><code class="docutils literal notranslate"><span class="pre">pixel_plane()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.fast_vector_build"><code class="docutils literal notranslate"><span class="pre">fast_vector_build()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.pixel_plane_opt"><code class="docutils literal notranslate"><span class="pre">pixel_plane_opt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.reflected"><code class="docutils literal notranslate"><span class="pre">reflected()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.get_orthogonal"><code class="docutils literal notranslate"><span class="pre">get_orthogonal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.sample_lambert_dist"><code class="docutils literal notranslate"><span class="pre">sample_lambert_dist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.exportEXAC"><code class="docutils literal notranslate"><span class="pre">exportEXAC()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.cgal_init_geometry"><code class="docutils literal notranslate"><span class="pre">cgal_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.get_centroids"><code class="docutils literal notranslate"><span class="pre">get_centroids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.get_cross_products"><code class="docutils literal notranslate"><span class="pre">get_cross_products()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.get_face_areas"><code class="docutils literal notranslate"><span class="pre">get_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.get_surface_normals"><code class="docutils literal notranslate"><span class="pre">get_surface_normals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="docutils literal notranslate"><span class="pre">get_surface_normals_and_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.ShapeModel"><code class="docutils literal notranslate"><span class="pre">ShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.TrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../core.html#module-pyRTX.core.shadow_utils">Shadow Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../core.html#module-pyRTX.core.physical_utils">Physical Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.physical_utils.srp_core"><code class="docutils literal notranslate"><span class="pre">srp_core()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.physical_utils.compute_srp"><code class="docutils literal notranslate"><span class="pre">compute_srp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../core.html#module-pyRTX.core.parallel_utils">Parallel Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.parallel_utils.get_ncores"><code class="docutils literal notranslate"><span class="pre">get_ncores()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.parallel_utils.is_method"><code class="docutils literal notranslate"><span class="pre">is_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.parallel_utils.get_unwrapped"><code class="docutils literal notranslate"><span class="pre">get_unwrapped()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.parallel_utils.parallel"><code class="docutils literal notranslate"><span class="pre">parallel()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../classes.html">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../classes.html#sunshadow">SunShadow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../classes.html#solarpressure">SolarPressure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../classes.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../classes.html#planet">Planet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../classes.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../classes.html#pixelplane">PixelPlane</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../classes.html#pyRTX.classes.PixelPlane.PixelPlane"><code class="docutils literal notranslate"><span class="pre">PixelPlane</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../classes.html#spacecraft">Spacecraft</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../classes.html#pyRTX.classes.Spacecraft.Spacecraft"><code class="docutils literal notranslate"><span class="pre">Spacecraft</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../defaults.html">Default Values and Constants</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#core-modules">Core Modules</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="pyRTX.core.html">pyRTX.core</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">pyRTX.core.analysis_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyRTX.core.parallel_utils.html">pyRTX.core.parallel_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyRTX.core.physical_utils.html">pyRTX.core.physical_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyRTX.core.shadow_utils.html">pyRTX.core.shadow_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyRTX.core.utils_rt.html">pyRTX.core.utils_rt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#classes">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="pyRTX.classes.html">pyRTX.classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pyRTX.classes.Atmosphere.html">pyRTX.classes.Atmosphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyRTX.classes.Drag.html">pyRTX.classes.Drag</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyRTX.classes.LookUpTable.html">pyRTX.classes.LookUpTable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyRTX.classes.PixelPlane.html">pyRTX.classes.PixelPlane</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyRTX.classes.Planet.html">pyRTX.classes.Planet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyRTX.classes.Precompute.html">pyRTX.classes.Precompute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyRTX.classes.Radiation.html">pyRTX.classes.Radiation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyRTX.classes.RayTracer.html">pyRTX.classes.RayTracer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyRTX.classes.SRP.html">pyRTX.classes.SRP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyRTX.classes.Spacecraft.html">pyRTX.classes.Spacecraft</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyRTX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">API Reference</a></li>
+          <li class="breadcrumb-item"><a href="pyRTX.core.html">pyRTX.core</a></li>
+      <li class="breadcrumb-item active">pyRTX.core.analysis_utils</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/api/generated/pyRTX.core.analysis_utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pyRTX.core.analysis_utils">
+<span id="pyrtx-core-analysis-utils"></span><h1>pyRTX.core.analysis_utils<a class="headerlink" href="#module-pyRTX.core.analysis_utils" title="Permalink to this heading"></a></h1>
+<p class="rubric">Functions</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.computeRADEC" title="pyRTX.core.analysis_utils.computeRADEC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">computeRADEC</span></code></a>(vecs[, periodicity])</p></td>
+<td><p>From a ND array of shape (N, 3), compute RA/DEC</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.compute_body_positions" title="pyRTX.core.analysis_utils.compute_body_positions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_body_positions</span></code></a>(target, epochs, ...)</p></td>
+<td><p>Functions to compute the relative positions of a target body with respect to an observing body.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.compute_body_states" title="pyRTX.core.analysis_utils.compute_body_states"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_body_states</span></code></a>(target, epochs, frame, obs)</p></td>
+<td><p>Functions to compute the relative position and velocity of a target body with respect to an observing body.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.convertEpoch" title="pyRTX.core.analysis_utils.convertEpoch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convertEpoch</span></code></a>(monteEpoch)</p></td>
+<td><p>Convert a Monte epoch string to a spice epoch string</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.convertTIFtoMesh" title="pyRTX.core.analysis_utils.convertTIFtoMesh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convertTIFtoMesh</span></code></a>([tifFile, latSampling, ...])</p></td>
+<td><p>Convert a TIF map of emissivities to the format needed for assigning values to each face of a planetary 3D mesh</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.epochRange" title="pyRTX.core.analysis_utils.epochRange"><code class="xref py py-obj docutils literal notranslate"><span class="pre">epochRange</span></code></a>([startEpoch, duration, step])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.epochRange2" title="pyRTX.core.analysis_utils.epochRange2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">epochRange2</span></code></a>([startEpoch, endEpoch, step])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.getSunAngles" title="pyRTX.core.analysis_utils.getSunAngles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getSunAngles</span></code></a>([scName, scFrame, epoch, ...])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.get_spacecraft_area" title="pyRTX.core.analysis_utils.get_spacecraft_area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_spacecraft_area</span></code></a>(spacecraft[, ra, dec, epoch])</p></td>
+<td><p>Compute a pyRTX.Spacecraft apparent area as seen by the direction specified by a pair of right ascension - declination</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.get_sun_exposed_area" title="pyRTX.core.analysis_utils.get_sun_exposed_area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_sun_exposed_area</span></code></a>(sc, rtx, epoch)</p></td>
+<td><p>Compute a pyRTX.Spacecraft apparent area as seen by the direction specified by a pair of right ascension - declination</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.LookupTable" title="pyRTX.core.analysis_utils.LookupTable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LookupTable</span></code></a>(linspace_x, linspace_y, values)</p></td>
+<td><p>This class is used to store results in the shape aof a lookup table.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.LookupTableND" title="pyRTX.core.analysis_utils.LookupTableND"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LookupTableND</span></code></a>([axes, values, info, np_array])</p></td>
+<td><p>Same concept as the LookupTable class, but allowing for multi-dimensional (&gt;2) tables</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.ScatterLookup" title="pyRTX.core.analysis_utils.ScatterLookup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScatterLookup</span></code></a>()</p></td>
+<td><p>A class for dealing with zone-scattered lookup tables Intended for creating a lookup table of sets of computed values that lie in distinct, DISJUNCT, zones of the axes space.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.TiffInterpolator" title="pyRTX.core.analysis_utils.TiffInterpolator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TiffInterpolator</span></code></a>([axes, values])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">LookupTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linspace_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linspace_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTable" title="Permalink to this definition"></a></dt>
+<dd><p>This class is used to store results in the shape aof a lookup table.
+This is mainly used to store the resultas of a set of raytracing results
+example: the solar pressure for a body is computed for a grid of RA/DEC values.
+these values can be stored in the LookupTable object and later retrieved.
+This class offers the possibility of not oly retrieving pre-computed values, but
+aslso interpolating between grid points.</p>
+<p>NOTE: the grid of the lookup table does not need to be regular
+the interpolation is based on numpy griddata method which is able to cope
+with unstructured grids</p>
+<p>The main way of retrieving values is through indexing. The following are implemented:</p>
+<p>LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated
+LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested
+LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)
+LUT[array-like, array-like]: return the lookup table interpolated in the array-like points</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>linspace_x</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.array(N,)</span></code>) – The x axis of the lookup table</p></li>
+<li><p><strong>linspace_y</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.array(M,)</span></code>) – The y axis of the lookup table</p></li>
+<li><p><strong>values</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span> <span class="pre">(N,M,1)</span></code>) – The lookup table values</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTable.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linspace_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linspace_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTable.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTable.__init__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTable.set_interpType">
+<span class="sig-name descname"><span class="pre">set_interpType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interpType</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTable.set_interpType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTable.set_interpType" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTable.interp_point">
+<span class="sig-name descname"><span class="pre">interp_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTable.interp_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTable.interp_point" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTable.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idxs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTable.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTable.__getitem__" title="Permalink to this definition"></a></dt>
+<dd><p>Implement a getitem method.
+Several usages are possible:</p>
+<p>LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated
+LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested
+LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)
+LUT[array-like, array-like]: return the lookup table interpolated in the array-like points</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTable.quickPlot">
+<span class="sig-name descname"><span class="pre">quickPlot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'viridis'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saveto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTable.quickPlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTable.quickPlot" title="Permalink to this definition"></a></dt>
+<dd><p>Produce a quick plot of the lookup table</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xlabel</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional)</span></code>) – label for the x-axis</p></li>
+<li><p><strong>ylabel</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional)</span></code>) – label for the y-axis</p></li>
+<li><p><strong>title</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional)</span></code>) – title of the plot</p></li>
+<li><p><strong>conversion</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span> <span class="pre">(Optional</span></code>, <em>default</em> <code class="xref py py-class docutils literal notranslate"><span class="pre">1)</span></code>) – a conversion factor for the plotted values. This method will plot X*conversion, Y*conversion</p></li>
+<li><p><strong>clabel</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional)</span></code>) – label of the color bar</p></li>
+<li><p><strong>cmap</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">(Optional</span></code>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'viridis'</span></code><code class="xref py py-class docutils literal notranslate"><span class="pre">)</span></code>) – the colormap to use (matplotlib colormaps)</p></li>
+<li><p><strong>saveto</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional</span></code>, <em>default</em> <code class="xref py py-class docutils literal notranslate"><span class="pre">None)</span></code>) – if not None: the path to save the plot to (the file extension defines the format)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTableND">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">LookupTableND</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">np_array</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTableND"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTableND" title="Permalink to this definition"></a></dt>
+<dd><p>Same concept as the LookupTable class, but allowing for multi-dimensional (&gt;2) tables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a> of <code class="xref py py-class docutils literal notranslate"><span class="pre">np.array</span></code>) – The axes of the lookup table</p></li>
+<li><p><strong>values</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray(N,M,L,...,1)</span></code>) – </p></li>
+<li><p><strong>info</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – A string field to store information about the lookup table. This is set as a class property
+so it can be requested trhough instance.info</p></li>
+<li><p><strong>np.array</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.array</span></code>) – unset</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTableND.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">np_array</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTableND.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTableND.__init__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTableND.set_interpType">
+<span class="sig-name descname"><span class="pre">set_interpType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interpType</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTableND.set_interpType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTableND.set_interpType" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTableND.get_idx">
+<span class="sig-name descname"><span class="pre">get_idx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTableND.get_idx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTableND.get_idx" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTableND.interp_point">
+<span class="sig-name descname"><span class="pre">interp_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTableND.interp_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTableND.interp_point" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTableND.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idxs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTableND.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTableND.__getitem__" title="Permalink to this definition"></a></dt>
+<dd><p>Implement a getitem method.
+Several usages are possible:</p>
+<p>LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated
+LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested
+LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)
+LUT[array-like, array-like]: return the lookup table interpolated in the array-like points</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTableND.axisExtent">
+<span class="sig-name descname"><span class="pre">axisExtent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTableND.axisExtent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTableND.axisExtent" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTableND.quickPlot">
+<span class="sig-name descname"><span class="pre">quickPlot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'viridis'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saveto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTableND.quickPlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTableND.quickPlot" title="Permalink to this definition"></a></dt>
+<dd><p>Produce a quick plot of the lookup table</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xlabel</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional)</span></code>) – label for the x-axis</p></li>
+<li><p><strong>ylabel</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional)</span></code>) – label for the y-axis</p></li>
+<li><p><strong>title</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional)</span></code>) – title of the plot</p></li>
+<li><p><strong>conversion</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span> <span class="pre">(Optional</span></code>, <em>default</em> <code class="xref py py-class docutils literal notranslate"><span class="pre">1)</span></code>) – a conversion factor for the plotted values. This method will plot X*conversion, Y*conversion</p></li>
+<li><p><strong>clabel</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional)</span></code>) – label of the color bar</p></li>
+<li><p><strong>cmap</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">(Optional</span></code>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'viridis'</span></code><code class="xref py py-class docutils literal notranslate"><span class="pre">)</span></code>) – the colormap to use (matplotlib colormaps)</p></li>
+<li><p><strong>saveto</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional</span></code>, <em>default</em> <code class="xref py py-class docutils literal notranslate"><span class="pre">None)</span></code>) – if not None: the path to save the plot to (the file extension defines the format)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.ScatterLookup">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">ScatterLookup</span></span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#ScatterLookup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.ScatterLookup" title="Permalink to this definition"></a></dt>
+<dd><p>A class for dealing with zone-scattered lookup tables
+Intended for creating a lookup table of sets of computed values that lie in distinct, DISJUNCT,
+zones of the axes space.
+Example: the value of a variable has been computed in X = [0,1] Y = [0,1] and X = [3,4] Y = [-2,-1]</p>
+<p>After instantiating the empty class, the different zones are added. Example</p>
+<p>sc = ScatterLookup()
+zone1 = LookupTableND(<a href="#id1"><span class="problematic" id="id2">*</span></a>args, <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs)
+zone2 = LookupTableND(<a href="#id5"><span class="problematic" id="id6">*</span></a>args, <a href="#id7"><span class="problematic" id="id8">**</span></a>kwargs)
+sc.addZone(zone1)
+sc.addZone(zone2)</p>
+<p>The value retrieval follows the same rules of indexing as the LookupTable and LookupTableND classes</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.ScatterLookup.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#ScatterLookup.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.ScatterLookup.__init__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.ScatterLookup.add_zone">
+<span class="sig-name descname"><span class="pre">add_zone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ZoneLookup</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#ScatterLookup.add_zone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.ScatterLookup.add_zone" title="Permalink to this definition"></a></dt>
+<dd><p>Add a zone
+:param ZoneLookup:
+:type ZoneLookup: <a class="reference internal" href="#pyRTX.core.analysis_utils.LookupTableND" title="pyRTX.core.analysis_utils.LookupTableND"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.core.analysis_utils.LookupTableND</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.ScatterLookup.zone_determination">
+<span class="sig-name descname"><span class="pre">zone_determination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idxs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#ScatterLookup.zone_determination"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.ScatterLookup.zone_determination" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.TiffInterpolator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">TiffInterpolator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#TiffInterpolator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.TiffInterpolator" title="Permalink to this definition"></a></dt>
+<dd><dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.TiffInterpolator.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#TiffInterpolator.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.TiffInterpolator.__init__" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.TiffInterpolator.interpolator">
+<span class="sig-name descname"><span class="pre">interpolator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#TiffInterpolator.interpolator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.TiffInterpolator.interpolator" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.TiffInterpolator.set_interpType">
+<span class="sig-name descname"><span class="pre">set_interpType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interpType</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#TiffInterpolator.set_interpType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.TiffInterpolator.set_interpType" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.TiffInterpolator.get_idx">
+<span class="sig-name descname"><span class="pre">get_idx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#TiffInterpolator.get_idx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.TiffInterpolator.get_idx" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.TiffInterpolator.interp_point">
+<span class="sig-name descname"><span class="pre">interp_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#TiffInterpolator.interp_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.TiffInterpolator.interp_point" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.TiffInterpolator.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idxs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#TiffInterpolator.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.TiffInterpolator.__getitem__" title="Permalink to this definition"></a></dt>
+<dd><p>Implement a getitem method.
+Several usages are possible:</p>
+<p>LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated
+LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested
+LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)
+LUT[array-like, array-like]: return the lookup table interpolated in the array-like points</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.getSunAngles">
+<span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">getSunAngles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scFrame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'LT+S'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#getSunAngles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.getSunAngles" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.epochRange">
+<span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">epochRange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startEpoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#epochRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.epochRange" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.epochRange2">
+<span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">epochRange2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startEpoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endEpoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#epochRange2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.epochRange2" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.computeRADEC">
+<span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">computeRADEC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vecs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">periodicity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">360</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#computeRADEC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.computeRADEC" title="Permalink to this definition"></a></dt>
+<dd><p>From a ND array of shape (N, 3), compute RA/DEC</p>
+<p>Parameters:
+vecs: [ndarray (N,3)]
+Returns:
+RA, DEC</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.convertTIFtoMesh">
+<span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">convertTIFtoMesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tifFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latSampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inferSampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonSampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">planet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1.5707963267948966</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5707963267948966</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.283185307179586</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#convertTIFtoMesh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.convertTIFtoMesh" title="Permalink to this definition"></a></dt>
+<dd><p>Convert a TIF map of emissivities to the format needed for assigning values to each face of a planetary 3D mesh</p>
+<p>Parameters:
+tifFile : [str] the path to the TIFF file
+latSampling: [float, in rad] sampling step of latitude
+lonSampling: [float, in rad] sampling step of longitude
+planet: [class.Planet] Planet object containing the mesh and the planetary frames
+inferSampling: [bool] wether the importer shall infer the sampling or not
+Returns:
+emissivityInterpolator: [class.LookupTableND] an interpolator for mapping the temperatures on the mesh faces. This is intended to be passed</p>
+<blockquote>
+<div><p>to the Planet class via the setter method: Planet.emissivity = emissivityInterpolator</p>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.convertEpoch">
+<span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">convertEpoch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">monteEpoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#convertEpoch"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.convertEpoch" title="Permalink to this definition"></a></dt>
+<dd><p>Convert a Monte epoch string to a spice epoch string</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.get_spacecraft_area">
+<span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">get_spacecraft_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#get_spacecraft_area"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.get_spacecraft_area" title="Permalink to this definition"></a></dt>
+<dd><p>Compute a pyRTX.Spacecraft apparent area as seen by the direction specified
+by a pair of right ascension - declination</p>
+<p>Input:
+spacecraft [pyRTX.Spacecraft]   : the spacecraft object
+ra [float]                                              : right ascension (in rad)
+dec [float]                                     : declination (rad)
+epoch [float or None]                   : epoch for the computation (this is used when moving Spice</p>
+<blockquote>
+<div><p>frames are used for the Spacecraft definition)</p>
+</div></blockquote>
+<p>Output:
+area [float]                                    : the apparent area. The measurement units depend on the units of the</p>
+<blockquote>
+<div><p>Spacecraft object</p>
+</div></blockquote>
+<p>TODO: avoid hardcoded width/height but rather use an automated method</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.get_sun_exposed_area">
+<span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">get_sun_exposed_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#get_sun_exposed_area"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.get_sun_exposed_area" title="Permalink to this definition"></a></dt>
+<dd><p>Compute a pyRTX.Spacecraft apparent area as seen by the direction specified
+by a pair of right ascension - declination</p>
+<p>Input:
+spacecraft [pyRTX.Spacecraft]   : the spacecraft object
+ra [float]                                              : right ascension (in rad)
+dec [float]                                     : declination (rad)
+epoch [float or None]                   : epoch for the computation (this is used when moving Spice</p>
+<blockquote>
+<div><p>frames are used for the Spacecraft definition)</p>
+</div></blockquote>
+<p>Output:
+area [float]                                    : the apparent area. The measurement units depend on the units of the</p>
+<blockquote>
+<div><p>Spacecraft object</p>
+</div></blockquote>
+<p>TODO: avoid hardcoded width/height but rather use an automated method</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.compute_body_positions">
+<span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">compute_body_positions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abcorr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'LT</span> <span class="pre">+</span> <span class="pre">S'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#compute_body_positions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.compute_body_positions" title="Permalink to this definition"></a></dt>
+<dd><p>Functions to compute the relative positions of a target
+body with respect to an observing body.</p>
+<p>Parameters:
+-       target: target body name
+-       epochs: list of epochs
+-       frame: reference frame of output position vector
+-       obs: observing body name
+-       abcorr: aberration correction flag.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.compute_body_states">
+<span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">compute_body_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abcorr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'LT</span> <span class="pre">+</span> <span class="pre">S'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#compute_body_states"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.compute_body_states" title="Permalink to this definition"></a></dt>
+<dd><p>Functions to compute the relative position and velocity of a target
+body with respect to an observing body.</p>
+<p>Parameters:
+-       target: target body name
+-       epochs: list of epochs
+-       frame: reference frame of output position vector
+-       obs: observing body name
+-       abcorr: aberration correction flag.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pyRTX.core.html" class="btn btn-neutral float-left" title="pyRTX.core" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pyRTX.core.parallel_utils.html" class="btn btn-neutral float-right" title="pyRTX.core.parallel_utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Gael Cascioli.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

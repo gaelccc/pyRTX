@@ -1,0 +1,1019 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Index &mdash; pyRTX 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=51279e30" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=2389946f"></script>
+      <script src="_static/doctools.js?v=888ff710"></script>
+      <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="#" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            pyRTX
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#from-source">From Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#build-dependencies">Build Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#runtime-dependencies">Runtime Dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#basic-usage">Basic Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/core.html">Core Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/core.html#module-pyRTX.core.utils_rt">Ray Tracing Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.block_dot"><code class="docutils literal notranslate"><span class="pre">block_dot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.pixel_plane"><code class="docutils literal notranslate"><span class="pre">pixel_plane()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.fast_vector_build"><code class="docutils literal notranslate"><span class="pre">fast_vector_build()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.pixel_plane_opt"><code class="docutils literal notranslate"><span class="pre">pixel_plane_opt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.reflected"><code class="docutils literal notranslate"><span class="pre">reflected()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.get_orthogonal"><code class="docutils literal notranslate"><span class="pre">get_orthogonal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.sample_lambert_dist"><code class="docutils literal notranslate"><span class="pre">sample_lambert_dist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.exportEXAC"><code class="docutils literal notranslate"><span class="pre">exportEXAC()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.cgal_init_geometry"><code class="docutils literal notranslate"><span class="pre">cgal_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.get_centroids"><code class="docutils literal notranslate"><span class="pre">get_centroids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.get_cross_products"><code class="docutils literal notranslate"><span class="pre">get_cross_products()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.get_face_areas"><code class="docutils literal notranslate"><span class="pre">get_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.get_surface_normals"><code class="docutils literal notranslate"><span class="pre">get_surface_normals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="docutils literal notranslate"><span class="pre">get_surface_normals_and_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.ShapeModel"><code class="docutils literal notranslate"><span class="pre">ShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/core.html#module-pyRTX.core.shadow_utils">Shadow Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/core.html#module-pyRTX.core.physical_utils">Physical Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.physical_utils.srp_core"><code class="docutils literal notranslate"><span class="pre">srp_core()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.physical_utils.compute_srp"><code class="docutils literal notranslate"><span class="pre">compute_srp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/core.html#module-pyRTX.core.parallel_utils">Parallel Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.parallel_utils.get_ncores"><code class="docutils literal notranslate"><span class="pre">get_ncores()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.parallel_utils.is_method"><code class="docutils literal notranslate"><span class="pre">is_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.parallel_utils.get_unwrapped"><code class="docutils literal notranslate"><span class="pre">get_unwrapped()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.parallel_utils.parallel"><code class="docutils literal notranslate"><span class="pre">parallel()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/classes.html">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/classes.html#sunshadow">SunShadow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/classes.html#solarpressure">SolarPressure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/classes.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/classes.html#planet">Planet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/classes.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/classes.html#pixelplane">PixelPlane</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/classes.html#pyRTX.classes.PixelPlane.PixelPlane"><code class="docutils literal notranslate"><span class="pre">PixelPlane</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/classes.html#spacecraft">Spacecraft</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft"><code class="docutils literal notranslate"><span class="pre">Spacecraft</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/defaults.html">Default Values and Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#core-modules">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/generated/pyRTX.core.html">pyRTX.core</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.core.analysis_utils.html">pyRTX.core.analysis_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.core.parallel_utils.html">pyRTX.core.parallel_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.core.physical_utils.html">pyRTX.core.physical_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.core.shadow_utils.html">pyRTX.core.shadow_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.core.utils_rt.html">pyRTX.core.utils_rt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#classes">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/generated/pyRTX.classes.html">pyRTX.classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.classes.Atmosphere.html">pyRTX.classes.Atmosphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.classes.Drag.html">pyRTX.classes.Drag</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.classes.LookUpTable.html">pyRTX.classes.LookUpTable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.classes.PixelPlane.html">pyRTX.classes.PixelPlane</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.classes.Planet.html">pyRTX.classes.Planet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.classes.Precompute.html">pyRTX.classes.Precompute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.classes.Radiation.html">pyRTX.classes.Radiation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.classes.RayTracer.html">pyRTX.classes.RayTracer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.classes.SRP.html">pyRTX.classes.SRP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.classes.Spacecraft.html">pyRTX.classes.Spacecraft</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">pyRTX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Index</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+
+<h1 id="index">Index</h1>
+
+<div class="genindex-jumpbox">
+ <a href="#_"><strong>_</strong></a>
+ | <a href="#A"><strong>A</strong></a>
+ | <a href="#B"><strong>B</strong></a>
+ | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
+ | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
+ | <a href="#I"><strong>I</strong></a>
+ | <a href="#L"><strong>L</strong></a>
+ | <a href="#M"><strong>M</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#Q"><strong>Q</strong></a>
+ | <a href="#R"><strong>R</strong></a>
+ | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
+ | <a href="#U"><strong>U</strong></a>
+ | <a href="#V"><strong>V</strong></a>
+ | <a href="#W"><strong>W</strong></a>
+ | <a href="#Z"><strong>Z</strong></a>
+ 
+</div>
+<h2 id="_">_</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid.__getitem__">__getitem__() (pyRTX.classes.Planet.PlanetGrid method)</a>
+
+      <ul>
+        <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable.__getitem__">(pyRTX.core.analysis_utils.LookupTable method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND.__getitem__">(pyRTX.core.analysis_utils.LookupTableND method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator.__getitem__">(pyRTX.core.analysis_utils.TiffInterpolator method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram.__init__">__init__() (pyRTX.classes.Atmosphere.VenusGram method)</a>
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag.__init__">(pyRTX.classes.Drag.Drag method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable.__init__">(pyRTX.classes.LookUpTable.LookUpTable method)</a>
+</li>
+        <li><a href="api/classes.html#pyRTX.classes.PixelPlane.PixelPlane.__init__">(pyRTX.classes.PixelPlane.PixelPlane method)</a>, <a href="api/generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane.__init__">[1]</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.AlbedoGrid.__init__">(pyRTX.classes.Planet.AlbedoGrid method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.EmissivityGrid.__init__">(pyRTX.classes.Planet.EmissivityGrid method)</a>
+</li>
+        <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.__init__">(pyRTX.classes.Planet.Planet method)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.__init__">[1]</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid.__init__">(pyRTX.classes.Planet.PlanetGrid method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.TemperatureGrid.__init__">(pyRTX.classes.Planet.TemperatureGrid method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.__init__">(pyRTX.classes.Precompute.Precompute method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo.__init__">(pyRTX.classes.Radiation.Albedo method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity.__init__">(pyRTX.classes.Radiation.Emissivity method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.RayTracer.html#pyRTX.classes.RayTracer.RayTracer.__init__">(pyRTX.classes.RayTracer.RayTracer method)</a>
+</li>
+        <li><a href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft.__init__">(pyRTX.classes.Spacecraft.Spacecraft method)</a>, <a href="api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.__init__">[1]</a>
+</li>
+        <li><a href="api/classes.html#pyRTX.classes.SRP.SolarPressure.__init__">(pyRTX.classes.SRP.SolarPressure method)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.__init__">[1]</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.__init__">(pyRTX.classes.SRP.SunShadow method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable.__init__">(pyRTX.core.analysis_utils.LookupTable method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND.__init__">(pyRTX.core.analysis_utils.LookupTableND method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.ScatterLookup.__init__">(pyRTX.core.analysis_utils.ScatterLookup method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator.__init__">(pyRTX.core.analysis_utils.TiffInterpolator method)</a>
+</li>
+        <li><a href="api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel.__init__">(pyRTX.core.utils_rt.TrimeshShapeModel method)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel.__init__">[1]</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="A">A</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft.add_parts">add_parts() (pyRTX.classes.Spacecraft.Spacecraft method)</a>, <a href="api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.add_parts">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.ScatterLookup.add_zone">add_zone() (pyRTX.core.analysis_utils.ScatterLookup method)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.addPosition">addPosition() (pyRTX.classes.Precompute.Precompute method)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.addRotation">addRotation() (pyRTX.classes.Precompute.Precompute method)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.addState">addState() (pyRTX.classes.Precompute.Precompute method)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo">Albedo (class in pyRTX.classes.Radiation)</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.albedo">albedo (pyRTX.classes.Planet.Planet property)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.albedo">[1]</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.albedo_map">albedo_map (pyRTX.classes.Planet.Planet property)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.albedo_map">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.albedoFaces">albedoFaces() (pyRTX.classes.Planet.Planet method)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.albedoFaces">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.AlbedoGrid">AlbedoGrid (class in pyRTX.classes.Planet)</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft.apply_transforms">apply_transforms() (pyRTX.classes.Spacecraft.Spacecraft method)</a>, <a href="api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.apply_transforms">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable.attrs">attrs (pyRTX.classes.LookUpTable.LookUpTable property)</a>
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid.attrs">(pyRTX.classes.Planet.PlanetGrid property)</a>
+</li>
+      </ul></li>
+      <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable.axes">axes (pyRTX.classes.LookUpTable.LookUpTable property)</a>
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid.axes">(pyRTX.classes.Planet.PlanetGrid property)</a>
+</li>
+      </ul></li>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND.axisExtent">axisExtent() (pyRTX.core.analysis_utils.LookupTableND method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="B">B</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable.base_frame">base_frame (pyRTX.classes.LookUpTable.LookUpTable property)</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.block_dot">block_dot() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.block_dot">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.block_normalize">block_normalize() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.block_normalize">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.body">body (pyRTX.classes.SRP.SunShadow attribute)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="C">C</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.cgal_init_geometry">cgal_init_geometry() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.cgal_init_geometry">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel">CgalTrimeshShapeModel (class in pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.chunker">chunker() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.chunker">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.shadow_utils.circular_mask">circular_mask() (in module pyRTX.core.shadow_utils)</a>, <a href="api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_mask">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.shadow_utils.circular_rim">circular_rim() (in module pyRTX.core.shadow_utils)</a>, <a href="api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_rim">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram.compute">compute() (pyRTX.classes.Atmosphere.VenusGram method)</a>
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag.compute">(pyRTX.classes.Drag.Drag method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.TemperatureGrid.compute">(pyRTX.classes.Planet.TemperatureGrid method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo.compute">(pyRTX.classes.Radiation.Albedo method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity.compute">(pyRTX.classes.Radiation.Emissivity method)</a>
+</li>
+        <li><a href="api/classes.html#pyRTX.classes.SRP.SolarPressure.compute">(pyRTX.classes.SRP.SolarPressure method)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.compute">[1]</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.SRP.html#id3">(pyRTX.classes.SRP.SunShadow method)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.compute">[1]</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/core.html#pyRTX.core.shadow_utils.compute_beta">compute_beta() (in module pyRTX.core.shadow_utils)</a>, <a href="api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_beta">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.compute_body_positions">compute_body_positions() (in module pyRTX.core.analysis_utils)</a>
+</li>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.compute_body_states">compute_body_states() (in module pyRTX.core.analysis_utils)</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.shadow_utils.compute_directions">compute_directions() (in module pyRTX.core.shadow_utils)</a>, <a href="api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_directions">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.shadow_utils.compute_pixel_intensities">compute_pixel_intensities() (in module pyRTX.core.shadow_utils)</a>, <a href="api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_pixel_intensities">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.compute_secondary_bounce">compute_secondary_bounce() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.compute_secondary_bounce">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.physical_utils.compute_srp">compute_srp() (in module pyRTX.core.physical_utils)</a>, <a href="api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.compute_srp">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.computeRADEC">computeRADEC() (in module pyRTX.core.analysis_utils)</a>
+</li>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.convertEpoch">convertEpoch() (in module pyRTX.core.analysis_utils)</a>
+</li>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.convertTIFtoMesh">convertTIFtoMesh() (in module pyRTX.core.analysis_utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="D">D</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable.data">data (pyRTX.classes.LookUpTable.LookUpTable property)</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.dayside_temperature">dayside_temperature (pyRTX.classes.Planet.Planet property)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.dayside_temperature">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.diffuse">diffuse() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.diffuse">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable.dims">dims (pyRTX.classes.LookUpTable.LookUpTable property)</a>
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid.dims">(pyRTX.classes.Planet.PlanetGrid property)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag">Drag (class in pyRTX.classes.Drag)</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.PixelPlane.PixelPlane.dump">dump() (pyRTX.classes.PixelPlane.PixelPlane method)</a>, <a href="api/generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane.dump">[1]</a>
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.dump">(pyRTX.classes.Precompute.Precompute method)</a>
+</li>
+        <li><a href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft.dump">(pyRTX.classes.Spacecraft.Spacecraft method)</a>, <a href="api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.dump">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft.dump_materials">dump_materials() (pyRTX.classes.Spacecraft.Spacecraft method)</a>, <a href="api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.dump_materials">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.Embree3_dump_solution">Embree3_dump_solution() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_dump_solution">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.Embree3_init_geometry">Embree3_init_geometry() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_init_geometry">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.Embree3_init_rayhit">Embree3_init_rayhit() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_init_rayhit">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel">EmbreeTrimeshShapeModel (class in pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity">Emissivity (class in pyRTX.classes.Radiation)</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.emissivity">emissivity (pyRTX.classes.Planet.Planet property)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.emissivity">[1]</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.emissivityFaces">emissivityFaces() (pyRTX.classes.Planet.Planet method)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.emissivityFaces">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.EmissivityGrid">EmissivityGrid (class in pyRTX.classes.Planet)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram.epoch_converter">epoch_converter() (pyRTX.classes.Atmosphere.VenusGram method)</a>
+</li>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.epochRange">epochRange() (in module pyRTX.core.analysis_utils)</a>
+</li>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.epochRange2">epochRange2() (in module pyRTX.core.analysis_utils)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable.eul_idxs">eul_idxs (pyRTX.classes.LookUpTable.LookUpTable property)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable.eul_set">eul_set (pyRTX.classes.LookUpTable.LookUpTable property)</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.exportEXAC">exportEXAC() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.exportEXAC">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="F">F</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.fast_vector_build">fast_vector_build() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.fast_vector_build">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid.frame">frame (pyRTX.classes.Planet.PlanetGrid property)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.TemperatureGrid.get_albedo">get_albedo() (pyRTX.classes.Planet.TemperatureGrid method)</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.get_centroids">get_centroids() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_centroids">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.get_cross_products">get_cross_products() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_cross_products">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid.get_data">get_data() (pyRTX.classes.Planet.PlanetGrid method)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.TemperatureGrid.get_emissivity">get_emissivity() (pyRTX.classes.Planet.TemperatureGrid method)</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.get_face_areas">get_face_areas() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_face_areas">[1]</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.SRP.SolarPressure.get_flux">get_flux() (pyRTX.classes.SRP.SolarPressure method)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.get_flux">[1]</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.SRP.SolarPressure.get_force">get_force() (pyRTX.classes.SRP.SolarPressure method)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.get_force">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND.get_idx">get_idx() (pyRTX.core.analysis_utils.LookupTableND method)</a>
+
+      <ul>
+        <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator.get_idx">(pyRTX.core.analysis_utils.TiffInterpolator method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/core.html#pyRTX.core.parallel_utils.get_ncores">get_ncores() (in module pyRTX.core.parallel_utils)</a>, <a href="api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.get_ncores">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.get_orthogonal">get_orthogonal() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_orthogonal">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.get_spacecraft_area">get_spacecraft_area() (in module pyRTX.core.analysis_utils)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.get_sun_exposed_area">get_sun_exposed_area() (in module pyRTX.core.analysis_utils)</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.get_surface_normals">get_surface_normals() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_surface_normals">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas">get_surface_normals_and_face_areas() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.parallel_utils.get_unwrapped">get_unwrapped() (in module pyRTX.core.parallel_utils)</a>, <a href="api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.get_unwrapped">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.getArray">getArray() (pyRTX.classes.Precompute.Precompute method)</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.getFaceAlbedo">getFaceAlbedo() (pyRTX.classes.Planet.Planet method)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.getFaceAlbedo">[1]</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.getFaceEmissivity">getFaceEmissivity() (pyRTX.classes.Planet.Planet method)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.getFaceEmissivity">[1]</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.getFaceTemperatures">getFaceTemperatures() (pyRTX.classes.Planet.Planet method)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.getFaceTemperatures">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.getPosition">getPosition() (pyRTX.classes.Precompute.Precompute method)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.getRotation">getRotation() (pyRTX.classes.Precompute.Precompute method)</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.getScPosSunFixed">getScPosSunFixed() (pyRTX.classes.Planet.Planet method)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.getScPosSunFixed">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.getState">getState() (pyRTX.classes.Precompute.Precompute method)</a>
+</li>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.getSunAngles">getSunAngles() (in module pyRTX.core.analysis_utils)</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.gridded_temperature">gridded_temperature (pyRTX.classes.Planet.Planet property)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.gridded_temperature">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="I">I</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.SRP.html#id1">I (pyRTX.classes.SRP.SunShadow attribute)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.I">[1]</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft.info">info() (pyRTX.classes.Spacecraft.Spacecraft method)</a>, <a href="api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.info">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable.interp_point">interp_point() (pyRTX.core.analysis_utils.LookupTable method)</a>
+
+      <ul>
+        <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND.interp_point">(pyRTX.core.analysis_utils.LookupTableND method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator.interp_point">(pyRTX.core.analysis_utils.TiffInterpolator method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator.interpolator">interpolator() (pyRTX.core.analysis_utils.TiffInterpolator method)</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel.intersect1">intersect1() (pyRTX.core.utils_rt.TrimeshShapeModel method)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel.intersect1">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel.intersect1_2d">intersect1_2d() (pyRTX.core.utils_rt.TrimeshShapeModel method)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel.intersect1_2d">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel.intersect1_2d_with_coords">intersect1_2d_with_coords() (pyRTX.core.utils_rt.TrimeshShapeModel method)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel.intersect1_2d_with_coords">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.parallel_utils.is_method">is_method() (in module pyRTX.core.parallel_utils)</a>, <a href="api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.is_method">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.limbDarkening">limbDarkening (pyRTX.classes.SRP.SunShadow attribute)</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.SRP.SolarPressure.lookupCompute">lookupCompute() (pyRTX.classes.SRP.SolarPressure method)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.lookupCompute">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable">LookUpTable (class in pyRTX.classes.LookUpTable)</a>
+</li>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable">LookupTable (class in pyRTX.core.analysis_utils)</a>
+</li>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND">LookupTableND (class in pyRTX.core.analysis_utils)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="M">M</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft.materials">materials() (pyRTX.classes.Spacecraft.Spacecraft method)</a>, <a href="api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.materials">[1]</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.mesh">mesh() (pyRTX.classes.Planet.Planet method)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.mesh">[1]</a>
+</li>
+      <li>
+    module
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.html#module-pyRTX.classes">pyRTX.classes</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.Atmosphere.html#module-pyRTX.classes.Atmosphere">pyRTX.classes.Atmosphere</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.Drag.html#module-pyRTX.classes.Drag">pyRTX.classes.Drag</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.LookUpTable.html#module-pyRTX.classes.LookUpTable">pyRTX.classes.LookUpTable</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.PixelPlane.html#module-pyRTX.classes.PixelPlane">pyRTX.classes.PixelPlane</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.Planet.html#module-pyRTX.classes.Planet">pyRTX.classes.Planet</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.Precompute.html#module-pyRTX.classes.Precompute">pyRTX.classes.Precompute</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.Radiation.html#module-pyRTX.classes.Radiation">pyRTX.classes.Radiation</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.RayTracer.html#module-pyRTX.classes.RayTracer">pyRTX.classes.RayTracer</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.Spacecraft.html#module-pyRTX.classes.Spacecraft">pyRTX.classes.Spacecraft</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.SRP.html#module-pyRTX.classes.SRP">pyRTX.classes.SRP</a>
+</li>
+        <li><a href="api/generated/pyRTX.core.html#module-pyRTX.core">pyRTX.core</a>
+</li>
+        <li><a href="api/generated/pyRTX.core.analysis_utils.html#module-pyRTX.core.analysis_utils">pyRTX.core.analysis_utils</a>
+</li>
+        <li><a href="api/core.html#module-pyRTX.core.parallel_utils">pyRTX.core.parallel_utils</a>, <a href="api/generated/pyRTX.core.parallel_utils.html#module-pyRTX.core.parallel_utils">[1]</a>
+</li>
+        <li><a href="api/core.html#module-pyRTX.core.physical_utils">pyRTX.core.physical_utils</a>, <a href="api/generated/pyRTX.core.physical_utils.html#module-pyRTX.core.physical_utils">[1]</a>
+</li>
+        <li><a href="api/core.html#module-pyRTX.core.shadow_utils">pyRTX.core.shadow_utils</a>, <a href="api/generated/pyRTX.core.shadow_utils.html#module-pyRTX.core.shadow_utils">[1]</a>
+</li>
+        <li><a href="api/core.html#module-pyRTX.core.utils_rt">pyRTX.core.utils_rt</a>, <a href="api/generated/pyRTX.core.utils_rt.html#module-pyRTX.core.utils_rt">[1]</a>
+</li>
+        <li><a href="api/defaults.html#module-pyRTX.defaults">pyRTX.defaults</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable.moving_frames">moving_frames (pyRTX.classes.LookUpTable.LookUpTable property)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram.namelistWriter">namelistWriter() (pyRTX.classes.Atmosphere.VenusGram method)</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.nightside_temperature">nightside_temperature (pyRTX.classes.Planet.Planet property)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.nightside_temperature">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel.num_faces">num_faces (pyRTX.core.utils_rt.TrimeshShapeModel property)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel.num_faces">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel.num_verts">num_verts (pyRTX.core.utils_rt.TrimeshShapeModel property)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel.num_verts">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/core.html#pyRTX.core.parallel_utils.parallel">parallel() (in module pyRTX.core.parallel_utils)</a>, <a href="api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.parallel">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid.periodicity">periodicity (pyRTX.classes.Planet.PlanetGrid property)</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.pixel_plane">pixel_plane() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pixel_plane">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.pixel_plane_opt">pixel_plane_opt() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pixel_plane_opt">[1]</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.PixelPlane.PixelPlane">PixelPlane (class in pyRTX.classes.PixelPlane)</a>, <a href="api/generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane">[1]</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.Planet.Planet">Planet (class in pyRTX.classes.Planet)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid">PlanetGrid (class in pyRTX.classes.Planet)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid.plot">plot() (pyRTX.classes.Planet.PlanetGrid method)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute">Precompute (class in pyRTX.classes.Precompute)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.precomputeDrag">precomputeDrag() (pyRTX.classes.Precompute.Precompute method)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.precomputePlanetaryRadiation">precomputePlanetaryRadiation() (pyRTX.classes.Precompute.Precompute method)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.precomputeSolarPressure">precomputeSolarPressure() (pyRTX.classes.Precompute.Precompute method)</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.physical_utils.preprocess_materials">preprocess_materials() (in module pyRTX.core.physical_utils)</a>, <a href="api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.preprocess_materials">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry">preprocess_RTX_geometry() (in module pyRTX.core.physical_utils)</a>, <a href="api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.preprocess_RTX_geometry">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.pxform_convert">pxform_convert() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pxform_convert">[1]</a>
+
+      <ul>
+        <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.pxform_convert">(pyRTX.classes.Planet.Planet method)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.pxform_convert">[1]</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.pxform_convert">(pyRTX.classes.Precompute.Precompute method)</a>
+</li>
+        <li><a href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft.pxform_convert">(pyRTX.classes.Spacecraft.Spacecraft method)</a>, <a href="api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.pxform_convert">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.pxPlane">pxPlane (pyRTX.classes.SRP.SunShadow attribute)</a>
+</li>
+      <li>
+    pyRTX.classes
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.html#module-pyRTX.classes">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyRTX.classes.Atmosphere
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.Atmosphere.html#module-pyRTX.classes.Atmosphere">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyRTX.classes.Drag
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.Drag.html#module-pyRTX.classes.Drag">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyRTX.classes.LookUpTable
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.LookUpTable.html#module-pyRTX.classes.LookUpTable">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    pyRTX.classes.PixelPlane
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.PixelPlane.html#module-pyRTX.classes.PixelPlane">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyRTX.classes.Planet
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.Planet.html#module-pyRTX.classes.Planet">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyRTX.classes.Precompute
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.Precompute.html#module-pyRTX.classes.Precompute">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyRTX.classes.Radiation
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.Radiation.html#module-pyRTX.classes.Radiation">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyRTX.classes.RayTracer
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.RayTracer.html#module-pyRTX.classes.RayTracer">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyRTX.classes.Spacecraft
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.Spacecraft.html#module-pyRTX.classes.Spacecraft">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyRTX.classes.SRP
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.SRP.html#module-pyRTX.classes.SRP">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyRTX.core
+
+      <ul>
+        <li><a href="api/generated/pyRTX.core.html#module-pyRTX.core">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyRTX.core.analysis_utils
+
+      <ul>
+        <li><a href="api/generated/pyRTX.core.analysis_utils.html#module-pyRTX.core.analysis_utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyRTX.core.parallel_utils
+
+      <ul>
+        <li><a href="api/core.html#module-pyRTX.core.parallel_utils">module</a>, <a href="api/generated/pyRTX.core.parallel_utils.html#module-pyRTX.core.parallel_utils">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    pyRTX.core.physical_utils
+
+      <ul>
+        <li><a href="api/core.html#module-pyRTX.core.physical_utils">module</a>, <a href="api/generated/pyRTX.core.physical_utils.html#module-pyRTX.core.physical_utils">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    pyRTX.core.shadow_utils
+
+      <ul>
+        <li><a href="api/core.html#module-pyRTX.core.shadow_utils">module</a>, <a href="api/generated/pyRTX.core.shadow_utils.html#module-pyRTX.core.shadow_utils">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    pyRTX.core.utils_rt
+
+      <ul>
+        <li><a href="api/core.html#module-pyRTX.core.utils_rt">module</a>, <a href="api/generated/pyRTX.core.utils_rt.html#module-pyRTX.core.utils_rt">[1]</a>
+</li>
+      </ul></li>
+      <li>
+    pyRTX.defaults
+
+      <ul>
+        <li><a href="api/defaults.html#module-pyRTX.defaults">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Q">Q</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable.query">query() (pyRTX.classes.LookUpTable.LookUpTable method)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable.quickPlot">quickPlot() (pyRTX.core.analysis_utils.LookupTable method)</a>
+
+      <ul>
+        <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND.quickPlot">(pyRTX.core.analysis_utils.LookupTableND method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="R">R</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.RayTracer.html#pyRTX.classes.RayTracer.RayTracer">RayTracer (class in pyRTX.classes.RayTracer)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram.readResults">readResults() (pyRTX.classes.Atmosphere.VenusGram method)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram.readVariabilities">readVariabilities() (pyRTX.classes.Atmosphere.VenusGram method)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable.ref_epc">ref_epc (pyRTX.classes.LookUpTable.LookUpTable property)</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.reflected">reflected() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.reflected">[1]</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft.remove_part">remove_part() (pyRTX.classes.Spacecraft.Spacecraft method)</a>, <a href="api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.remove_part">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.rot_toSCframe">rot_toSCframe() (pyRTX.classes.Planet.Planet method)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.rot_toSCframe">[1]</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.RTXkernel">RTXkernel() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.RTXkernel">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag.run">run() (pyRTX.classes.Drag.Drag method)</a>
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo.run">(pyRTX.classes.Radiation.Albedo method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity.run">(pyRTX.classes.Radiation.Emissivity method)</a>
+</li>
+        <li><a href="api/classes.html#pyRTX.classes.SRP.SolarPressure.run">(pyRTX.classes.SRP.SolarPressure method)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.run">[1]</a>
+</li>
+        <li><a href="api/generated/pyRTX.classes.SRP.html#id2">(pyRTX.classes.SRP.SunShadow method)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.run">[1]</a>
+</li>
+      </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.sample_lambert_dist">sample_lambert_dist() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.sample_lambert_dist">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid.save">save() (pyRTX.classes.Planet.PlanetGrid method)</a>
+
+      <ul>
+        <li><a href="api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.save">(pyRTX.classes.Precompute.Precompute method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.save_for_visualization">save_for_visualization() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.save_for_visualization">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.ScatterLookup">ScatterLookup (class in pyRTX.core.analysis_utils)</a>
+</li>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable.set_interpType">set_interpType() (pyRTX.core.analysis_utils.LookupTable method)</a>
+
+      <ul>
+        <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND.set_interpType">(pyRTX.core.analysis_utils.LookupTableND method)</a>
+</li>
+        <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator.set_interpType">(pyRTX.core.analysis_utils.TiffInterpolator method)</a>
+</li>
+      </ul></li>
+      <li><a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.shape">shape (pyRTX.classes.SRP.SunShadow attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.ShapeModel">ShapeModel (class in pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.ShapeModel">[1]</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.SRP.SolarPressure">SolarPressure (class in pyRTX.classes.SRP)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.sp_data">sp_data (pyRTX.classes.SRP.SunShadow attribute)</a>
+</li>
+      <li><a href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft">Spacecraft (class in pyRTX.classes.Spacecraft)</a>, <a href="api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.spacecraft">spacecraft (pyRTX.classes.SRP.SunShadow attribute)</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.physical_utils.srp_core">srp_core() (in module pyRTX.core.physical_utils)</a>, <a href="api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.srp_core">[1]</a>
+
+      <ul>
+        <li><a href="api/classes.html#pyRTX.classes.SRP.SolarPressure.srp_core">(pyRTX.classes.SRP.SolarPressure method)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.srp_core">[1]</a>
+</li>
+      </ul></li>
+      <li><a href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft.subset">subset() (pyRTX.classes.Spacecraft.Spacecraft method)</a>, <a href="api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.subset">[1]</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.sunRadius">sunRadius (pyRTX.classes.SRP.SunShadow attribute)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow">SunShadow (class in pyRTX.classes.SRP)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.TemperatureGrid">TemperatureGrid (class in pyRTX.classes.Planet)</a>
+</li>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator">TiffInterpolator (class in pyRTX.core.analysis_utils)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.RayTracer.html#pyRTX.classes.RayTracer.RayTracer.trace">trace() (pyRTX.classes.RayTracer.RayTracer method)</a>
+</li>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel">TrimeshShapeModel (class in pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="U">U</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable.units">units (pyRTX.classes.LookUpTable.LookUpTable property)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/classes.html#pyRTX.classes.PixelPlane.PixelPlane.update_latlon">update_latlon() (pyRTX.classes.PixelPlane.PixelPlane method)</a>, <a href="api/generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane.update_latlon">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram">VenusGram (class in pyRTX.classes.Atmosphere)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.VFNC">VFNC() (pyRTX.classes.Planet.Planet method)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.VFNC">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="W">W</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.classes.SRP.html#id0">where (pyRTX.classes.SRP.SunShadow attribute)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.where">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="Z">Z</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.ScatterLookup.zone_determination">zone_determination() (pyRTX.core.analysis_utils.ScatterLookup method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Gael Cascioli.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

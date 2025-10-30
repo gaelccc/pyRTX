@@ -1,0 +1,490 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyRTX.classes.Atmosphere &mdash; pyRTX 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=51279e30" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=2389946f"></script>
+      <script src="../../../_static/doctools.js?v=888ff710"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            pyRTX
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#from-source">From Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../installation.html#build-dependencies">Build Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../installation.html#runtime-dependencies">Runtime Dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#basic-usage">Basic Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/core.html">Core Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.utils_rt">Ray Tracing Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.block_dot"><code class="docutils literal notranslate"><span class="pre">block_dot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.pixel_plane"><code class="docutils literal notranslate"><span class="pre">pixel_plane()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.fast_vector_build"><code class="docutils literal notranslate"><span class="pre">fast_vector_build()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.pixel_plane_opt"><code class="docutils literal notranslate"><span class="pre">pixel_plane_opt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.reflected"><code class="docutils literal notranslate"><span class="pre">reflected()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_orthogonal"><code class="docutils literal notranslate"><span class="pre">get_orthogonal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.sample_lambert_dist"><code class="docutils literal notranslate"><span class="pre">sample_lambert_dist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.exportEXAC"><code class="docutils literal notranslate"><span class="pre">exportEXAC()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.cgal_init_geometry"><code class="docutils literal notranslate"><span class="pre">cgal_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_centroids"><code class="docutils literal notranslate"><span class="pre">get_centroids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_cross_products"><code class="docutils literal notranslate"><span class="pre">get_cross_products()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_face_areas"><code class="docutils literal notranslate"><span class="pre">get_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_surface_normals"><code class="docutils literal notranslate"><span class="pre">get_surface_normals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="docutils literal notranslate"><span class="pre">get_surface_normals_and_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.ShapeModel"><code class="docutils literal notranslate"><span class="pre">ShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.shadow_utils">Shadow Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.physical_utils">Physical Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.srp_core"><code class="docutils literal notranslate"><span class="pre">srp_core()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.compute_srp"><code class="docutils literal notranslate"><span class="pre">compute_srp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.parallel_utils">Parallel Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.parallel_utils.get_ncores"><code class="docutils literal notranslate"><span class="pre">get_ncores()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.parallel_utils.is_method"><code class="docutils literal notranslate"><span class="pre">is_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.parallel_utils.get_unwrapped"><code class="docutils literal notranslate"><span class="pre">get_unwrapped()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.parallel_utils.parallel"><code class="docutils literal notranslate"><span class="pre">parallel()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/classes.html">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#sunshadow">SunShadow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#solarpressure">SolarPressure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#planet">Planet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#pixelplane">PixelPlane</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.PixelPlane.PixelPlane"><code class="docutils literal notranslate"><span class="pre">PixelPlane</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#spacecraft">Spacecraft</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.Spacecraft.Spacecraft"><code class="docutils literal notranslate"><span class="pre">Spacecraft</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/defaults.html">Default Values and Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/index.html#core-modules">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.core.html">pyRTX.core</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.analysis_utils.html">pyRTX.core.analysis_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.parallel_utils.html">pyRTX.core.parallel_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.physical_utils.html">pyRTX.core.physical_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.shadow_utils.html">pyRTX.core.shadow_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html">pyRTX.core.utils_rt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/index.html#classes">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.classes.html">pyRTX.classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Atmosphere.html">pyRTX.classes.Atmosphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Drag.html">pyRTX.classes.Drag</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.LookUpTable.html">pyRTX.classes.LookUpTable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.PixelPlane.html">pyRTX.classes.PixelPlane</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Planet.html">pyRTX.classes.Planet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Precompute.html">pyRTX.classes.Precompute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Radiation.html">pyRTX.classes.Radiation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.RayTracer.html">pyRTX.classes.RayTracer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.SRP.html">pyRTX.classes.SRP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Spacecraft.html">pyRTX.classes.Spacecraft</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">pyRTX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pyRTX.classes.Atmosphere</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pyRTX.classes.Atmosphere</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">spiceypy</span> <span class="k">as</span> <span class="nn">sp</span>
+
+<div class="viewcode-block" id="VenusGram"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram">[docs]</a><span class="k">class</span> <span class="nc">VenusGram</span><span class="p">():</span>
+
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	An utility class for providing a python interface to VenusGram2005</span>
+<span class="sd">	</span>
+<span class="sd">	Requirements:</span>
+<span class="sd">	- python3</span>
+<span class="sd">	- numpy</span>
+<span class="sd">	- spiceypy</span>
+<span class="sd">	- A compiled version of VenusGram2005	</span>
+
+<span class="sd">	Note: This version has been tested only on UNIX machines</span>
+
+<span class="sd">	The intended usage:</span>
+<span class="sd">	</span>
+<span class="sd">	vg = VenusGram()</span>
+<span class="sd">	rho, T = vg.compute(epoch, lat, lon, height, inputUnits = &#39;deg&#39;)</span>
+
+<span class="sd">	Parameters:</span>
+<span class="sd">	*all these patameters can be either float or numpy  arrays of floats</span>
+<span class="sd">	epoch: epoch output of spiceypy.str2et [The epoch must be provided in TDB. This can be changed modyfying &#39;epoch_converter&#39; sub]</span>
+<span class="sd">	lat: latitude in the units specified in inputUnits</span>
+<span class="sd">	lon: longitude in the units specified in inputUnits</span>
+<span class="sd">	height: height above the reference ellipsoid [km]</span>
+
+<span class="sd">	Returns:</span>
+<span class="sd">	rho: density in kg/m3</span>
+<span class="sd">	T:   temperature in K</span>
+
+<span class="sd">	&quot;&quot;&quot;</span>
+	
+
+<div class="viewcode-block" id="VenusGram.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataFolder</span> <span class="o">=</span> <span class="s1">&#39;/home/cascioli/VenusGram2005/&#39;</span><span class="p">,</span> <span class="n">execFolder</span> <span class="o">=</span> <span class="s1">&#39;/home/cascioli/VenusGram2005/&#39;</span><span class="p">,</span> <span class="n">tmpFolder</span> <span class="o">=</span> <span class="s1">&#39;./tmp&#39;</span> <span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Initialize the istance of the class</span>
+<span class="sd">		</span>
+<span class="sd">		Parameters:</span>
+<span class="sd">		dataFolder: [str] the path to the data folder of VenusGram2005</span>
+<span class="sd">		execFolder: [str] the path to where the venusgrm_V05.x executable is</span>
+<span class="sd">		tmpFolder:  [str] the path to create a temporary convenience folder for Vgram input/output caching. Defaults to ./tmp</span>
+
+<span class="sd">		&quot;&quot;&quot;</span>
+		
+		<span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tmpFolder</span><span class="p">):</span>
+			<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;mkdir </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tmpFolder</span><span class="p">))</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;rm -r </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tmpFolder</span><span class="p">))</span>
+			<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;mkdir </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tmpFolder</span><span class="p">))</span>
+		
+		<span class="bp">self</span><span class="o">.</span><span class="n">lstFile</span> <span class="o">=</span> <span class="n">tmpFolder</span> <span class="o">+</span> <span class="s1">&#39;/LIST.txt&#39;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">outFile</span> <span class="o">=</span> <span class="n">tmpFolder</span> <span class="o">+</span> <span class="s1">&#39;/OUTPUT.txt&#39;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">tmpFolder</span> <span class="o">=</span> <span class="n">tmpFolder</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">execFolder</span> <span class="o">=</span> <span class="n">execFolder</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">dataFolder</span> <span class="o">=</span> <span class="n">dataFolder</span></div>
+
+
+
+
+
+
+
+
+
+<div class="viewcode-block" id="VenusGram.namelistWriter"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram.namelistWriter">[docs]</a>	<span class="k">def</span> <span class="nf">namelistWriter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">height</span><span class="p">):</span>
+		<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpFolder</span> <span class="o">+</span> <span class="s1">&#39;/input.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+
+		<span class="n">M</span><span class="p">,</span><span class="n">D</span><span class="p">,</span><span class="n">Y</span><span class="p">,</span><span class="n">H</span><span class="p">,</span><span class="n">m</span><span class="p">,</span><span class="n">S</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">epoch_converter</span><span class="p">(</span> <span class="n">epoch</span><span class="p">)</span>
+
+		<span class="n">txt</span> <span class="o">=</span>   <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">$INPUT</span>
+<span class="s2">  LSTFL     = &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpFolder</span><span class="si">}</span><span class="s2">/LIST.txt&#39;</span>
+<span class="s2">  OUTFL     = &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpFolder</span><span class="si">}</span><span class="s2">/OUTPUT.txt&#39;</span>
+<span class="s2">  TRAJFL    = &#39;TRAJDATA.txt&#39;</span>
+<span class="s2">  profile   = &#39;null&#39;</span>
+<span class="s2">  DATADIR   = &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dataFolder</span><span class="si">}</span><span class="s2">&#39;</span>
+<span class="s2">  IERT      = 0</span>
+<span class="s2">  IUTC      = 1</span>
+<span class="s2">  Month     = </span><span class="si">{</span><span class="n">M</span><span class="si">}</span>
+<span class="s2">  Mday      = </span><span class="si">{</span><span class="n">D</span><span class="si">}</span>
+<span class="s2">  Myear     = </span><span class="si">{</span><span class="n">Y</span><span class="si">}</span>
+<span class="s2">  Ihr       = </span><span class="si">{</span><span class="n">H</span><span class="si">}</span>
+<span class="s2">  Imin      = </span><span class="si">{</span><span class="n">m</span><span class="si">}</span>
+<span class="s2">  Sec       = </span><span class="si">{</span><span class="n">S</span><span class="si">}</span>
+<span class="s2">  NPOS      = 1</span>
+<span class="s2">  LonEast   = 1</span>
+<span class="s2">  NR1       = 1234</span>
+<span class="s2">  NVARX     = 1</span>
+<span class="s2">  NVARY     = 0</span>
+<span class="s2">  LOGSCALE  = 0</span>
+<span class="s2">  FLAT      = </span><span class="si">{</span><span class="n">lat</span><span class="si">}</span>
+<span class="s2">  FLON      = </span><span class="si">{</span><span class="n">lon</span><span class="si">}</span>
+<span class="s2">  FHGT      = </span><span class="si">{</span><span class="n">height</span><span class="si">}</span>
+<span class="s2">  DELHGT    = 1.0</span>
+<span class="s2">  DELLAT    = 0.3</span>
+<span class="s2">  DELLON    = 0.5</span>
+<span class="s2">  DELTIME   = 500.0</span>
+<span class="s2">  profnear  = 0.0</span>
+<span class="s2">  proffar   = 0.0</span>
+<span class="s2">  rpscale   = 1.0</span>
+<span class="s2">  NMONTE    = 1</span>
+<span class="s2">  iup       = 13</span>
+<span class="s2">  corlmin   = 0.0</span>
+<span class="s2">$END</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+	
+
+		<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">txt</span><span class="p">)</span>
+		<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="VenusGram.epoch_converter"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram.epoch_converter">[docs]</a>	<span class="k">def</span> <span class="nf">epoch_converter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">inputFormat</span> <span class="o">=</span> <span class="s1">&#39;TDB&#39;</span><span class="p">,</span> <span class="n">outputformat</span> <span class="o">=</span> <span class="s1">&#39;UTC&#39;</span><span class="p">):</span>
+		<span class="n">outPicture</span> <span class="o">=</span> <span class="s1">&#39;01 01 2011 01:20:30.000 </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">outputformat</span><span class="p">)</span>
+		<span class="n">pic</span><span class="p">,</span> <span class="n">ok</span><span class="p">,</span> <span class="n">xerror</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">tpictr</span><span class="p">(</span><span class="n">outPicture</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+			<span class="n">outEp</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">timout</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">pic</span><span class="p">)</span>
+	
+		<span class="n">outEp</span> <span class="o">=</span> <span class="n">outEp</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+		<span class="n">M</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">outEp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+		<span class="n">D</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">outEp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+		<span class="n">Y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">outEp</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+		<span class="n">time</span> <span class="o">=</span> <span class="n">outEp</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)</span>
+		<span class="n">H</span> <span class="o">=</span> <span class="n">time</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+		<span class="n">m</span> <span class="o">=</span> <span class="n">time</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+		<span class="n">S</span> <span class="o">=</span> <span class="n">time</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+		<span class="k">return</span> <span class="n">M</span><span class="p">,</span> <span class="n">D</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">S</span></div>
+
+
+<div class="viewcode-block" id="VenusGram.readResults"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram.readResults">[docs]</a>	<span class="k">def</span> <span class="nf">readResults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+		<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpFolder</span> <span class="o">+</span> <span class="s1">&#39;/OUTPUT.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+			<span class="n">dat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">skiprows</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+			<span class="n">rho</span> <span class="o">=</span> <span class="n">dat</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+			<span class="n">T</span> <span class="o">=</span> <span class="n">dat</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+			<span class="n">CO2</span> <span class="o">=</span> <span class="n">dat</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span>
+			<span class="n">N2</span> <span class="o">=</span> <span class="n">dat</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span>
+			<span class="n">O</span> <span class="o">=</span> <span class="n">dat</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span>
+			<span class="n">CO</span> <span class="o">=</span> <span class="n">dat</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span>
+			<span class="n">He</span> <span class="o">=</span> <span class="n">dat</span><span class="p">[</span><span class="mi">15</span><span class="p">]</span>
+			<span class="n">N</span> <span class="o">=</span> <span class="n">dat</span><span class="p">[</span><span class="mi">16</span><span class="p">]</span>
+			<span class="n">H</span> <span class="o">=</span> <span class="n">dat</span><span class="p">[</span><span class="mi">17</span><span class="p">]</span>
+		
+		<span class="n">composition</span> <span class="o">=</span> <span class="p">[</span><span class="n">CO2</span><span class="p">,</span> <span class="n">N2</span><span class="p">,</span> <span class="n">O</span><span class="p">,</span> <span class="n">CO</span><span class="p">,</span> <span class="n">He</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">H</span><span class="p">]</span>
+		<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span><span class="o">+</span><span class="s1">&#39;/TPresHgt.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+			<span class="n">dat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">skiprows</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+			<span class="n">P</span> <span class="o">=</span> <span class="n">dat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+		<span class="k">return</span> <span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">composition</span></div>
+
+<div class="viewcode-block" id="VenusGram.readVariabilities"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram.readVariabilities">[docs]</a>	<span class="k">def</span> <span class="nf">readVariabilities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kind</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">		Read results on variables with variabilities (e.g. Density)</span>
+
+<span class="sd">		Input:</span>
+<span class="sd">		kind : [str] The requested variable (available: Density)</span>
+
+<span class="sd">		Output:</span>
+
+<span class="sd">		low : [float] Variable low range</span>
+<span class="sd">		avg : [float] Variable average range</span>
+<span class="sd">		hig : [float] Variable high range</span>
+
+<span class="sd">		&#39;&#39;&#39;</span>
+
+		<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;/Density.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+			<span class="n">dat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">skiprows</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+			<span class="n">low</span> <span class="o">=</span> <span class="n">dat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+			<span class="n">avg</span> <span class="o">=</span> <span class="n">dat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+			<span class="n">hig</span> <span class="o">=</span> <span class="n">dat</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+		<span class="k">return</span> <span class="n">low</span><span class="p">,</span> <span class="n">avg</span><span class="p">,</span> <span class="n">hig</span></div>
+
+<div class="viewcode-block" id="VenusGram.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram.compute">[docs]</a>	<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">inputUnits</span> <span class="o">=</span> <span class="s1">&#39;deg&#39;</span><span class="p">,</span> <span class="n">variabilities</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+
+
+		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+			<span class="n">epoch</span> <span class="o">=</span> <span class="p">[</span><span class="n">epoch</span><span class="p">]</span>
+		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lat</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+			<span class="n">lat</span> <span class="o">=</span> <span class="p">[</span><span class="n">lat</span><span class="p">]</span>
+		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+			<span class="n">lon</span> <span class="o">=</span> <span class="p">[</span><span class="n">lon</span><span class="p">]</span>
+		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+			<span class="n">height</span> <span class="o">=</span> <span class="p">[</span><span class="n">height</span><span class="p">]</span>
+
+
+
+		<span class="c1">#Check length of arrays</span>
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">lon</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Latitude and Longitude arrays must be of same length&#39;</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">epoch</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The epoch array must be of same lehgth of lat and lon&#39;</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">height</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">epoch</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The height array must be of same lehgth of lat and lon&#39;</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="n">inputUnits</span> <span class="o">==</span> <span class="s1">&#39;rad&#39;</span><span class="p">:</span>
+			<span class="n">conv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mf">180.0</span>
+			<span class="n">lat</span> <span class="o">=</span> <span class="n">lat</span> <span class="o">*</span> <span class="n">conv</span>
+			<span class="n">lon</span> <span class="o">=</span> <span class="n">lon</span> <span class="o">*</span> <span class="n">conv</span>
+	
+
+		<span class="n">rho</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">epoch</span><span class="p">))</span>
+		<span class="n">T</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">epoch</span><span class="p">))</span>
+		<span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">epoch</span><span class="p">))</span>
+		<span class="n">composition</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">epoch</span><span class="p">),</span> <span class="mi">7</span><span class="p">))</span>
+		<span class="k">if</span> <span class="n">variabilities</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">var_low</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">epoch</span><span class="p">))</span>
+			<span class="n">var_avg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">epoch</span><span class="p">))</span>
+			<span class="n">var_hig</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">epoch</span><span class="p">))</span>
+
+		<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ep</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">epoch</span><span class="p">):</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">namelistWriter</span><span class="p">(</span><span class="n">ep</span><span class="p">,</span> <span class="n">lat</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">lon</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">height</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+			<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span> <span class="s1">&#39;echo </span><span class="si">{}</span><span class="s1"> | </span><span class="si">{}</span><span class="s1">venusgrm_V05.x 2&amp;&gt; </span><span class="si">{}</span><span class="s1">/log.txt&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tmpFolder</span> <span class="o">+</span> <span class="s1">&#39;/input.txt&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">execFolder</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">tmpFolder</span><span class="p">))</span>
+			<span class="n">rho</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">T</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">P</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">composition</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">readResults</span><span class="p">()</span>
+			<span class="k">if</span> <span class="n">variabilities</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+				<span class="n">var_low</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">var_avg</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">var_hig</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">readVariabilities</span><span class="p">(</span><span class="n">variabilities</span><span class="p">)</span>
+
+				
+
+		<span class="k">if</span> <span class="n">variabilities</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="k">return</span> <span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span><span class="n">composition</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="k">return</span> <span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">P</span><span class="p">,</span> <span class="n">composition</span><span class="p">,</span> <span class="n">var_low</span><span class="p">,</span> <span class="n">var_avg</span><span class="p">,</span> <span class="n">var_hig</span></div></div>
+			
+
+
+
+
+
+<span class="c1">#################################</span>
+<span class="c1"># THIS IS AN EXAMPLE USAGE</span>
+<span class="c1">################################</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+	<span class="kn">import</span> <span class="nn">spiceypy</span> <span class="k">as</span> <span class="nn">sp</span>
+	<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+	<span class="n">METAKR</span> <span class="o">=</span> <span class="s1">&#39;spice/metakernel_veritas.tm&#39;</span>
+
+	<span class="n">sp</span><span class="o">.</span><span class="n">furnsh</span><span class="p">(</span><span class="n">METAKR</span><span class="p">)</span>
+
+
+	<span class="n">vg</span> <span class="o">=</span> <span class="n">VenusGram</span><span class="p">()</span>
+	<span class="n">epoch</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">str2et</span><span class="p">(</span><span class="s1">&#39;01 JAN 2023 10:00:02.032 TDB&#39;</span><span class="p">)</span>
+	<span class="n">height</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+	<span class="n">epoch</span> <span class="o">=</span> <span class="p">[</span><span class="n">epoch</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+	<span class="n">lat</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+	<span class="n">lon</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+	
+	<span class="c1">#vg.namelistWriter(epoch, 3,4,100)</span>
+	<span class="n">rho</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">lon</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span>	
+
+
+	<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+	<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Density&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+	<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">twiny</span><span class="p">()</span>
+	<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Temperature&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+	<span class="n">sp</span><span class="o">.</span><span class="n">unload</span><span class="p">(</span><span class="n">METAKR</span><span class="p">)</span>
+
+	<span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+
+	<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Density [$kg/m^3$]&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+	<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Temperature [K]&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+	<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Height above surface [km]&#39;</span><span class="p">)</span>
+	<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Gael Cascioli.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
