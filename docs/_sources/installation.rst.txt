@@ -1,50 +1,32 @@
 Installation
 ============
 
-Requirements
-------------
+For the moment we only support installation from source.
+For the moment we support only Linux installation. 
+We welcome pull requests to adapt the installation process to Windows. 
 
-* Python >= 3.8
-* NumPy
-* SciPy
-* Trimesh
-* Intel Embree (for ray tracing)
 
 From Source
 -----------
+Make sure to use a fresh environment with only python (>=3.8) installed. 
+pyRTX requires many dependencies from both C++ and python libraries. 
+Using a fresh environment (e.g., using Conda) ensures a smooth installation process
 
+First of all clone this repository
 .. code-block:: bash
 
    git clone https://github.com/gaelccc/pyRTX.git
+Afterwards create a new evironment (here an example with conda)
+
+.. code-block::bash
+   conda create --name pyrtx-env python=3.8
+
+Enter the pyRTX folder and install the C++ dependencies
+.. code-block::bash
    cd pyRTX
    python install_deps.py
+
+And finally install pyRTX
+.. code-block::bash
    pip install -e .
 
-The ``install_deps.py`` script will:
-
-1. Install Python build dependencies (Cython, NumPy, etc.)
-2. Install main Python dependencies
-3. Download and install Intel Embree
-4. Build python-embree bindings
-
-Dependencies
-------------
-
-Build Dependencies
-~~~~~~~~~~~~~~~~~
-
-* cython
-* numpy
-* setuptools
-* wheel
-
-Runtime Dependencies
-~~~~~~~~~~~~~~~~~~~
-
-* numba
-* matplotlib
-* pyembree
-* trimesh
-* scipy
-* spiceypy
-* (see requirements.txt for complete list)
