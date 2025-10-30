@@ -1,0 +1,810 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solar Radiation Pressure: Various contributions &mdash; pyRTX 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=2389946f"></script>
+      <script src="../_static/doctools.js?v=888ff710"></script>
+      <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pyRTX
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#from-source">From Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#dependencies">Dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation.html#build-dependencies">Build Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation.html#runtime-dependencies">Runtime Dependencies</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#basic-usage">Basic Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#tutorial-1-basic-ray-tracing">Tutorial 1: Basic Ray Tracing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#tutorial-2-solar-pressure-modeling">Tutorial 2: Solar Pressure Modeling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#tutorial-3-eclipse-calculations">Tutorial 3: Eclipse Calculations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/core.html">Core Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/core.html#module-pyRTX.core.utils_rt">Ray Tracing Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.block_dot"><code class="docutils literal notranslate"><span class="pre">block_dot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.pixel_plane"><code class="docutils literal notranslate"><span class="pre">pixel_plane()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.fast_vector_build"><code class="docutils literal notranslate"><span class="pre">fast_vector_build()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.pixel_plane_opt"><code class="docutils literal notranslate"><span class="pre">pixel_plane_opt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.reflected"><code class="docutils literal notranslate"><span class="pre">reflected()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.get_orthogonal"><code class="docutils literal notranslate"><span class="pre">get_orthogonal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.sample_lambert_dist"><code class="docutils literal notranslate"><span class="pre">sample_lambert_dist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.exportEXAC"><code class="docutils literal notranslate"><span class="pre">exportEXAC()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.cgal_init_geometry"><code class="docutils literal notranslate"><span class="pre">cgal_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.get_centroids"><code class="docutils literal notranslate"><span class="pre">get_centroids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.get_cross_products"><code class="docutils literal notranslate"><span class="pre">get_cross_products()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.get_face_areas"><code class="docutils literal notranslate"><span class="pre">get_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.get_surface_normals"><code class="docutils literal notranslate"><span class="pre">get_surface_normals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="docutils literal notranslate"><span class="pre">get_surface_normals_and_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.ShapeModel"><code class="docutils literal notranslate"><span class="pre">ShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/core.html#module-pyRTX.core.shadow_utils">Shadow Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/core.html#module-pyRTX.core.physical_utils">Physical Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.physical_utils.srp_core"><code class="docutils literal notranslate"><span class="pre">srp_core()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.physical_utils.compute_srp"><code class="docutils literal notranslate"><span class="pre">compute_srp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/core.html#module-pyRTX.core.parallel_utils">Parallel Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.parallel_utils.get_ncores"><code class="docutils literal notranslate"><span class="pre">get_ncores()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.parallel_utils.is_method"><code class="docutils literal notranslate"><span class="pre">is_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.parallel_utils.get_unwrapped"><code class="docutils literal notranslate"><span class="pre">get_unwrapped()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.parallel_utils.parallel"><code class="docutils literal notranslate"><span class="pre">parallel()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/classes.html">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/classes.html#sunshadow">SunShadow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/classes.html#solarpressure">SolarPressure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/classes.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/classes.html#planet">Planet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/classes.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/classes.html#pixelplane">PixelPlane</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/classes.html#pyRTX.classes.PixelPlane.PixelPlane"><code class="docutils literal notranslate"><span class="pre">PixelPlane</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/classes.html#spacecraft">Spacecraft</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/classes.html#pyRTX.classes.Spacecraft.Spacecraft"><code class="docutils literal notranslate"><span class="pre">Spacecraft</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/defaults.html">Default Values and Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#core-modules">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.core.html">pyRTX.core</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html">pyRTX.core.analysis_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.parallel_utils.html">pyRTX.core.parallel_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.physical_utils.html">pyRTX.core.physical_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html">pyRTX.core.shadow_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html">pyRTX.core.utils_rt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#classes">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.html">pyRTX.classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Atmosphere.html">pyRTX.classes.Atmosphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Drag.html">pyRTX.classes.Drag</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.LookUpTable.html">pyRTX.classes.LookUpTable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.PixelPlane.html">pyRTX.classes.PixelPlane</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html">pyRTX.classes.Planet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Precompute.html">pyRTX.classes.Precompute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Radiation.html">pyRTX.classes.Radiation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.RayTracer.html">pyRTX.classes.RayTracer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.SRP.html">pyRTX.classes.SRP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Spacecraft.html">pyRTX.classes.Spacecraft</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pyRTX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Solar Radiation Pressure: Various contributions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/Notebook2.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Solar-Radiation-Pressure:-Various-contributions">
+<h1>Solar Radiation Pressure: Various contributions<a class="headerlink" href="#Solar-Radiation-Pressure:-Various-contributions" title="Permalink to this heading"></a></h1>
+<p>In this example we will compute the solar radiation pressure on a simple object and analyze the different contributions</p>
+<ul class="simple">
+<li><p>Specular reflection</p></li>
+<li><p>Secondary specular reflection</p></li>
+<li><p>Diffusion</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyRTX.classes.Spacecraft</span> <span class="kn">import</span> <span class="n">Spacecraft</span>
+<span class="kn">from</span> <span class="nn">pyRTX.classes.RayTracer</span> <span class="kn">import</span> <span class="n">RayTracer</span>
+<span class="kn">from</span> <span class="nn">pyRTX.classes.PixelPlane</span> <span class="kn">import</span> <span class="n">PixelPlane</span>
+<span class="kn">from</span> <span class="nn">pyRTX.classes.SRP</span> <span class="kn">import</span> <span class="n">SolarPressure</span>
+<span class="kn">from</span> <span class="nn">pyRTX.core.analysis_utils</span> <span class="kn">import</span> <span class="n">get_spacecraft_area</span>
+<span class="kn">from</span> <span class="nn">pyRTX.visual.utils</span> <span class="kn">import</span> <span class="n">plot_mesh</span>
+<span class="kn">import</span> <span class="nn">trimesh</span> <span class="k">as</span> <span class="nn">tm</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s create a simple object that has an interesting shape for evaluating</span>
+<span class="c1"># advanced SRP effects</span>
+<span class="n">mesh</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">creation</span><span class="o">.</span><span class="n">annulus</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">height</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="c1"># mesh = tm.creation.icosphere()</span>
+
+<span class="c1"># Define some basic information</span>
+<span class="n">flux</span> <span class="o">=</span> <span class="mi">1361</span> <span class="c1"># W/m2</span>
+<span class="n">mass</span> <span class="o">=</span> <span class="mi">100</span>
+
+
+<span class="c1"># Visualize the object</span>
+<span class="n">plot_mesh</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(&lt;Figure size 1000x800 with 1 Axes&gt;,
+ &lt;Axes3D: title={&#39;center&#39;: &#39;3D Mesh&#39;}, xlabel=&#39;X&#39;, ylabel=&#39;Y&#39;, zlabel=&#39;Z&#39;&gt;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook2_2_1.png" src="../_images/tutorials_Notebook2_2_1.png" />
+</div>
+</div>
+<p>Let’s now define a spaceraft object. The spacecraft uses the shape we have defined previously</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">Spacecraft</span><span class="p">(</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;My Spacecraft&#39;</span><span class="p">,</span>
+            <span class="n">base_frame</span> <span class="o">=</span> <span class="s1">&#39;SC Frame&#39;</span><span class="p">,</span> <span class="c1"># Name of the spacecraft body-fixed frame</span>
+            <span class="n">mass</span> <span class="o">=</span> <span class="n">mass</span><span class="p">,</span>
+            <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span>
+            <span class="n">spacecraft_model</span> <span class="o">=</span> <span class="p">{</span>
+
+
+            <span class="s1">&#39;Bus&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;file&#39;</span> <span class="p">:</span> <span class="n">mesh</span><span class="p">,</span>  <span class="c1"># Note that you can also input directly a mesh (it must be trimesh.Trimesh object)</span>
+                <span class="s1">&#39;frame_type&#39;</span><span class="p">:</span> <span class="s1">&#39;UD&#39;</span><span class="p">,</span> <span class="c1"># type of frame (can be &#39;Spice&#39; or &#39;UD&#39;= User Defined)</span>
+                <span class="s1">&#39;UD_rotation&#39;</span> <span class="p">:</span> <span class="n">tm</span><span class="o">.</span><span class="n">transformations</span><span class="o">.</span><span class="n">identity_matrix</span><span class="p">(),</span> <span class="c1"># If UD is chosen, the rotation matrix between the element and the base frame must be defined</span>
+                <span class="s1">&#39;frame_name&#39;</span><span class="p">:</span> <span class="s1">&#39;SC Bus&#39;</span><span class="p">,</span> <span class="c1"># Name of the frame</span>
+                <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">],</span> <span class="c1"># Origin of the component</span>
+                <span class="s1">&#39;diffuse&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="c1"># Diffuse reflect. coefficient</span>
+                <span class="s1">&#39;specular&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="c1"># Specular reflect. coefficient</span>
+
+
+            <span class="p">},</span>
+            <span class="p">},</span>
+
+
+                <span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<p>In this case we will use a fixed location for the pixel plane (i.e., the origin of the rays). We choose on purpose a direction that will likely generate reflections inside the annulus, so we’ll be able to assess the importance of secondary reflections</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the origin direction of the pixel plane in the spacecraft frame</span>
+<span class="n">RA</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># rad</span>
+<span class="n">DEC</span> <span class="o">=</span> <span class="mi">5</span><span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span> <span class="c1">#rad</span>
+
+<span class="c1"># And visualize the direction</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">DEC</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">RA</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">DEC</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">RA</span><span class="p">)</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">DEC</span><span class="p">)</span>
+<span class="n">start_point</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">direction</span> <span class="o">=</span> <span class="mf">0.0015</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">])</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_mesh</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">azim</span> <span class="o">=</span> <span class="mi">90</span><span class="p">,</span> <span class="n">elev</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">start_point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">start_point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">start_point</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+          <span class="n">direction</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">direction</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">direction</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+          <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">arrow_length_ratio</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">zorder</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;mpl_toolkits.mplot3d.art3d.Line3DCollection at 0x1515c61297c0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook2_6_1.png" src="../_images/tutorials_Notebook2_6_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize the pixel plane</span>
+<span class="n">pixelPlane</span> <span class="o">=</span> <span class="n">PixelPlane</span><span class="p">(</span>
+        <span class="n">spacecraft</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;Fixed&#39;</span><span class="p">,</span>
+        <span class="n">distance</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="n">ray_spacing</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
+        <span class="n">lon</span> <span class="o">=</span> <span class="n">RA</span><span class="p">,</span>
+        <span class="n">lat</span> <span class="o">=</span> <span class="n">DEC</span><span class="p">,</span>
+        <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="c1"># Initialize the ray-tracer explicitly requesting to compute</span>
+<span class="c1"># up to the fourth bounce.</span>
+<span class="n">rtx</span> <span class="o">=</span> <span class="n">RayTracer</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span>
+                <span class="n">pixelPlane</span><span class="p">,</span>
+                <span class="n">kernel</span> <span class="o">=</span> <span class="s1">&#39;Embree3&#39;</span><span class="p">,</span>
+                <span class="n">bounces</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+                <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="n">num_diffuse</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+
+
+<span class="c1"># Asking for grouped=False allows to retrieve</span>
+<span class="c1"># the results for each bounce individually</span>
+<span class="c1"># Note that in this case we have to set the baseflux to None</span>
+<span class="c1"># this is because we don&#39;t have a real spacecraft</span>
+<span class="c1"># so no trajectory is known for this object</span>
+<span class="c1"># if we tried to set the baseflux to some value</span>
+<span class="c1"># the solar pressure object would try to find</span>
+<span class="c1"># the location of the spacecraft to rescale the flux</span>
+<span class="c1"># at the correct distance</span>
+<span class="n">srp</span> <span class="o">=</span> <span class="n">SolarPressure</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">rtx</span><span class="p">,</span>
+                    <span class="n">baseflux</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">grouped</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+
+                   <span class="p">)</span>
+<span class="c1"># This will raise a warning, because tupically this setting</span>
+<span class="c1"># is used for computing a lookup table (LUT)</span>
+<span class="c1"># (See more details in the LUT example)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># To compute the acceleration we need to provide an epoch</span>
+<span class="c1"># Since there are no moving parts, &quot;None&quot; works</span>
+<span class="c1"># as well.</span>
+<span class="n">accel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">srp</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="kc">None</span><span class="p">],</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">flux</span> <span class="o">*</span> <span class="mi">1000</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">accel</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[[-6.67300569e-08 -3.96535400e-23 -5.84437961e-09]
+  [ 4.51658541e-10  1.49303020e-26 -5.43413563e-11]
+  [-3.91588316e-11  1.76144012e-27 -1.63024069e-11]
+  [-7.80925477e-12  1.18756974e-25 -4.89072207e-12]]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Found bounces </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Acceleration [m/s2]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Bounce number&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Found bounces 4
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook2_9_1.png" src="../_images/tutorials_Notebook2_9_1.png" />
+</div>
+</div>
+<p>With such a shallow angle, up to four bounces are found! This happens because the rays keep bouncing inside the inner part of the annulus. Let’s see what happens as the angle changes</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">45</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">n_found</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">DEC</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">angles</span><span class="p">):</span>
+
+    <span class="n">pixelPlane</span> <span class="o">=</span> <span class="n">PixelPlane</span><span class="p">(</span>
+            <span class="n">spacecraft</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;Fixed&#39;</span><span class="p">,</span>
+            <span class="n">distance</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="n">ray_spacing</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
+            <span class="n">lon</span> <span class="o">=</span> <span class="n">RA</span><span class="p">,</span>
+            <span class="n">lat</span> <span class="o">=</span> <span class="n">DEC</span><span class="p">,</span>
+            <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">rtx</span> <span class="o">=</span> <span class="n">RayTracer</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span>
+                    <span class="n">pixelPlane</span><span class="p">,</span>
+                    <span class="n">kernel</span> <span class="o">=</span> <span class="s1">&#39;Embree&#39;</span><span class="p">,</span>
+                    <span class="n">bounces</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span> <span class="c1"># Let&#39;s set a large number to see how many we get</span>
+                    <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="n">num_diffuse</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="n">srp</span> <span class="o">=</span> <span class="n">SolarPressure</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">rtx</span><span class="p">,</span>
+                        <span class="n">baseflux</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                        <span class="n">grouped</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+
+                       <span class="p">)</span>
+
+    <span class="n">accel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">srp</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="kc">None</span><span class="p">],</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">flux</span>
+    <span class="n">n_found</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">angles</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">n_found</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Number of effective bounces&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Sun rays incoming angle&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 9. Results provided up to bounce 8
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 7. Results provided up to bounce 6
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 6. Results provided up to bounce 5
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 5. Results provided up to bounce 4
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 5. Results provided up to bounce 4
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 4. Results provided up to bounce 3
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 4. Results provided up to bounce 3
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 4. Results provided up to bounce 3
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 3. Results provided up to bounce 2
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 3. Results provided up to bounce 2
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 3. Results provided up to bounce 2
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 3. Results provided up to bounce 2
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 3. Results provided up to bounce 2
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 3. Results provided up to bounce 2
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 3. Results provided up to bounce 2
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 3. Results provided up to bounce 2
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 3. Results provided up to bounce 2
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 3. Results provided up to bounce 2
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 0, &#39;Sun rays incoming angle&#39;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook2_11_2.png" src="../_images/tutorials_Notebook2_11_2.png" />
+</div>
+</div>
+<p>Interesting! There is a range of angles for which the light gets almost trapped indefinitely inside the inner ring. Let’s analyze in this case how the magnitude of the acceleration decreases with subsequent bounces.</p>
+<p>At the end we will plot the relative accleration (i.e., we will normalize by the magnitude of the acceleration of the first bounce)</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find the angle where we have the maximum number of reflections</span>
+<span class="n">amax</span> <span class="o">=</span> <span class="n">angles</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">n_found</span><span class="p">)]</span>
+
+<span class="n">pixelPlane</span> <span class="o">=</span> <span class="n">PixelPlane</span><span class="p">(</span>
+            <span class="n">spacecraft</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;Fixed&#39;</span><span class="p">,</span>
+            <span class="n">distance</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="n">ray_spacing</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
+            <span class="n">lon</span> <span class="o">=</span> <span class="n">RA</span><span class="p">,</span>
+            <span class="n">lat</span> <span class="o">=</span> <span class="n">amax</span><span class="p">,</span>
+            <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="n">rtx</span> <span class="o">=</span> <span class="n">RayTracer</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span>
+                <span class="n">pixelPlane</span><span class="p">,</span>
+                <span class="n">kernel</span> <span class="o">=</span> <span class="s1">&#39;Embree3&#39;</span><span class="p">,</span>
+                <span class="n">bounces</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span> <span class="c1"># Let&#39;s set a large number to see how many we get</span>
+                <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="n">num_diffuse</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+
+<span class="n">srp</span> <span class="o">=</span> <span class="n">SolarPressure</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">rtx</span><span class="p">,</span>
+                    <span class="n">baseflux</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">grouped</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+
+                   <span class="p">)</span>
+
+<span class="n">accel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">srp</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="kc">None</span><span class="p">],</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">flux</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Found bounces </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Normalized Acceleration&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Bounce number&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+Found bounces 15
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook2_13_1.png" src="../_images/tutorials_Notebook2_13_1.png" />
+</div>
+</div>
+<section id="Effect-of-diffusion">
+<h2>Effect of diffusion<a class="headerlink" href="#Effect-of-diffusion" title="Permalink to this heading"></a></h2>
+<p>Until now we have accounted for the sole effect of specular reflection. This can be a very good approximation for smooth material, howeve it starts failing when rough materials, behaving like lambertian surfaces, are present.</p>
+<p>pyRTX can account for diffusion. This is done by considering each point where a ray is initially reflected (an impact point) as a source of diffusion. Thus for each impact point we can sample a number of rays from a Lambertian distribution and follow these rays in their subsequent interactions.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s see the difference between reflection only and reflection + diffusion</span>
+<span class="n">RA</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">DEC</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span>
+<span class="n">pixelPlane</span> <span class="o">=</span> <span class="n">PixelPlane</span><span class="p">(</span>
+            <span class="n">spacecraft</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;Fixed&#39;</span><span class="p">,</span>
+            <span class="n">distance</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="n">ray_spacing</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
+            <span class="n">lon</span> <span class="o">=</span> <span class="n">RA</span><span class="p">,</span>
+            <span class="n">lat</span> <span class="o">=</span> <span class="n">DEC</span><span class="p">,</span>
+            <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="n">rtx_diffuse</span> <span class="o">=</span> <span class="n">RayTracer</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span>
+                <span class="n">pixelPlane</span><span class="p">,</span>
+                <span class="n">kernel</span> <span class="o">=</span> <span class="s1">&#39;Embree3&#39;</span><span class="p">,</span>
+                <span class="n">bounces</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="c1"># The diffusion is computed as a second bounce</span>
+                <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="n">num_diffuse</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="c1"># This is the number of the rays diffused from the impact point</span>
+               <span class="p">)</span>
+
+<span class="n">rtx_specular</span> <span class="o">=</span> <span class="n">RayTracer</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span>
+                <span class="n">pixelPlane</span><span class="p">,</span>
+                <span class="n">kernel</span> <span class="o">=</span> <span class="s1">&#39;Embree3&#39;</span><span class="p">,</span>
+                <span class="n">bounces</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="c1"># One bounce only this time</span>
+                <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+               <span class="p">)</span>
+
+<span class="n">srp_diffuse</span> <span class="o">=</span> <span class="n">SolarPressure</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">rtx_diffuse</span><span class="p">,</span>
+                    <span class="n">baseflux</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">grouped</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># This time we are only interested in the total acceleration</span>
+
+                   <span class="p">)</span>
+
+<span class="n">srp_specular</span> <span class="o">=</span> <span class="n">SolarPressure</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">rtx_specular</span><span class="p">,</span>
+                    <span class="n">baseflux</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">grouped</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># This time we are only interested in the total acceleration</span>
+
+                   <span class="p">)</span>
+
+
+
+<span class="n">accel_diffuse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">srp_diffuse</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="kc">None</span><span class="p">],</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">flux</span>
+<span class="n">accel_specular</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">srp_specular</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="kc">None</span><span class="p">],</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">flux</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[41]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Acceleration with only specular reflection:&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">accel_specular</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Acceleration with diffusive effect&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">accel_diffuse</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">accel_specular</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">accel_diffuse</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="p">)</span><span class="o">/</span> <span class="n">accel_diffuse</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Specular only&#39;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
+    <span class="c1"># ax[i].set_yscale(&#39;log&#39;)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Percent difference&#39;</span><span class="p">);</span>
+<br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Acceleration with only specular reflection:
+[-8.86880131e-11 -1.74248367e-27 -3.68837208e-11]
+Acceleration with diffusive effect
+[-8.73316887e-11  3.93460379e-15 -3.63340102e-11]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook2_16_1.png" src="../_images/tutorials_Notebook2_16_1.png" />
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Gael Cascioli.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
