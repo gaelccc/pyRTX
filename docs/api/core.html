@@ -61,10 +61,26 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorials/index.html">Tutorials</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#getting-started">Getting Started</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#tutorial-1-basic-ray-tracing">Tutorial 1: Basic Ray Tracing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#tutorial-2-solar-pressure-modeling">Tutorial 2: Solar Pressure Modeling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#tutorial-3-eclipse-calculations">Tutorial 3: Eclipse Calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#tutorial-1-first-steps-with-pyrtx">Tutorial 1: First Steps with pyRTX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/Notebook1.html">Notebook n. 1:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/Notebook1.html#Spacecraft-shape-definition">Spacecraft shape definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/Notebook1.html#Speeding-up-the-code">Speeding up the code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#tutorial-2-advanced-srp-calculations">Tutorial 2: Advanced SRP Calculations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/Notebook2.html">Solar Radiation Pressure: Various contributions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../tutorials/Notebook2.html#Effect-of-diffusion">Effect of diffusion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#tutorial-3-lookup-tables">Tutorial 3: Lookup Tables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/Notebook3.html">Lookup Tables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/Notebook3.html#Computing-the-LUT">Computing the LUT</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
@@ -100,14 +116,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyRTX.core.shadow_utils">Shadow Utilities</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#shadow-utilities">Shadow Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyRTX.core.physical_utils">Physical Utilities</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
@@ -126,10 +135,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="classes.html">Classes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="classes.html#sunshadow">SunShadow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="classes.html#solarpressure">SolarPressure</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="classes.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="classes.html#solarpressure">SolarPressure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="classes.html#planet">Planet</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="classes.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
 </ul>
@@ -743,7 +749,7 @@ triangular mesh.</p>
 - scene: Embree scene object for ray tracing</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel" title="pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></p>
+<dd class="field-odd"><p><a class="reference internal" href="#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel" title="pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></p>
 </dd>
 </dl>
 <div class="admonition-notes admonition">
@@ -762,9 +768,9 @@ for high-performance ray tracing. Embree uses hardware-accelerated BVH
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel" title="pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></dt><dd><p>The shape model class</p>
+<dt><a class="reference internal" href="#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel" title="pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></dt><dd><p>The shape model class</p>
 </dd>
-<dt><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.RTXkernel" title="pyRTX.core.utils_rt.RTXkernel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RTXkernel</span></code></a></dt><dd><p>Main ray tracing interface</p>
+<dt><a class="reference internal" href="#pyRTX.core.utils_rt.RTXkernel" title="pyRTX.core.utils_rt.RTXkernel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RTXkernel</span></code></a></dt><dd><p>Main ray tracing interface</p>
 </dd>
 </dl>
 </div>
@@ -892,9 +898,9 @@ issues) but is typically slower for large numbers of rays.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel" title="pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a></dt><dd><p>The CGAL-based shape model class</p>
+<dt><a class="reference internal" href="#pyRTX.core.utils_rt.CgalTrimeshShapeModel" title="pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a></dt><dd><p>The CGAL-based shape model class</p>
 </dd>
-<dt><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.RTXkernel" title="pyRTX.core.utils_rt.RTXkernel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RTXkernel</span></code></a></dt><dd><p>Main ray tracing interface that can use CGAL kernel</p>
+<dt><a class="reference internal" href="#pyRTX.core.utils_rt.RTXkernel" title="pyRTX.core.utils_rt.RTXkernel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RTXkernel</span></code></a></dt><dd><p>Main ray tracing interface that can use CGAL kernel</p>
 </dd>
 </dl>
 </div>
@@ -1042,7 +1048,7 @@ avoids redundant cross product calculations.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyRTX.core.utils_rt.TrimeshShapeModel">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.core.utils_rt.</span></span><span class="sig-name descname"><span class="pre">TrimeshShapeModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/core/utils_rt.html#TrimeshShapeModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.utils_rt.TrimeshShapeModel" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.ShapeModel" title="pyRTX.core.utils_rt.ShapeModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShapeModel</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#pyRTX.core.utils_rt.ShapeModel" title="pyRTX.core.utils_rt.ShapeModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShapeModel</span></code></a></p>
 <p>A shape model consisting of a single triangle mesh.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.utils_rt.TrimeshShapeModel.__init__">
@@ -1112,13 +1118,13 @@ there is a hit, return the index (<cite>i</cite>).</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyRTX.core.utils_rt.CgalTrimeshShapeModel">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.core.utils_rt.</span></span><span class="sig-name descname"><span class="pre">CgalTrimeshShapeModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/core/utils_rt.html#CgalTrimeshShapeModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.utils_rt.CgalTrimeshShapeModel" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel" title="pyRTX.core.utils_rt.TrimeshShapeModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#pyRTX.core.utils_rt.TrimeshShapeModel" title="pyRTX.core.utils_rt.TrimeshShapeModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a></p>
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pyRTX.core.utils_rt.EmbreeTrimeshShapeModel">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.core.utils_rt.</span></span><span class="sig-name descname"><span class="pre">EmbreeTrimeshShapeModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">P</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/core/utils_rt.html#EmbreeTrimeshShapeModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel" title="pyRTX.core.utils_rt.TrimeshShapeModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#pyRTX.core.utils_rt.TrimeshShapeModel" title="pyRTX.core.utils_rt.TrimeshShapeModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a></p>
 </dd></dl>
 
 <dl class="py function">
@@ -1221,44 +1227,19 @@ from (self-intersection artifact).</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pixel_plane_opt" title="pyRTX.core.utils_rt.pixel_plane_opt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pixel_plane_opt</span></code></a></dt><dd><p>Generate ray grids for illumination sources</p>
+<dt><a class="reference internal" href="#pyRTX.core.utils_rt.pixel_plane_opt" title="pyRTX.core.utils_rt.pixel_plane_opt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pixel_plane_opt</span></code></a></dt><dd><p>Generate ray grids for illumination sources</p>
 </dd>
-<dt><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.compute_secondary_bounce" title="pyRTX.core.utils_rt.compute_secondary_bounce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_secondary_bounce</span></code></a></dt><dd><p>Compute reflection directions</p>
+<dt><a class="reference internal" href="#pyRTX.core.utils_rt.compute_secondary_bounce" title="pyRTX.core.utils_rt.compute_secondary_bounce"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_secondary_bounce</span></code></a></dt><dd><p>Compute reflection directions</p>
 </dd>
-<dt><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.diffuse" title="pyRTX.core.utils_rt.diffuse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diffuse</span></code></a></dt><dd><p>Generate diffuse reflection samples</p>
+<dt><a class="reference internal" href="#pyRTX.core.utils_rt.diffuse" title="pyRTX.core.utils_rt.diffuse"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diffuse</span></code></a></dt><dd><p>Generate diffuse reflection samples</p>
 </dd>
 </dl>
 </div>
 </dd></dl>
 
 </section>
-<section id="module-pyRTX.core.shadow_utils">
-<span id="shadow-utilities"></span><h2>Shadow Utilities<a class="headerlink" href="#module-pyRTX.core.shadow_utils" title="Permalink to this heading"></a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="pyRTX.core.shadow_utils.circular_mask">
-<span class="sig-prename descclassname"><span class="pre">pyRTX.core.shadow_utils.</span></span><span class="sig-name descname"><span class="pre">circular_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">R</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/core/shadow_utils.html#circular_mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.shadow_utils.circular_mask" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyRTX.core.shadow_utils.circular_rim">
-<span class="sig-prename descclassname"><span class="pre">pyRTX.core.shadow_utils.</span></span><span class="sig-name descname"><span class="pre">circular_rim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">R</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origin</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/core/shadow_utils.html#circular_rim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.shadow_utils.circular_rim" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyRTX.core.shadow_utils.compute_directions">
-<span class="sig-prename descclassname"><span class="pre">pyRTX.core.shadow_utils.</span></span><span class="sig-name descname"><span class="pre">compute_directions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pixelCoords</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/core/shadow_utils.html#compute_directions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.shadow_utils.compute_directions" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyRTX.core.shadow_utils.compute_beta">
-<span class="sig-prename descclassname"><span class="pre">pyRTX.core.shadow_utils.</span></span><span class="sig-name descname"><span class="pre">compute_beta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coords</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">origin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">R</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/core/shadow_utils.html#compute_beta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.shadow_utils.compute_beta" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyRTX.core.shadow_utils.compute_pixel_intensities">
-<span class="sig-prename descclassname"><span class="pre">pyRTX.core.shadow_utils.</span></span><span class="sig-name descname"><span class="pre">compute_pixel_intensities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Standard'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/core/shadow_utils.html#compute_pixel_intensities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.shadow_utils.compute_pixel_intensities" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
+<section id="shadow-utilities">
+<h2>Shadow Utilities<a class="headerlink" href="#shadow-utilities" title="Permalink to this heading"></a></h2>
 </section>
 <section id="module-pyRTX.core.physical_utils">
 <span id="physical-utilities"></span><h2>Physical Utilities<a class="headerlink" href="#module-pyRTX.core.physical_utils" title="Permalink to this heading"></a></h2>

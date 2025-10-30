@@ -58,10 +58,26 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials/index.html">Tutorials</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/index.html#getting-started">Getting Started</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/index.html#tutorial-1-basic-ray-tracing">Tutorial 1: Basic Ray Tracing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/index.html#tutorial-2-solar-pressure-modeling">Tutorial 2: Solar Pressure Modeling</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorials/index.html#tutorial-3-eclipse-calculations">Tutorial 3: Eclipse Calculations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/index.html#tutorial-1-first-steps-with-pyrtx">Tutorial 1: First Steps with pyRTX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/Notebook1.html">Notebook n. 1:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/Notebook1.html#Spacecraft-shape-definition">Spacecraft shape definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/Notebook1.html#Speeding-up-the-code">Speeding up the code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/index.html#tutorial-2-advanced-srp-calculations">Tutorial 2: Advanced SRP Calculations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/Notebook2.html">Solar Radiation Pressure: Various contributions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/Notebook2.html#Effect-of-diffusion">Effect of diffusion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/index.html#tutorial-3-lookup-tables">Tutorial 3: Lookup Tables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/Notebook3.html">Lookup Tables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/Notebook3.html#Computing-the-LUT">Computing the LUT</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="api/index.html">API Reference</a><ul>
@@ -97,14 +113,7 @@
 <li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="api/core.html#module-pyRTX.core.shadow_utils">Shadow Utilities</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="api/core.html#shadow-utilities">Shadow Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/core.html#module-pyRTX.core.physical_utils">Physical Utilities</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/core.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
@@ -123,10 +132,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/classes.html">Classes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/classes.html#sunshadow">SunShadow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/classes.html#solarpressure">SolarPressure</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="api/classes.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="api/classes.html#solarpressure">SolarPressure</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/classes.html#planet">Planet</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/classes.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
 </ul>
@@ -219,7 +225,6 @@
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
  | <a href="#V"><strong>V</strong></a>
- | <a href="#W"><strong>W</strong></a>
  | <a href="#Z"><strong>Z</strong></a>
  
 </div>
@@ -264,10 +269,6 @@
         <li><a href="api/generated/pyRTX.classes.RayTracer.html#pyRTX.classes.RayTracer.RayTracer.__init__">(pyRTX.classes.RayTracer.RayTracer method)</a>
 </li>
         <li><a href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft.__init__">(pyRTX.classes.Spacecraft.Spacecraft method)</a>, <a href="api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.__init__">[1]</a>
-</li>
-        <li><a href="api/classes.html#pyRTX.classes.SRP.SolarPressure.__init__">(pyRTX.classes.SRP.SolarPressure method)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.__init__">[1]</a>
-</li>
-        <li><a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.__init__">(pyRTX.classes.SRP.SunShadow method)</a>
 </li>
         <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable.__init__">(pyRTX.core.analysis_utils.LookupTable method)</a>
 </li>
@@ -332,13 +333,11 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable.base_frame">base_frame (pyRTX.classes.LookUpTable.LookUpTable property)</a>
 </li>
-      <li><a href="api/core.html#pyRTX.core.utils_rt.block_dot">block_dot() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.block_dot">[1]</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/core.html#pyRTX.core.utils_rt.block_normalize">block_normalize() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.block_normalize">[1]</a>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.block_dot">block_dot() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.block_dot">[1]</a>
 </li>
-      <li><a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.body">body (pyRTX.classes.SRP.SunShadow attribute)</a>
+      <li><a href="api/core.html#pyRTX.core.utils_rt.block_normalize">block_normalize() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.block_normalize">[1]</a>
 </li>
   </ul></td>
 </tr></table>
@@ -352,10 +351,6 @@
 </li>
       <li><a href="api/core.html#pyRTX.core.utils_rt.chunker">chunker() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.chunker">[1]</a>
 </li>
-      <li><a href="api/core.html#pyRTX.core.shadow_utils.circular_mask">circular_mask() (in module pyRTX.core.shadow_utils)</a>, <a href="api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_mask">[1]</a>
-</li>
-      <li><a href="api/core.html#pyRTX.core.shadow_utils.circular_rim">circular_rim() (in module pyRTX.core.shadow_utils)</a>, <a href="api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_rim">[1]</a>
-</li>
       <li><a href="api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram.compute">compute() (pyRTX.classes.Atmosphere.VenusGram method)</a>
 
       <ul>
@@ -367,22 +362,12 @@
 </li>
         <li><a href="api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity.compute">(pyRTX.classes.Radiation.Emissivity method)</a>
 </li>
-        <li><a href="api/classes.html#pyRTX.classes.SRP.SolarPressure.compute">(pyRTX.classes.SRP.SolarPressure method)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.compute">[1]</a>
-</li>
-        <li><a href="api/generated/pyRTX.classes.SRP.html#id3">(pyRTX.classes.SRP.SunShadow method)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.compute">[1]</a>
-</li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/core.html#pyRTX.core.shadow_utils.compute_beta">compute_beta() (in module pyRTX.core.shadow_utils)</a>, <a href="api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_beta">[1]</a>
-</li>
       <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.compute_body_positions">compute_body_positions() (in module pyRTX.core.analysis_utils)</a>
 </li>
       <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.compute_body_states">compute_body_states() (in module pyRTX.core.analysis_utils)</a>
-</li>
-      <li><a href="api/core.html#pyRTX.core.shadow_utils.compute_directions">compute_directions() (in module pyRTX.core.shadow_utils)</a>, <a href="api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_directions">[1]</a>
-</li>
-      <li><a href="api/core.html#pyRTX.core.shadow_utils.compute_pixel_intensities">compute_pixel_intensities() (in module pyRTX.core.shadow_utils)</a>, <a href="api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_pixel_intensities">[1]</a>
 </li>
       <li><a href="api/core.html#pyRTX.core.utils_rt.compute_secondary_bounce">compute_secondary_bounce() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.compute_secondary_bounce">[1]</a>
 </li>
@@ -492,10 +477,6 @@
 </li>
       <li><a href="api/core.html#pyRTX.core.utils_rt.get_face_areas">get_face_areas() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_face_areas">[1]</a>
 </li>
-      <li><a href="api/classes.html#pyRTX.classes.SRP.SolarPressure.get_flux">get_flux() (pyRTX.classes.SRP.SolarPressure method)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.get_flux">[1]</a>
-</li>
-      <li><a href="api/classes.html#pyRTX.classes.SRP.SolarPressure.get_force">get_force() (pyRTX.classes.SRP.SolarPressure method)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.get_force">[1]</a>
-</li>
       <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND.get_idx">get_idx() (pyRTX.core.analysis_utils.LookupTableND method)</a>
 
       <ul>
@@ -508,10 +489,10 @@
 </li>
       <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.get_spacecraft_area">get_spacecraft_area() (in module pyRTX.core.analysis_utils)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.get_sun_exposed_area">get_sun_exposed_area() (in module pyRTX.core.analysis_utils)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#pyRTX.core.utils_rt.get_surface_normals">get_surface_normals() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_surface_normals">[1]</a>
 </li>
       <li><a href="api/core.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas">get_surface_normals_and_face_areas() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas">[1]</a>
@@ -544,8 +525,6 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/generated/pyRTX.classes.SRP.html#id1">I (pyRTX.classes.SRP.SunShadow attribute)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.I">[1]</a>
-</li>
       <li><a href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft.info">info() (pyRTX.classes.Spacecraft.Spacecraft method)</a>, <a href="api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.info">[1]</a>
 </li>
       <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable.interp_point">interp_point() (pyRTX.core.analysis_utils.LookupTable method)</a>
@@ -574,14 +553,10 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.limbDarkening">limbDarkening (pyRTX.classes.SRP.SunShadow attribute)</a>
-</li>
-      <li><a href="api/classes.html#pyRTX.classes.SRP.SolarPressure.lookupCompute">lookupCompute() (pyRTX.classes.SRP.SolarPressure method)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.lookupCompute">[1]</a>
+      <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable">LookUpTable (class in pyRTX.classes.LookUpTable)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable">LookUpTable (class in pyRTX.classes.LookUpTable)</a>
-</li>
       <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable">LookupTable (class in pyRTX.core.analysis_utils)</a>
 </li>
       <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND">LookupTableND (class in pyRTX.core.analysis_utils)</a>
@@ -620,8 +595,6 @@
 </li>
         <li><a href="api/generated/pyRTX.classes.Spacecraft.html#module-pyRTX.classes.Spacecraft">pyRTX.classes.Spacecraft</a>
 </li>
-        <li><a href="api/generated/pyRTX.classes.SRP.html#module-pyRTX.classes.SRP">pyRTX.classes.SRP</a>
-</li>
         <li><a href="api/generated/pyRTX.core.html#module-pyRTX.core">pyRTX.core</a>
 </li>
         <li><a href="api/generated/pyRTX.core.analysis_utils.html#module-pyRTX.core.analysis_utils">pyRTX.core.analysis_utils</a>
@@ -629,8 +602,6 @@
         <li><a href="api/core.html#module-pyRTX.core.parallel_utils">pyRTX.core.parallel_utils</a>, <a href="api/generated/pyRTX.core.parallel_utils.html#module-pyRTX.core.parallel_utils">[1]</a>
 </li>
         <li><a href="api/core.html#module-pyRTX.core.physical_utils">pyRTX.core.physical_utils</a>, <a href="api/generated/pyRTX.core.physical_utils.html#module-pyRTX.core.physical_utils">[1]</a>
-</li>
-        <li><a href="api/core.html#module-pyRTX.core.shadow_utils">pyRTX.core.shadow_utils</a>, <a href="api/generated/pyRTX.core.shadow_utils.html#module-pyRTX.core.shadow_utils">[1]</a>
 </li>
         <li><a href="api/core.html#module-pyRTX.core.utils_rt">pyRTX.core.utils_rt</a>, <a href="api/generated/pyRTX.core.utils_rt.html#module-pyRTX.core.utils_rt">[1]</a>
 </li>
@@ -701,8 +672,6 @@
         <li><a href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft.pxform_convert">(pyRTX.classes.Spacecraft.Spacecraft method)</a>, <a href="api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.pxform_convert">[1]</a>
 </li>
       </ul></li>
-      <li><a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.pxPlane">pxPlane (pyRTX.classes.SRP.SunShadow attribute)</a>
-</li>
       <li>
     pyRTX.classes
 
@@ -776,13 +745,6 @@
 </li>
       </ul></li>
       <li>
-    pyRTX.classes.SRP
-
-      <ul>
-        <li><a href="api/generated/pyRTX.classes.SRP.html#module-pyRTX.classes.SRP">module</a>
-</li>
-      </ul></li>
-      <li>
     pyRTX.core
 
       <ul>
@@ -808,13 +770,6 @@
 
       <ul>
         <li><a href="api/core.html#module-pyRTX.core.physical_utils">module</a>, <a href="api/generated/pyRTX.core.physical_utils.html#module-pyRTX.core.physical_utils">[1]</a>
-</li>
-      </ul></li>
-      <li>
-    pyRTX.core.shadow_utils
-
-      <ul>
-        <li><a href="api/core.html#module-pyRTX.core.shadow_utils">module</a>, <a href="api/generated/pyRTX.core.shadow_utils.html#module-pyRTX.core.shadow_utils">[1]</a>
 </li>
       </ul></li>
       <li>
@@ -863,10 +818,10 @@
 </li>
       <li><a href="api/core.html#pyRTX.core.utils_rt.reflected">reflected() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.reflected">[1]</a>
 </li>
-      <li><a href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft.remove_part">remove_part() (pyRTX.classes.Spacecraft.Spacecraft method)</a>, <a href="api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.remove_part">[1]</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft.remove_part">remove_part() (pyRTX.classes.Spacecraft.Spacecraft method)</a>, <a href="api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.remove_part">[1]</a>
+</li>
       <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.rot_toSCframe">rot_toSCframe() (pyRTX.classes.Planet.Planet method)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.rot_toSCframe">[1]</a>
 </li>
       <li><a href="api/core.html#pyRTX.core.utils_rt.RTXkernel">RTXkernel() (in module pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.RTXkernel">[1]</a>
@@ -877,10 +832,6 @@
         <li><a href="api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo.run">(pyRTX.classes.Radiation.Albedo method)</a>
 </li>
         <li><a href="api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity.run">(pyRTX.classes.Radiation.Emissivity method)</a>
-</li>
-        <li><a href="api/classes.html#pyRTX.classes.SRP.SolarPressure.run">(pyRTX.classes.SRP.SolarPressure method)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.run">[1]</a>
-</li>
-        <li><a href="api/generated/pyRTX.classes.SRP.html#id2">(pyRTX.classes.SRP.SunShadow method)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.run">[1]</a>
 </li>
       </ul></li>
   </ul></td>
@@ -909,31 +860,15 @@
         <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator.set_interpType">(pyRTX.core.analysis_utils.TiffInterpolator method)</a>
 </li>
       </ul></li>
-      <li><a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.shape">shape (pyRTX.classes.SRP.SunShadow attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/core.html#pyRTX.core.utils_rt.ShapeModel">ShapeModel (class in pyRTX.core.utils_rt)</a>, <a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.ShapeModel">[1]</a>
 </li>
-      <li><a href="api/classes.html#pyRTX.classes.SRP.SolarPressure">SolarPressure (class in pyRTX.classes.SRP)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure">[1]</a>
-</li>
-      <li><a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.sp_data">sp_data (pyRTX.classes.SRP.SunShadow attribute)</a>
-</li>
       <li><a href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft">Spacecraft (class in pyRTX.classes.Spacecraft)</a>, <a href="api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft">[1]</a>
 </li>
-      <li><a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.spacecraft">spacecraft (pyRTX.classes.SRP.SunShadow attribute)</a>
-</li>
       <li><a href="api/core.html#pyRTX.core.physical_utils.srp_core">srp_core() (in module pyRTX.core.physical_utils)</a>, <a href="api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.srp_core">[1]</a>
-
-      <ul>
-        <li><a href="api/classes.html#pyRTX.classes.SRP.SolarPressure.srp_core">(pyRTX.classes.SRP.SolarPressure method)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.srp_core">[1]</a>
 </li>
-      </ul></li>
       <li><a href="api/classes.html#pyRTX.classes.Spacecraft.Spacecraft.subset">subset() (pyRTX.classes.Spacecraft.Spacecraft method)</a>, <a href="api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.subset">[1]</a>
-</li>
-      <li><a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.sunRadius">sunRadius (pyRTX.classes.SRP.SunShadow attribute)</a>
-</li>
-      <li><a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow">SunShadow (class in pyRTX.classes.SRP)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -974,14 +909,6 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/classes.html#pyRTX.classes.Planet.Planet.VFNC">VFNC() (pyRTX.classes.Planet.Planet method)</a>, <a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.VFNC">[1]</a>
-</li>
-  </ul></td>
-</tr></table>
-
-<h2 id="W">W</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/generated/pyRTX.classes.SRP.html#id0">where (pyRTX.classes.SRP.SunShadow attribute)</a>, <a href="api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.where">[1]</a>
 </li>
   </ul></td>
 </tr></table>
