@@ -9,6 +9,7 @@ pyRTX Documentation
 
    installation
    quickstart
+   tutorials/index
    api/index
    examples
 

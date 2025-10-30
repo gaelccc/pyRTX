@@ -30,8 +30,25 @@ extensions = [
     'sphinx.ext.viewcode',      # Add links to source code
     'sphinx.ext.mathjax',       # Render math equations
     'sphinx.ext.intersphinx',   # Link to other project docs
+    'nbsphinx',
     'sphinx.ext.autosummary',   # Generate summary tables
 ]
+
+# NBSphinx settings
+nbsphinx_execute = 'never'
+# Exclude patterns
+exclude_patterns = [
+    '_build', 
+    'Thumbs.db', 
+    '.DS_Store',
+    '**.ipynb_checkpoints'  # Ignore Jupyter checkpoints
+]
+
+# Syntax highlighting
+pygments_style = 'sphinx'
+
+
+
 
 # Napoleon settings (for NumPy-style docstrings)
 napoleon_google_docstring = False
