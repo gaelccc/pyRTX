@@ -34,7 +34,7 @@ Using pre-computed lookup tables for fast calculations.
    Notebook3
 
 
-Tutorial 3: Planetary Radiation
+Tutorial 4: Planetary Radiation
 --------------------------
 
 Computing albedo and thermal infrared pressure
