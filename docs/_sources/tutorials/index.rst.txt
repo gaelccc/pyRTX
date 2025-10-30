@@ -7,9 +7,9 @@ These tutorials demonstrate how to use pyRTX for various applications.
    :maxdepth: 1
    :caption: Tutorial Notebooks:
    
-   tutorial1
-   tutorial2
-   tutorial3
+   First steps
+   Advanced SRP
+   Lookup Tables
 
 Getting Started
 ---------------
@@ -19,14 +19,14 @@ Start with Tutorial 1 to learn the basics of pyRTX.
 Tutorial 1: Basic Ray Tracing
 ------------------------------
 
-.. include:: tutorial1.ipynb
+.. include:: Notebook1.ipynb
 
 Tutorial 2: Solar Pressure Modeling
 ------------------------------------
 
-.. include:: tutorial2.ipynb
+.. include:: Notebook2.ipynb
 
 Tutorial 3: Eclipse Calculations
 ---------------------------------
 
-.. include:: tutorial3.ipynb
+.. include:: Notebook3.ipynb
