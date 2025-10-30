@@ -1,3 +1,75 @@
 #!/bin/bash
+
+# Default values
+PUSH=false
+CLEAN=false
+COMMIT_MSG="Updated documentation"
+
+# Parse arguments
+while getopts "pcm:" opt; do
+  case $opt in
+    p)
+      PUSH=true
+      ;;
+    c)
+      CLEAN=true
+      ;;
+    m)
+      COMMIT_MSG="$OPTARG"
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      echo "Usage: $0 [-p] [-c] [-m 'commit message']"
+      echo "  -p: Push changes to git after building"
+      echo "  -c: Clean build (remove old docs first)"
+      echo "  -m: Custom commit message (default: 'Updated documentation')"
+      exit 1
+      ;;
+  esac
+done
+
+# Clean if requested
+if [ "$CLEAN" = true ]; then
+    echo "Cleaning old documentation..."
+    rm -rf docs/*
+fi
+
+# Build documentation
+echo "Building documentation..."
 cd docsrc
 sphinx-build -b html . ../docs
+BUILD_STATUS=$?
+cd ..
+
+# Check if build succeeded
+if [ $BUILD_STATUS -ne 0 ]; then
+    echo "Error: Documentation build failed!"
+    exit 1
+fi
+
+echo "Documentation built successfully!"
+
+# Only add, commit, and push if -p flag was provided
+if [ "$PUSH" = true ]; then
+    echo ""
+    echo "Checking for changes..."
+    
+    # Check if there are changes to commit
+    if git diff --quiet docs && git diff --cached --quiet docs; then
+        echo "No changes to commit."
+    else
+        echo "Adding documentation changes..."
+        git add docs
+        
+        echo "Committing changes..."
+        git commit -m "$COMMIT_MSG"
+        
+        echo "Pushing to remote..."
+        git push origin test_for_deployment
+        
+        echo "Documentation pushed successfully!"
+    fi
+else
+    echo ""
+    echo "To commit and push changes, run: $0 -p"
+fi
