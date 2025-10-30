@@ -1,14 +1,12 @@
 pyRTX v1.0
-===================
+==========
 
 **pyRTX** is a Python library for non-gravitational forces modelling for deep space probes using ray tracing.
-
-
-
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+
    installation
    quickstart
    tutorials/index
@@ -17,40 +15,45 @@ pyRTX v1.0
 
 Introduction
 ------------
+
 Welcome to the pyRTX documentation. 
 
-This  library is thought to help scientists and engineers working in orbit determination, navigation, GNC, and
+This library is thought to help scientists and engineers working in orbit determination, navigation, GNC, and
 similar applications, by providing a framework for precise computation of non-gravitational forces.
 
-Main fatures currently supported by pyRTX:
+Main features currently supported by pyRTX:
 
 **Spacecraft modeling**
+
 Support for basic and complex, static and moveable spacecraft shapes. The spacecraft shape can be directly imported 
 from the main 3D file formats. Flexible definition of the thermo-optical properties of every spacecraft surface.
 
 **Solar radiation pressure**
+
 Precise computation of the solar radiation pressure force and acceleration on the spacecraft. Automatic computation 
 of self-shadowing, secondary reflections and diffusive effects. Eclipse times computation using user-defined planet 
 shapes and solar limb darkening. 
 
 **Planetary radiation pressure**
+
 Albedo and thermal infrared pressure computations based on user-defined planetary properties. Easy implementation of 
 planetary characteristics maps (e.g., albedo and temperature or emissivity). Possibility of using planetary shapes 
 based on digital terrain models for maximum accuracy.
 
 **Atmospheric drag**
+
 Precise computation of effective area. User defined density models. Plug-in structure allowing to use complex density 
 models (e.g., VenusGRAM, MCD, etc.).
 
 **Lookup tables generation and handling**
-Handful classes for computing, storing and reading lookup tables for improved computational performance.
 
+Handful classes for computing, storing and reading lookup tables for improved computational performance.
 
 Credits
 -------
+
 If you find this software useful you are more than welcome to use it in your research.
 If you do so, please acknowledge pyRTX! 
-
 
 Indices and tables
 ==================
