@@ -8,7 +8,6 @@
   <title>pyRTX.classes.Planet &mdash; pyRTX 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=51279e30" />
 
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
@@ -647,10 +646,10 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">_axes</span>  <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dims</span><span class="p">)]</span></div></div>
   
 
-<div class="viewcode-block" id="Planet"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet">[docs]</a><span class="k">class</span> <span class="nc">Planet</span><span class="p">():</span>
+<div class="viewcode-block" id="Planet"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.Planet.Planet">[docs]</a><span class="k">class</span> <span class="nc">Planet</span><span class="p">():</span>
     
     
-<div class="viewcode-block" id="Planet.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fromFile</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">bodyFrame</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sunFixedFrame</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;km&#39;</span><span class="p">,</span> <span class="n">subdivs</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
+<div class="viewcode-block" id="Planet.__init__"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.Planet.Planet.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fromFile</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">bodyFrame</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sunFixedFrame</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;km&#39;</span><span class="p">,</span> <span class="n">subdivs</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		A class to represent a planet/moon</span>
 
@@ -687,7 +686,7 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="Planet.mesh"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.mesh">[docs]</a>	<span class="k">def</span> <span class="nf">mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">translate</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">rotate</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">epoch</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">targetFrame</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Planet.mesh"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.Planet.Planet.mesh">[docs]</a>	<span class="k">def</span> <span class="nf">mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">translate</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">rotate</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">epoch</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">targetFrame</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 
 		<span class="k">if</span> <span class="n">targetFrame</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="n">targetFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bodyFrame</span>
@@ -750,7 +749,7 @@
 		<span class="k">return</span>  <span class="n">idxs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="Planet.albedoFaces"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.albedoFaces">[docs]</a>	<span class="k">def</span> <span class="nf">albedoFaces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">spacecraft_name</span><span class="p">):</span>
+<div class="viewcode-block" id="Planet.albedoFaces"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.Planet.Planet.albedoFaces">[docs]</a>	<span class="k">def</span> <span class="nf">albedoFaces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">spacecraft_name</span><span class="p">):</span>
 
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Public method:</span>
@@ -769,12 +768,12 @@
 		<span class="k">return</span> <span class="n">albedoIdxs</span><span class="p">,</span> <span class="n">albedoValues</span></div>
 
 
-<div class="viewcode-block" id="Planet.rot_toSCframe"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.rot_toSCframe">[docs]</a>	<span class="k">def</span> <span class="nf">rot_toSCframe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">scFrame</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Planet.rot_toSCframe"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.Planet.Planet.rot_toSCframe">[docs]</a>	<span class="k">def</span> <span class="nf">rot_toSCframe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">scFrame</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
      
 		<span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">pxform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sunFixedFrame</span><span class="p">,</span> <span class="n">scFrame</span><span class="p">,</span> <span class="n">epoch</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Planet.emissivityFaces"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.emissivityFaces">[docs]</a>	<span class="k">def</span> <span class="nf">emissivityFaces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">spacecraft_name</span><span class="p">):</span>
+<div class="viewcode-block" id="Planet.emissivityFaces"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.Planet.Planet.emissivityFaces">[docs]</a>	<span class="k">def</span> <span class="nf">emissivityFaces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">spacecraft_name</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Public method:</span>
 <span class="sd">		Return the idxs of the mesh faces and the temperature of each face that are needed for emissivity computation at time:epoch for the spacecraft:spacectaft name</span>
@@ -788,7 +787,7 @@
 		<span class="k">return</span> <span class="n">visible_ids</span><span class="p">,</span> <span class="n">visibleTemps</span><span class="p">,</span> <span class="n">visibleEmi</span></div>
 
 
-<div class="viewcode-block" id="Planet.getFaceAlbedo"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.getFaceAlbedo">[docs]</a>	<span class="k">def</span> <span class="nf">getFaceAlbedo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+<div class="viewcode-block" id="Planet.getFaceAlbedo"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.Planet.Planet.getFaceAlbedo">[docs]</a>	<span class="k">def</span> <span class="nf">getFaceAlbedo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Return the albedo of each face at epoch</span>
 <span class="sd">		&quot;&quot;&quot;</span>
@@ -808,7 +807,7 @@
 		<span class="k">return</span> <span class="n">albedoValues</span></div>
 	
  
-<div class="viewcode-block" id="Planet.getFaceTemperatures"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.getFaceTemperatures">[docs]</a>	<span class="k">def</span> <span class="nf">getFaceTemperatures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+<div class="viewcode-block" id="Planet.getFaceTemperatures"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.Planet.Planet.getFaceTemperatures">[docs]</a>	<span class="k">def</span> <span class="nf">getFaceTemperatures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Return the temperature of each face at epoch</span>
 <span class="sd">		&quot;&quot;&quot;</span>
@@ -835,7 +834,7 @@
 		<span class="k">return</span> <span class="n">faceTemps</span></div>
 
 
-<div class="viewcode-block" id="Planet.getFaceEmissivity"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.getFaceEmissivity">[docs]</a>	<span class="k">def</span> <span class="nf">getFaceEmissivity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">sunFixedFrame</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Planet.getFaceEmissivity"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.Planet.Planet.getFaceEmissivity">[docs]</a>	<span class="k">def</span> <span class="nf">getFaceEmissivity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">sunFixedFrame</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
      
 		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_emissivity</span><span class="p">,</span> <span class="n">TiffInterpolator</span><span class="p">):</span>
 			<span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">C</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">VFNC</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">sunFixedFrame</span> <span class="o">=</span> <span class="n">sunFixedFrame</span><span class="p">)</span>
@@ -847,7 +846,7 @@
 		<span class="k">return</span> <span class="n">emissivity</span></div>
 
 
-<div class="viewcode-block" id="Planet.VFNC"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.VFNC">[docs]</a>	<span class="k">def</span> <span class="nf">VFNC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">sunFixedFrame</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Planet.VFNC"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.Planet.Planet.VFNC">[docs]</a>	<span class="k">def</span> <span class="nf">VFNC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">sunFixedFrame</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Public method:</span>
 <span class="sd">		Returns  V F N C rotating the planet in the sunFixedFrame at epoch epoch</span>
@@ -870,7 +869,7 @@
 		<span class="k">return</span> <span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">C</span></div>
 
 
-<div class="viewcode-block" id="Planet.getScPosSunFixed"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.getScPosSunFixed">[docs]</a>	<span class="k">def</span> <span class="nf">getScPosSunFixed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">epoch</span><span class="p">,</span> <span class="n">spacecraft_name</span><span class="p">):</span>
+<div class="viewcode-block" id="Planet.getScPosSunFixed"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.Planet.Planet.getScPosSunFixed">[docs]</a>	<span class="k">def</span> <span class="nf">getScPosSunFixed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">epoch</span><span class="p">,</span> <span class="n">spacecraft_name</span><span class="p">):</span>
 		<span class="n">correction</span> <span class="o">=</span> <span class="s1">&#39;CN&#39;</span>
 		<span class="n">sc_pos</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">spkezr</span><span class="p">(</span><span class="n">spacecraft_name</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sunFixedFrame</span><span class="p">,</span> <span class="n">correction</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
@@ -892,7 +891,7 @@
 	<span class="c1">#	return temps</span>
 
 
-<div class="viewcode-block" id="Planet.pxform_convert"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.pxform_convert">[docs]</a>	<span class="k">def</span> <span class="nf">pxform_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">pxform</span><span class="p">):</span>
+<div class="viewcode-block" id="Planet.pxform_convert"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.Planet.Planet.pxform_convert">[docs]</a>	<span class="k">def</span> <span class="nf">pxform_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">pxform</span><span class="p">):</span>
 		<span class="n">pxform</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">pxform</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">pxform</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">pxform</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
 
 		<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pxform</span><span class="p">,[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span><span class="mi">0</span><span class="p">)</span>

@@ -8,7 +8,6 @@
   <title>pyRTX.classes.SRP &mdash; pyRTX 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=92fd9be5" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=51279e30" />
 
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
@@ -536,9 +535,9 @@
 
 
 
-<div class="viewcode-block" id="SolarPressure"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure">[docs]</a><span class="k">class</span> <span class="nc">SolarPressure</span><span class="p">():</span>
+<div class="viewcode-block" id="SolarPressure"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.SRP.SolarPressure">[docs]</a><span class="k">class</span> <span class="nc">SolarPressure</span><span class="p">():</span>
 	
-<div class="viewcode-block" id="SolarPressure.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">rayTracer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">baseflux</span> <span class="o">=</span> <span class="mf">1361.5</span><span class="p">,</span> <span class="n">grouped</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">shadowObj</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">lookup</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SolarPressure.__init__"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.SRP.SolarPressure.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">rayTracer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">baseflux</span> <span class="o">=</span> <span class="mf">1361.5</span><span class="p">,</span> <span class="n">grouped</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">shadowObj</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">lookup</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 
 		<span class="bp">self</span><span class="o">.</span><span class="n">spacecraft</span> <span class="o">=</span> <span class="n">spacecraft</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">rayTracer</span>  <span class="o">=</span> <span class="n">rayTracer</span>
@@ -581,7 +580,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">spacecraft</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span>
 
 
-<div class="viewcode-block" id="SolarPressure.run"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.run">[docs]</a>	<span class="nd">@parallel</span>
+<div class="viewcode-block" id="SolarPressure.run"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.SRP.SolarPressure.run">[docs]</a>	<span class="nd">@parallel</span>
 	<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Method to compute solar pressure acceleration at a single epoch.</span>
@@ -622,7 +621,7 @@
 		<span class="k">return</span> <span class="n">f_srp</span> <span class="o">/</span> <span class="n">mass</span></div>
   
   
-<div class="viewcode-block" id="SolarPressure.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.compute">[docs]</a>	<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SolarPressure.compute"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.SRP.SolarPressure.compute">[docs]</a>	<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Method to compute the solar pressure acceleration.</span>
 
@@ -642,7 +641,7 @@
 		<span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="n">n_cores</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="SolarPressure.lookupCompute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.lookupCompute">[docs]</a>	<span class="k">def</span> <span class="nf">lookupCompute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">):</span>
+<div class="viewcode-block" id="SolarPressure.lookupCompute"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.SRP.SolarPressure.lookupCompute">[docs]</a>	<span class="k">def</span> <span class="nf">lookupCompute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Method to compute the solar pressure force with Look Up Table.</span>
 
@@ -678,7 +677,7 @@
 		<span class="k">return</span> <span class="n">acc</span></div>
  
 
-<div class="viewcode-block" id="SolarPressure.get_flux"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.get_flux">[docs]</a>	<span class="k">def</span> <span class="nf">get_flux</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+<div class="viewcode-block" id="SolarPressure.get_flux"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.SRP.SolarPressure.get_flux">[docs]</a>	<span class="k">def</span> <span class="nf">get_flux</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Method to get the scaled solar flux.</span>
 
@@ -700,7 +699,7 @@
 		<span class="k">return</span> <span class="n">flux</span></div>
 
 
-<div class="viewcode-block" id="SolarPressure.get_force"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.get_force">[docs]</a>	<span class="k">def</span> <span class="nf">get_force</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">mesh_obj</span><span class="p">,</span> <span class="n">index_tri</span><span class="p">,</span> <span class="n">index_ray</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">ray_origins</span><span class="p">,</span> <span class="n">ray_directions</span><span class="p">,</span> <span class="n">pixel_spacing</span><span class="p">,</span> <span class="n">materials</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">grouped</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<div class="viewcode-block" id="SolarPressure.get_force"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.SRP.SolarPressure.get_force">[docs]</a>	<span class="k">def</span> <span class="nf">get_force</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">mesh_obj</span><span class="p">,</span> <span class="n">index_tri</span><span class="p">,</span> <span class="n">index_ray</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">ray_origins</span><span class="p">,</span> <span class="n">ray_directions</span><span class="p">,</span> <span class="n">pixel_spacing</span><span class="p">,</span> <span class="n">materials</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">grouped</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 		<span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">num_diffuse</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diffusion_pack</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span> 
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Compute the SRP force</span>
@@ -756,7 +755,7 @@
 		<span class="k">return</span> <span class="n">force</span></div>
 
 
-<div class="viewcode-block" id="SolarPressure.srp_core"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.srp_core">[docs]</a>	<span class="k">def</span> <span class="nf">srp_core</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">indexes_tri</span><span class="p">,</span> <span class="n">indexes_ray</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">norm_factor</span><span class="p">,</span> <span class="n">mesh_obj</span><span class="p">,</span> <span class="n">materials</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">num_diffuse</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diffusion_pack</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SolarPressure.srp_core"><a class="viewcode-back" href="../../../api/classes.html#pyRTX.classes.SRP.SolarPressure.srp_core">[docs]</a>	<span class="k">def</span> <span class="nf">srp_core</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">indexes_tri</span><span class="p">,</span> <span class="n">indexes_ray</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">norm_factor</span><span class="p">,</span> <span class="n">mesh_obj</span><span class="p">,</span> <span class="n">materials</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">num_diffuse</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diffusion_pack</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Core of SRP computation.</span>
 <span class="sd">		Highly vectorized version. For explicit algorithm implementation refer to the old version</span>
