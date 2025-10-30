@@ -4,7 +4,11 @@
 *.bpc
 *.bc
 *.pkl
+*.nc
 .DS_Store
 docs/.DS_Store
 lib/
 build/
+examples/.ipynb_checkpoints/
+pyRTX/visual/.ipynb_checkpoints/
+pyRTX/__pycache__/
