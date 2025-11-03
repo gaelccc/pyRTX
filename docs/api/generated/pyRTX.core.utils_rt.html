@@ -76,7 +76,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../tutorials/Notebook3.html#Computing-the-LUT">Computing the LUT</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/index.html#tutorial-3-planetary-radiation">Tutorial 3: Planetary Radiation</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/index.html#tutorial-4-planetary-radiation">Tutorial 4: Planetary Radiation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/Notebook4.html">Planetary radiation</a></li>
 </ul>
 </li>
 </ul>
@@ -84,6 +85,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../core.html">Core Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../core.html#module-pyRTX.core.utils_rt">Ray Tracing Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.get_cached_embree_scene"><code class="docutils literal notranslate"><span class="pre">get_cached_embree_scene()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
@@ -253,40 +255,43 @@
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.fast_vector_build" title="pyRTX.core.utils_rt.fast_vector_build"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fast_vector_build</span></code></a>(linsp1, linsp2, dim1, dim2)</p></td>
 <td><p>Efficiently build a pixel array coordinate grid using Numba's JIT compilation for performance.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_centroids" title="pyRTX.core.utils_rt.get_centroids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_centroids</span></code></a>(V, F)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_cached_embree_scene" title="pyRTX.core.utils_rt.get_cached_embree_scene"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cached_embree_scene</span></code></a>(mesh_obj)</p></td>
+<td><p>Return a cached EmbreeTrimeshShapeModel for this mesh, creating if needed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_centroids" title="pyRTX.core.utils_rt.get_centroids"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_centroids</span></code></a>(V, F)</p></td>
 <td><p>Compute the geometric centroids of all triangular faces in a mesh.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_cross_products" title="pyRTX.core.utils_rt.get_cross_products"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cross_products</span></code></a>(V, F)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_cross_products" title="pyRTX.core.utils_rt.get_cross_products"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cross_products</span></code></a>(V, F)</p></td>
 <td><p>Compute cross products of edge vectors for all triangular faces in a mesh.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_face_areas" title="pyRTX.core.utils_rt.get_face_areas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_face_areas</span></code></a>(V, F)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_face_areas" title="pyRTX.core.utils_rt.get_face_areas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_face_areas</span></code></a>(V, F)</p></td>
 <td><p>Compute the areas of all triangular faces in a mesh.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_orthogonal" title="pyRTX.core.utils_rt.get_orthogonal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_orthogonal</span></code></a>(v)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_orthogonal" title="pyRTX.core.utils_rt.get_orthogonal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_orthogonal</span></code></a>(v)</p></td>
 <td><p>Generate a unit vector orthogonal to the input vector using randomization.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_surface_normals" title="pyRTX.core.utils_rt.get_surface_normals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_surface_normals</span></code></a>(V, F)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_surface_normals" title="pyRTX.core.utils_rt.get_surface_normals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_surface_normals</span></code></a>(V, F)</p></td>
 <td><p>Compute outward-pointing unit normal vectors for all triangular faces.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_surface_normals_and_face_areas" title="pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_surface_normals_and_face_areas</span></code></a>(V, F)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.get_surface_normals_and_face_areas" title="pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_surface_normals_and_face_areas</span></code></a>(V, F)</p></td>
 <td><p>Efficiently compute both surface normals and face areas simultaneously.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.pixel_plane" title="pyRTX.core.utils_rt.pixel_plane"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pixel_plane</span></code></a>(d0, lon, lat[, width, height, ...])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.pixel_plane" title="pyRTX.core.utils_rt.pixel_plane"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pixel_plane</span></code></a>(d0, lon, lat[, width, height, ...])</p></td>
 <td><p>Generate a rectangular pixel array (grid of rays) for ray tracing, as defined in Li et al., 2018.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.pixel_plane_opt" title="pyRTX.core.utils_rt.pixel_plane_opt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pixel_plane_opt</span></code></a>(d0, lon, lat[, width, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.pixel_plane_opt" title="pyRTX.core.utils_rt.pixel_plane_opt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pixel_plane_opt</span></code></a>(d0, lon, lat[, width, ...])</p></td>
 <td><p>Generate a rectangular pixel array for ray tracing - optimized version with optional ray packet subdivision.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.pxform_convert" title="pyRTX.core.utils_rt.pxform_convert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pxform_convert</span></code></a>(pxform)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.pxform_convert" title="pyRTX.core.utils_rt.pxform_convert"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pxform_convert</span></code></a>(pxform)</p></td>
 <td><p>Convert a SPICE-generated rotation matrix (pxform) to the 4x4 homogeneous transformation matrix format required by trimesh.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.reflected" title="pyRTX.core.utils_rt.reflected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reflected</span></code></a>(incoming, normal)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.reflected" title="pyRTX.core.utils_rt.reflected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reflected</span></code></a>(incoming, normal)</p></td>
 <td><p>Compute reflected ray directions given incoming rays and surface normals.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.sample_lambert_dist" title="pyRTX.core.utils_rt.sample_lambert_dist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_lambert_dist</span></code></a>(normal[, num])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.sample_lambert_dist" title="pyRTX.core.utils_rt.sample_lambert_dist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sample_lambert_dist</span></code></a>(normal[, num])</p></td>
 <td><p>Generate a cloud of direction vectors following the Lambert cosine distribution (also known as Lambertian distribution or cosine-weighted hemisphere sampling).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.save_for_visualization" title="pyRTX.core.utils_rt.save_for_visualization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_for_visualization</span></code></a>(outputFilePath, mesh, ...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.utils_rt.save_for_visualization" title="pyRTX.core.utils_rt.save_for_visualization"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save_for_visualization</span></code></a>(outputFilePath, mesh, ...)</p></td>
 <td><p>Save ray tracing results to a pickled dictionary for post-processing and visualization.</p></td>
 </tr>
 </tbody>
@@ -308,6 +313,12 @@
 </tr>
 </tbody>
 </table>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyRTX.core.utils_rt.get_cached_embree_scene">
+<span class="sig-prename descclassname"><span class="pre">pyRTX.core.utils_rt.</span></span><span class="sig-name descname"><span class="pre">get_cached_embree_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh_obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/utils_rt.html#get_cached_embree_scene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.utils_rt.get_cached_embree_scene" title="Permalink to this definition"></a></dt>
+<dd><p>Return a cached EmbreeTrimeshShapeModel for this mesh, creating if needed.</p>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.utils_rt.chunker">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.utils_rt.</span></span><span class="sig-name descname"><span class="pre">chunker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunks</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/utils_rt.html#chunker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.utils_rt.chunker" title="Permalink to this definition"></a></dt>

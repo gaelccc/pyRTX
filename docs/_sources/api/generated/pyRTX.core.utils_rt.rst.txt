@@ -24,6 +24,7 @@
       compute_secondary_bounce
       diffuse
       fast_vector_build
+      get_cached_embree_scene
       get_centroids
       get_cross_products
       get_face_areas

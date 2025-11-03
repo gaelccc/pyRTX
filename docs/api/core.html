@@ -76,7 +76,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../tutorials/Notebook3.html#Computing-the-LUT">Computing the LUT</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#tutorial-3-planetary-radiation">Tutorial 3: Planetary Radiation</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../tutorials/index.html#tutorial-4-planetary-radiation">Tutorial 4: Planetary Radiation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../tutorials/Notebook4.html">Planetary radiation</a></li>
 </ul>
 </li>
 </ul>
@@ -84,6 +85,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Core Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyRTX.core.utils_rt">Ray Tracing Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#pyRTX.core.utils_rt.get_cached_embree_scene"><code class="docutils literal notranslate"><span class="pre">get_cached_embree_scene()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
@@ -218,6 +220,12 @@
 <h1>Core Utilities<a class="headerlink" href="#core-utilities" title="Permalink to this heading"></a></h1>
 <section id="module-pyRTX.core.utils_rt">
 <span id="ray-tracing-utilities"></span><h2>Ray Tracing Utilities<a class="headerlink" href="#module-pyRTX.core.utils_rt" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyRTX.core.utils_rt.get_cached_embree_scene">
+<span class="sig-prename descclassname"><span class="pre">pyRTX.core.utils_rt.</span></span><span class="sig-name descname"><span class="pre">get_cached_embree_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh_obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/core/utils_rt.html#get_cached_embree_scene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.utils_rt.get_cached_embree_scene" title="Permalink to this definition"></a></dt>
+<dd><p>Return a cached EmbreeTrimeshShapeModel for this mesh, creating if needed.</p>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.utils_rt.chunker">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.utils_rt.</span></span><span class="sig-name descname"><span class="pre">chunker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunks</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/core/utils_rt.html#chunker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.utils_rt.chunker" title="Permalink to this definition"></a></dt>
@@ -1225,7 +1233,7 @@ circular aperture (e.g., the Sun’s disk).</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_rim" title="pyRTX.core.shadow_utils.circular_rim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">circular_rim</span></code></a></dt><dd><p>Select points on the circle boundary</p>
+<dt><a class="reference internal" href="#pyRTX.core.shadow_utils.circular_rim" title="pyRTX.core.shadow_utils.circular_rim"><code class="xref py py-obj docutils literal notranslate"><span class="pre">circular_rim</span></code></a></dt><dd><p>Select points on the circle boundary</p>
 </dd>
 </dl>
 </div>
@@ -1258,7 +1266,7 @@ on the rim.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_mask" title="pyRTX.core.shadow_utils.circular_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">circular_mask</span></code></a></dt><dd><p>Select points within the circle</p>
+<dt><a class="reference internal" href="#pyRTX.core.shadow_utils.circular_mask" title="pyRTX.core.shadow_utils.circular_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">circular_mask</span></code></a></dt><dd><p>Select points within the circle</p>
 </dd>
 </dl>
 </div>
@@ -1319,7 +1327,7 @@ Range: [0, π/2] for visible hemisphere.</p>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_pixel_intensities" title="pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_pixel_intensities</span></code></a></dt><dd><p>Uses beta to compute intensity with limb darkening</p>
+<dt><a class="reference internal" href="#pyRTX.core.shadow_utils.compute_pixel_intensities" title="pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_pixel_intensities</span></code></a></dt><dd><p>Uses beta to compute intensity with limb darkening</p>
 </dd>
 </dl>
 </div>
@@ -1371,7 +1379,7 @@ visible wavelengths. The center-to-limb intensity ratio is approximately 0.6.</p
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><a class="reference internal" href="generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_beta" title="pyRTX.core.shadow_utils.compute_beta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_beta</span></code></a></dt><dd><p>Compute angular positions for limb darkening</p>
+<dt><a class="reference internal" href="#pyRTX.core.shadow_utils.compute_beta" title="pyRTX.core.shadow_utils.compute_beta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_beta</span></code></a></dt><dd><p>Compute angular positions for limb darkening</p>
 </dd>
 </dl>
 </div>

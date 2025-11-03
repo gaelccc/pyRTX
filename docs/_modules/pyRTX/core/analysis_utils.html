@@ -43,13 +43,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#requirements">Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#from-source">From Source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#dependencies">Dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../installation.html#build-dependencies">Build Dependencies</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../installation.html#runtime-dependencies">Runtime Dependencies</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start Guide</a><ul>
@@ -62,6 +56,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../tutorials/Notebook1.html">Notebook n. 1:</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../tutorials/Notebook1.html#Spacecraft-shape-definition">Spacecraft shape definition</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../tutorials/Notebook1.html#Speeding-up-the-code">Speeding up the code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../tutorials/Notebook1.html#Exporting-the-data">Exporting the data</a></li>
 </ul>
 </li>
 </ul>
@@ -78,11 +73,16 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../tutorials/Notebook3.html#Computing-the-LUT">Computing the LUT</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#tutorial-4-planetary-radiation">Tutorial 4: Planetary Radiation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/Notebook4.html">Planetary radiation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/core.html">Core Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.utils_rt">Ray Tracing Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_cached_embree_scene"><code class="docutils literal notranslate"><span class="pre">get_cached_embree_scene()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
@@ -96,7 +96,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.exportEXAC"><code class="docutils literal notranslate"><span class="pre">exportEXAC()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
@@ -113,7 +112,14 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#shadow-utilities">Shadow Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.shadow_utils">Shadow Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.physical_utils">Physical Utilities</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
@@ -132,7 +138,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/classes.html">Classes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#sunshadow">SunShadow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#solarpressure">SolarPressure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#solarpressure">SolarPressure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#planet">Planet</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
 </ul>
@@ -727,7 +736,55 @@
 <span class="sd">	&#39;&#39;&#39;</span></div>
 
 
-<div class="viewcode-block" id="get_spacecraft_area"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.get_spacecraft_area">[docs]</a><span class="k">def</span> <span class="nf">get_spacecraft_area</span><span class="p">(</span><span class="n">spacecraft</span><span class="p">,</span> <span class="n">ra</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dec</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">epoch</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="c1"># def get_spacecraft_area(spacecraft, ra = 0.0, dec = 0.0, epoch = None):</span>
+
+<span class="c1"># 	&#39;&#39;&#39;</span>
+<span class="c1"># 	Compute a pyRTX.Spacecraft apparent area as seen by the direction specified </span>
+<span class="c1"># 	by a pair of right ascension - declination</span>
+
+<span class="c1"># 	Input:</span>
+<span class="c1"># 	spacecraft [pyRTX.Spacecraft] 	: the spacecraft object</span>
+<span class="c1"># 	ra [float] 						: right ascension (in rad)</span>
+<span class="c1"># 	dec [float] 					: declination (rad)</span>
+<span class="c1"># 	epoch [float or None]			: epoch for the computation (this is used when moving Spice</span>
+<span class="c1"># 										frames are used for the Spacecraft definition)</span>
+
+<span class="c1"># 	Output:</span>
+<span class="c1"># 	area [float] 					: the apparent area. The measurement units depend on the units of the</span>
+<span class="c1"># 				   						Spacecraft object</span>
+
+<span class="c1"># 	TODO: avoid hardcoded width/height but rather use an automated method</span>
+
+<span class="c1"># 	&#39;&#39;&#39;</span>
+<span class="c1"># 	from pyRTX.classes.PixelPlane import PixelPlane</span>
+<span class="c1"># 	from pyRTX.classes.RayTracer  import RayTracer</span>
+<span class="c1"># 	rays = PixelPlane( </span>
+<span class="c1"># 			spacecraft = spacecraft,   # Spacecraft object </span>
+<span class="c1"># 			mode = &#39;Fixed&#39;,   # Mode: can be &#39;Dynamic&#39; ( The sun orientation is computed from the kernels), or &#39;Fixed&#39;</span>
+<span class="c1"># 			distance = 10000,	    # Distance of the ray origin from the spacecraft</span>
+<span class="c1"># 			width = 10,	    # Width of the pixel plane</span>
+<span class="c1"># 			height = 10,        # Height of the pixel plane</span>
+<span class="c1"># 			lon = ra,</span>
+<span class="c1"># 			lat = dec, </span>
+<span class="c1"># 			ray_spacing = 0.01, # Ray spacing (in m)</span>
+<span class="c1"># 		)</span>
+
+<span class="c1"># 	rtx = RayTracer(        </span>
+<span class="c1">#                         spacecraft,                    # Spacecraft object</span>
+<span class="c1">#                         rays,                   # pixelPlane object</span>
+<span class="c1">#                         kernel = &#39;Embree&#39;,      # The RTX kernel to use</span>
+<span class="c1">#                         bounces = 1,            # The number of bounces to account for</span>
+<span class="c1">#                         diffusion = False,       # Account for secondary diffusion</span>
+<span class="c1">#                         ) </span>
+
+<span class="c1"># 	rtx.trace(epoch)</span>
+<span class="c1"># 	hit_rays = rtx.index_ray_container</span>
+<span class="c1"># 	Area =  len(hit_rays[0])/rays.norm_factor</span>
+<span class="c1"># 	return Area</span>
+
+
+
+<div class="viewcode-block" id="get_spacecraft_area"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.get_spacecraft_area">[docs]</a><span class="k">def</span> <span class="nf">get_spacecraft_area</span><span class="p">(</span><span class="n">spacecraft</span><span class="p">,</span> <span class="n">rays</span><span class="p">,</span> <span class="n">ra</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dec</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">epoch</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 
 <span class="w">	</span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">	Compute a pyRTX.Spacecraft apparent area as seen by the direction specified </span>
@@ -735,6 +792,7 @@
 
 <span class="sd">	Input:</span>
 <span class="sd">	spacecraft [pyRTX.Spacecraft] 	: the spacecraft object</span>
+<span class="sd">	rays [pyRTX.PixelPlane]			: the pixel plane for raytracing</span>
 <span class="sd">	ra [float] 						: right ascension (in rad)</span>
 <span class="sd">	dec [float] 					: declination (rad)</span>
 <span class="sd">	epoch [float or None]			: epoch for the computation (this is used when moving Spice</span>
@@ -749,29 +807,21 @@
 <span class="sd">	&#39;&#39;&#39;</span>
 	<span class="kn">from</span> <span class="nn">pyRTX.classes.PixelPlane</span> <span class="kn">import</span> <span class="n">PixelPlane</span>
 	<span class="kn">from</span> <span class="nn">pyRTX.classes.RayTracer</span>  <span class="kn">import</span> <span class="n">RayTracer</span>
-	<span class="n">rays</span> <span class="o">=</span> <span class="n">PixelPlane</span><span class="p">(</span> 
-			<span class="n">spacecraft</span> <span class="o">=</span> <span class="n">spacecraft</span><span class="p">,</span>   <span class="c1"># Spacecraft object </span>
-			<span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;Fixed&#39;</span><span class="p">,</span>   <span class="c1"># Mode: can be &#39;Dynamic&#39; ( The sun orientation is computed from the kernels), or &#39;Fixed&#39;</span>
-			<span class="n">distance</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span>	    <span class="c1"># Distance of the ray origin from the spacecraft</span>
-			<span class="n">width</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>	    <span class="c1"># Width of the pixel plane</span>
-			<span class="n">height</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>        <span class="c1"># Height of the pixel plane</span>
-			<span class="n">lon</span> <span class="o">=</span> <span class="n">ra</span><span class="p">,</span>
-			<span class="n">lat</span> <span class="o">=</span> <span class="n">dec</span><span class="p">,</span> 
-			<span class="n">ray_spacing</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="c1"># Ray spacing (in m)</span>
-		<span class="p">)</span>
 
 	<span class="n">rtx</span> <span class="o">=</span> <span class="n">RayTracer</span><span class="p">(</span>        
                         <span class="n">spacecraft</span><span class="p">,</span>                    <span class="c1"># Spacecraft object</span>
                         <span class="n">rays</span><span class="p">,</span>                   <span class="c1"># pixelPlane object</span>
-                        <span class="n">kernel</span> <span class="o">=</span> <span class="s1">&#39;Embree&#39;</span><span class="p">,</span>      <span class="c1"># The RTX kernel to use</span>
+                        <span class="n">kernel</span> <span class="o">=</span> <span class="s1">&#39;Embree3&#39;</span><span class="p">,</span>      <span class="c1"># The RTX kernel to use</span>
                         <span class="n">bounces</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>            <span class="c1"># The number of bounces to account for</span>
                         <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>       <span class="c1"># Account for secondary diffusion</span>
                         <span class="p">)</span> 
 
+	<span class="n">rays</span><span class="o">.</span><span class="n">update_latlon</span><span class="p">(</span><span class="n">lon</span> <span class="o">=</span> <span class="n">ra</span><span class="p">,</span> <span class="n">lat</span> <span class="o">=</span> <span class="n">dec</span><span class="p">)</span>
 	<span class="n">rtx</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
 	<span class="n">hit_rays</span> <span class="o">=</span> <span class="n">rtx</span><span class="o">.</span><span class="n">index_ray_container</span>
 	<span class="n">Area</span> <span class="o">=</span>  <span class="nb">len</span><span class="p">(</span><span class="n">hit_rays</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">/</span><span class="n">rays</span><span class="o">.</span><span class="n">norm_factor</span>
 	<span class="k">return</span> <span class="n">Area</span></div>
+
 
 
 <span class="c1">### ------------------------------- User-Defined functions ------------------------------ ###</span>

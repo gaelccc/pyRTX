@@ -23,7 +23,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="API Reference" href="../api/index.html" />
+    <link rel="next" title="Planetary radiation" href="Notebook4.html" />
     <link rel="prev" title="Solar Radiation Pressure: Various contributions" href="Notebook2.html" /> 
 </head>
 
@@ -62,6 +62,7 @@
 <li class="toctree-l3"><a class="reference internal" href="Notebook1.html">Notebook n. 1:</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="Notebook1.html#Spacecraft-shape-definition">Spacecraft shape definition</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Notebook1.html#Speeding-up-the-code">Speeding up the code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Notebook1.html#Exporting-the-data">Exporting the data</a></li>
 </ul>
 </li>
 </ul>
@@ -78,11 +79,16 @@
 <li class="toctree-l3"><a class="reference internal" href="#Computing-the-LUT">Computing the LUT</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#tutorial-4-planetary-radiation">Tutorial 4: Planetary Radiation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Notebook4.html">Planetary radiation</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api/core.html">Core Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/core.html#module-pyRTX.core.utils_rt">Ray Tracing Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.get_cached_embree_scene"><code class="docutils literal notranslate"><span class="pre">get_cached_embree_scene()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
@@ -96,7 +102,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.exportEXAC"><code class="docutils literal notranslate"><span class="pre">exportEXAC()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
@@ -113,7 +118,14 @@
 <li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../api/core.html#shadow-utilities">Shadow Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/core.html#module-pyRTX.core.shadow_utils">Shadow Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../api/core.html#module-pyRTX.core.physical_utils">Physical Utilities</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
@@ -132,7 +144,10 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/classes.html">Classes</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/classes.html#sunshadow">SunShadow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/classes.html#solarpressure">SolarPressure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/classes.html#solarpressure">SolarPressure</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/classes.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../api/classes.html#planet">Planet</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../api/classes.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
 </ul>
@@ -249,7 +264,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We need to create the spacecraft object</span>
@@ -274,7 +289,7 @@
 </div>
 <p>After having defined the spacecraft, we need to define the ranges of angles that we will be analyzing. For simplicity let’s say that we expect the spacecraft to “see” the Sun in every possible configuration: i.e., alpha in <span class="math notranslate nohighlight">\([0, 2\pi]\)</span> and delta in <span class="math notranslate nohighlight">\([-\pi/2, \pi/2]\)</span></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># One of the most important design parameters is the grid resolution</span>
@@ -287,15 +302,7 @@
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Now we have to define the pixel plane and the ray tracer</span>
@@ -334,7 +341,7 @@
 </center><p>So, we need to set <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(\Phi\)</span> to unit values to get <span class="math notranslate nohighlight">\(\mathbb{L}\)</span>.</p>
 <p>Now, what is left to do is to compute the LUT!</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define an attribute dictionary for the LUT</span>
@@ -378,7 +385,7 @@
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">ir</span><span class="p">,</span> <span class="n">ra</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">RA</span><span class="p">):</span>
@@ -390,7 +397,7 @@
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># And transform it in an xarray for easier manipulation</span>
@@ -414,7 +421,7 @@ Coordinates:
   * dec            (dec) float64 -1.571 -1.396 -1.222 ... 1.222 1.396 1.571
 Dimensions without coordinates: value
 Data variables:
-    look_up_table  (ra, dec, value) float64 -7.433e-15 -6.592e-15 ... -1.021e-11
+    look_up_table  (ra, dec, value) float64 -7.063e-15 -5.512e-15 ... -1.021e-11
 Attributes:
     base_frame:     BUS_FRAME
     units:          km/s**2
@@ -425,7 +432,7 @@ Attributes:
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The LUT is computed! We can inspect it by plotting the acceleration over different directions</span>
@@ -469,31 +476,23 @@ Attributes:
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
-<img alt="../_images/tutorials_Notebook3_14_0.png" src="../_images/tutorials_Notebook3_14_0.png" />
+<img alt="../_images/tutorials_Notebook3_13_0.png" src="../_images/tutorials_Notebook3_13_0.png" />
 </div>
 </div>
 <p>Now that we have computed the LUT we can see how it can be useful.</p>
 <p><strong>Note</strong> that in this case the calculation was simple/fast on purpose (to make this example runnable in a reasonable amount of time). Typical cases (e.g., with complex shapes and moving appendages) require much more time, and some additional coding effort (e.g., parallelization). You can find a full, in-depth, example of the computation of the LUT for Lunar Reconnaissance Orbiter in the <code class="docutils literal notranslate"><span class="pre">examples</span></code> folder (<code class="docutils literal notranslate"><span class="pre">examples/compute_lut.py</span></code>)</p>
 <p>In a normal case one would save the LUT to a file for later use. The preferred format for pyRTX is NetCDF</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">LUT</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="s1">&#39;capsule_lut.nc&#39;</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="n">LUT</span><span class="o">.</span><span class="n">encoding</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;zlib&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;complevel&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}))</span>
 <br/><br/><br/></pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-</div>
 <p>To make the example realistic, we will assume that the spacecraft for which we have computed the LUT is Lunar Reconnaissance Orbiter. This way we can take advantage of the kernels (trajectory, etc) that we have used in the previous examples.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s see how to use the LUT now!</span>
@@ -514,7 +513,7 @@ Attributes:
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ref_epc</span>     <span class="o">=</span> <span class="s2">&quot;2010 may 10 09:25:00&quot;</span>
@@ -582,7 +581,7 @@ Attributes:
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s compute the SRP and time it</span>
@@ -598,7 +597,7 @@ Attributes:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Elapsed time 5.331204172922298 sec
+Elapsed time 6.795316934003495 sec
 </pre></div></div>
 </div>
 <p>This is a huge improvement with respect to the non-LUT case (live computation) that we discussed in the first example.</p>
@@ -609,7 +608,7 @@ Elapsed time 5.331204172922298 sec
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="Notebook2.html" class="btn btn-neutral float-left" title="Solar Radiation Pressure: Various contributions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../api/index.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Notebook4.html" class="btn btn-neutral float-right" title="Planetary radiation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

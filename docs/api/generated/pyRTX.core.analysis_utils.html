@@ -76,7 +76,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../../tutorials/Notebook3.html#Computing-the-LUT">Computing the LUT</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../tutorials/index.html#tutorial-3-planetary-radiation">Tutorial 3: Planetary Radiation</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../../tutorials/index.html#tutorial-4-planetary-radiation">Tutorial 4: Planetary Radiation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../tutorials/Notebook4.html">Planetary radiation</a></li>
 </ul>
 </li>
 </ul>
@@ -84,6 +85,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../core.html">Core Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../core.html#module-pyRTX.core.utils_rt">Ray Tracing Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.get_cached_embree_scene"><code class="docutils literal notranslate"><span class="pre">get_cached_embree_scene()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../core.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
@@ -244,7 +246,7 @@
 <tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.getSunAngles" title="pyRTX.core.analysis_utils.getSunAngles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getSunAngles</span></code></a>([scName, scFrame, epoch, ...])</p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.get_spacecraft_area" title="pyRTX.core.analysis_utils.get_spacecraft_area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_spacecraft_area</span></code></a>(spacecraft[, ra, dec, epoch])</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.get_spacecraft_area" title="pyRTX.core.analysis_utils.get_spacecraft_area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_spacecraft_area</span></code></a>(spacecraft, rays[, ra, ...])</p></td>
 <td><p>Compute a pyRTX.Spacecraft apparent area as seen by the direction specified by a pair of right ascension - declination</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.get_sun_exposed_area" title="pyRTX.core.analysis_utils.get_sun_exposed_area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_sun_exposed_area</span></code></a>(sc, rtx, epoch)</p></td>
@@ -539,11 +541,12 @@ emissivityInterpolator: [class.LookupTableND] an interpolator for mapping the te
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.get_spacecraft_area">
-<span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">get_spacecraft_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#get_spacecraft_area"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.get_spacecraft_area" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">get_spacecraft_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rays</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#get_spacecraft_area"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.get_spacecraft_area" title="Permalink to this definition"></a></dt>
 <dd><p>Compute a pyRTX.Spacecraft apparent area as seen by the direction specified
 by a pair of right ascension - declination</p>
 <p>Input:
 spacecraft [pyRTX.Spacecraft]   : the spacecraft object
+rays [pyRTX.PixelPlane]                 : the pixel plane for raytracing
 ra [float]                                              : right ascension (in rad)
 dec [float]                                     : declination (rad)
 epoch [float or None]                   : epoch for the computation (this is used when moving Spice</p>

@@ -79,7 +79,8 @@
 <li class="toctree-l3"><a class="reference internal" href="Notebook3.html#Computing-the-LUT">Computing the LUT</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="index.html#tutorial-3-planetary-radiation">Tutorial 3: Planetary Radiation</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="index.html#tutorial-4-planetary-radiation">Tutorial 4: Planetary Radiation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Notebook4.html">Planetary radiation</a></li>
 </ul>
 </li>
 </ul>
@@ -87,6 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api/core.html">Core Utilities</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/core.html#module-pyRTX.core.utils_rt">Ray Tracing Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.get_cached_embree_scene"><code class="docutils literal notranslate"><span class="pre">get_cached_embree_scene()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
@@ -220,7 +222,7 @@
   <section id="Notebook-n.-1:">
 <h1>Notebook n. 1:<a class="headerlink" href="#Notebook-n.-1:" title="Permalink to this heading"></a></h1>
 <p>This is a first walk-through some of the functionalities of pyRTX. In this example we will show how to set up the code to compute the Solar Radiation Pressure (SRP) considering the 3D shape of the spacecraft and different levels of complexity for the sun photons modeling.</p>
-<p>Details about the spacrcraft shape modeling are treated in a different notebook</p>
+<p>Details about the spacecraft shape modeling are treated in a different notebook</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
@@ -423,7 +425,7 @@ Spacecraft LRO composed of 3 elements:
 <li><p>The solar pressure object</p></li>
 <li><p>The eclipse body (the Moon in the case of LRO)</p></li>
 <li><p>The ray tracer</p></li>
-<li><p>The shdow model, which describes how the shadow is accounted for</p></li>
+<li><p>The shadow model, which describes how the shadow is accounted for</p></li>
 </ol>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
@@ -506,7 +508,7 @@ Text(0.5, 0, &#39;Hours from t0&#39;)
 </div>
 <section id="Understanding-the-importance-of-the-attitude">
 <h3>Understanding the importance of the attitude<a class="headerlink" href="#Understanding-the-importance-of-the-attitude" title="Permalink to this heading"></a></h3>
-<p>This was the acceleration just due to the solar radiation pressure, without taking into account eclipses, special shadow models, etc. So then, why does it change so much in less than an hour? Remember LRO is orbiting around the Moon, and its attitude with respect to the Sun is changing. Let’s try to visualize this. Let’s grab four epochs and visualize the sun direction in the spacecraft frame.</p>
+<p>This was the acceleration just due to the solar radiation pressure, without taking into account eclipses, special shadow models, etc. So then, why does it change so much in less than an hour? Remember LRO is orbiting around the Moon, and its attitude with respect to the Sun is changing. Let’s try to visualize this. Let’s grab four epochs and visualize the spacecraft from the sun direction.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
@@ -598,7 +600,7 @@ Text(0.5, 0, &#39;Hours from t0&#39;)
 <p>In the previous example we could clearly see the influence of the changing relative attitude between the spaceraft and the Sun, as expected. Now we can add additional effects: Let’s take into account the Moon, as a shadowing body.</p>
 <p>Notice here how the spacecraft enters eclipse, thus the total acceleration is 0 during certain periods</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the Moon object</span>
@@ -650,7 +652,7 @@ Text(0.5, 0, &#39;Hours from t0&#39;)
 </div>
 </div>
 <div class="nboutput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -670,9 +672,9 @@ Text(0.5, 0, &#39;Hours from t0&#39;)
 <section id="Speeding-up-the-code">
 <h2>Speeding up the code<a class="headerlink" href="#Speeding-up-the-code" title="Permalink to this heading"></a></h2>
 <p>Until now we have run computations on a single core. Indeed it takes quite some time to compute the acceleration.</p>
-<p>Let’s use some smart paralellization and see how much we can speed it up</p>
+<p>Let’s use some smart parallelization and see how much we can speed it up</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First let&#39;s time the normal execution</span>
@@ -726,9 +728,9 @@ Text(0.5, 0, &#39;Hours from t0&#39;)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Time for single-core execution: 36.69222654099576 sec
-Time for multi-core execution (N cores 5): 17.361647089011967 sec
-Time for multi-core execution (N cores 10): 16.069237414980307 sec
+Time for single-core execution: 36.084838122013025 sec
+Time for multi-core execution (N cores 5): 16.167003075010143 sec
+Time for multi-core execution (N cores 10): 15.889135109027848 sec
 </pre></div></div>
 </div>
 </section>
