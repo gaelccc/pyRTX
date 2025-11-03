@@ -521,7 +521,55 @@ def convertEpoch(monteEpoch):
 	'''
 
 
-def get_spacecraft_area(spacecraft, ra = 0.0, dec = 0.0, epoch = None):
+# def get_spacecraft_area(spacecraft, ra = 0.0, dec = 0.0, epoch = None):
+
+# 	'''
+# 	Compute a pyRTX.Spacecraft apparent area as seen by the direction specified 
+# 	by a pair of right ascension - declination
+
+# 	Input:
+# 	spacecraft [pyRTX.Spacecraft] 	: the spacecraft object
+# 	ra [float] 						: right ascension (in rad)
+# 	dec [float] 					: declination (rad)
+# 	epoch [float or None]			: epoch for the computation (this is used when moving Spice
+# 										frames are used for the Spacecraft definition)
+
+# 	Output:
+# 	area [float] 					: the apparent area. The measurement units depend on the units of the
+# 				   						Spacecraft object
+
+# 	TODO: avoid hardcoded width/height but rather use an automated method
+
+# 	'''
+# 	from pyRTX.classes.PixelPlane import PixelPlane
+# 	from pyRTX.classes.RayTracer  import RayTracer
+# 	rays = PixelPlane( 
+# 			spacecraft = spacecraft,   # Spacecraft object 
+# 			mode = 'Fixed',   # Mode: can be 'Dynamic' ( The sun orientation is computed from the kernels), or 'Fixed'
+# 			distance = 10000,	    # Distance of the ray origin from the spacecraft
+# 			width = 10,	    # Width of the pixel plane
+# 			height = 10,        # Height of the pixel plane
+# 			lon = ra,
+# 			lat = dec, 
+# 			ray_spacing = 0.01, # Ray spacing (in m)
+# 		)
+
+# 	rtx = RayTracer(        
+#                         spacecraft,                    # Spacecraft object
+#                         rays,                   # pixelPlane object
+#                         kernel = 'Embree',      # The RTX kernel to use
+#                         bounces = 1,            # The number of bounces to account for
+#                         diffusion = False,       # Account for secondary diffusion
+#                         ) 
+
+# 	rtx.trace(epoch)
+# 	hit_rays = rtx.index_ray_container
+# 	Area =  len(hit_rays[0])/rays.norm_factor
+# 	return Area
+
+
+
+def get_spacecraft_area(spacecraft, rays, ra = 0.0, dec = 0.0, epoch = None):
 
 	'''
 	Compute a pyRTX.Spacecraft apparent area as seen by the direction specified 
@@ -529,6 +577,7 @@ def get_spacecraft_area(spacecraft, ra = 0.0, dec = 0.0, epoch = None):
 
 	Input:
 	spacecraft [pyRTX.Spacecraft] 	: the spacecraft object
+	rays [pyRTX.PixelPlane]			: the pixel plane for raytracing
 	ra [float] 						: right ascension (in rad)
 	dec [float] 					: declination (rad)
 	epoch [float or None]			: epoch for the computation (this is used when moving Spice
@@ -543,29 +592,21 @@ def get_spacecraft_area(spacecraft, ra = 0.0, dec = 0.0, epoch = None):
 	'''
 	from pyRTX.classes.PixelPlane import PixelPlane
 	from pyRTX.classes.RayTracer  import RayTracer
-	rays = PixelPlane( 
-			spacecraft = spacecraft,   # Spacecraft object 
-			mode = 'Fixed',   # Mode: can be 'Dynamic' ( The sun orientation is computed from the kernels), or 'Fixed'
-			distance = 10000,	    # Distance of the ray origin from the spacecraft
-			width = 10,	    # Width of the pixel plane
-			height = 10,        # Height of the pixel plane
-			lon = ra,
-			lat = dec, 
-			ray_spacing = 0.1, # Ray spacing (in m)
-		)
 
 	rtx = RayTracer(        
                         spacecraft,                    # Spacecraft object
                         rays,                   # pixelPlane object
-                        kernel = 'Embree',      # The RTX kernel to use
+                        kernel = 'Embree3',      # The RTX kernel to use
                         bounces = 1,            # The number of bounces to account for
                         diffusion = False,       # Account for secondary diffusion
                         ) 
 
+	rays.update_latlon(lon = ra, lat = dec)
 	rtx.trace(epoch)
 	hit_rays = rtx.index_ray_container
 	Area =  len(hit_rays[0])/rays.norm_factor
 	return Area
+
 
 
 ### ------------------------------- User-Defined functions ------------------------------ ###
