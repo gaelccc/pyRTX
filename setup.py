@@ -5,14 +5,24 @@ from setuptools.command.develop import develop
 from setuptools.command.egg_info import egg_info
 import subprocess
 import sys
+import platform
 from pathlib import Path
 
 def run_install_deps():
     """Install external C++ dependencies via install_deps.py"""
     print("\n" + "="*60)
     print("Installing dependencies via install_deps.py...")
+    print(f"Platform: {platform.system()} {platform.machine()}")
     print("="*60 + "\n")
     script_path = Path(__file__).parent / 'install_deps.py'
+    
+    if not script_path.exists():
+        print("\n" + "="*60)
+        print(f"Warning: install_deps.py not found at {script_path}")
+        print("Skipping dependency installation.")
+        print("="*60 + "\n")
+        return False
+    
     try:
         subprocess.check_call([sys.executable, str(script_path)])
         print("\n" + "="*60)
@@ -24,6 +34,12 @@ def run_install_deps():
         print(f"Warning: Dependency installation failed: {e}")
         print("You may need to install dependencies manually.")
         print("Run: python install_deps.py")
+        print("="*60 + "\n")
+        return False
+    except Exception as e:
+        print("\n" + "="*60)
+        print(f"Error running install_deps.py: {e}")
+        print("You may need to install dependencies manually.")
         print("="*60 + "\n")
         return False
 
@@ -79,7 +95,7 @@ setup(
         'egg_info': CustomEggInfoCommand,
     },
     
-    # Package data
+    # Package data - install_deps.py should be included
     package_data={
         'pyRTX': [
             'lib/*',
@@ -93,11 +109,15 @@ setup(
         'Intended Audience :: Science/Research',
         'Topic :: Scientific/Engineering :: Physics',
         'Topic :: Scientific/Engineering :: Astronomy',
+        'License :: OSI Approved :: MIT License',  # Add your license
+        'Operating System :: POSIX :: Linux',
+        'Operating System :: MacOS :: MacOS X',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
     ],
     
     # Python version requirement

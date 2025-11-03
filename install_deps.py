@@ -10,6 +10,9 @@ import urllib.request
 import tarfile
 import shutil
 import json
+import platform
+import zipfile
+import re
 from pathlib import Path
 from typing import Optional
 
@@ -176,6 +179,25 @@ class DependencyInstaller:
         """Check if component is already installed"""
         return self.state.get(component) == 'installed'
     
+    def _get_platform_suffix(self):
+        """Get platform-specific suffix for Embree packages"""
+        system = platform.system().lower()
+        machine = platform.machine().lower()
+        
+        if system == 'linux':
+            return 'x86_64.linux', 'linux'
+        elif system == 'darwin':  # macOS
+            if machine == 'arm64':
+                raise RuntimeError(
+                    f"ARM64 macOS (Apple Silicon) is not yet supported.\n"
+                    f"Embree does not provide pre-built binaries for arm64 macOS.\n"
+                    f"Please use an x86_64 environment or build Embree from source."
+                )
+            else:
+                return 'x86_64.macosx', 'darwin'
+        else:
+            raise RuntimeError(f"Unsupported platform: {system} on {machine}")
+    
     def check_prerequisites(self):
         """Check if required tools are installed"""
         log_step("Checking prerequisites...")
@@ -194,30 +216,49 @@ class DependencyInstaller:
         log_info("All prerequisites satisfied")
     
     def install_embree(self, version: str, component_name: str):
-        """Install Embree library"""
+        """Install Embree library (platform-aware)"""
         if self._is_installed(component_name):
             log_info(f"{component_name} already installed, skipping")
             return
         
         log_step(f"Installing Embree {version}")
         
-        url = f"https://github.com/embree/embree/releases/download/v{version}/embree-{version}.x86_64.linux.tar.gz"
-        filename = f"embree-{version}.x86_64.linux.tar.gz"
+        # Get platform-specific information
+        platform_suffix, platform_name = self._get_platform_suffix()
+        
+        # Construct URL and filename based on platform
+        if platform_name == 'darwin':  # macOS
+            archive_ext = 'zip'
+        else:  # Linux
+            archive_ext = 'tar.gz'
+        
+        url = f"https://github.com/embree/embree/releases/download/v{version}/embree-{version}.{platform_suffix}.{archive_ext}"
+        filename = f"embree-{version}.{platform_suffix}.{archive_ext}"
+        embree_dir_name = f"embree-{version}.{platform_suffix}"
+        
         filepath = self.lib_dir / filename
         
         # Download
         download_file(url, filepath)
         
-        # Extract
-        extract_tarball(filepath, self.lib_dir)
+        # Extract based on archive type
+        if archive_ext == 'zip':
+            log_info(f"Extracting {filepath.name}")
+            try:
+                with zipfile.ZipFile(filepath, 'r') as zip_ref:
+                    zip_ref.extractall(self.lib_dir)
+            except Exception as e:
+                log_error(f"Failed to extract {filepath}: {e}")
+                raise
+        else:  # tar.gz
+            extract_tarball(filepath, self.lib_dir)
         
         # Set up environment
-        embree_dir = self.lib_dir / f"embree-{version}.x86_64.linux"
+        embree_dir = self.lib_dir / embree_dir_name
         env_script = embree_dir / "embree-vars.sh"
         
         if env_script.exists():
             log_info("Setting up Embree environment variables")
-            # Read and apply environment variables
             with open(env_script) as f:
                 for line in f:
                     line = line.strip()
@@ -225,19 +266,48 @@ class DependencyInstaller:
                         try:
                             var_assignment = line.split('export ')[1]
                             var, value = var_assignment.split('=', 1)
-                            os.environ[var] = value.strip('"').strip("'")
-                            log_info(f"Set {var}={value[:50]}...")
+                            # Expand variables in the value
+                            expanded_value = value.strip('"').strip("'")
+                            # Replace ${VAR} and $VAR references
+                            for match in re.finditer(r'\$\{?(\w+)\}?', expanded_value):
+                                env_var = match.group(1)
+                                if env_var in os.environ:
+                                    expanded_value = expanded_value.replace(match.group(0), os.environ[env_var])
+                            os.environ[var] = expanded_value
+                            log_info(f"Set {var}={expanded_value[:50]}...")
                         except Exception as e:
                             log_warn(f"Could not parse line: {line}")
+        else:
+            log_warn(f"embree-vars.sh not found at {env_script}")
+            log_warn("Setting up basic environment variables manually")
+            # Set basic paths manually
+            os.environ['EMBREE_ROOT_DIR'] = str(embree_dir)
+            os.environ['EMBREE_INCLUDE_DIR'] = str(embree_dir / 'include')
+            os.environ['EMBREE_LIB_DIR'] = str(embree_dir / 'lib')
+            
+            # Update PATH
+            bin_dir = embree_dir / 'bin'
+            if bin_dir.exists():
+                os.environ['PATH'] = f"{bin_dir}:{os.environ.get('PATH', '')}"
+            
+            # Update library path (platform-specific)
+            lib_dir = embree_dir / 'lib'
+            if lib_dir.exists():
+                if platform_name == 'darwin':
+                    dyld_path = os.environ.get('DYLD_LIBRARY_PATH', '')
+                    os.environ['DYLD_LIBRARY_PATH'] = f"{lib_dir}:{dyld_path}" if dyld_path else str(lib_dir)
+                else:
+                    ld_path = os.environ.get('LD_LIBRARY_PATH', '')
+                    os.environ['LD_LIBRARY_PATH'] = f"{lib_dir}:{ld_path}" if ld_path else str(lib_dir)
         
-        # Clean up tarball
+        # Clean up archive
         filepath.unlink()
         
         self._mark_complete(component_name)
-        log_info(f"Embree {version} installed successfully")
-    
+        log_info(f"Embree {version} installed successfully on {platform_name}")
+        
     def install_python_embree(self):
-        """Install python-embree bindings with correct RPATH"""
+        """Install python-embree bindings with correct RPATH/install_name"""
         component_name = 'python-embree'
         if self._is_installed(component_name):
             log_info(f"{component_name} already installed, skipping")
@@ -256,7 +326,7 @@ class DependencyInstaller:
         else:
             log_info("python-embree repository already cloned")
         
-        # Apply temporary fix
+        # Apply compatibility fix
         log_info("Applying compatibility fix")
         embree_pyx = embree_dir / "embree.pyx"
         
@@ -276,66 +346,85 @@ class DependencyInstaller:
             else:
                 log_info("Fix already applied or not needed")
         
-        # Get Embree paths
-        embree3_dir = self.lib_dir / f"embree-{self.config['embree3']}.x86_64.linux"
+        # Get Embree paths (platform-aware)
+        platform_suffix, platform_name = self._get_platform_suffix()
+        
+        embree3_dir = self.lib_dir / f"embree-{self.config['embree3']}.{platform_suffix}"
         embree_lib_dir = embree3_dir / 'lib'
         embree_include_dir = embree3_dir / 'include'
         embree_vars_script = embree3_dir / "embree-vars.sh"
         
-        if not embree_vars_script.exists():
-            log_error(f"Embree environment script not found: {embree_vars_script}")
+        if not embree3_dir.exists():
+            log_error(f"Embree directory not found: {embree3_dir}")
             log_error("Make sure Embree 3 is installed first")
-            raise FileNotFoundError(f"Missing {embree_vars_script}")
+            raise FileNotFoundError(f"Missing {embree3_dir}")
         
         log_info(f"Using Embree from: {embree3_dir}")
         log_info(f"Embree lib directory: {embree_lib_dir}")
         
-        # Set up Embree environment by sourcing the script through bash
-        log_info(f"Loading Embree environment from {embree_vars_script}")
-        bash_command = f"source {embree_vars_script} && env"
+        # Set up Embree environment
+        if embree_vars_script.exists():
+            log_info(f"Loading Embree environment from {embree_vars_script}")
+            bash_command = f"source {embree_vars_script} && env"
+            
+            try:
+                result = subprocess.run(
+                    ['bash', '-c', bash_command],
+                    capture_output=True,
+                    text=True,
+                    check=True
+                )
+                
+                embree_env = {}
+                for line in result.stdout.split('\n'):
+                    if '=' in line:
+                        key, _, value = line.partition('=')
+                        embree_env[key] = value
+            except subprocess.CalledProcessError as e:
+                log_error(f"Failed to source embree-vars.sh: {e}")
+                log_error(f"stderr: {e.stderr}")
+                raise
+        else:
+            log_warn("embree-vars.sh not found, setting up environment manually")
+            embree_env = os.environ.copy()
+            embree_env['EMBREE_ROOT_DIR'] = str(embree3_dir)
+            embree_env['EMBREE_INCLUDE_DIR'] = str(embree_include_dir)
+            embree_env['EMBREE_LIB_DIR'] = str(embree_lib_dir)
         
-        try:
-            result = subprocess.run(
-                ['bash', '-c', bash_command],
-                capture_output=True,
-                text=True,
-                check=True
-            )
-            
-            # Parse the environment output
-            embree_env = {}
-            for line in result.stdout.split('\n'):
-                if '=' in line:
-                    key, _, value = line.partition('=')
-                    embree_env[key] = value
-            
-            # Add RPATH linker flags to the environment
-            # This is the KEY part - we tell the linker to embed the library path
+        # Platform-specific linker flags
+        if platform_name == 'darwin':
+            # macOS uses install_name and rpath differently
             rpath_flag = f"-Wl,-rpath,{embree_lib_dir}"
+            install_name_flag = f"-Wl,-install_name,@rpath/libembree3.dylib"
+            ldflags = embree_env.get('LDFLAGS', '')
+            embree_env['LDFLAGS'] = f"{rpath_flag} {install_name_flag} {ldflags}".strip()
             
-            # Add to LDFLAGS
+            # Set DYLD_LIBRARY_PATH
+            dyld_path = embree_env.get('DYLD_LIBRARY_PATH', '')
+            embree_env['DYLD_LIBRARY_PATH'] = f"{embree_lib_dir}:{dyld_path}" if dyld_path else str(embree_lib_dir)
+        else:  # Linux
+            rpath_flag = f"-Wl,-rpath,{embree_lib_dir}"
             ldflags = embree_env.get('LDFLAGS', '')
             embree_env['LDFLAGS'] = f"{rpath_flag} {ldflags}".strip()
             
-            # Show key Embree-related variables
-            for key in ['EMBREE_ROOT_DIR', 'PATH', 'LD_LIBRARY_PATH', 'CPATH', 'LDFLAGS']:
-                if key in embree_env:
-                    value = embree_env[key]
-                    log_info(f"{key}={value[:80]}{'...' if len(value) > 80 else ''}")
-            
-        except subprocess.CalledProcessError as e:
-            log_error(f"Failed to source embree-vars.sh: {e}")
-            log_error(f"stderr: {e.stderr}")
-            raise
+            # Set LD_LIBRARY_PATH
+            ld_path = embree_env.get('LD_LIBRARY_PATH', '')
+            embree_env['LD_LIBRARY_PATH'] = f"{embree_lib_dir}:{ld_path}" if ld_path else str(embree_lib_dir)
         
-        # Build and install with Embree environment and RPATH
+        # Show key Embree-related variables
+        for key in ['EMBREE_ROOT_DIR', 'PATH', 'LD_LIBRARY_PATH', 'DYLD_LIBRARY_PATH', 'CPATH', 'LDFLAGS']:
+            if key in embree_env:
+                value = embree_env[key]
+                log_info(f"{key}={value[:80]}{'...' if len(value) > 80 else ''}")
+        
+        # Build and install
         log_info("Building python-embree with Embree environment and RPATH")
         
         try:
             result = subprocess.run(
                 [sys.executable, 'setup.py', 'build_ext', '--inplace'],
                 cwd=embree_dir,
-                env=embree_env,  # Use environment from sourced script with RPATH
+                env=embree_env,
                 check=True,
                 capture_output=True,
                 text=True
@@ -356,7 +445,7 @@ class DependencyInstaller:
             result = subprocess.run(
                 [sys.executable, '-m', 'pip', 'install', '.'],
                 cwd=embree_dir,
-                env=embree_env,  # Use environment from sourced script with RPATH
+                env=embree_env,
                 check=True,
                 capture_output=True,
                 text=True
@@ -372,22 +461,22 @@ class DependencyInstaller:
                 log_error(f"Error: {e.stderr}")
             raise
         
-        # Verify RPATH was set correctly
-        self._verify_embree_rpath(embree_lib_dir)
+        # Verify RPATH/install_name
+        self._verify_embree_rpath(embree_lib_dir, platform_name)
         
         self._mark_complete(component_name)
         log_info("python-embree installed successfully")
 
-    def _verify_embree_rpath(self, expected_rpath):
-        """Verify that the installed embree module has the correct RPATH"""
-        log_step("Verifying embree module RPATH")
+    def _verify_embree_rpath(self, expected_rpath, platform_name):
+        """Verify that the installed embree module has the correct RPATH/install_name"""
+        log_step("Verifying embree module RPATH/install_name")
         
         try:
-            # Find the embree.so file
             import site
             site_packages_dirs = site.getsitepackages()
             
             embree_so = None
+            # macOS uses .so for Python extensions even though system libs use .dylib
             for sp_dir in site_packages_dirs:
                 sp_path = Path(sp_dir)
                 candidates = list(sp_path.glob('embree*.so'))
@@ -396,46 +485,85 @@ class DependencyInstaller:
                     break
             
             if not embree_so:
-                log_warn("Could not find embree.so to verify RPATH")
+                log_warn("Could not find embree.so to verify")
                 return
             
-            log_info(f"Checking RPATH of {embree_so.name}")
+            log_info(f"Checking RPATH/install_name of {embree_so.name}")
             
-            # Check if readelf is available
-            if not shutil.which('readelf'):
-                log_warn("readelf not found, skipping RPATH verification")
-                return
-            
-            result = subprocess.run(
-                ['readelf', '-d', str(embree_so)],
-                capture_output=True,
-                text=True,
-                check=True
-            )
-            
-            # Look for RPATH or RUNPATH
-            rpath_lines = [line for line in result.stdout.split('\n') 
-                        if 'RPATH' in line or 'RUNPATH' in line]
-            
-            if rpath_lines:
-                log_info("Found RPATH/RUNPATH:")
-                for line in rpath_lines:
-                    log_info(f"  {line.strip()}")
+            if platform_name == 'darwin':
+                # Use otool on macOS
+                if not shutil.which('otool'):
+                    log_warn("otool not found, skipping verification")
+                    return
                 
-                # Check if our embree lib path is in there
-                rpath_str = ' '.join(rpath_lines)
-                if str(expected_rpath) in rpath_str:
-                    log_info(f"✓ Embree library path is in RPATH")
+                # Check dependencies
+                result = subprocess.run(
+                    ['otool', '-L', str(embree_so)],
+                    capture_output=True,
+                    text=True,
+                    check=True
+                )
+                
+                log_info("Dependencies:")
+                for line in result.stdout.split('\n')[1:]:  # Skip first line (filename)
+                    if line.strip():
+                        log_info(f"  {line.strip()}")
+                
+                # Check rpath
+                result_rpath = subprocess.run(
+                    ['otool', '-l', str(embree_so)],
+                    capture_output=True,
+                    text=True,
+                    check=True
+                )
+                
+                if 'LC_RPATH' in result_rpath.stdout:
+                    log_info("✓ RPATH found in binary")
+                    # Extract and show the actual rpath values
+                    lines = result_rpath.stdout.split('\n')
+                    for i, line in enumerate(lines):
+                        if 'LC_RPATH' in line:
+                            # The path is usually 2 lines after LC_RPATH
+                            if i + 2 < len(lines):
+                                path_line = lines[i + 2].strip()
+                                if 'path' in path_line:
+                                    log_info(f"  {path_line}")
                 else:
-                    log_warn(f"⚠ Embree library path NOT found in RPATH")
-                    log_warn(f"Expected: {expected_rpath}")
-                    log_warn("The embree module may not work without setting LD_LIBRARY_PATH")
-            else:
-                log_warn("No RPATH/RUNPATH found in embree module")
-                log_warn("The embree module may not work without setting LD_LIBRARY_PATH")
+                    log_warn("⚠ No RPATH found in binary")
+                    log_warn("You may need to set DYLD_LIBRARY_PATH manually")
+                    
+            else:  # Linux
+                if not shutil.which('readelf'):
+                    log_warn("readelf not found, skipping verification")
+                    return
+                
+                result = subprocess.run(
+                    ['readelf', '-d', str(embree_so)],
+                    capture_output=True,
+                    text=True,
+                    check=True
+                )
+                
+                rpath_lines = [line for line in result.stdout.split('\n') 
+                            if 'RPATH' in line or 'RUNPATH' in line]
+                
+                if rpath_lines:
+                    log_info("Found RPATH/RUNPATH:")
+                    for line in rpath_lines:
+                        log_info(f"  {line.strip()}")
+                    
+                    rpath_str = ' '.join(rpath_lines)
+                    if str(expected_rpath) in rpath_str:
+                        log_info(f"✓ Embree library path is in RPATH")
+                    else:
+                        log_warn(f"⚠ Embree library path NOT found in RPATH")
+                        log_warn(f"Expected: {expected_rpath}")
+                else:
+                    log_warn("No RPATH/RUNPATH found")
+                    log_warn("You may need to set LD_LIBRARY_PATH manually")
             
         except Exception as e:
-            log_warn(f"Could not verify RPATH: {e}")
+            log_warn(f"Could not verify RPATH/install_name: {e}")
         
     def install_cgal_boost(self):
         """Install CGAL and Boost (disabled for this release)"""
@@ -557,9 +685,9 @@ class DependencyInstaller:
         log_info("AABB binder installed successfully")
     
     def cleanup_downloads(self):
-        """Remove downloaded tarballs to save space"""
+        """Remove downloaded archives to save space"""
         log_step("Cleaning up downloaded files")
-        for pattern in ['*.tar.gz', '*.tar.xz']:
+        for pattern in ['*.tar.gz', '*.tar.xz', '*.zip']:
             for filepath in self.lib_dir.glob(pattern):
                 log_info(f"Removing {filepath.name}")
                 filepath.unlink()
