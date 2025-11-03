@@ -183,3 +183,10 @@ def to_datetime(epoch):
     
     
     
+
+def getScPosVel(spacecraft, center, epochs, frame):
+    correction = 'CN'
+    sc_pos, _ = sp.spkezr(spacecraft, epochs, frame, correction, center)
+    sc_pos = np.array(sc_pos)
+    # Returns position and velocity
+    return sc_pos[:, :3], sc_pos[:, 3:]
