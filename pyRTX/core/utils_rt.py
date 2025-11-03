@@ -30,6 +30,36 @@ try:
 except: 
         pass
 
+#####
+# Mods for performanc optimization
+import hashlib
+import threading
+
+# Thread-safe Embree scene cache
+_EMBREE_CACHE = {}
+_EMBREE_CACHE_LOCK = threading.Lock()
+
+def _hash_mesh(mesh_obj):
+    """Compute a reproducible hash for mesh geometry (vertices + faces)."""
+    V = np.asarray(mesh_obj.vertices, dtype=np.float32)
+    F = np.asarray(mesh_obj.faces, dtype=np.int32)
+    # Stable hash across sessions
+    m = hashlib.sha1()
+    m.update(V.tobytes())
+    m.update(F.tobytes())
+    return m.hexdigest()
+
+def get_cached_embree_scene(mesh_obj):
+    """Return a cached EmbreeTrimeshShapeModel for this mesh, creating if needed."""
+    mesh_hash = _hash_mesh(mesh_obj)
+    with _EMBREE_CACHE_LOCK:
+        if mesh_hash not in _EMBREE_CACHE:
+            
+            _EMBREE_CACHE[mesh_hash] = Embree3_init_geometry(mesh_obj)
+          
+        return _EMBREE_CACHE[mesh_hash]
+
+####
 
 # except ImportError:
 #	print("""Could not import Embree3 library. \n Be sure that: 
@@ -1739,7 +1769,9 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
     elif kernel == 'Embree3':
 
         # Initialize the geometry
-        shape_model = Embree3_init_geometry(mesh_obj)
+        # shape_model = Embree3_init_geometry(mesh_obj) # NOTE changed for performance optimization
+        shape_model = get_cached_embree_scene(mesh_obj)
+        
         context = embree.IntersectContext()
 
         for i in range(bounces):
@@ -1808,7 +1840,7 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
                     diffusion_control = False
 
         # Release memory
-        shape_model.scene.release()
+        # shape_model.scene.release() # Note: changed for performance optimization
 
     elif kernel == 'CGAL':
 
