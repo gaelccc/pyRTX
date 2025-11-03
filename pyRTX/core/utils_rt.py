@@ -758,8 +758,8 @@ def Embree3_init_geometry(mesh_obj):
     EmbreeTrimeshShapeModel : The shape model class
     RTXkernel : Main ray tracing interface
     """
-    V = np.array(mesh_obj.vertices, dtype=np.float64)
-    F = np.array(mesh_obj.faces, dtype=np.int64)
+    V = np.array(mesh_obj.vertices, dtype=np.float32, copy = False)
+    F = np.array(mesh_obj.faces, dtype=np.int32, copy = False)
 
     # P = get_centroids(V, F)
     N, A = get_surface_normals_and_face_areas(V, F)
@@ -813,7 +813,7 @@ def Embree3_init_rayhit(ray_origins, ray_directions):
 
     # Initialize the ray structure
     # rayhit.tnear[:] = 0.001 #Avoid numerical problems
-    rayhit.tnear[:] = 0.00  # Avoid numerical problems
+    rayhit.tnear[:] = 1e-6  # Avoid numerical problems
     rayhit.tfar[:] = np.inf
     rayhit.prim_id[:] = embree.INVALID_GEOMETRY_ID
     rayhit.geom_id[:] = embree.INVALID_GEOMETRY_ID
@@ -876,10 +876,13 @@ def Embree3_dump_solution(rayhit, V, F):
     nhits = hits.size
 
     if nhits > 0:
-        p = V[F[hits]]
-        v1 = p[:, 0]
-        v2 = p[:, 1]
-        v3 = p[:, 2]
+        # p = V[F[hits]]
+        # v1 = p[:, 0]
+        # v2 = p[:, 1]
+        # v3 = p[:, 2]
+        v1 = V[F[hits, 0]]
+        v2 = V[F[hits, 1]]
+        v3 = V[F[hits, 2]]
         u = rayhit.uv[idh, 0]
         v = rayhit.uv[idh, 1]
         Ph = v1 + (v2 - v1) * u[:, None] + (v3 - v1) * v[:, None]
@@ -1224,10 +1227,10 @@ class EmbreeTrimeshShapeModel(TrimeshShapeModel):
         '''
         device = embree.Device()
         geometry = device.make_geometry(embree.GeometryType.Triangle)
-        # geometry.set_build_quality(embree.BuildQuality.High)
+        geometry.set_build_quality(embree.BuildQuality.High)
 
         scene = device.make_scene()
-        # scene.set_build_quality(embree.BuildQuality.High)
+        scene.set_build_quality(embree.BuildQuality.High)
         scene.set_flags(embree.SceneFlags.Robust)
 
         vertex_buffer = geometry.set_new_buffer(
@@ -1682,7 +1685,8 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
                 intersector = trimesh.ray.ray_triangle.RayMeshIntersector(mesh_obj)
 
             # Avoid numerical problems
-            ray_origins = ray_origins + 1e-3 * ray_directions
+            # ray_origins = ray_origins + 1e-3 * ray_directions
+            ray_origins += 1e-3 * ray_directions
 
             # If computing bounce number 1 and the diffusion computation has been requested
             # do a separate raytracing also for the diffused rays
@@ -1742,7 +1746,8 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
             ray_origins_container.append(ray_origins)
 
             # Avoid numerical problems
-            ray_origins = ray_origins + 1e-3 * ray_directions
+            # NOTE: changed this and used native embree setting (tnear)
+            # ray_origins = ray_origins + 1e-3 * ray_directions
 
             # If computing bounce number 1 and the diffusion computation has been requested
             # do a separate raytracing also for the diffused rays
