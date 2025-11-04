@@ -228,7 +228,10 @@ class DependencyInstaller:
         
         # Construct URL and filename based on platform
         if platform_name == 'darwin':  # macOS
-            archive_ext = 'zip'
+            if version.startswith('2')
+            archive_ext = 'tar.gz'
+            else:
+                archive_ext = 'zip'
         else:  # Linux
             archive_ext = 'tar.gz'
         
