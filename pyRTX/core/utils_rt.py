@@ -147,8 +147,7 @@ def pxform_convert(pxform):
 
     p = np.append(pxform, [[0, 0, 0]], 0)
 
-    mv = np.asarray(np.random.random(), dtype=dFloat)
-    p = np.append(p, [[0], [0], [0], [0]], 1)
+    p = np.append(p, [[0], [0], [0], [1]], 1)
     return p
 
 
