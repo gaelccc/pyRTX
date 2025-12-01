@@ -43,7 +43,7 @@ def test_embree3():
 def test_CGAL():
 	# Test here that the three kernels work nominally
 	# CGAL test
-	load = importlib.find_spec('aabb')
+	load = importlib.find_spec('aabbtree')
 	found = load is not None
 	assert found
 # ADD MORE
