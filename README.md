@@ -31,15 +31,20 @@ density models (e.g., VenusGRAM, MCD, etc.). [(Example 1)](examples/lro_drag.py)
 Handful classes for computing, storing and reading lookup tables for improved computational performance. ([Example 1](examples/generate_lro_accel_lookup.py),[Example 2](examples/generate_crossection_lut.py))
 
 # Installation
-`pyRTX` requires the installation of a few C++ libraries, supporting the raytracing kernels. 
-This is automatically taken care of by the install script provided. 
-Given the amount of dependencies, the use of a virtual environment (e.g., conda or venv) is strongly required. 
+`pyRTX` requires the installation of a few C++ libraries, supporting the raytracing kernels.
+This is automatically taken care of by the install script provided.
+Given the amount of dependencies, the use of a virtual environment (e.g., conda or venv) is strongly required.
 
-1) clone the repository
+1. Clone the repository
    `git clone git@github.com:gaelccc/pyRTX.git`
-2) create an environment with `python>=3.8`
+2. Create an environment with `python>=3.8`
    `conda create --name pyrtx python=3.8`
-3) run the installation
+3. Install the `basemap` dependency. `basemap` requires the `geos` library, which must be installed with your system's package manager.
+   On Debian-based systems (like Ubuntu), you can install it with:
+   `sudo apt-get install libgeos-dev`
+   Then, install `basemap` with pip:
+   `pip install basemap`
+4. Run the installation
    `pip install .`
 
 ### NOTE: at the moment the installation has been tested only on Linux

@@ -1,7 +1,6 @@
 numba
 numpy
 matplotlib
-pyembree
 pyglet==1.5.15
 rtree
 scipy
@@ -14,4 +13,3 @@ pathos
 cython
 pytest
 xarray
-basemap
