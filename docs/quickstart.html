@@ -46,11 +46,11 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#from-source">From Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#step-1-system-and-c-dependencies">Step 1: System and C++ Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#step-2-python-package-installation">Step 2: Python Package Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#basic-usage">Basic Usage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a></li>
 </ul>
 </li>
@@ -235,6 +235,29 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/Notebook1.html">Notebook n. 1:</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/Notebook1.html#Spacecraft-shape-definition">Spacecraft shape definition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/Notebook1.html#Understanding-the-importance-of-the-attitude">Understanding the importance of the attitude</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/Notebook1.html#Adding-the-eclipses-and-shadow">Adding the eclipses and shadow</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/Notebook1.html#Speeding-up-the-code">Speeding up the code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/Notebook1.html#Exporting-the-data">Exporting the data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/Notebook2.html">Solar Radiation Pressure: Various contributions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/Notebook2.html#Effect-of-diffusion">Effect of diffusion</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/Notebook3.html">Lookup Tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/Notebook3.html#Computing-the-LUT">Computing the LUT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/Notebook4.html">Planetary radiation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/benchmarking_rtx_kernels.html">Solar Radiation Pressure: Various contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/full_visualization.html">Ray tracing and visualization basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/lro_visualization.html">LRO Visualization</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -263,61 +286,106 @@
              
   <section id="quick-start-guide">
 <h1>Quick Start Guide<a class="headerlink" href="#quick-start-guide" title="Permalink to this heading"></a></h1>
-<section id="basic-usage">
-<h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this heading"></a></h2>
+<p>This guide provides a basic walk-through of pyRTX to compute the Solar Radiation Pressure (SRP) on a spacecraft.</p>
 <ol class="arabic simple">
-<li><p><strong>Import the library</strong></p></li>
+<li><p><strong>Load SPICE Kernels</strong></p></li>
 </ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes</span><span class="w"> </span><span class="kn">import</span> <span class="n">SunShadow</span><span class="p">,</span> <span class="n">SolarPressure</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes</span><span class="w"> </span><span class="kn">import</span> <span class="n">Spacecraft</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">spiceypy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+<p>All calculations requiring geometry or astrodynamic data rely on the SPICE toolkit. You must provide a “metakernel” that lists all the necessary SPICE kernels (trajectory, attitude, clock, etc.).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">spiceypy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+
+<span class="n">METAKR</span> <span class="o">=</span> <span class="s1">&#39;path/to/your/metakernel.tm&#39;</span>
+<span class="n">sp</span><span class="o">.</span><span class="n">furnsh</span><span class="p">(</span><span class="n">METAKR</span><span class="p">)</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li><p><strong>Set up your spacecraft</strong></p></li>
+<li><p><strong>Define the Spacecraft</strong></p></li>
 </ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load your spacecraft geometry</span>
-<span class="n">spacecraft</span> <span class="o">=</span> <span class="n">Spacecraft</span><span class="p">(</span>
+<p>A spacecraft is defined by its components (bus, solar arrays, antennas), each with its own 3D model, reference frame, and material properties.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.Spacecraft</span><span class="w"> </span><span class="kn">import</span> <span class="n">Spacecraft</span>
+
+<span class="c1"># Component models are stored in a dictionary</span>
+<span class="n">model</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;BUS&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="s1">&#39;path/to/bus.obj&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;frame_type&#39;</span><span class="p">:</span> <span class="s1">&#39;Spice&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;frame_name&#39;</span><span class="p">:</span> <span class="s1">&#39;SC_BUS_FRAME&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+        <span class="s1">&#39;diffuse&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+        <span class="s1">&#39;specular&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;SOLAR_ARRAY&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="s1">&#39;path/to/solar_array.obj&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;frame_type&#39;</span><span class="p">:</span> <span class="s1">&#39;Spice&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;frame_name&#39;</span><span class="p">:</span> <span class="s1">&#39;SC_SA_FRAME&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+        <span class="s1">&#39;diffuse&#39;</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+        <span class="s1">&#39;specular&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="c1"># Create the spacecraft object</span>
+<span class="n">sc</span> <span class="o">=</span> <span class="n">Spacecraft</span><span class="p">(</span>
     <span class="n">name</span><span class="o">=</span><span class="s1">&#39;MySpacecraft&#39;</span><span class="p">,</span>
-    <span class="n">mesh_file</span><span class="o">=</span><span class="s1">&#39;path/to/mesh.obj&#39;</span><span class="p">,</span>
-    <span class="n">mass</span><span class="o">=</span><span class="mf">1000.0</span>  <span class="c1"># kg</span>
+    <span class="n">base_frame</span><span class="o">=</span><span class="s1">&#39;SC_BUS_FRAME&#39;</span><span class="p">,</span>
+    <span class="n">spacecraft_model</span><span class="o">=</span><span class="n">model</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
-<li><p><strong>Calculate solar radiation pressure</strong></p></li>
+<li><p><strong>Set Up the Ray Tracing Environment</strong></p></li>
 </ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create SRP calculator</span>
-<span class="n">srp</span> <span class="o">=</span> <span class="n">SolarPressure</span><span class="p">(</span>
-    <span class="n">spacecraft</span><span class="o">=</span><span class="n">spacecraft</span><span class="p">,</span>
-    <span class="n">baseflux</span><span class="o">=</span><span class="mf">1361.5</span>  <span class="c1"># W/m² at 1 AU</span>
+<p>To calculate SRP, you need to define a source for the sun’s rays (a <code class="docutils literal notranslate"><span class="pre">PixelPlane</span></code>) and a <code class="docutils literal notranslate"><span class="pre">RayTracer</span></code> to track their paths.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes</span><span class="w"> </span><span class="kn">import</span> <span class="n">PixelPlane</span><span class="p">,</span> <span class="n">RayTracer</span>
+
+<span class="c1"># Define the sun&#39;s ray source</span>
+<span class="n">rays</span> <span class="o">=</span> <span class="n">PixelPlane</span><span class="p">(</span>
+    <span class="n">spacecraft</span><span class="o">=</span><span class="n">sc</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;Dynamic&#39;</span><span class="p">,</span>
+    <span class="n">distance</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>  <span class="c1"># meters from spacecraft</span>
+    <span class="n">source</span><span class="o">=</span><span class="s1">&#39;Sun&#39;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>      <span class="c1"># meters</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>     <span class="c1"># meters</span>
+    <span class="n">ray_spacing</span><span class="o">=</span><span class="mf">0.01</span> <span class="c1"># meters</span>
 <span class="p">)</span>
 
-<span class="c1"># Compute at an epoch</span>
-<span class="n">epoch</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">str2et</span><span class="p">(</span><span class="s1">&#39;2024-01-01T12:00:00&#39;</span><span class="p">)</span>
-<span class="n">acceleration</span> <span class="o">=</span> <span class="n">srp</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
+<span class="c1"># Configure the ray tracer</span>
+<span class="n">rtx</span> <span class="o">=</span> <span class="n">RayTracer</span><span class="p">(</span>
+    <span class="n">spacecraft</span><span class="o">=</span><span class="n">sc</span><span class="p">,</span>
+    <span class="n">pixel_plane</span><span class="o">=</span><span class="n">rays</span><span class="p">,</span>
+    <span class="n">bounces</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="4">
-<li><p><strong>Calculate eclipses</strong></p></li>
+<li><p><strong>Calculate Solar Radiation Pressure</strong></p></li>
 </ol>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create shadow calculator</span>
-<span class="n">shadow</span> <span class="o">=</span> <span class="n">SunShadow</span><span class="p">(</span>
-    <span class="n">spacecraft</span><span class="o">=</span><span class="n">spacecraft</span><span class="p">,</span>
-    <span class="n">body</span><span class="o">=</span><span class="s1">&#39;Moon&#39;</span><span class="p">,</span>
-    <span class="n">bodyRadius</span><span class="o">=</span><span class="mf">1737.4</span>
+<p>Finally, create a <code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code> object and use it to compute the acceleration over a desired time range.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes</span><span class="w"> </span><span class="kn">import</span> <span class="n">SolarPressure</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.analysis_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">epochRange</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="c1"># Define time settings</span>
+<span class="n">start_epoch</span> <span class="o">=</span> <span class="s2">&quot;2024 JAN 01 12:00:00&quot;</span>
+<span class="n">duration</span> <span class="o">=</span> <span class="mi">3600</span>  <span class="c1"># seconds</span>
+<span class="n">step</span> <span class="o">=</span> <span class="mi">60</span>      <span class="c1"># seconds</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="n">epochRange</span><span class="p">(</span><span class="n">start_epoch</span><span class="p">,</span> <span class="n">duration</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+
+<span class="c1"># Create the SRP calculator</span>
+<span class="n">srp</span> <span class="o">=</span> <span class="n">SolarPressure</span><span class="p">(</span>
+    <span class="n">spacecraft</span><span class="o">=</span><span class="n">sc</span><span class="p">,</span>
+    <span class="n">ray_tracer</span><span class="o">=</span><span class="n">rtx</span><span class="p">,</span>
+    <span class="n">baseflux</span><span class="o">=</span><span class="mf">1361.5</span>  <span class="c1"># W/m^2</span>
 <span class="p">)</span>
 
-<span class="c1"># Compute shadow ratio (0=total eclipse, 1=full sun)</span>
-<span class="n">shadow_ratio</span> <span class="o">=</span> <span class="n">shadow</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
+<span class="c1"># Compute the acceleration [km/s^2]</span>
+<span class="n">acceleration</span> <span class="o">=</span> <span class="n">srp</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Permalink to this heading"></a></h2>
 <ul class="simple">
-<li><p>See the <a class="reference internal" href="api/index.html"><span class="doc">API Reference</span></a> for detailed API documentation</p></li>
-<li><p>Check the <span class="xref std std-doc">examples</span> for more complex use cases</p></li>
+<li><p>See the <a class="reference internal" href="api/index.html"><span class="doc">API Reference</span></a> for detailed API documentation.</p></li>
+<li><p>Check the <a class="reference internal" href="tutorials/index.html"><span class="doc">Tutorials</span></a> for more complex use cases.</p></li>
 </ul>
 </section>
 </section>
