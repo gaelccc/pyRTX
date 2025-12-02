@@ -19,214 +19,32 @@ from scipy import interpolate
 
 class SunShadow():
 	"""
-	SunShadow Class Documentation
-	==============================
+	Computes the solar flux ratio considering eclipse effects.
 
-	A class to compute the solar flux ratio that impacts a spacecraft, accounting for
-	eclipse effects from airless celestial bodies. This class simulates the shadow cast
-	by a planetary body on the spacecraft and can incorporate solar limb darkening effects.
-
-	Overview
-	--------
-	The SunShadow class performs ray-tracing calculations to determine what fraction of
-	the Sun's disk is visible from a spacecraft's perspective when partially or fully
-	occulted by a planetary body. It discretizes the Sun's disk into a grid of rays and
-	traces each ray to determine if it is blocked by the intervening body.
+	This class simulates the shadow cast by a celestial body on a spacecraft,
+	accounting for solar limb darkening effects to provide a precise solar flux ratio.
 
 	Parameters
 	----------
-	spacecraft : Spacecraft object, optional
-		The spacecraft object containing position and orientation information.
-		
+	spacecraft : object, optional
+	    An object representing the spacecraft, containing position and orientation.
 	body : str, optional
-		Name of the occulting body (e.g., 'Moon', 'Mars'). Used for SPICE queries.
-		
+	    The name of the celestial body causing the eclipse (e.g., 'Moon').
 	bodyRadius : float, optional
-		Radius of the occulting body in kilometers. Used if bodyShape is not provided.
-		
+	    The radius of the occulting body in kilometers.
 	numrays : int, default=100
-		Number of rays across the Sun's disk diameter. Total rays = numrays^2.
-		Higher values increase accuracy but computational cost.
-		
-	sunRadius : float, default=600000 km
-		Radius of the Sun in kilometers. Default is approximate photospheric radius.
-		
-	bodyShape : Planet object or str, optional
-		Either a Planet object with mesh data, or path to a shape model file.
-		If None, uses a sphere with bodyRadius.
-		
+	    The number of rays to trace across the Sun's diameter.
+	sunRadius : float, default=600e3
+	    The radius of the Sun in kilometers.
+	bodyShape : object or str, optional
+	    A `Planet` object or a path to a shape model file.
 	bodyFrame : str, optional
-		SPICE reference frame for the body shape model orientation.
-		
+	    The SPICE reference frame for the body's shape model.
 	limbDarkening : str, default='Standard'
-		Solar limb darkening model to use. Options:
-		- 'Standard': Quadratic model (most commonly used)
-		- 'Eddington': Eddington approximation model
-		- None: Uniform solar disk (no limb darkening)
-		
-	precomputation : Precompute object, optional
-		Precomputed SPICE data for faster ephemeris queries.
+	    The solar limb darkening model to use ('Standard', 'Eddington', or None).
+	precomputation : object, optional
+	    A `Precompute` object with precomputed SPICE data.
 
-	Attributes
-	----------
-	sunRadius : float
-		Radius of the Sun in kilometers.
-		
-	spacecraft : Spacecraft object
-		Reference to the spacecraft object.
-		
-	body : str
-		Name of the occulting body.
-		
-	limbDarkening : str or None
-		Solar limb darkening model being used.
-		
-	pxPlane : PixelPlane object
-		Discretized representation of the Sun's disk as viewed from spacecraft.
-		
-	shape : Planet object
-		Geometric representation of the occulting body.
-		
-	sp_data : Precompute object
-		Precomputed SPICE data for ephemeris queries.
-
-	Solar Limb Darkening Models
-	----------------------------
-
-	Solar limb darkening is the observed decrease in brightness from the center to the 
-	edge (limb) of the solar disk. This occurs because light from the limb travels through
-	more of the Sun's atmosphere, causing greater absorption.
-
-	1. Standard (Quadratic) Model
-	---------------------------
-	The most commonly used empirical model, particularly accurate for optical wavelengths:
-	
-	I(β) = a₀ + a₁·cos(β) + a₂·cos²(β)
-	
-	where:
-	- β is the angle between the ray direction and the Sun center
-	- a₀ = 0.3  : constant term
-	- a₁ = 0.93 : linear coefficient
-	- a₂ = -0.23: quadratic coefficient
-	
-	This model provides:
-	- Center-to-limb intensity ratio of ~0.6
-	- Good agreement with observations in visible spectrum
-	- Fast computation
-	- Widely validated for spacecraft applications
-	
-	Use when: Standard solar radiation modeling, most accurate for visible wavelengths
-
-	2. Eddington Approximation Model
-	-------------------------------
-	A physically-based model derived from radiative transfer theory:
-	
-	I(μ) = (3/4) · [(7/12) + (μ/2) - (μ²/3) + (μ³/12)·ln((1+μ)/μ)]
-	
-	where:
-	- μ = cos(β), the cosine of the heliocentric angle
-	
-	This model:
-	- Based on stellar atmosphere theory (Eddington 1926)
-	- Assumes gray atmosphere in radiative equilibrium
-	- More physically rigorous than empirical models
-	- Slightly more computationally expensive
-	- Better for theoretical studies
-	
-	Use when: Theoretical accuracy is paramount, or for consistency with 
-				astrophysical modeling conventions
-
-	3. No Limb Darkening (None)
-	-------------------------
-	Uniform solar disk assumption:
-	
-	I(β) = 1.0 (constant)
-	
-	Use when:
-	- Quick approximations needed
-	- Limb darkening effects are negligible (<1% accuracy requirement)
-	- Testing or debugging purposes
-
-	Methods
-	-------
-	run(epoch)
-		Compute eclipse ratio at a single epoch using ray-tracing.
-		
-		Parameters
-		----------
-		epoch : float
-			SPICE ephemeris time (seconds past J2000).
-			
-		Returns
-		-------
-		float
-			Solar flux ratio: 1.0 = full Sun visible, 0.0 = total eclipse,
-			0.0-1.0 = partial eclipse. Accounts for limb darkening if enabled.
-
-	compute(epochs, n_cores=None)
-		Compute eclipse ratios for multiple epochs, with optional parallelization.
-		
-		Parameters
-		----------
-		epochs : float, list, or array
-			Single epoch or array of epochs (SPICE ephemeris times).
-		n_cores : int, optional
-			Number of CPU cores for parallel computation. Default uses all available.
-			
-		Returns
-		-------
-		float or array
-			Eclipse ratio(s) corresponding to input epoch(s).
-
-	Algorithm Details
-	-----------------
-	1. Create a PixelPlane representing the Sun's disk as viewed from spacecraft
-	2. Generate a grid of rays across the solar disk
-	3. For each ray:
-	a. Check if ray direction intersects the occulting body using ray-tracing
-	b. If limb darkening enabled, weight ray by intensity based on position
-	4. Compute eclipse ratio as (blocked rays) / (total rays)
-	5. If limb darkening: use weighted sum instead of simple count
-
-	Example Usage
-	-------------
-	>>> from pyRTX.classes.SunShadow import SunShadow
-	>>> import spiceypy as sp
-	>>> 
-	>>> # Initialize with standard limb darkening
-	>>> shadow = SunShadow(
-	...     spacecraft=my_spacecraft,
-	...     body='Moon',
-	...     bodyRadius=1737.4,  # km
-	...     numrays=200,
-	...     limbDarkening='Standard'
-	... )
-	>>> 
-	>>> # Compute at single epoch
-	>>> epoch = sp.str2et('2024-01-01T12:00:00')
-	>>> flux_ratio = shadow.compute(epoch)
-	>>> print(f"Visible solar flux: {flux_ratio*100:.1f}%")
-	>>>
-	>>> # Compute over time series
-	>>> epochs = sp.str2et(['2024-01-01T{:02d}:00:00'.format(h) for h in range(24)])
-	>>> flux_ratios = shadow.compute(epochs, n_cores=4)
-
-	Notes
-	-----
-	- Currently limited to airless bodies (no atmospheric effects)
-	- Uses Embree ray-tracing kernel for efficient intersection tests
-	- Limb darkening coefficients are wavelength-dependent; default values are 
-	for optical wavelengths (~500 nm)
-	- For very close approaches, increase numrays for better accuracy
-	- Precomputation of SPICE data recommended for large time series
-
-	References
-	----------
-	- Pierce, A.K. & Slaughter, C.D. (1977), "Solar limb darkening", 
-	Solar Physics, 51, 25-41
-	- Eddington, A.S. (1926), "The Internal Constitution of the Stars"
-	- Neckel, H. & Labs, D. (1994), "Solar limb darkening 1986-1990", 
-	Solar Physics, 153, 91-114
 	"""
 
 	def __init__(self, spacecraft = None, body = None, bodyRadius = None, numrays = 100, sunRadius = 600e3, bodyShape = None, bodyFrame = None, limbDarkening = 'Standard', precomputation = None):
@@ -258,10 +76,7 @@ class SunShadow():
 
 	def _store_precomputations(self):
 		"""
-		Method to store precomputed data.
-
-		Parameters:
-		-	sp_data: object of the class Precompute
+		Store precomputed SPICE data in relevant objects.
 		"""
 
 		self.shape.sp_data    = self.sp_data
@@ -271,10 +86,17 @@ class SunShadow():
 	@parallel
 	def run(self, epoch):
 		"""
-		Method to compute eclipse ratio at a single epoch.
+		Compute the eclipse ratio for a single epoch.
 
-		Parameters:
-		-	epoch: spiceypy epoch
+		Parameters
+		----------
+		epoch : float
+		    The SPICE ephemeris time for the computation.
+
+		Returns
+		-------
+		float
+		    The solar flux ratio (1.0 for full sun, 0.0 for total eclipse).
 		"""
   
 		if self.sp_data != None:
@@ -329,9 +151,19 @@ class SunShadow():
 
 	def compute(self, epochs, n_cores = None):
 		"""
-		Parameters:
-		-	epochs: list of epochs
-		-   ncores: number of cores to use for parallel computations
+		Compute eclipse ratios for multiple epochs.
+
+		Parameters
+		----------
+		epochs : list or array
+		    A list or array of SPICE ephemeris times.
+		n_cores : int, optional
+		    The number of CPU cores to use for parallel computation.
+
+		Returns
+		-------
+		array
+		    An array of solar flux ratios for each epoch.
 		"""
   
 		if not isinstance(epochs, (list, np.ndarray)): epochs = [epochs]
@@ -344,6 +176,31 @@ class SunShadow():
 
 
 class SolarPressure():
+	"""
+	Computes the solar radiation pressure (SRP) on a spacecraft.
+
+	This class orchestrates the SRP calculation by using a ray-tracer to simulate
+	sunlight hitting a spacecraft model. It accounts for material properties,
+	self-shadowing, and eclipse conditions.
+
+	Parameters
+	----------
+	spacecraft : object
+	    The spacecraft model, containing geometry and material properties.
+	rayTracer : object, optional
+	    A `RayTracer` object to perform the ray-tracing simulation.
+	baseflux : float, default=1361.5
+	    The nominal solar flux at 1 AU in W/m^2.
+	grouped : bool, default=True
+	    If True, returns the total force vector; otherwise, returns forces per-face.
+	shadowObj : object, optional
+	    A `SunShadow` object to compute eclipse factors.
+	lookup : object, optional
+	    A lookup table for precomputed SRP values.
+	precomputation : object, optional
+	    A `Precompute` object with precomputed SPICE data.
+	"""
+
 	
 	def __init__(self, spacecraft, rayTracer = None, baseflux = 1361.5, grouped = True, shadowObj = None, lookup = None, precomputation = None):
 
@@ -371,7 +228,7 @@ class SolarPressure():
 
 	def _store_precomputations(self):
 		"""
-		Method to store precomputed data.
+		Store precomputed SPICE data in relevant objects.
 		"""
 
 		if self.shadowObj is not None and self.shadowObj.sp_data == None:
@@ -391,10 +248,17 @@ class SolarPressure():
 	@parallel
 	def run(self, epoch):
 		"""
-		Method to compute solar pressure acceleration at a single epoch.
+		Compute the solar pressure acceleration for a single epoch.
 
-		Parameters:
-		-	epoch: spiceypy epoch
+		Parameters
+		----------
+		epoch : float
+		    The SPICE ephemeris time for the computation.
+
+		Returns
+		-------
+		array
+		    The 3D solar pressure acceleration vector.
 		"""
   
 		# Launch rayTracer
@@ -431,11 +295,19 @@ class SolarPressure():
   
 	def compute(self, epochs, n_cores = None):
 		"""
-		Method to compute the solar pressure acceleration.
+		Compute the solar pressure acceleration for multiple epochs.
 
-		Parameters:
-		-	epochs: list of epochs
-		-   ncores: number of cores to use for parallel computations
+		Parameters
+		----------
+		epochs : list or array
+		    A list or array of SPICE ephemeris times.
+		n_cores : int, optional
+		    The number of CPU cores to use for parallel computation.
+
+		Returns
+		-------
+		array
+		    An array of 3D acceleration vectors for each epoch.
 		"""
   
 		if isinstance(epochs, float): epochs = [epochs]
@@ -451,10 +323,17 @@ class SolarPressure():
 
 	def lookupCompute(self, epochs):
 		"""
-		Method to compute the solar pressure force with Look Up Table.
+		Compute the solar pressure force using a lookup table.
 
-		Parameters:
-		-	epochs: list of epochs
+		Parameters
+		----------
+		epochs : list or array
+		    A list or array of SPICE ephemeris times.
+
+		Returns
+		-------
+		array
+		    An array of 3D acceleration vectors for each epoch.
 		"""
 
 		if isinstance(epochs, float): epochs = [epochs]
@@ -487,10 +366,17 @@ class SolarPressure():
 
 	def get_flux(self, epoch):
 		"""
-		Method to get the scaled solar flux.
+		Get the scaled solar flux at a given epoch.
 
-		Parameters:
-		-	epoch: requested epoch
+		Parameters
+		----------
+		epoch : float
+		    The SPICE ephemeris time for the computation.
+
+		Returns
+		-------
+		float
+		    The solar flux in W/m^2, scaled by the spacecraft's distance from the Sun.
 		"""
   
 		au = constants.au
@@ -510,16 +396,41 @@ class SolarPressure():
 	def get_force(self, flux, mesh_obj, index_tri, index_ray, location, ray_origins, ray_directions, pixel_spacing, materials = 'None', grouped = True,
 		diffusion = False, num_diffuse = None, diffusion_pack = None): 
 		"""
-		Compute the SRP force
+		Compute the total SRP force from ray-tracing results.
 
-		Parameters:
-		flux: Solar input flux [W/m^2]
-		A: areas of the mesh faces
-		s: incident ray directions
-		r: reflcted ray directions
-		n: normal unit vector to the faces
+		Parameters
+		----------
+		flux : float
+		    The incident solar flux in W/m^2.
+		mesh_obj : object
+		    The `trimesh` object representing the spacecraft.
+		index_tri : list
+		    A list of arrays of intersected triangle indices for each bounce.
+		index_ray : list
+		    A list of arrays of intersecting ray indices for each bounce.
+		location : list
+		    A list of arrays of intersection locations for each bounce.
+		ray_origins : list
+		    A list of arrays of ray origins for each bounce.
+		ray_directions : list
+		    A list of arrays of ray directions for each bounce.
+		pixel_spacing : float
+		    The spacing between rays, used for normalization.
+		materials : str or dict, default='None'
+		    A dictionary of material properties for each face.
+		grouped : bool, default=True
+		    If True, returns the total force vector.
+		diffusion : bool, default=False
+		    If True, computes diffuse reflection forces.
+		num_diffuse : int, optional
+		    The number of diffuse rays to sample per intersection.
+		diffusion_pack : list, optional
+		    A list containing data from the diffusion ray-tracing pass.
 
-
+		Returns
+		-------
+		array or list
+		    The total SRP force vector, or a list of per-face forces if `grouped` is False.
 		"""
 		# Compute geometric quantities	
 		V, F, N, A = preprocess_RTX_geometry(mesh_obj)
@@ -565,21 +476,37 @@ class SolarPressure():
 
 	def srp_core(self, flux, indexes_tri, indexes_ray, N, S, norm_factor, mesh_obj, materials = 'None', diffusion = False, num_diffuse = None, diffusion_pack = None):
 		"""
-		Core of SRP computation.
-		Highly vectorized version. For explicit algorithm implementation refer to the old version
+		Core computation of the SRP force (vectorized).
 
-		Parameters:
-		flux: solar flux (float, W/m^2)
-		indexes_tri: indexes of intersected triangles
-		indexes_ray: indexes of intersecting rays
-		N: normals
-		S: incident direction vectors
-		norm_factor: normalization factor computed from ray spacing (float)
-		mesh_obj: trimesh.Trimesh object [Not used for now, will be used when interrogating mesh
-					for surface properties]
+		Parameters
+		----------
+		flux : float
+		    The incident solar flux in W/m^2.
+		indexes_tri : array
+		    The indices of the intersected triangles.
+		indexes_ray : array
+		    The indices of the intersecting rays.
+		N : array
+		    The normal vectors of the mesh faces.
+		S : array
+		    The incident ray direction vectors.
+		norm_factor : float
+		    The normalization factor computed from ray spacing.
+		mesh_obj : object
+		    The `trimesh` object representing the spacecraft.
+		materials : str or dict, default='None'
+		    A dictionary of material properties for each face.
+		diffusion : bool, default=False
+		    If True, computes diffuse reflection forces.
+		num_diffuse : int, optional
+		    The number of diffuse rays to sample per intersection.
+		diffusion_pack : list, optional
+		    A list containing data from the diffusion ray-tracing pass.
 
-		Returns:
-		force: np.array of SRP force
+		Returns
+		-------
+		tuple
+		    A tuple containing the SRP force vector and the new flux for the next bounce.
 		"""
 
 		c = constants.c
@@ -648,5 +575,3 @@ class SolarPressure():
 			force = force + force2
 
 		return force, newFlux
-
-

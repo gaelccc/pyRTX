@@ -13,3 +13,8 @@ examples/.ipynb_checkpoints/
 pyRTX/visual/.ipynb_checkpoints/
 pyRTX/__pycache__/
 Notebooks/outputs/*
+.coverage
+coverage_report.txt
+docsrc/_build
+docsrc/build.log
+*.egg-info
