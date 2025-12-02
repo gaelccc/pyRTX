@@ -5,6 +5,38 @@ from pyRTX import constants
 from pyRTX.core.utils_rt import fast_vector_build
 
 class PixelPlane():
+	"""
+	A class to generate a rectangular grid of rays for ray-tracing.
+
+	This class creates a planar grid of ray origins and directions, simulating a
+	uniform, parallel light source. It can be configured in a fixed orientation
+	or dynamically aligned with a celestial body (e.g., the Sun).
+
+	Parameters
+	----------
+	spacecraft : object, optional
+	    The spacecraft object, used for dynamic positioning.
+	source : str, optional
+	    The name of the celestial body to track (e.g., 'Sun').
+	mode : str, default='Fixed'
+	    The operational mode ('Fixed' or 'Dynamic').
+	distance : float, default=1.0
+	    The distance of the plane from the origin.
+	lon : float, optional
+	    The longitude of the plane's center in a fixed orientation.
+	lat : float, optional
+	    The latitude of the plane's center in a fixed orientation.
+	width : float, optional
+	    The width of the ray grid.
+	height : float, optional
+	    The height of the ray grid.
+	ray_spacing : float, default=0.1
+	    The spacing between adjacent rays.
+	packets : int, default=1
+	    The number of packets to divide the rays into for processing.
+	units : str, default='m'
+	    The units for all dimensional parameters.
+	"""
 
 
 	def __init__(self, spacecraft = None, 
@@ -18,25 +50,6 @@ class PixelPlane():
 			   ray_spacing = .1, 
 			   packets = 1,
 			   units = 'm'):
-
-
-		""""Generate a pixel array for raytracing ad defined in Li et al., 2018
-		This is the "optimized version". To explicitly see the algorithm refer to the function definition
-		without _opt extension.
-		Parameters:
-		d0: [float] Distance of the pixel array from the center (in meters)
-		lat: [float] Latitude of the pixel array center (in rad)
-		lon: [float] Longitude of the pixel array center (in rad)
-		width: [float] The width of the plane(in meters). Default = 1
-		height: [float] the height of the plane(in meters). Default = 1
-		ray_spacing: [float] the spacing of the rays (in meters). Default = 0.1
-		packets: [int] the number of 'ray packets' to return. This is implemented to avoid the segmentation
-			 fault triggered by the raytracer when the number of rays is too high
-
-		Returns:
-		locs: [numpy array (n_rays, 3)] Pixel locations as a numpy array
-		dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array
-		"""
 
 		conversion_factor = constants.unit_conversions[units]
 
@@ -65,6 +78,19 @@ class PixelPlane():
 
 
 	def dump(self, epoch = None):
+		"""
+		Generate the ray origins and directions for a given epoch.
+
+		Parameters
+		----------
+		epoch : float, optional
+		    The SPICE ephemeris time for dynamic positioning.
+
+		Returns
+		-------
+		tuple
+		    A tuple containing the ray origins and directions as numpy arrays.
+		"""
 
 		if self.mode == 'Fixed':
 
@@ -92,6 +118,19 @@ class PixelPlane():
 
 
 	def _core_dump(self, instantiate = False):
+		"""
+		Core logic for generating the pixel plane coordinates and directions.
+
+		Parameters
+		----------
+		instantiate : bool, default=False
+		    If True, initializes the base coordinates; otherwise, applies transformations.
+
+		Returns
+		-------
+		tuple
+		    A tuple containing the ray origins and directions as numpy arrays.
+		"""
 
 		if instantiate:
       
@@ -177,6 +216,16 @@ class PixelPlane():
 
 
 	def update_latlon(self,lon = None, lat = None):
+		"""
+		Update the latitude and longitude for a fixed orientation.
+
+		Parameters
+		----------
+		lon : float, optional
+		    The new longitude value.
+		lat : float, optional
+		    The new latitude value.
+		"""
 		self.lon = lon
 		self.lat = lat
 

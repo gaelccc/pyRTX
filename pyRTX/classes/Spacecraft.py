@@ -1,66 +1,67 @@
 # Spacecraft class
-import trimesh as tm 
-import trimesh.transformations as tmt 
-import numpy as np 
+import trimesh as tm
+import trimesh.transformations as tmt
+import numpy as np
 import spiceypy as sp
 import matplotlib
 import copy
 from pyRTX import constants
+import pyRTX.core.utils_rt as utils_rt
 
 
 class Spacecraft():
 	"""
-	This is the main class for defining spacecraft objects. 
+	This is the main class for defining spacecraft objects.
 	"""
-	
- 
+
+
 	def __init__(self, name = None, base_frame = None, spacecraft_model = None, units = 'm', mass = 0.):
 		"""
- 		Parameters
+		Parameters
 		----------
-		name : str 
+		name : str
 			Spacecraft name
 
-		base_frame : str 
+		base_frame : str
 			Spacecraft body (base) frame
 
-		spacecraft_model : dict 
+		spacecraft_model : dict
 			dict of {file:str, frame_type:str, frame_name:str, center:list, specular:float, diffuse:float, UD_rotation:trimesh.rotation}
-        	a dictionary with keys the name of
+		a dictionary with keys the name of
 
-			file: str 
+			file: str
 				the obj file for the part
 
-			frame_type: str 
+			frame_type: str
 				'Spice' or 'UD' to choose wether to define a reference to a spice frame or UserDefined one
 				in the case of 'UD' a rotation matrix must be specified in the UD_rotation (optional) key
 
-			frame_name: str 
+			frame_name: str
 				The name of the Spice (or UD) frame
 
-			center: list  
+			center: list
 				position of the origin of the object (in km) with respect to the base frame
 
-			specular: float 
+			specular: float
 				specular coefficient
 
-			diffuse: float 
+			diffuse: float
 				diffuse coefficient
-				
+
 			UD_rotation: trimesh.rotation
 				optional specify a user defined rotations matrix
 
-		units : str 
+		units : str
 			units for transformations
-   
+
 		mass : float or .nc file
 			Spacecraft mass. Can be a float value or an xarray with times and mass values
-   
+
 		Returns
 		-------
 		bla : pyRTX.classes.Spacecraft
 		"""
-  
+
 		self.name = name
 		self.part_number = len(spacecraft_model.keys())
 		self.base_frame = base_frame
@@ -68,7 +69,7 @@ class Spacecraft():
 		self.mesh_prop = {}
 		self.units = units
 		self.conversion_factor = constants.unit_conversions[units]
-		
+
 
 		self.spacecraft_model = {}
 		self._initialize(spacecraft_model)
@@ -93,7 +94,7 @@ class Spacecraft():
 		self.spacecraft_model.update(input_model)
 
 		for elem in input_model.keys():
-			
+
 			if isinstance(input_model[elem]['file'], tm.Trimesh):
 				self.spacecraft_model[elem]['base_mesh'] = input_model[elem]['file'].apply_transform(tmt.scale_matrix(self.conversion_factor, [0,0,0]))
 			else:
@@ -114,20 +115,20 @@ class Spacecraft():
 		"""
 		# Index - epochs mapping
 		self._epochs_dict = {epoch: idx for idx, epoch in enumerate(epochs)}
-  
+
 		# Initialize transformation matrices:
 		dim = 4 if convert else 3
 		self._rot_matrices = {elem: np.zeros((len(epochs), dim, dim), dtype = np.float64) for elem in self.spacecraft_model.keys()}
 
 		# Compute rotation matrices:
 		for i, epoch in enumerate(epochs):
-			for elem in self.spacecraft_model.keys():	
+			for elem in self.spacecraft_model.keys():
 				bframe  = self.spacecraft_model[elem]['frame_name']
 				tframe  = self.base_frame
 				tmatrix = sp.pxform(bframe, tframe, epoch)
-				if convert: tmatrix = self.pxform_convert(tmatrix)
+				if convert: tmatrix = utils_rt.pxform_convert(tmatrix)
 				self._rot_matrices[elem][i] = tmatrix
-    
+
 
 	def add_parts(self, spacecraft_model = None):
 		"""
@@ -152,7 +153,7 @@ class Spacecraft():
 		Spacecraft.subset(['A','B']) would return a new instance
 		of Spacecraft with only the elements A and B
 		'''
-		
+
 		cself  = copy.deepcopy(self)
 		orig_elems = copy.deepcopy(list(cself.spacecraft_model.keys()))
 		for k in orig_elems:
@@ -165,16 +166,6 @@ class Spacecraft():
 		del self.spacecraft_model[name]
 
 
-	def pxform_convert(self,pxform):
-		pxform = np.array([pxform[0],pxform[1],pxform[2]])
-
-		p = np.append(pxform,[[0,0,0]],0)
-
-		mv = np.random.random()
-		p = np.append(p,[[0],[0],[0],[0]], 1)
-		return p
-
-
 	def apply_transforms(self, epoch):
 		"""
 		Method to rotate and translate the components.
@@ -185,25 +176,25 @@ class Spacecraft():
 		for elem in self.spacecraft_model.keys():
 
 			self.spacecraft_model[elem]['mesh'] = copy.deepcopy(self.spacecraft_model[elem]['base_mesh'])
-			
+
 			if self.spacecraft_model[elem]['frame_type'] == 'Spice':
 
 				bframe  = self.spacecraft_model[elem]['frame_name']
 				tframe  = self.base_frame
-    
+
 				if self.sp_data != None:
 
 					tmatrix = self.sp_data.getRotation(epoch, bframe, tframe)
-     
+
 				else:
 
 					tmatrix = sp.pxform(bframe, tframe, epoch)
-					tmatrix = self.pxform_convert(tmatrix)	
-     
+					tmatrix = utils_rt.pxform_convert(tmatrix)
+
 				self.spacecraft_model[elem]['mesh'].apply_transform(tmatrix)
-    
+
 			else:
-				
+
 				self.spacecraft_model[elem]['mesh'].apply_transform(self.spacecraft_model[elem]['UD_rotation'])
 
 			self.spacecraft_model[elem]['mesh'].apply_transform(self.spacecraft_model[elem]['translation'])
@@ -216,7 +207,7 @@ class Spacecraft():
 	def dump(self,epoch = None, split = False):
 
 		mesh_todump =[]
-  
+
 		if not epoch == None:
 			if isinstance(epoch, str):
 				et = sp.str2et( epoch )
@@ -259,7 +250,7 @@ class Spacecraft():
 			stored_idxs.append([counter, counter + len(elemMesh.faces)-1])
 			counter += len(elemMesh.faces)
 			props[elem] = {'specular' : self.spacecraft_model[elem]['specular'] , 'diffuse' :self.spacecraft_model[elem]['diffuse'] }
-			
+
 		self.material_dict = {'idxs' : stored_idxs, 'props': props}
 
 
@@ -279,4 +270,3 @@ class Spacecraft():
 
 	def __str__(self):
 		return self.info()
-

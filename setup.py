@@ -8,64 +8,6 @@ import sys
 import platform
 from pathlib import Path
 
-def run_install_deps():
-    """Install external C++ dependencies via install_deps.py"""
-    print("\n" + "="*60)
-    print("Installing dependencies via install_deps.py...")
-    print(f"Platform: {platform.system()} {platform.machine()}")
-    print("="*60 + "\n")
-    script_path = Path(__file__).parent / 'install_deps.py'
-    
-    if not script_path.exists():
-        print("\n" + "="*60)
-        print(f"Warning: install_deps.py not found at {script_path}")
-        print("Skipping dependency installation.")
-        print("="*60 + "\n")
-        return False
-    
-    try:
-        subprocess.check_call([sys.executable, str(script_path)])
-        print("\n" + "="*60)
-        print("Dependency installation completed successfully")
-        print("="*60 + "\n")
-        return True
-    except subprocess.CalledProcessError as e:
-        print("\n" + "="*60)
-        print(f"Warning: Dependency installation failed: {e}")
-        print("You may need to install dependencies manually.")
-        print("Run: python install_deps.py")
-        print("="*60 + "\n")
-        return False
-    except Exception as e:
-        print("\n" + "="*60)
-        print(f"Error running install_deps.py: {e}")
-        print("You may need to install dependencies manually.")
-        print("="*60 + "\n")
-        return False
-
-class PostInstallCommand(install):
-    """Post-installation for installation mode."""
-    def run(self):
-        # Run install_deps.py BEFORE setup installation
-        run_install_deps()
-        install.run(self)
-
-class PostDevelopCommand(develop):
-    """Post-installation for development mode."""
-    def run(self):
-        # Run install_deps.py BEFORE setup installation
-        run_install_deps()
-        develop.run(self)
-
-class CustomEggInfoCommand(egg_info):
-    """Custom egg_info command that runs install_deps.py on first install"""
-    def run(self):
-        # Only run on first install, not on every pip command
-        pkg_info = Path(self.egg_info) / 'PKG-INFO'
-        if not pkg_info.exists():
-            run_install_deps()
-        egg_info.run(self)
-
 # Read the long description from README
 long_description = ""
 readme_path = Path(__file__).parent / "README.md"
@@ -84,16 +26,23 @@ setup(
     url='https://github.com/gaelccc/pyRTX',
     packages=find_packages(exclude=['tests', 'docs', 'examples']),
     
-    # No dependencies listed here - all handled by install_deps.py
-    setup_requires=[],
-    install_requires=[],
-    
-    # Command classes for installation
-    cmdclass={
-        'install': PostInstallCommand,
-        'develop': PostDevelopCommand,
-        'egg_info': CustomEggInfoCommand,
-    },
+    install_requires=[
+        'numba',
+        'numpy',
+        'matplotlib',
+        'pyglet==1.5.15',
+        'rtree',
+        'scipy',
+        'shapely',
+        'spiceypy',
+        'tqdm',
+        'trimesh==3.10.7',
+        'wget',
+        'pathos',
+        'cython',
+        'pytest',
+        'xarray',
+    ],
     
     # Package data - install_deps.py should be included
     package_data={

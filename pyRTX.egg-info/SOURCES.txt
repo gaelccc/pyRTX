@@ -8,6 +8,7 @@ pyRTX/__init__.py
 pyRTX/constants.py
 pyRTX/defaults.py
 pyRTX/helpers.py
+pyRTX/utilities.py
 pyRTX.egg-info/PKG-INFO
 pyRTX.egg-info/SOURCES.txt
 pyRTX.egg-info/dependency_links.txt
@@ -29,4 +30,8 @@ pyRTX/core/parallel_utils.py
 pyRTX/core/physical_utils.py
 pyRTX/core/shadow_utils.py
 pyRTX/core/utils_rt.py
+tests/test_constants.py
+tests/test_core_utils_rt.py
+tests/test_helpers.py
 tests/test_suite_core.py
+tests/test_utilities.py

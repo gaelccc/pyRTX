@@ -1,172 +1,140 @@
-Running Sphinx v7.1.2
-making output directory... done
-loading intersphinx inventory from https://docs.python.org/3/objects.inv...
-loading intersphinx inventory from https://numpy.org/doc/stable/objects.inv...
-loading intersphinx inventory from https://docs.scipy.org/doc/scipy/objects.inv...
-loading intersphinx inventory from https://matplotlib.org/stable/objects.inv...
-[autosummary] generating autosummary for: api/classes.rst, api/core.rst, api/defaults.rst, api/generated/pyRTX.classes.Atmosphere.rst, api/generated/pyRTX.classes.Drag.rst, api/generated/pyRTX.classes.LookUpTable.rst, api/generated/pyRTX.classes.PixelPlane.rst, api/generated/pyRTX.classes.Planet.rst, api/generated/pyRTX.classes.Precompute.rst, api/generated/pyRTX.classes.Radiation.rst, ..., api/generated/pyRTX.core.analysis_utils.rst, api/generated/pyRTX.core.parallel_utils.rst, api/generated/pyRTX.core.physical_utils.rst, api/generated/pyRTX.core.rst, api/generated/pyRTX.core.shadow_utils.rst, api/generated/pyRTX.core.utils_rt.rst, api/index.rst, index.rst, installation.rst, quickstart.rst
+Running Sphinx v8.2.3
+loading translations [en]... done
+loading pickled environment... The configuration has changed (4 options: 'html_permalinks_icon', 'jquery_use_sri', 'nbsphinx_requirejs_options', 'nbsphinx_requirejs_path')
+done
+Writing evaluated template result to /app/docsrc/_build/html/_static/nbsphinx-code-cells.css
+[autosummary] generating autosummary for: api/classes.rst, api/core.rst, api/defaults.rst, api/generated/pyRTX.classes.Atmosphere.rst, api/generated/pyRTX.classes.Drag.rst, api/generated/pyRTX.classes.LookUpTable.rst, api/generated/pyRTX.classes.PixelPlane.rst, api/generated/pyRTX.classes.Planet.rst, api/generated/pyRTX.classes.Precompute.rst, api/generated/pyRTX.classes.Radiation.rst, ..., installation.rst, quickstart.rst, tutorials/Notebook1.ipynb, tutorials/Notebook2.ipynb, tutorials/Notebook3.ipynb, tutorials/Notebook4.ipynb, tutorials/benchmarking_rtx_kernels.ipynb, tutorials/full_visualization.ipynb, tutorials/index.rst, tutorials/lro_visualization.ipynb
 building [mo]: targets for 0 po files that are out of date
 writing output... 
-building [html]: targets for 24 source files that are out of date
-updating environment: [new config] 24 added, 0 changed, 0 removed
-[2Kreading sources... [  4%] api/classes[2Kreading sources... [  8%] api/core[2Kreading sources... [ 12%] api/defaults[2Kreading sources... [ 17%] api/generated/pyRTX.classes[2Kreading sources... [ 21%] api/generated/pyRTX.classes.Atmosphere[2Kreading sources... [ 25%] api/generated/pyRTX.classes.Drag[2Kreading sources... [ 29%] api/generated/pyRTX.classes.LookUpTable[2Kreading sources... [ 33%] api/generated/pyRTX.classes.PixelPlane[2Kreading sources... [ 38%] api/generated/pyRTX.classes.Planet[2Kreading sources... [ 42%] api/generated/pyRTX.classes.Precompute[2Kreading sources... [ 46%] api/generated/pyRTX.classes.Radiation[2Kreading sources... [ 50%] api/generated/pyRTX.classes.RayTracer[2Kreading sources... [ 54%] api/generated/pyRTX.classes.SRP[2Kreading sources... [ 58%] api/generated/pyRTX.classes.Spacecraft[2Kreading sources... [ 62%] api/generated/pyRTX.core[2Kreading sources... [ 67%] api/generated/pyRTX.core.analysis_utils[2Kreading sources... [ 71%] api/generated/pyRTX.core.parallel_utils[2Kreading sources... [ 75%] api/generated/pyRTX.core.physical_utils[2Kreading sources... [ 79%] api/generated/pyRTX.core.shadow_utils[2Kreading sources... [ 83%] api/generated/pyRTX.core.utils_rt[2Kreading sources... [ 88%] api/index[2Kreading sources... [ 92%] index[2Kreading sources... [ 96%] installation[2Kreading sources... [100%] quickstart
-WARNING: autodoc: failed to import class 'SunShadow.SunShadow' from module 'pyRTX.classes'; the following exception was raised:
-No module named 'pyRTX.classes.SunShadow'
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/SRP.py:docstring of pyRTX.classes.SRP.SolarPressure.srp_core:12: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/PixelPlane.py:docstring of pyRTX.classes.PixelPlane.PixelPlane.__init__:12: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.save_for_visualization:28: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.exportEXAC:38: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.Embree3_dump_solution:29: WARNING: Definition list ends without a blank line; unexpected unindent.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.RTXkernel:48: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.RTXkernel:55: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.RTXkernel:60: WARNING: Block quote ends without a blank line; unexpected unindent.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/physical_utils.py:docstring of pyRTX.core.physical_utils.preprocess_materials:4: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/physical_utils.py:docstring of pyRTX.core.physical_utils.srp_core:12: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/parallel_utils.py:docstring of pyRTX.core.parallel_utils.parallel:22: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Atmosphere.py:docstring of pyRTX.classes.Atmosphere.VenusGram:16: WARNING: Inline emphasis start-string without end-string.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/PixelPlane.py:docstring of pyRTX.classes.PixelPlane.PixelPlane:1: WARNING: duplicate object description of pyRTX.classes.PixelPlane.PixelPlane, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/PixelPlane.py:docstring of pyRTX.classes.PixelPlane.PixelPlane.__init__:1: WARNING: duplicate object description of pyRTX.classes.PixelPlane.PixelPlane.__init__, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/PixelPlane.py:docstring of pyRTX.classes.PixelPlane.PixelPlane.__init__:12: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/PixelPlane.py:docstring of pyRTX.classes.PixelPlane.PixelPlane.dump:1: WARNING: duplicate object description of pyRTX.classes.PixelPlane.PixelPlane.dump, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/PixelPlane.py:docstring of pyRTX.classes.PixelPlane.PixelPlane.update_latlon:1: WARNING: duplicate object description of pyRTX.classes.PixelPlane.PixelPlane.update_latlon, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Planet.py:docstring of pyRTX.classes.Planet.Planet:1: WARNING: duplicate object description of pyRTX.classes.Planet.Planet, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Planet.py:docstring of pyRTX.classes.Planet.Planet.__init__:1: WARNING: duplicate object description of pyRTX.classes.Planet.Planet.__init__, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Planet.py:docstring of pyRTX.classes.Planet.Planet.mesh:1: WARNING: duplicate object description of pyRTX.classes.Planet.Planet.mesh, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Planet.py:docstring of pyRTX.classes.Planet.Planet.albedoFaces:1: WARNING: duplicate object description of pyRTX.classes.Planet.Planet.albedoFaces, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Planet.py:docstring of pyRTX.classes.Planet.Planet.rot_toSCframe:1: WARNING: duplicate object description of pyRTX.classes.Planet.Planet.rot_toSCframe, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Planet.py:docstring of pyRTX.classes.Planet.Planet.emissivityFaces:1: WARNING: duplicate object description of pyRTX.classes.Planet.Planet.emissivityFaces, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Planet.py:docstring of pyRTX.classes.Planet.Planet.getFaceAlbedo:1: WARNING: duplicate object description of pyRTX.classes.Planet.Planet.getFaceAlbedo, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Planet.py:docstring of pyRTX.classes.Planet.Planet.getFaceTemperatures:1: WARNING: duplicate object description of pyRTX.classes.Planet.Planet.getFaceTemperatures, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Planet.py:docstring of pyRTX.classes.Planet.Planet.getFaceEmissivity:1: WARNING: duplicate object description of pyRTX.classes.Planet.Planet.getFaceEmissivity, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Planet.py:docstring of pyRTX.classes.Planet.Planet.VFNC:1: WARNING: duplicate object description of pyRTX.classes.Planet.Planet.VFNC, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Planet.py:docstring of pyRTX.classes.Planet.Planet.getScPosSunFixed:1: WARNING: duplicate object description of pyRTX.classes.Planet.Planet.getScPosSunFixed, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Planet.py:docstring of pyRTX.classes.Planet.Planet.pxform_convert:1: WARNING: duplicate object description of pyRTX.classes.Planet.Planet.pxform_convert, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Planet.py:docstring of pyRTX.classes.Planet.Planet.dayside_temperature:1: WARNING: duplicate object description of pyRTX.classes.Planet.Planet.dayside_temperature, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Planet.py:docstring of pyRTX.classes.Planet.Planet.nightside_temperature:1: WARNING: duplicate object description of pyRTX.classes.Planet.Planet.nightside_temperature, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Planet.py:docstring of pyRTX.classes.Planet.Planet.gridded_temperature:1: WARNING: duplicate object description of pyRTX.classes.Planet.Planet.gridded_temperature, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Planet.py:docstring of pyRTX.classes.Planet.Planet.albedo:1: WARNING: duplicate object description of pyRTX.classes.Planet.Planet.albedo, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Planet.py:docstring of pyRTX.classes.Planet.Planet.albedo_map:1: WARNING: duplicate object description of pyRTX.classes.Planet.Planet.albedo_map, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Planet.py:docstring of pyRTX.classes.Planet.Planet.emissivity:1: WARNING: duplicate object description of pyRTX.classes.Planet.Planet.emissivity, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/SRP.py:docstring of pyRTX.classes.SRP.SunShadow:185: WARNING: duplicate object description of pyRTX.classes.SRP.SunShadow.where, other instance in api/generated/pyRTX.classes.SRP, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/SRP.py:docstring of pyRTX.classes.SRP.SunShadow:235: WARNING: duplicate object description of pyRTX.classes.SRP.SunShadow.I, other instance in api/generated/pyRTX.classes.SRP, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/SRP.py:docstring of pyRTX.classes.SRP.SunShadow:351: WARNING: Bullet list ends without a blank line; unexpected unindent.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/SRP.py:docstring of pyRTX.classes.SRP.SunShadow:358: WARNING: Bullet list ends without a blank line; unexpected unindent.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/SRP.py:docstring of pyRTX.classes.SRP.SunShadow.run:1: WARNING: duplicate object description of pyRTX.classes.SRP.SunShadow.run, other instance in api/generated/pyRTX.classes.SRP, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/SRP.py:docstring of pyRTX.classes.SRP.SunShadow.compute:1: WARNING: duplicate object description of pyRTX.classes.SRP.SunShadow.compute, other instance in api/generated/pyRTX.classes.SRP, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/SRP.py:docstring of pyRTX.classes.SRP.SolarPressure:1: WARNING: duplicate object description of pyRTX.classes.SRP.SolarPressure, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/SRP.py:docstring of pyRTX.classes.SRP.SolarPressure.__init__:1: WARNING: duplicate object description of pyRTX.classes.SRP.SolarPressure.__init__, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/SRP.py:docstring of pyRTX.classes.SRP.SolarPressure.run:1: WARNING: duplicate object description of pyRTX.classes.SRP.SolarPressure.run, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/SRP.py:docstring of pyRTX.classes.SRP.SolarPressure.compute:1: WARNING: duplicate object description of pyRTX.classes.SRP.SolarPressure.compute, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/SRP.py:docstring of pyRTX.classes.SRP.SolarPressure.lookupCompute:1: WARNING: duplicate object description of pyRTX.classes.SRP.SolarPressure.lookupCompute, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/SRP.py:docstring of pyRTX.classes.SRP.SolarPressure.get_flux:1: WARNING: duplicate object description of pyRTX.classes.SRP.SolarPressure.get_flux, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/SRP.py:docstring of pyRTX.classes.SRP.SolarPressure.get_force:1: WARNING: duplicate object description of pyRTX.classes.SRP.SolarPressure.get_force, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/SRP.py:docstring of pyRTX.classes.SRP.SolarPressure.srp_core:1: WARNING: duplicate object description of pyRTX.classes.SRP.SolarPressure.srp_core, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/SRP.py:docstring of pyRTX.classes.SRP.SolarPressure.srp_core:12: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Spacecraft.py:docstring of pyRTX.classes.Spacecraft.Spacecraft:1: WARNING: duplicate object description of pyRTX.classes.Spacecraft.Spacecraft, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Spacecraft.py:docstring of pyRTX.classes.Spacecraft.Spacecraft.__init__:1: WARNING: duplicate object description of pyRTX.classes.Spacecraft.Spacecraft.__init__, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Spacecraft.py:docstring of pyRTX.classes.Spacecraft.Spacecraft.add_parts:1: WARNING: duplicate object description of pyRTX.classes.Spacecraft.Spacecraft.add_parts, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Spacecraft.py:docstring of pyRTX.classes.Spacecraft.Spacecraft.subset:1: WARNING: duplicate object description of pyRTX.classes.Spacecraft.Spacecraft.subset, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Spacecraft.py:docstring of pyRTX.classes.Spacecraft.Spacecraft.remove_part:1: WARNING: duplicate object description of pyRTX.classes.Spacecraft.Spacecraft.remove_part, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Spacecraft.py:docstring of pyRTX.classes.Spacecraft.Spacecraft.pxform_convert:1: WARNING: duplicate object description of pyRTX.classes.Spacecraft.Spacecraft.pxform_convert, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Spacecraft.py:docstring of pyRTX.classes.Spacecraft.Spacecraft.apply_transforms:1: WARNING: duplicate object description of pyRTX.classes.Spacecraft.Spacecraft.apply_transforms, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Spacecraft.py:docstring of pyRTX.classes.Spacecraft.Spacecraft.materials:1: WARNING: duplicate object description of pyRTX.classes.Spacecraft.Spacecraft.materials, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Spacecraft.py:docstring of pyRTX.classes.Spacecraft.Spacecraft.dump:1: WARNING: duplicate object description of pyRTX.classes.Spacecraft.Spacecraft.dump, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Spacecraft.py:docstring of pyRTX.classes.Spacecraft.Spacecraft.dump_materials:1: WARNING: duplicate object description of pyRTX.classes.Spacecraft.Spacecraft.dump_materials, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/classes/Spacecraft.py:docstring of pyRTX.classes.Spacecraft.Spacecraft.info:1: WARNING: duplicate object description of pyRTX.classes.Spacecraft.Spacecraft.info, other instance in api/classes, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/analysis_utils.py:docstring of pyRTX.core.analysis_utils.ScatterLookup:8: WARNING: Inline emphasis start-string without end-string.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/analysis_utils.py:docstring of pyRTX.core.analysis_utils.ScatterLookup:8: WARNING: Inline strong start-string without end-string.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/analysis_utils.py:docstring of pyRTX.core.analysis_utils.ScatterLookup:8: WARNING: Inline emphasis start-string without end-string.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/analysis_utils.py:docstring of pyRTX.core.analysis_utils.ScatterLookup:8: WARNING: Inline strong start-string without end-string.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/analysis_utils.py:docstring of pyRTX.core.analysis_utils.convertTIFtoMesh:11: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/analysis_utils.py:docstring of pyRTX.core.analysis_utils.get_spacecraft_area:9: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/analysis_utils.py:docstring of pyRTX.core.analysis_utils.get_spacecraft_area:13: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/analysis_utils.py:docstring of pyRTX.core.analysis_utils.get_sun_exposed_area:9: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/analysis_utils.py:docstring of pyRTX.core.analysis_utils.get_sun_exposed_area:13: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/parallel_utils.py:docstring of pyRTX.core.parallel_utils:1: WARNING: duplicate object description of pyRTX.core.parallel_utils, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/parallel_utils.py:docstring of pyRTX.core.parallel_utils.get_ncores:1: WARNING: duplicate object description of pyRTX.core.parallel_utils.get_ncores, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/parallel_utils.py:docstring of pyRTX.core.parallel_utils.is_method:1: WARNING: duplicate object description of pyRTX.core.parallel_utils.is_method, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/parallel_utils.py:docstring of pyRTX.core.parallel_utils.get_unwrapped:1: WARNING: duplicate object description of pyRTX.core.parallel_utils.get_unwrapped, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/parallel_utils.py:docstring of pyRTX.core.parallel_utils.parallel:1: WARNING: duplicate object description of pyRTX.core.parallel_utils.parallel, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/parallel_utils.py:docstring of pyRTX.core.parallel_utils.parallel:22: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/physical_utils.py:docstring of pyRTX.core.physical_utils:1: WARNING: duplicate object description of pyRTX.core.physical_utils, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/physical_utils.py:docstring of pyRTX.core.physical_utils.preprocess_RTX_geometry:1: WARNING: duplicate object description of pyRTX.core.physical_utils.preprocess_RTX_geometry, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/physical_utils.py:docstring of pyRTX.core.physical_utils.preprocess_materials:1: WARNING: duplicate object description of pyRTX.core.physical_utils.preprocess_materials, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/physical_utils.py:docstring of pyRTX.core.physical_utils.preprocess_materials:4: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/physical_utils.py:docstring of pyRTX.core.physical_utils.srp_core:1: WARNING: duplicate object description of pyRTX.core.physical_utils.srp_core, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/physical_utils.py:docstring of pyRTX.core.physical_utils.srp_core:12: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/physical_utils.py:docstring of pyRTX.core.physical_utils.compute_srp:1: WARNING: duplicate object description of pyRTX.core.physical_utils.compute_srp, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/shadow_utils.py:docstring of pyRTX.core.shadow_utils:1: WARNING: duplicate object description of pyRTX.core.shadow_utils, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/shadow_utils.py:docstring of pyRTX.core.shadow_utils.circular_mask:1: WARNING: duplicate object description of pyRTX.core.shadow_utils.circular_mask, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/shadow_utils.py:docstring of pyRTX.core.shadow_utils.circular_rim:1: WARNING: duplicate object description of pyRTX.core.shadow_utils.circular_rim, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/shadow_utils.py:docstring of pyRTX.core.shadow_utils.compute_directions:1: WARNING: duplicate object description of pyRTX.core.shadow_utils.compute_directions, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/shadow_utils.py:docstring of pyRTX.core.shadow_utils.compute_beta:1: WARNING: duplicate object description of pyRTX.core.shadow_utils.compute_beta, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/shadow_utils.py:docstring of pyRTX.core.shadow_utils.compute_pixel_intensities:1: WARNING: duplicate object description of pyRTX.core.shadow_utils.compute_pixel_intensities, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt:1: WARNING: duplicate object description of pyRTX.core.utils_rt, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.chunker:1: WARNING: duplicate object description of pyRTX.core.utils_rt.chunker, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.pxform_convert:1: WARNING: duplicate object description of pyRTX.core.utils_rt.pxform_convert, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.block_normalize:1: WARNING: duplicate object description of pyRTX.core.utils_rt.block_normalize, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.block_dot:1: WARNING: duplicate object description of pyRTX.core.utils_rt.block_dot, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.pixel_plane:1: WARNING: duplicate object description of pyRTX.core.utils_rt.pixel_plane, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.fast_vector_build:1: WARNING: duplicate object description of pyRTX.core.utils_rt.fast_vector_build, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.pixel_plane_opt:1: WARNING: duplicate object description of pyRTX.core.utils_rt.pixel_plane_opt, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.reflected:1: WARNING: duplicate object description of pyRTX.core.utils_rt.reflected, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.get_orthogonal:1: WARNING: duplicate object description of pyRTX.core.utils_rt.get_orthogonal, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.sample_lambert_dist:1: WARNING: duplicate object description of pyRTX.core.utils_rt.sample_lambert_dist, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.diffuse:1: WARNING: duplicate object description of pyRTX.core.utils_rt.diffuse, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.compute_secondary_bounce:1: WARNING: duplicate object description of pyRTX.core.utils_rt.compute_secondary_bounce, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.save_for_visualization:1: WARNING: duplicate object description of pyRTX.core.utils_rt.save_for_visualization, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.save_for_visualization:28: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.exportEXAC:1: WARNING: duplicate object description of pyRTX.core.utils_rt.exportEXAC, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.exportEXAC:38: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.Embree3_init_geometry:1: WARNING: duplicate object description of pyRTX.core.utils_rt.Embree3_init_geometry, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.Embree3_init_rayhit:1: WARNING: duplicate object description of pyRTX.core.utils_rt.Embree3_init_rayhit, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.Embree3_dump_solution:1: WARNING: duplicate object description of pyRTX.core.utils_rt.Embree3_dump_solution, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.Embree3_dump_solution:29: WARNING: Definition list ends without a blank line; unexpected unindent.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.cgal_init_geometry:1: WARNING: duplicate object description of pyRTX.core.utils_rt.cgal_init_geometry, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.get_centroids:1: WARNING: duplicate object description of pyRTX.core.utils_rt.get_centroids, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.get_cross_products:1: WARNING: duplicate object description of pyRTX.core.utils_rt.get_cross_products, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.get_face_areas:1: WARNING: duplicate object description of pyRTX.core.utils_rt.get_face_areas, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.get_surface_normals:1: WARNING: duplicate object description of pyRTX.core.utils_rt.get_surface_normals, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.get_surface_normals_and_face_areas:1: WARNING: duplicate object description of pyRTX.core.utils_rt.get_surface_normals_and_face_areas, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.ShapeModel:1: WARNING: duplicate object description of pyRTX.core.utils_rt.ShapeModel, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.TrimeshShapeModel:1: WARNING: duplicate object description of pyRTX.core.utils_rt.TrimeshShapeModel, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.TrimeshShapeModel.__init__:1: WARNING: duplicate object description of pyRTX.core.utils_rt.TrimeshShapeModel.__init__, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.TrimeshShapeModel.num_faces:1: WARNING: duplicate object description of pyRTX.core.utils_rt.TrimeshShapeModel.num_faces, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.TrimeshShapeModel.num_verts:1: WARNING: duplicate object description of pyRTX.core.utils_rt.TrimeshShapeModel.num_verts, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.TrimeshShapeModel.intersect1:1: WARNING: duplicate object description of pyRTX.core.utils_rt.TrimeshShapeModel.intersect1, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.TrimeshShapeModel.intersect1_2d_with_coords:1: WARNING: duplicate object description of pyRTX.core.utils_rt.TrimeshShapeModel.intersect1_2d_with_coords, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.TrimeshShapeModel.intersect1_2d:1: WARNING: duplicate object description of pyRTX.core.utils_rt.TrimeshShapeModel.intersect1_2d, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.CgalTrimeshShapeModel:1: WARNING: duplicate object description of pyRTX.core.utils_rt.CgalTrimeshShapeModel, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.EmbreeTrimeshShapeModel:1: WARNING: duplicate object description of pyRTX.core.utils_rt.EmbreeTrimeshShapeModel, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.RTXkernel:1: WARNING: duplicate object description of pyRTX.core.utils_rt.RTXkernel, other instance in api/core, use :noindex: for one of them
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.RTXkernel:48: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.RTXkernel:55: ERROR: Unexpected indentation.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/pyRTX/core/utils_rt.py:docstring of pyRTX.core.utils_rt.RTXkernel:60: WARNING: Block quote ends without a blank line; unexpected unindent.
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/docs/index.rst:6: WARNING: toctree contains reference to nonexisting document 'examples'
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/docs/installation.rst:34: WARNING: Title underline too short.
+building [html]: targets for 22 source files that are out of date
+updating environment: 0 added, 23 changed, 0 removed
+reading sources... [  4%] api/classes
+reading sources... [  9%] api/core
+reading sources... [ 13%] api/generated/pyRTX.classes
+reading sources... [ 17%] api/generated/pyRTX.classes.Atmosphere
+reading sources... [ 22%] api/generated/pyRTX.classes.Drag
+reading sources... [ 26%] api/generated/pyRTX.classes.LookUpTable
+reading sources... [ 30%] api/generated/pyRTX.classes.PixelPlane
+reading sources... [ 35%] api/generated/pyRTX.classes.Planet
+reading sources... [ 39%] api/generated/pyRTX.classes.Precompute
+reading sources... [ 43%] api/generated/pyRTX.classes.Radiation
+reading sources... [ 48%] api/generated/pyRTX.classes.RayTracer
+reading sources... [ 52%] api/generated/pyRTX.classes.SRP
+reading sources... [ 57%] api/generated/pyRTX.classes.Spacecraft
+reading sources... [ 61%] api/generated/pyRTX.core
+reading sources... [ 65%] api/generated/pyRTX.core.analysis_utils
+reading sources... [ 70%] api/generated/pyRTX.core.parallel_utils
+reading sources... [ 74%] api/generated/pyRTX.core.physical_utils
+reading sources... [ 78%] api/generated/pyRTX.core.shadow_utils
+reading sources... [ 83%] api/generated/pyRTX.core.utils_rt
+reading sources... [ 87%] api/modules
+reading sources... [ 91%] api/pyRTX
+reading sources... [ 96%] api/pyRTX.visual
+reading sources... [100%] index
 
-Build Dependencies
-~~~~~~~~~~~~~~~~~
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/docs/installation.rst:42: WARNING: Title underline too short.
-
-Runtime Dependencies
-~~~~~~~~~~~~~~~~~~~
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/docs/installation.rst:42: WARNING: Title underline too short.
-
-Runtime Dependencies
-~~~~~~~~~~~~~~~~~~~
+/app/pyRTX/classes/Atmosphere.py:docstring of pyRTX.classes.Atmosphere.VenusGram:16: WARNING: Inline emphasis start-string without end-string. [docutils]
+/app/pyRTX/core/analysis_utils.py:docstring of pyRTX.core.analysis_utils.ScatterLookup:8: WARNING: Inline emphasis start-string without end-string. [docutils]
+/app/pyRTX/core/analysis_utils.py:docstring of pyRTX.core.analysis_utils.ScatterLookup:8: WARNING: Inline strong start-string without end-string. [docutils]
+/app/pyRTX/core/analysis_utils.py:docstring of pyRTX.core.analysis_utils.ScatterLookup:8: WARNING: Inline emphasis start-string without end-string. [docutils]
+/app/pyRTX/core/analysis_utils.py:docstring of pyRTX.core.analysis_utils.ScatterLookup:8: WARNING: Inline strong start-string without end-string. [docutils]
+/app/pyRTX/core/analysis_utils.py:docstring of pyRTX.core.analysis_utils.convertTIFtoMesh:11: ERROR: Unexpected indentation. [docutils]
+/app/pyRTX/core/analysis_utils.py:docstring of pyRTX.core.analysis_utils.get_spacecraft_area:10: ERROR: Unexpected indentation. [docutils]
+/app/pyRTX/core/analysis_utils.py:docstring of pyRTX.core.analysis_utils.get_spacecraft_area:14: ERROR: Unexpected indentation. [docutils]
+/app/pyRTX/core/analysis_utils.py:docstring of pyRTX.core.analysis_utils.get_sun_exposed_area:9: ERROR: Unexpected indentation. [docutils]
+/app/pyRTX/core/analysis_utils.py:docstring of pyRTX.core.analysis_utils.get_sun_exposed_area:13: ERROR: Unexpected indentation. [docutils]
+/app/pyRTX/core/parallel_utils.py:docstring of pyRTX.core.parallel_utils.parallel:22: ERROR: Unexpected indentation. [docutils]
+/app/pyRTX/core/physical_utils.py:docstring of pyRTX.core.physical_utils.preprocess_materials:4: ERROR: Unexpected indentation. [docutils]
+/app/pyRTX/core/physical_utils.py:docstring of pyRTX.core.physical_utils.srp_core:12: ERROR: Unexpected indentation. [docutils]
+/app/pyRTX/utilities.py:docstring of pyRTX.utilities.export_exac:38: ERROR: Unexpected indentation. [docutils]
+/app/pyRTX/visual/utils.py:docstring of pyRTX.visual.utils.plot_mesh:44: ERROR: Unexpected indentation. [docutils]
+/app/docsrc/index.rst:12: WARNING: toctree contains reference to nonexisting document 'examples' [toc.not_readable]
 looking for now-outdated files... none found
 pickling environment... done
-checking consistency... done
-preparing documents... done
-copying assets... copying static files... done
-copying extra files... done
+checking consistency... /app/docsrc/api/modules.rst: WARNING: document isn't included in any toctree [toc.not_included]
+/app/docsrc/tutorials/benchmarking_rtx_kernels.ipynb: WARNING: document isn't included in any toctree [toc.not_included]
+/app/docsrc/tutorials/full_visualization.ipynb: WARNING: document isn't included in any toctree [toc.not_included]
+/app/docsrc/tutorials/lro_visualization.ipynb: WARNING: document isn't included in any toctree [toc.not_included]
+/app/docsrc/api/generated/pyRTX.classes.Atmosphere.rst: document is referenced in multiple toctrees: ['api/classes', 'api/generated/pyRTX.classes'], selecting: api/generated/pyRTX.classes <- api/generated/pyRTX.classes.Atmosphere
+/app/docsrc/api/generated/pyRTX.classes.Drag.rst: document is referenced in multiple toctrees: ['api/classes', 'api/generated/pyRTX.classes'], selecting: api/generated/pyRTX.classes <- api/generated/pyRTX.classes.Drag
+/app/docsrc/api/generated/pyRTX.classes.LookUpTable.rst: document is referenced in multiple toctrees: ['api/classes', 'api/generated/pyRTX.classes'], selecting: api/generated/pyRTX.classes <- api/generated/pyRTX.classes.LookUpTable
+/app/docsrc/api/generated/pyRTX.classes.PixelPlane.rst: document is referenced in multiple toctrees: ['api/classes', 'api/generated/pyRTX.classes'], selecting: api/generated/pyRTX.classes <- api/generated/pyRTX.classes.PixelPlane
+/app/docsrc/api/generated/pyRTX.classes.Planet.rst: document is referenced in multiple toctrees: ['api/classes', 'api/generated/pyRTX.classes'], selecting: api/generated/pyRTX.classes <- api/generated/pyRTX.classes.Planet
+/app/docsrc/api/generated/pyRTX.classes.Precompute.rst: document is referenced in multiple toctrees: ['api/classes', 'api/generated/pyRTX.classes'], selecting: api/generated/pyRTX.classes <- api/generated/pyRTX.classes.Precompute
+/app/docsrc/api/generated/pyRTX.classes.Radiation.rst: document is referenced in multiple toctrees: ['api/classes', 'api/generated/pyRTX.classes'], selecting: api/generated/pyRTX.classes <- api/generated/pyRTX.classes.Radiation
+/app/docsrc/api/generated/pyRTX.classes.RayTracer.rst: document is referenced in multiple toctrees: ['api/classes', 'api/generated/pyRTX.classes'], selecting: api/generated/pyRTX.classes <- api/generated/pyRTX.classes.RayTracer
+/app/docsrc/api/generated/pyRTX.classes.SRP.rst: document is referenced in multiple toctrees: ['api/classes', 'api/generated/pyRTX.classes'], selecting: api/generated/pyRTX.classes <- api/generated/pyRTX.classes.SRP
+/app/docsrc/api/generated/pyRTX.classes.Spacecraft.rst: document is referenced in multiple toctrees: ['api/classes', 'api/generated/pyRTX.classes'], selecting: api/generated/pyRTX.classes <- api/generated/pyRTX.classes.Spacecraft
+/app/docsrc/api/generated/pyRTX.core.analysis_utils.rst: document is referenced in multiple toctrees: ['api/core', 'api/generated/pyRTX.core'], selecting: api/generated/pyRTX.core <- api/generated/pyRTX.core.analysis_utils
+/app/docsrc/api/generated/pyRTX.core.parallel_utils.rst: document is referenced in multiple toctrees: ['api/core', 'api/generated/pyRTX.core'], selecting: api/generated/pyRTX.core <- api/generated/pyRTX.core.parallel_utils
+/app/docsrc/api/generated/pyRTX.core.physical_utils.rst: document is referenced in multiple toctrees: ['api/core', 'api/generated/pyRTX.core'], selecting: api/generated/pyRTX.core <- api/generated/pyRTX.core.physical_utils
+/app/docsrc/api/generated/pyRTX.core.shadow_utils.rst: document is referenced in multiple toctrees: ['api/core', 'api/generated/pyRTX.core'], selecting: api/generated/pyRTX.core <- api/generated/pyRTX.core.shadow_utils
+/app/docsrc/api/generated/pyRTX.core.utils_rt.rst: document is referenced in multiple toctrees: ['api/core', 'api/generated/pyRTX.core'], selecting: api/generated/pyRTX.core <- api/generated/pyRTX.core.utils_rt
 done
-[2Kwriting output... [  4%] api/classes[2Kwriting output... [  8%] api/core[2Kwriting output... [ 12%] api/defaults[2Kwriting output... [ 17%] api/generated/pyRTX.classes[2Kwriting output... [ 21%] api/generated/pyRTX.classes.Atmosphere[2Kwriting output... [ 25%] api/generated/pyRTX.classes.Drag[2Kwriting output... [ 29%] api/generated/pyRTX.classes.LookUpTable[2Kwriting output... [ 33%] api/generated/pyRTX.classes.PixelPlane[2Kwriting output... [ 38%] api/generated/pyRTX.classes.Planet[2Kwriting output... [ 42%] api/generated/pyRTX.classes.Precompute[2Kwriting output... [ 46%] api/generated/pyRTX.classes.Radiation[2Kwriting output... [ 50%] api/generated/pyRTX.classes.RayTracer[2Kwriting output... [ 54%] api/generated/pyRTX.classes.SRP[2Kwriting output... [ 58%] api/generated/pyRTX.classes.Spacecraft[2Kwriting output... [ 62%] api/generated/pyRTX.core[2Kwriting output... [ 67%] api/generated/pyRTX.core.analysis_utils[2Kwriting output... [ 71%] api/generated/pyRTX.core.parallel_utils[2Kwriting output... [ 75%] api/generated/pyRTX.core.physical_utils[2Kwriting output... [ 79%] api/generated/pyRTX.core.shadow_utils[2Kwriting output... [ 83%] api/generated/pyRTX.core.utils_rt[2Kwriting output... [ 88%] api/index[2Kwriting output... [ 92%] index[2Kwriting output... [ 96%] installation[2Kwriting output... [100%] quickstart
-/panfs/ccds02/nobackup/people/gcasciol/pyrtx-ariele/pyRTX/docs/quickstart.rst:58: WARNING: unknown document: 'examples'
+preparing documents... WARNING: unsupported theme option 'display_version' given
+WARNING: unsupported theme option 'github_url' given
+done
+copying assets...
+copying static files...
+Writing evaluated template result to /app/docsrc/_build/html/_static/language_data.js
+Writing evaluated template result to /app/docsrc/_build/html/_static/documentation_options.js
+Writing evaluated template result to /app/docsrc/_build/html/_static/basic.css
+Writing evaluated template result to /app/docsrc/_build/html/_static/js/versions.js
+copying static files: done
+copying extra files...
+copying extra files: done
+copying assets: done
+writing output... [  4%] api/classes
+writing output... [  8%] api/core
+writing output... [ 12%] api/generated/pyRTX.classes
+writing output... [ 17%] api/generated/pyRTX.classes.Atmosphere
+writing output... [ 21%] api/generated/pyRTX.classes.Drag
+writing output... [ 25%] api/generated/pyRTX.classes.LookUpTable
+writing output... [ 29%] api/generated/pyRTX.classes.PixelPlane
+writing output... [ 33%] api/generated/pyRTX.classes.Planet
+writing output... [ 38%] api/generated/pyRTX.classes.Precompute
+writing output... [ 42%] api/generated/pyRTX.classes.Radiation
+writing output... [ 46%] api/generated/pyRTX.classes.RayTracer
+writing output... [ 50%] api/generated/pyRTX.classes.SRP
+writing output... [ 54%] api/generated/pyRTX.classes.Spacecraft
+writing output... [ 58%] api/generated/pyRTX.core
+writing output... [ 62%] api/generated/pyRTX.core.analysis_utils
+writing output... [ 67%] api/generated/pyRTX.core.parallel_utils
+writing output... [ 71%] api/generated/pyRTX.core.physical_utils
+writing output... [ 75%] api/generated/pyRTX.core.shadow_utils
+writing output... [ 79%] api/generated/pyRTX.core.utils_rt
+writing output... [ 83%] api/index
+writing output... [ 88%] api/modules
+writing output... [ 92%] api/pyRTX
+writing output... [ 96%] api/pyRTX.visual
+writing output... [100%] index
+
 generating indices... genindex py-modindex done
-[2Khighlighting module code... [  7%] pyRTX.classes.Atmosphere[2Khighlighting module code... [ 13%] pyRTX.classes.Drag[2Khighlighting module code... [ 20%] pyRTX.classes.LookUpTable[2Khighlighting module code... [ 27%] pyRTX.classes.PixelPlane[2Khighlighting module code... [ 33%] pyRTX.classes.Planet[2Khighlighting module code... [ 40%] pyRTX.classes.Precompute[2Khighlighting module code... [ 47%] pyRTX.classes.Radiation[2Khighlighting module code... [ 53%] pyRTX.classes.RayTracer[2Khighlighting module code... [ 60%] pyRTX.classes.SRP[2Khighlighting module code... [ 67%] pyRTX.classes.Spacecraft[2Khighlighting module code... [ 73%] pyRTX.core.analysis_utils[2Khighlighting module code... [ 80%] pyRTX.core.parallel_utils[2Khighlighting module code... [ 87%] pyRTX.core.physical_utils[2Khighlighting module code... [ 93%] pyRTX.core.shadow_utils[2Khighlighting module code... [100%] pyRTX.core.utils_rt
+copying linked files...
+copying notebooks ...
+highlighting module code... [  6%] pyRTX.classes.Atmosphere
+highlighting module code... [ 11%] pyRTX.classes.Drag
+highlighting module code... [ 17%] pyRTX.classes.LookUpTable
+highlighting module code... [ 22%] pyRTX.classes.PixelPlane
+highlighting module code... [ 28%] pyRTX.classes.Planet
+highlighting module code... [ 33%] pyRTX.classes.Precompute
+highlighting module code... [ 39%] pyRTX.classes.Radiation
+highlighting module code... [ 44%] pyRTX.classes.RayTracer
+highlighting module code... [ 50%] pyRTX.classes.SRP
+highlighting module code... [ 56%] pyRTX.classes.Spacecraft
+highlighting module code... [ 61%] pyRTX.core.analysis_utils
+highlighting module code... [ 67%] pyRTX.core.parallel_utils
+highlighting module code... [ 72%] pyRTX.core.physical_utils
+highlighting module code... [ 78%] pyRTX.core.shadow_utils
+highlighting module code... [ 83%] pyRTX.core.utils_rt
+highlighting module code... [ 89%] pyRTX.helpers
+highlighting module code... [ 94%] pyRTX.utilities
+highlighting module code... [100%] pyRTX.visual.utils
+
 writing additional pages... search done
+copying images... [100%] _static/pyrtx_banner.png
+
 dumping search index in English (code: en)... done
 dumping object inventory... done
-build finished with problems, 136 warnings.
+build succeeded, 22 warnings.
+
+The HTML pages are in _build/html.
