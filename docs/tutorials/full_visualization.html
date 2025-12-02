@@ -300,16 +300,16 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import trimesh as tm
-import numpy as np
-import spiceypy as sp
-import matplotlib.pyplot as plt
-import matplotlib
-from matplotlib.lines import Line2D
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">trimesh</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">spiceypy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">Line2D</span>
 
-from pyRTX.classes.PixelPlane import PixelPlane
-from pyRTX.core import utils_rt
-from pyRTX.visual.utils import color_convert
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.PixelPlane</span><span class="w"> </span><span class="kn">import</span> <span class="n">PixelPlane</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">utils_rt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.visual.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">color_convert</span>
 </pre></div>
 </div>
 </div>
@@ -318,8 +318,8 @@ from pyRTX.visual.utils import color_convert
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>obj = &#39;Annulus&#39;
-#obj = &#39;Sphere&#39;
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">obj</span> <span class="o">=</span> <span class="s1">&#39;Annulus&#39;</span>
+<span class="c1">#obj = &#39;Sphere&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -327,10 +327,10 @@ from pyRTX.visual.utils import color_convert
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>if obj == &#39;Annulus&#39;:
-    mesh = tm.creation.annulus(0.5,1,height = 0.5)
-elif obj == &#39;Sphere&#39;:
-    mesh = tm.creation.icosphere(radius = 1, subdivisions = 4)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">obj</span> <span class="o">==</span> <span class="s1">&#39;Annulus&#39;</span><span class="p">:</span>
+    <span class="n">mesh</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">creation</span><span class="o">.</span><span class="n">annulus</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">height</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">obj</span> <span class="o">==</span> <span class="s1">&#39;Sphere&#39;</span><span class="p">:</span>
+    <span class="n">mesh</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">creation</span><span class="o">.</span><span class="n">icosphere</span><span class="p">(</span><span class="n">radius</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">subdivisions</span> <span class="o">=</span> <span class="mi">4</span><span class="p">)</span>
 <br/></pre></div>
 </div>
 </div>
@@ -339,23 +339,23 @@ elif obj == &#39;Sphere&#39;:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>RA = 0
-DEC = 10*np.pi/180
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">RA</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">DEC</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span>
 
-pixelPlane = PixelPlane(
-        spacecraft = &#39;None&#39;,
-        mode = &#39;Fixed&#39;,
-        distance = 3,
-        width = 2,
-        height = 2,
-        ray_spacing = 0.01,
-        lon = RA,
-        lat = DEC,
-        units = &#39;km&#39;,
-)
+<span class="n">pixelPlane</span> <span class="o">=</span> <span class="n">PixelPlane</span><span class="p">(</span>
+        <span class="n">spacecraft</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;Fixed&#39;</span><span class="p">,</span>
+        <span class="n">distance</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">ray_spacing</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
+        <span class="n">lon</span> <span class="o">=</span> <span class="n">RA</span><span class="p">,</span>
+        <span class="n">lat</span> <span class="o">=</span> <span class="n">DEC</span><span class="p">,</span>
+        <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;km&#39;</span><span class="p">,</span>
+<span class="p">)</span>
 
 
-ray_origins, ray_directions = pixelPlane.dump()
+<span class="n">ray_origins</span><span class="p">,</span> <span class="n">ray_directions</span> <span class="o">=</span> <span class="n">pixelPlane</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -378,25 +378,25 @@ ray_origins, ray_directions = pixelPlane.dump()
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>result = utils_rt.RTXkernel(
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">utils_rt</span><span class="o">.</span><span class="n">RTXkernel</span><span class="p">(</span>
 
 
-    mesh,              # Mesh object
-    ray_origins,       # Coordinates of the origins of the tracing rays
-    ray_directions,    # Directions of the tracing rays
-    kernel = &#39;Embree&#39;, # Ray tracing kernel (see documentation)
-    bounces = 2,       # Number of reflections to compute
-    diffusion = True,  # Compute the diffused rays after the first reflection?
-    num_diffuse = 10   # Number of diffused rays for each diffusion point
+    <span class="n">mesh</span><span class="p">,</span>              <span class="c1"># Mesh object</span>
+    <span class="n">ray_origins</span><span class="p">,</span>       <span class="c1"># Coordinates of the origins of the tracing rays</span>
+    <span class="n">ray_directions</span><span class="p">,</span>    <span class="c1"># Directions of the tracing rays</span>
+    <span class="n">kernel</span> <span class="o">=</span> <span class="s1">&#39;Embree&#39;</span><span class="p">,</span> <span class="c1"># Ray tracing kernel (see documentation)</span>
+    <span class="n">bounces</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>       <span class="c1"># Number of reflections to compute</span>
+    <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Compute the diffused rays after the first reflection?</span>
+    <span class="n">num_diffuse</span> <span class="o">=</span> <span class="mi">10</span>   <span class="c1"># Number of diffused rays for each diffusion point</span>
 
-)
+<span class="p">)</span>
 
-index_tri_container = result[0]
-index_ray_container = result[1]
-locations_container = result[2]
-ray_origins_container = result[3]
-ray_directions_container = result[4]
-diffusion_pack = result[5]
+<span class="n">index_tri_container</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">index_ray_container</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">locations_container</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">ray_origins_container</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">ray_directions_container</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">diffusion_pack</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
 <br/></pre></div>
 </div>
 </div>
@@ -406,14 +406,14 @@ diffusion_pack = result[5]
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>base_mesh_color = &#39;green&#39;
-hit_faces_colors = &#39;red&#39;
-second_hit_faces = &#39;pink&#39;
-reflected_rays_color = &#39;orange&#39;
-rays_color = &#39;gold&#39;
-subsampling = 10 # Sub-sampling of the pixel plane rays just for making the visualization process faster
-ray_length = 1.0 # Length of the rays in the plot
-mesh.unmerge_vertices() # This avoids automated shading
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">base_mesh_color</span> <span class="o">=</span> <span class="s1">&#39;green&#39;</span>
+<span class="n">hit_faces_colors</span> <span class="o">=</span> <span class="s1">&#39;red&#39;</span>
+<span class="n">second_hit_faces</span> <span class="o">=</span> <span class="s1">&#39;pink&#39;</span>
+<span class="n">reflected_rays_color</span> <span class="o">=</span> <span class="s1">&#39;orange&#39;</span>
+<span class="n">rays_color</span> <span class="o">=</span> <span class="s1">&#39;gold&#39;</span>
+<span class="n">subsampling</span> <span class="o">=</span> <span class="mi">10</span> <span class="c1"># Sub-sampling of the pixel plane rays just for making the visualization process faster</span>
+<span class="n">ray_length</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="c1"># Length of the rays in the plot</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">unmerge_vertices</span><span class="p">()</span> <span class="c1"># This avoids automated shading</span>
 </pre></div>
 </div>
 </div>
@@ -422,28 +422,28 @@ mesh.unmerge_vertices() # This avoids automated shading
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Subsampling
-ray_origins_sub = ray_origins[::subsampling]
-ray_directions_sub = ray_directions[::subsampling]
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Subsampling</span>
+<span class="n">ray_origins_sub</span> <span class="o">=</span> <span class="n">ray_origins</span><span class="p">[::</span><span class="n">subsampling</span><span class="p">]</span>
+<span class="n">ray_directions_sub</span> <span class="o">=</span> <span class="n">ray_directions</span><span class="p">[::</span><span class="n">subsampling</span><span class="p">]</span>
 
-# First Bounce visualization
-bounce = 0
-
-
-# Impinging rays
-ray_visualize = tm.load_path(np.hstack(( ray_origins_sub, ray_origins_sub + ray_directions_sub*ray_length)).reshape(-1, 2, 3))
-ray_visualize.colors = np.full((len(ray_origins_sub),4),color_convert(rays_color))
+<span class="c1"># First Bounce visualization</span>
+<span class="n">bounce</span> <span class="o">=</span> <span class="mi">0</span>
 
 
-# Mesh visualization
-mesh.visual.face_colors[:] = color_convert(base_mesh_color, size = len(mesh.faces))
-mesh.visual.face_colors[index_tri_container[bounce]] = color_convert(hit_faces_colors)
-ray_visualize.colors = np.full((len(ray_origins_sub),4), color_convert(rays_color))
+<span class="c1"># Impinging rays</span>
+<span class="n">ray_visualize</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">load_path</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span> <span class="n">ray_origins_sub</span><span class="p">,</span> <span class="n">ray_origins_sub</span> <span class="o">+</span> <span class="n">ray_directions_sub</span><span class="o">*</span><span class="n">ray_length</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">ray_visualize</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">ray_origins_sub</span><span class="p">),</span><span class="mi">4</span><span class="p">),</span><span class="n">color_convert</span><span class="p">(</span><span class="n">rays_color</span><span class="p">))</span>
 
 
-# Create and visualize the scene
-scene = tm.Scene([mesh, ray_visualize]) #, ray_visualize2,
-scene.show()
+<span class="c1"># Mesh visualization</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">face_colors</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">color_convert</span><span class="p">(</span><span class="n">base_mesh_color</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">faces</span><span class="p">))</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">face_colors</span><span class="p">[</span><span class="n">index_tri_container</span><span class="p">[</span><span class="n">bounce</span><span class="p">]]</span> <span class="o">=</span> <span class="n">color_convert</span><span class="p">(</span><span class="n">hit_faces_colors</span><span class="p">)</span>
+<span class="n">ray_visualize</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">ray_origins_sub</span><span class="p">),</span><span class="mi">4</span><span class="p">),</span> <span class="n">color_convert</span><span class="p">(</span><span class="n">rays_color</span><span class="p">))</span>
+
+
+<span class="c1"># Create and visualize the scene</span>
+<span class="n">scene</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">Scene</span><span class="p">([</span><span class="n">mesh</span><span class="p">,</span> <span class="n">ray_visualize</span><span class="p">])</span> <span class="c1">#, ray_visualize2,</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 <br/><br/></pre></div>
 </div>
 </div>
@@ -1705,10 +1705,10 @@ init();</script></body>
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>if len(index_tri_container[1]) != 0:
-    print(&#39;There are secondary reflections!&#39;)
-else:
-    print(&#39;No secondary reflection detected. Try varying the geometry!&#39;)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">index_tri_container</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;There are secondary reflections!&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No secondary reflection detected. Try varying the geometry!&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1725,26 +1725,26 @@ There are secondary reflections!
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>bounce = 1
-ray_length = 0.5
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bounce</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">ray_length</span> <span class="o">=</span> <span class="mf">0.5</span>
 
-# Reflected rays
-ray_origins_sub = ray_origins_container[bounce][::subsampling]
-ray_directions_sub = ray_directions_container[bounce][::subsampling]
+<span class="c1"># Reflected rays</span>
+<span class="n">ray_origins_sub</span> <span class="o">=</span> <span class="n">ray_origins_container</span><span class="p">[</span><span class="n">bounce</span><span class="p">][::</span><span class="n">subsampling</span><span class="p">]</span>
+<span class="n">ray_directions_sub</span> <span class="o">=</span> <span class="n">ray_directions_container</span><span class="p">[</span><span class="n">bounce</span><span class="p">][::</span><span class="n">subsampling</span><span class="p">]</span>
 
-# Reflected rays
-ray_visualize = tm.load_path(np.hstack(( ray_origins_sub, ray_origins_sub + ray_directions_sub*ray_length)).reshape(-1, 2, 3))
-ray_visualize.colors = np.full((len(ray_origins_sub),4),color_convert(reflected_rays_color))
-# Mesh visualization
-mesh.visual.face_colors = color_convert(base_mesh_color, size = len(mesh.faces))
-mesh.visual.face_colors[index_tri_container[bounce]] = color_convert(second_hit_faces)
+<span class="c1"># Reflected rays</span>
+<span class="n">ray_visualize</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">load_path</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span> <span class="n">ray_origins_sub</span><span class="p">,</span> <span class="n">ray_origins_sub</span> <span class="o">+</span> <span class="n">ray_directions_sub</span><span class="o">*</span><span class="n">ray_length</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">ray_visualize</span><span class="o">.</span><span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">ray_origins_sub</span><span class="p">),</span><span class="mi">4</span><span class="p">),</span><span class="n">color_convert</span><span class="p">(</span><span class="n">reflected_rays_color</span><span class="p">))</span>
+<span class="c1"># Mesh visualization</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">face_colors</span> <span class="o">=</span> <span class="n">color_convert</span><span class="p">(</span><span class="n">base_mesh_color</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">faces</span><span class="p">))</span>
+<span class="n">mesh</span><span class="o">.</span><span class="n">visual</span><span class="o">.</span><span class="n">face_colors</span><span class="p">[</span><span class="n">index_tri_container</span><span class="p">[</span><span class="n">bounce</span><span class="p">]]</span> <span class="o">=</span> <span class="n">color_convert</span><span class="p">(</span><span class="n">second_hit_faces</span><span class="p">)</span>
 
-#ray_visualize.colors = np.full((len(ray_origins_sub),4), color_convert(rays_color))
+<span class="c1">#ray_visualize.colors = np.full((len(ray_origins_sub),4), color_convert(rays_color))</span>
 
 
 
-scene = tm.Scene([mesh, ray_visualize]) #, ray_visualize2,
-scene.show()
+<span class="n">scene</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">Scene</span><span class="p">([</span><span class="n">mesh</span><span class="p">,</span> <span class="n">ray_visualize</span><span class="p">])</span> <span class="c1">#, ray_visualize2,</span>
+<span class="n">scene</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>

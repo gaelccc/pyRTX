@@ -301,15 +301,15 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pyRTX.classes.Spacecraft import Spacecraft
-from pyRTX.classes.RayTracer import RayTracer
-from pyRTX.classes.PixelPlane import PixelPlane
-from pyRTX.classes.SRP import SolarPressure
-from pyRTX.core.analysis_utils import get_spacecraft_area
-import trimesh as tm
-import numpy as np
-import matplotlib.pyplot as plt
-import timeit
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.Spacecraft</span><span class="w"> </span><span class="kn">import</span> <span class="n">Spacecraft</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.RayTracer</span><span class="w"> </span><span class="kn">import</span> <span class="n">RayTracer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.PixelPlane</span><span class="w"> </span><span class="kn">import</span> <span class="n">PixelPlane</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.SRP</span><span class="w"> </span><span class="kn">import</span> <span class="n">SolarPressure</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.analysis_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_spacecraft_area</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">trimesh</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tm</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">timeit</span>
 </pre></div>
 </div>
 </div>
@@ -326,9 +326,9 @@ import timeit
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>mesh = tm.creation.annulus(0.5,1,height = 0.5)
-flux = 1361 # W/m2
-mass = 100
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mesh</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">creation</span><span class="o">.</span><span class="n">annulus</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">height</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">flux</span> <span class="o">=</span> <span class="mi">1361</span> <span class="c1"># W/m2</span>
+<span class="n">mass</span> <span class="o">=</span> <span class="mi">100</span>
 <br/><br/></pre></div>
 </div>
 </div>
@@ -337,32 +337,32 @@ mass = 100
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sc = Spacecraft(
-            name = &#39;My Spacecraft&#39;,
-            base_frame = &#39;SC Frame&#39;, # Name of the spacecraft body-fixed frame
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">Spacecraft</span><span class="p">(</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;My Spacecraft&#39;</span><span class="p">,</span>
+            <span class="n">base_frame</span> <span class="o">=</span> <span class="s1">&#39;SC Frame&#39;</span><span class="p">,</span> <span class="c1"># Name of the spacecraft body-fixed frame</span>
 
-            spacecraft_model = {
-
-
-            &#39;Bus&#39;: {
-                &#39;file&#39; : mesh,
-                &#39;frame_type&#39;: &#39;UD&#39;, # type of frame (can be &#39;Spice&#39; or &#39;UD&#39;= User Defined)
-                &#39;frame_name&#39;: &#39;SC Bus&#39;, # Name of the frame
-                &#39;center&#39;: [0.0,0.0,0.0], # Origin of the component
-                &#39;diffuse&#39;: 0.1, # Diffuse reflect. coefficient
-                &#39;specular&#39;: 0.3, # Specular reflect. coefficient
+            <span class="n">spacecraft_model</span> <span class="o">=</span> <span class="p">{</span>
 
 
-            },
-            },
+            <span class="s1">&#39;Bus&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s1">&#39;file&#39;</span> <span class="p">:</span> <span class="n">mesh</span><span class="p">,</span>
+                <span class="s1">&#39;frame_type&#39;</span><span class="p">:</span> <span class="s1">&#39;UD&#39;</span><span class="p">,</span> <span class="c1"># type of frame (can be &#39;Spice&#39; or &#39;UD&#39;= User Defined)</span>
+                <span class="s1">&#39;frame_name&#39;</span><span class="p">:</span> <span class="s1">&#39;SC Bus&#39;</span><span class="p">,</span> <span class="c1"># Name of the frame</span>
+                <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">],</span> <span class="c1"># Origin of the component</span>
+                <span class="s1">&#39;diffuse&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span> <span class="c1"># Diffuse reflect. coefficient</span>
+                <span class="s1">&#39;specular&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="c1"># Specular reflect. coefficient</span>
 
 
-                )
+            <span class="p">},</span>
+            <span class="p">},</span>
 
-#### TODOOOO
-####
-### Check the area computation!!!
-#print(get_spacecraft_area(sc))
+
+                <span class="p">)</span>
+
+<span class="c1">#### TODOOOO</span>
+<span class="c1">####</span>
+<span class="c1">### Check the area computation!!!</span>
+<span class="c1">#print(get_spacecraft_area(sc))</span>
 </pre></div>
 </div>
 </div>
@@ -370,40 +370,40 @@ mass = 100
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>RA = 0
-DEC = 3*np.pi/180
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">RA</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">DEC</span> <span class="o">=</span> <span class="mi">3</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span>
 
-pixelPlane = PixelPlane(
-        spacecraft = &#39;None&#39;,
-        mode = &#39;Fixed&#39;,
-        distance = 3,
-        width = 2,
-        height = 2,
-        ray_spacing = 0.01,
-        lon = RA,
-        lat = DEC,
-        units = &#39;m&#39;,
-)
-
-
-kernels = [&#39;Embree3&#39;, &#39;Native&#39;, &#39;Embree&#39;]
-
-for k in kernels:
-    rtx = RayTracer(sc,
-                pixelPlane,
-                kernel = k,
-                bounces = 4,
-                diffusion = False,
-                num_diffuse = 10)
+<span class="n">pixelPlane</span> <span class="o">=</span> <span class="n">PixelPlane</span><span class="p">(</span>
+        <span class="n">spacecraft</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;Fixed&#39;</span><span class="p">,</span>
+        <span class="n">distance</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="n">ray_spacing</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
+        <span class="n">lon</span> <span class="o">=</span> <span class="n">RA</span><span class="p">,</span>
+        <span class="n">lat</span> <span class="o">=</span> <span class="n">DEC</span><span class="p">,</span>
+        <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span>
+<span class="p">)</span>
 
 
+<span class="n">kernels</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Embree3&#39;</span><span class="p">,</span> <span class="s1">&#39;Native&#39;</span><span class="p">,</span> <span class="s1">&#39;Embree&#39;</span><span class="p">]</span>
 
-    srp = SolarPressure(sc, rtx, baseflux = None, grouped = False)
-    print(&#39;Results for kernel = {}&#39;.format(k))
-    %timeit -n 5 accel = np.array(srp.compute(0)) * flux/mass
-    accel = np.array(srp.compute(0)) * flux/mass
-    print(&#39;srp_value = {}&#39;.format(np.linalg.norm(accel, axis = 1)))
-    print(&#39;___________________________________________\n&#39;)
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kernels</span><span class="p">:</span>
+    <span class="n">rtx</span> <span class="o">=</span> <span class="n">RayTracer</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span>
+                <span class="n">pixelPlane</span><span class="p">,</span>
+                <span class="n">kernel</span> <span class="o">=</span> <span class="n">k</span><span class="p">,</span>
+                <span class="n">bounces</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+                <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="n">num_diffuse</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+
+
+
+    <span class="n">srp</span> <span class="o">=</span> <span class="n">SolarPressure</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">rtx</span><span class="p">,</span> <span class="n">baseflux</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">grouped</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Results for kernel = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
+    <span class="o">%</span><span class="k">timeit</span> -n 5 accel = np.array(srp.compute(0)) * flux/mass
+    <span class="n">accel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">srp</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="o">*</span> <span class="n">flux</span><span class="o">/</span><span class="n">mass</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;srp_value = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">accel</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;___________________________________________</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -441,14 +441,14 @@ ___________________________________________
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(f&#39;Found bounces {len(accel)}&#39;)
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Found bounces </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">accel</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
-fig, ax = plt.subplots()
-ax.bar(np.arange(1, len(accel)+1), np.linalg.norm(accel, axis = 1))
-ax.set_yscale(&#39;log&#39;)
-ax.set_ylabel(&#39;Acceleration [km/s2]&#39;)
-ax.set_xlabel(&#39;Bounce number&#39;)
-ax.set_xticks(np.arange(1, len(accel)+1));
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">accel</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">accel</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Acceleration [km/s2]&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Bounce number&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">accel</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
 </pre></div>
 </div>
 </div>
