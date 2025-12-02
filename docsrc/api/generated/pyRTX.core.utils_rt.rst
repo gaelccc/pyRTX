@@ -1,13 +1,8 @@
-﻿pyRTX.core.utils\_rt
+pyRTX.core.utils\_rt
 ====================
 
 .. automodule:: pyRTX.core.utils_rt
 
-   
-   
-   
-
-   
    
    .. rubric:: Functions
 
@@ -24,6 +19,7 @@
       compute_secondary_bounce
       diffuse
       fast_vector_build
+      get_cached_embree_scene
       get_centroids
       get_cross_products
       get_face_areas
@@ -37,10 +33,6 @@
       sample_lambert_dist
       save_for_visualization
    
-   
-
-   
-   
    .. rubric:: Classes
 
    .. autosummary::
@@ -49,12 +41,3 @@
       EmbreeTrimeshShapeModel
       ShapeModel
       TrimeshShapeModel
-   
-   
-
-   
-   
-   
-
-
-

@@ -1,34 +1,11 @@
 Core Utilities
 ==============
 
-Ray Tracing Utilities
-----------------------
+.. toctree::
+   :maxdepth: 2
 
-.. automodule:: pyRTX.core.utils_rt
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Shadow Utilities
-----------------
-
-.. automodule:: pyRTX.core.shadow_utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Physical Utilities
-------------------
-
-.. automodule:: pyRTX.core.physical_utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Parallel Utilities
-------------------
-
-.. automodule:: pyRTX.core.parallel_utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   generated/pyRTX.core.analysis_utils.rst
+   generated/pyRTX.core.parallel_utils.rst
+   generated/pyRTX.core.physical_utils.rst
+   generated/pyRTX.core.shadow_utils.rst
+   generated/pyRTX.core.utils_rt.rst
