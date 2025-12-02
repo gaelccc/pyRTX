@@ -323,7 +323,7 @@ class DependencyInstaller:
         if not embree_dir.exists():
             log_info("Cloning python-embree repository")
             run_command(
-                ['git', 'clone', 'https://github.com/sampotter/python-embree'],
+                ['git', 'clone', 'git@github.com:sampotter/python-embree.git'],
                 cwd=self.lib_dir
             )
         else:
