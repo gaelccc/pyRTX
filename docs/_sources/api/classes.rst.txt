@@ -1,42 +1,16 @@
 Classes
 =======
 
-SunShadow
----------
+.. toctree::
+   :maxdepth: 2
 
-.. autoclass:: pyRTX.classes.SunShadow.SunShadow
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-SolarPressure
--------------
-
-.. autoclass:: pyRTX.classes.SRP.SolarPressure
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Planet
-------
-
-.. autoclass:: pyRTX.classes.Planet.Planet
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-PixelPlane
-----------
-
-.. autoclass:: pyRTX.classes.PixelPlane.PixelPlane
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Spacecraft
-----------
-
-.. autoclass:: pyRTX.classes.Spacecraft.Spacecraft
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   generated/pyRTX.classes.Atmosphere.rst
+   generated/pyRTX.classes.Drag.rst
+   generated/pyRTX.classes.LookUpTable.rst
+   generated/pyRTX.classes.PixelPlane.rst
+   generated/pyRTX.classes.Planet.rst
+   generated/pyRTX.classes.Precompute.rst
+   generated/pyRTX.classes.Radiation.rst
+   generated/pyRTX.classes.RayTracer.rst
+   generated/pyRTX.classes.SRP.rst
+   generated/pyRTX.classes.Spacecraft.rst

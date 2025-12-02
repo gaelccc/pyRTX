@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Classes &mdash; pyRTX 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
   
@@ -20,8 +20,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Default Values and Constants" href="defaults.html" />
-    <link rel="prev" title="Core Utilities" href="core.html" /> 
+    <link rel="next" title="pyRTX.classes.Atmosphere" href="generated/pyRTX.classes.Atmosphere.html" />
+    <link rel="prev" title="pyRTX.core.utils_rt" href="generated/pyRTX.core.utils_rt.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -84,77 +84,123 @@
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="core.html">Core Utilities</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="core.html#module-pyRTX.core.utils_rt">Ray Tracing Utilities</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.get_cached_embree_scene"><code class="docutils literal notranslate"><span class="pre">get_cached_embree_scene()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.block_dot"><code class="docutils literal notranslate"><span class="pre">block_dot()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.pixel_plane"><code class="docutils literal notranslate"><span class="pre">pixel_plane()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.fast_vector_build"><code class="docutils literal notranslate"><span class="pre">fast_vector_build()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.pixel_plane_opt"><code class="docutils literal notranslate"><span class="pre">pixel_plane_opt()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.reflected"><code class="docutils literal notranslate"><span class="pre">reflected()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.get_orthogonal"><code class="docutils literal notranslate"><span class="pre">get_orthogonal()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.sample_lambert_dist"><code class="docutils literal notranslate"><span class="pre">sample_lambert_dist()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.cgal_init_geometry"><code class="docutils literal notranslate"><span class="pre">cgal_init_geometry()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.get_centroids"><code class="docutils literal notranslate"><span class="pre">get_centroids()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.get_cross_products"><code class="docutils literal notranslate"><span class="pre">get_cross_products()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.get_face_areas"><code class="docutils literal notranslate"><span class="pre">get_face_areas()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.get_surface_normals"><code class="docutils literal notranslate"><span class="pre">get_surface_normals()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="docutils literal notranslate"><span class="pre">get_surface_normals_and_face_areas()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.ShapeModel"><code class="docutils literal notranslate"><span class="pre">ShapeModel</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.TrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pyRTX.core.analysis_utils.html">pyRTX.core.analysis_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable"><code class="docutils literal notranslate"><span class="pre">LookupTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND"><code class="docutils literal notranslate"><span class="pre">LookupTableND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.ScatterLookup"><code class="docutils literal notranslate"><span class="pre">ScatterLookup</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator"><code class="docutils literal notranslate"><span class="pre">TiffInterpolator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.getSunAngles"><code class="docutils literal notranslate"><span class="pre">getSunAngles()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.epochRange"><code class="docutils literal notranslate"><span class="pre">epochRange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.epochRange2"><code class="docutils literal notranslate"><span class="pre">epochRange2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.computeRADEC"><code class="docutils literal notranslate"><span class="pre">computeRADEC()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.convertTIFtoMesh"><code class="docutils literal notranslate"><span class="pre">convertTIFtoMesh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.convertEpoch"><code class="docutils literal notranslate"><span class="pre">convertEpoch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.get_spacecraft_area"><code class="docutils literal notranslate"><span class="pre">get_spacecraft_area()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.get_sun_exposed_area"><code class="docutils literal notranslate"><span class="pre">get_sun_exposed_area()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.compute_body_positions"><code class="docutils literal notranslate"><span class="pre">compute_body_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.compute_body_states"><code class="docutils literal notranslate"><span class="pre">compute_body_states()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="core.html#module-pyRTX.core.shadow_utils">Shadow Utilities</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pyRTX.core.parallel_utils.html">pyRTX.core.parallel_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.get_ncores"><code class="docutils literal notranslate"><span class="pre">get_ncores()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.is_method"><code class="docutils literal notranslate"><span class="pre">is_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.get_unwrapped"><code class="docutils literal notranslate"><span class="pre">get_unwrapped()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.parallel"><code class="docutils literal notranslate"><span class="pre">parallel()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="core.html#module-pyRTX.core.physical_utils">Physical Utilities</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.physical_utils.srp_core"><code class="docutils literal notranslate"><span class="pre">srp_core()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.physical_utils.compute_srp"><code class="docutils literal notranslate"><span class="pre">compute_srp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pyRTX.core.physical_utils.html">pyRTX.core.physical_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.srp_core"><code class="docutils literal notranslate"><span class="pre">srp_core()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.compute_srp"><code class="docutils literal notranslate"><span class="pre">compute_srp()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="core.html#module-pyRTX.core.parallel_utils">Parallel Utilities</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.parallel_utils.get_ncores"><code class="docutils literal notranslate"><span class="pre">get_ncores()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.parallel_utils.is_method"><code class="docutils literal notranslate"><span class="pre">is_method()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.parallel_utils.get_unwrapped"><code class="docutils literal notranslate"><span class="pre">get_unwrapped()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="core.html#pyRTX.core.parallel_utils.parallel"><code class="docutils literal notranslate"><span class="pre">parallel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pyRTX.core.shadow_utils.html">pyRTX.core.shadow_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html">pyRTX.core.utils_rt</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_cached_embree_scene"><code class="docutils literal notranslate"><span class="pre">get_cached_embree_scene()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.block_dot"><code class="docutils literal notranslate"><span class="pre">block_dot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pixel_plane"><code class="docutils literal notranslate"><span class="pre">pixel_plane()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.fast_vector_build"><code class="docutils literal notranslate"><span class="pre">fast_vector_build()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pixel_plane_opt"><code class="docutils literal notranslate"><span class="pre">pixel_plane_opt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.reflected"><code class="docutils literal notranslate"><span class="pre">reflected()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_orthogonal"><code class="docutils literal notranslate"><span class="pre">get_orthogonal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.sample_lambert_dist"><code class="docutils literal notranslate"><span class="pre">sample_lambert_dist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.cgal_init_geometry"><code class="docutils literal notranslate"><span class="pre">cgal_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_centroids"><code class="docutils literal notranslate"><span class="pre">get_centroids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_cross_products"><code class="docutils literal notranslate"><span class="pre">get_cross_products()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_face_areas"><code class="docutils literal notranslate"><span class="pre">get_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_surface_normals"><code class="docutils literal notranslate"><span class="pre">get_surface_normals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="docutils literal notranslate"><span class="pre">get_surface_normals_and_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.ShapeModel"><code class="docutils literal notranslate"><span class="pre">ShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Classes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#sunshadow">SunShadow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#solarpressure">SolarPressure</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pyRTX.classes.Atmosphere.html">pyRTX.classes.Atmosphere</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram"><code class="docutils literal notranslate"><span class="pre">VenusGram</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#planet">Planet</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pyRTX.classes.Drag.html">pyRTX.classes.Drag</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag"><code class="docutils literal notranslate"><span class="pre">Drag</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#pixelplane">PixelPlane</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#pyRTX.classes.PixelPlane.PixelPlane"><code class="docutils literal notranslate"><span class="pre">PixelPlane</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pyRTX.classes.LookUpTable.html">pyRTX.classes.LookUpTable</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable"><code class="docutils literal notranslate"><span class="pre">LookUpTable</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#spacecraft">Spacecraft</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#pyRTX.classes.Spacecraft.Spacecraft"><code class="docutils literal notranslate"><span class="pre">Spacecraft</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pyRTX.classes.PixelPlane.html">pyRTX.classes.PixelPlane</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane"><code class="docutils literal notranslate"><span class="pre">PixelPlane</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pyRTX.classes.Planet.html">pyRTX.classes.Planet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid"><code class="docutils literal notranslate"><span class="pre">PlanetGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.EmissivityGrid"><code class="docutils literal notranslate"><span class="pre">EmissivityGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.AlbedoGrid"><code class="docutils literal notranslate"><span class="pre">AlbedoGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.TemperatureGrid"><code class="docutils literal notranslate"><span class="pre">TemperatureGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pyRTX.classes.Precompute.html">pyRTX.classes.Precompute</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute"><code class="docutils literal notranslate"><span class="pre">Precompute</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pyRTX.classes.Radiation.html">pyRTX.classes.Radiation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo"><code class="docutils literal notranslate"><span class="pre">Albedo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity"><code class="docutils literal notranslate"><span class="pre">Emissivity</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pyRTX.classes.RayTracer.html">pyRTX.classes.RayTracer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.classes.RayTracer.html#pyRTX.classes.RayTracer.RayTracer"><code class="docutils literal notranslate"><span class="pre">RayTracer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pyRTX.classes.SRP.html">pyRTX.classes.SRP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow"><code class="docutils literal notranslate"><span class="pre">SunShadow</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="generated/pyRTX.classes.Spacecraft.html">pyRTX.classes.Spacecraft</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft"><code class="docutils literal notranslate"><span class="pre">Spacecraft</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -218,358 +264,64 @@
              
   <section id="classes">
 <h1>Classes<a class="headerlink" href="#classes" title="Permalink to this heading"></a></h1>
-<section id="sunshadow">
-<h2>SunShadow<a class="headerlink" href="#sunshadow" title="Permalink to this heading"></a></h2>
-</section>
-<section id="solarpressure">
-<h2>SolarPressure<a class="headerlink" href="#solarpressure" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="pyRTX.classes.SRP.SolarPressure">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.classes.SRP.</span></span><span class="sig-name descname"><span class="pre">SolarPressure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rayTracer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseflux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1361.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grouped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shadowObj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookup</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precomputation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/SRP.html#SolarPressure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.SRP.SolarPressure" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.SRP.SolarPressure.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rayTracer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseflux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1361.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grouped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shadowObj</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookup</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precomputation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/SRP.html#SolarPressure.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.SRP.SolarPressure.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.SRP.SolarPressure.run">
-<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/SRP.html#SolarPressure.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.SRP.SolarPressure.run" title="Permalink to this definition"></a></dt>
-<dd><p>Method to compute solar pressure acceleration at a single epoch.</p>
-<p>Parameters:
--       epoch: spiceypy epoch</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.SRP.SolarPressure.compute">
-<span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/SRP.html#SolarPressure.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.SRP.SolarPressure.compute" title="Permalink to this definition"></a></dt>
-<dd><p>Method to compute the solar pressure acceleration.</p>
-<p>Parameters:
--       epochs: list of epochs
--   ncores: number of cores to use for parallel computations</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.SRP.SolarPressure.lookupCompute">
-<span class="sig-name descname"><span class="pre">lookupCompute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/SRP.html#SolarPressure.lookupCompute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.SRP.SolarPressure.lookupCompute" title="Permalink to this definition"></a></dt>
-<dd><p>Method to compute the solar pressure force with Look Up Table.</p>
-<p>Parameters:
--       epochs: list of epochs</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.SRP.SolarPressure.get_flux">
-<span class="sig-name descname"><span class="pre">get_flux</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/SRP.html#SolarPressure.get_flux"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.SRP.SolarPressure.get_flux" title="Permalink to this definition"></a></dt>
-<dd><p>Method to get the scaled solar flux.</p>
-<p>Parameters:
--       epoch: requested epoch</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.SRP.SolarPressure.get_force">
-<span class="sig-name descname"><span class="pre">get_force</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flux</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_tri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_ray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ray_origins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ray_directions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_spacing</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">materials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'None'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grouped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_diffuse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_pack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/SRP.html#SolarPressure.get_force"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.SRP.SolarPressure.get_force" title="Permalink to this definition"></a></dt>
-<dd><p>Compute the SRP force</p>
-<p>Parameters:
-flux: Solar input flux [W/m^2]
-A: areas of the mesh faces
-s: incident ray directions
-r: reflcted ray directions
-n: normal unit vector to the faces</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.SRP.SolarPressure.srp_core">
-<span class="sig-name descname"><span class="pre">srp_core</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flux</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indexes_tri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indexes_ray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_factor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">materials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'None'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_diffuse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_pack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/SRP.html#SolarPressure.srp_core"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.SRP.SolarPressure.srp_core" title="Permalink to this definition"></a></dt>
-<dd><p>Core of SRP computation.
-Highly vectorized version. For explicit algorithm implementation refer to the old version</p>
-<p>Parameters:
-flux: solar flux (float, W/m^2)
-indexes_tri: indexes of intersected triangles
-indexes_ray: indexes of intersecting rays
-N: normals
-S: incident direction vectors
-norm_factor: normalization factor computed from ray spacing (float)
-mesh_obj: trimesh.Trimesh object [Not used for now, will be used when interrogating mesh</p>
-<blockquote>
-<div><p>for surface properties]</p>
-</div></blockquote>
-<p>Returns:
-force: np.array of SRP force</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="planet">
-<h2>Planet<a class="headerlink" href="#planet" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="pyRTX.classes.Planet.Planet">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.classes.Planet.</span></span><span class="sig-name descname"><span class="pre">Planet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fromFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bodyFrame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sunFixedFrame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'km'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subdivs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Planet.html#Planet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Planet.Planet" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Planet.Planet.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fromFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bodyFrame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sunFixedFrame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'km'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subdivs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Planet.html#Planet.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Planet.Planet.__init__" title="Permalink to this definition"></a></dt>
-<dd><p>A class to represent a planet/moon</p>
-<p>Input:
-fromFile : put here an obj file if requested to build the model. If None (default) a sphere with radius defined in “radius” will be built
-radius : (float) the radius of the planet. Not used if “fromFile” is not None
-name : (str) the name of the planet
-bodyFrame: (str) the planet body fixed frame
-sunFixedFrame: (str) the body centered - sun fixed frame
-units: (str) [Default: km] the measurement units defining the body (can be km or m)
-subdivs: (int) [Default: 4] the number of subdivision for the creation of the spherical planet. Note that the number of faces will grow as function of 4 ** subdivisions, so you probably want to keep this under ~5.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Planet.Planet.mesh">
-<span class="sig-name descname"><span class="pre">mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">translate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rotate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">targetFrame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Planet.html#Planet.mesh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Planet.Planet.mesh" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Planet.Planet.albedoFaces">
-<span class="sig-name descname"><span class="pre">albedoFaces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacecraft_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Planet.html#Planet.albedoFaces"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Planet.Planet.albedoFaces" title="Permalink to this definition"></a></dt>
-<dd><p>Public method:
-Return the idxs of the mesh faces that are needed for albedo computation at time:epoch for the spacecraft:spacectaft name</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Planet.Planet.rot_toSCframe">
-<span class="sig-name descname"><span class="pre">rot_toSCframe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scFrame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Planet.html#Planet.rot_toSCframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Planet.Planet.rot_toSCframe" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Planet.Planet.emissivityFaces">
-<span class="sig-name descname"><span class="pre">emissivityFaces</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacecraft_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Planet.html#Planet.emissivityFaces"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Planet.Planet.emissivityFaces" title="Permalink to this definition"></a></dt>
-<dd><p>Public method:
-Return the idxs of the mesh faces and the temperature of each face that are needed for emissivity computation at time:epoch for the spacecraft:spacectaft name</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Planet.Planet.getFaceAlbedo">
-<span class="sig-name descname"><span class="pre">getFaceAlbedo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Planet.html#Planet.getFaceAlbedo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Planet.Planet.getFaceAlbedo" title="Permalink to this definition"></a></dt>
-<dd><p>Return the albedo of each face at epoch</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Planet.Planet.getFaceTemperatures">
-<span class="sig-name descname"><span class="pre">getFaceTemperatures</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Planet.html#Planet.getFaceTemperatures"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Planet.Planet.getFaceTemperatures" title="Permalink to this definition"></a></dt>
-<dd><p>Return the temperature of each face at epoch</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Planet.Planet.getFaceEmissivity">
-<span class="sig-name descname"><span class="pre">getFaceEmissivity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sunFixedFrame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Planet.html#Planet.getFaceEmissivity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Planet.Planet.getFaceEmissivity" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Planet.Planet.VFNC">
-<span class="sig-name descname"><span class="pre">VFNC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sunFixedFrame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Planet.html#Planet.VFNC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Planet.Planet.VFNC" title="Permalink to this definition"></a></dt>
-<dd><p>Public method:
-Returns  V F N C rotating the planet in the sunFixedFrame at epoch epoch
-V: Vertices
-F: Faces
-N: Normals
-C: Centroids</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Planet.Planet.getScPosSunFixed">
-<span class="sig-name descname"><span class="pre">getScPosSunFixed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacecraft_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Planet.html#Planet.getScPosSunFixed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Planet.Planet.getScPosSunFixed" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Planet.Planet.pxform_convert">
-<span class="sig-name descname"><span class="pre">pxform_convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pxform</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Planet.html#Planet.pxform_convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Planet.Planet.pxform_convert" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="pyRTX.classes.Planet.Planet.dayside_temperature">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dayside_temperature</span></span><a class="headerlink" href="#pyRTX.classes.Planet.Planet.dayside_temperature" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="pyRTX.classes.Planet.Planet.nightside_temperature">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">nightside_temperature</span></span><a class="headerlink" href="#pyRTX.classes.Planet.Planet.nightside_temperature" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="pyRTX.classes.Planet.Planet.gridded_temperature">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gridded_temperature</span></span><a class="headerlink" href="#pyRTX.classes.Planet.Planet.gridded_temperature" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="pyRTX.classes.Planet.Planet.albedo">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">albedo</span></span><a class="headerlink" href="#pyRTX.classes.Planet.Planet.albedo" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="pyRTX.classes.Planet.Planet.albedo_map">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">albedo_map</span></span><a class="headerlink" href="#pyRTX.classes.Planet.Planet.albedo_map" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="pyRTX.classes.Planet.Planet.emissivity">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">emissivity</span></span><a class="headerlink" href="#pyRTX.classes.Planet.Planet.emissivity" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="pixelplane">
-<h2>PixelPlane<a class="headerlink" href="#pixelplane" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="pyRTX.classes.PixelPlane.PixelPlane">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.classes.PixelPlane.</span></span><span class="sig-name descname"><span class="pre">PixelPlane</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Fixed'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ray_spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">packets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'m'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/PixelPlane.html#PixelPlane"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.PixelPlane.PixelPlane" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.PixelPlane.PixelPlane.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Fixed'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ray_spacing</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">packets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'m'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/PixelPlane.html#PixelPlane.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.PixelPlane.PixelPlane.__init__" title="Permalink to this definition"></a></dt>
-<dd><p>“Generate a pixel array for raytracing ad defined in Li et al., 2018
-This is the “optimized version”. To explicitly see the algorithm refer to the function definition
-without _opt extension.
-Parameters:
-d0: [float] Distance of the pixel array from the center (in meters)
-lat: [float] Latitude of the pixel array center (in rad)
-lon: [float] Longitude of the pixel array center (in rad)
-width: [float] The width of the plane(in meters). Default = 1
-height: [float] the height of the plane(in meters). Default = 1
-ray_spacing: [float] the spacing of the rays (in meters). Default = 0.1
-packets: [int] the number of ‘ray packets’ to return. This is implemented to avoid the segmentation</p>
-<blockquote>
-<div><p>fault triggered by the raytracer when the number of rays is too high</p>
-</div></blockquote>
-<p>Returns:
-locs: [numpy array (n_rays, 3)] Pixel locations as a numpy array
-dirs: [numpy array (n_rays, 3)] the ray directions as a numpy array</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.PixelPlane.PixelPlane.dump">
-<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/PixelPlane.html#PixelPlane.dump"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.PixelPlane.PixelPlane.dump" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.PixelPlane.PixelPlane.update_latlon">
-<span class="sig-name descname"><span class="pre">update_latlon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/PixelPlane.html#PixelPlane.update_latlon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.PixelPlane.PixelPlane.update_latlon" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="spacecraft">
-<h2>Spacecraft<a class="headerlink" href="#spacecraft" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.classes.Spacecraft.</span></span><span class="sig-name descname"><span class="pre">Spacecraft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacecraft_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'m'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Spacecraft.html#Spacecraft"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>This is the main class for defining spacecraft objects.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacecraft_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'m'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.__init__" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Spacecraft name</p></li>
-<li><p><strong>base_frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Spacecraft body (base) frame</p></li>
-<li><p><strong>spacecraft_model</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – dict of {<a class="reference external" href="file:str">file:str</a>, frame_type:str, frame_name:str, center:list, specular:float, diffuse:float, UD_rotation:trimesh.rotation}</p></li>
-<li><p><strong>of</strong> (<em>a dictionary with keys the name</em>) – <dl class="simple">
-<dt>file: str</dt><dd><p>the obj file for the part</p>
-</dd>
-<dt>frame_type: str</dt><dd><p>’Spice’ or ‘UD’ to choose wether to define a reference to a spice frame or UserDefined one
-in the case of ‘UD’ a rotation matrix must be specified in the UD_rotation (optional) key</p>
-</dd>
-<dt>frame_name: str</dt><dd><p>The name of the Spice (or UD) frame</p>
-</dd>
-<dt>center: list</dt><dd><p>position of the origin of the object (in km) with respect to the base frame</p>
-</dd>
-<dt>specular: float</dt><dd><p>specular coefficient</p>
-</dd>
-<dt>diffuse: float</dt><dd><p>diffuse coefficient</p>
-</dd>
-<dt>UD_rotation: trimesh.rotation</dt><dd><p>optional specify a user defined rotations matrix</p>
-</dd>
-</dl>
-</p></li>
-<li><p><strong>units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – units for transformations</p></li>
-<li><p><strong>mass</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> or <code class="xref py py-class docutils literal notranslate"><span class="pre">nc</span> <span class="pre">file</span></code>) – Spacecraft mass. Can be a float value or an xarray with times and mass values</p></li>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="generated/pyRTX.classes.Atmosphere.html">pyRTX.classes.Atmosphere</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram"><code class="docutils literal notranslate"><span class="pre">VenusGram</span></code></a></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>bla</strong></p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="generated/pyRTX.classes.Spacecraft.html#module-pyRTX.classes.Spacecraft" title="pyRTX.classes.Spacecraft"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.classes.Spacecraft</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.add_parts">
-<span class="sig-name descname"><span class="pre">add_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.add_parts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.add_parts" title="Permalink to this definition"></a></dt>
-<dd><p>Add parts to the model instance
-:param spacecraft_model: See the main constructor documentation
-:type spacecraft_model: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.subset">
-<span class="sig-name descname"><span class="pre">subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem_names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.subset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.subset" title="Permalink to this definition"></a></dt>
-<dd><p>Return an instance of Spacecraft with only the elements contained
-in the list elem_names.
-Suppose the Spacecraft (self) is composed of elements A,B,C
-Spacecraft.subset([‘A’,’B’]) would return a new instance
-of Spacecraft with only the elements A and B</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.remove_part">
-<span class="sig-name descname"><span class="pre">remove_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.remove_part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.remove_part" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.pxform_convert">
-<span class="sig-name descname"><span class="pre">pxform_convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pxform</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.pxform_convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.pxform_convert" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.apply_transforms">
-<span class="sig-name descname"><span class="pre">apply_transforms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.apply_transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.apply_transforms" title="Permalink to this definition"></a></dt>
-<dd><p>Method to rotate and translate the components.</p>
-<p>Parameters:
--       epoch: epoch of the transformation</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.materials">
-<span class="sig-name descname"><span class="pre">materials</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.materials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.materials" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.dump">
-<span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.dump"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.dump" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.dump_materials">
-<span class="sig-name descname"><span class="pre">dump_materials</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.dump_materials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.dump_materials" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.info">
-<span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.info" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</section>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="generated/pyRTX.classes.Drag.html">pyRTX.classes.Drag</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag"><code class="docutils literal notranslate"><span class="pre">Drag</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="generated/pyRTX.classes.LookUpTable.html">pyRTX.classes.LookUpTable</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable"><code class="docutils literal notranslate"><span class="pre">LookUpTable</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="generated/pyRTX.classes.PixelPlane.html">pyRTX.classes.PixelPlane</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane"><code class="docutils literal notranslate"><span class="pre">PixelPlane</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="generated/pyRTX.classes.Planet.html">pyRTX.classes.Planet</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid"><code class="docutils literal notranslate"><span class="pre">PlanetGrid</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.EmissivityGrid"><code class="docutils literal notranslate"><span class="pre">EmissivityGrid</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.AlbedoGrid"><code class="docutils literal notranslate"><span class="pre">AlbedoGrid</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.TemperatureGrid"><code class="docutils literal notranslate"><span class="pre">TemperatureGrid</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="generated/pyRTX.classes.Precompute.html">pyRTX.classes.Precompute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute"><code class="docutils literal notranslate"><span class="pre">Precompute</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="generated/pyRTX.classes.Radiation.html">pyRTX.classes.Radiation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo"><code class="docutils literal notranslate"><span class="pre">Albedo</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity"><code class="docutils literal notranslate"><span class="pre">Emissivity</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="generated/pyRTX.classes.RayTracer.html">pyRTX.classes.RayTracer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/pyRTX.classes.RayTracer.html#pyRTX.classes.RayTracer.RayTracer"><code class="docutils literal notranslate"><span class="pre">RayTracer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="generated/pyRTX.classes.SRP.html">pyRTX.classes.SRP</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow"><code class="docutils literal notranslate"><span class="pre">SunShadow</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="generated/pyRTX.classes.Spacecraft.html">pyRTX.classes.Spacecraft</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft"><code class="docutils literal notranslate"><span class="pre">Spacecraft</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="core.html" class="btn btn-neutral float-left" title="Core Utilities" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="defaults.html" class="btn btn-neutral float-right" title="Default Values and Constants" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="generated/pyRTX.core.utils_rt.html" class="btn btn-neutral float-left" title="pyRTX.core.utils_rt" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="generated/pyRTX.classes.Atmosphere.html" class="btn btn-neutral float-right" title="pyRTX.classes.Atmosphere" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

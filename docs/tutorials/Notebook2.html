@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Solar Radiation Pressure: Various contributions &mdash; pyRTX 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b76e3c8a" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
 
@@ -87,77 +87,123 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api/core.html">Core Utilities</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../api/core.html#module-pyRTX.core.utils_rt">Ray Tracing Utilities</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.get_cached_embree_scene"><code class="docutils literal notranslate"><span class="pre">get_cached_embree_scene()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.block_dot"><code class="docutils literal notranslate"><span class="pre">block_dot()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.pixel_plane"><code class="docutils literal notranslate"><span class="pre">pixel_plane()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.fast_vector_build"><code class="docutils literal notranslate"><span class="pre">fast_vector_build()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.pixel_plane_opt"><code class="docutils literal notranslate"><span class="pre">pixel_plane_opt()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.reflected"><code class="docutils literal notranslate"><span class="pre">reflected()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.get_orthogonal"><code class="docutils literal notranslate"><span class="pre">get_orthogonal()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.sample_lambert_dist"><code class="docutils literal notranslate"><span class="pre">sample_lambert_dist()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.cgal_init_geometry"><code class="docutils literal notranslate"><span class="pre">cgal_init_geometry()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.get_centroids"><code class="docutils literal notranslate"><span class="pre">get_centroids()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.get_cross_products"><code class="docutils literal notranslate"><span class="pre">get_cross_products()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.get_face_areas"><code class="docutils literal notranslate"><span class="pre">get_face_areas()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.get_surface_normals"><code class="docutils literal notranslate"><span class="pre">get_surface_normals()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="docutils literal notranslate"><span class="pre">get_surface_normals_and_face_areas()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.ShapeModel"><code class="docutils literal notranslate"><span class="pre">ShapeModel</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html">pyRTX.core.analysis_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable"><code class="docutils literal notranslate"><span class="pre">LookupTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND"><code class="docutils literal notranslate"><span class="pre">LookupTableND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.ScatterLookup"><code class="docutils literal notranslate"><span class="pre">ScatterLookup</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator"><code class="docutils literal notranslate"><span class="pre">TiffInterpolator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.getSunAngles"><code class="docutils literal notranslate"><span class="pre">getSunAngles()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.epochRange"><code class="docutils literal notranslate"><span class="pre">epochRange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.epochRange2"><code class="docutils literal notranslate"><span class="pre">epochRange2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.computeRADEC"><code class="docutils literal notranslate"><span class="pre">computeRADEC()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.convertTIFtoMesh"><code class="docutils literal notranslate"><span class="pre">convertTIFtoMesh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.convertEpoch"><code class="docutils literal notranslate"><span class="pre">convertEpoch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.get_spacecraft_area"><code class="docutils literal notranslate"><span class="pre">get_spacecraft_area()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.get_sun_exposed_area"><code class="docutils literal notranslate"><span class="pre">get_sun_exposed_area()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.compute_body_positions"><code class="docutils literal notranslate"><span class="pre">compute_body_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.compute_body_states"><code class="docutils literal notranslate"><span class="pre">compute_body_states()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../api/core.html#module-pyRTX.core.shadow_utils">Shadow Utilities</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.core.parallel_utils.html">pyRTX.core.parallel_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.get_ncores"><code class="docutils literal notranslate"><span class="pre">get_ncores()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.is_method"><code class="docutils literal notranslate"><span class="pre">is_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.get_unwrapped"><code class="docutils literal notranslate"><span class="pre">get_unwrapped()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.parallel"><code class="docutils literal notranslate"><span class="pre">parallel()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../api/core.html#module-pyRTX.core.physical_utils">Physical Utilities</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.physical_utils.srp_core"><code class="docutils literal notranslate"><span class="pre">srp_core()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.physical_utils.compute_srp"><code class="docutils literal notranslate"><span class="pre">compute_srp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.core.physical_utils.html">pyRTX.core.physical_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.srp_core"><code class="docutils literal notranslate"><span class="pre">srp_core()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.compute_srp"><code class="docutils literal notranslate"><span class="pre">compute_srp()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../api/core.html#module-pyRTX.core.parallel_utils">Parallel Utilities</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.parallel_utils.get_ncores"><code class="docutils literal notranslate"><span class="pre">get_ncores()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.parallel_utils.is_method"><code class="docutils literal notranslate"><span class="pre">is_method()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.parallel_utils.get_unwrapped"><code class="docutils literal notranslate"><span class="pre">get_unwrapped()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../api/core.html#pyRTX.core.parallel_utils.parallel"><code class="docutils literal notranslate"><span class="pre">parallel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html">pyRTX.core.shadow_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html">pyRTX.core.utils_rt</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_cached_embree_scene"><code class="docutils literal notranslate"><span class="pre">get_cached_embree_scene()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.block_dot"><code class="docutils literal notranslate"><span class="pre">block_dot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pixel_plane"><code class="docutils literal notranslate"><span class="pre">pixel_plane()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.fast_vector_build"><code class="docutils literal notranslate"><span class="pre">fast_vector_build()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pixel_plane_opt"><code class="docutils literal notranslate"><span class="pre">pixel_plane_opt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.reflected"><code class="docutils literal notranslate"><span class="pre">reflected()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_orthogonal"><code class="docutils literal notranslate"><span class="pre">get_orthogonal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.sample_lambert_dist"><code class="docutils literal notranslate"><span class="pre">sample_lambert_dist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.cgal_init_geometry"><code class="docutils literal notranslate"><span class="pre">cgal_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_centroids"><code class="docutils literal notranslate"><span class="pre">get_centroids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_cross_products"><code class="docutils literal notranslate"><span class="pre">get_cross_products()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_face_areas"><code class="docutils literal notranslate"><span class="pre">get_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_surface_normals"><code class="docutils literal notranslate"><span class="pre">get_surface_normals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="docutils literal notranslate"><span class="pre">get_surface_normals_and_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.ShapeModel"><code class="docutils literal notranslate"><span class="pre">ShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/classes.html">Classes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../api/classes.html#sunshadow">SunShadow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/classes.html#solarpressure">SolarPressure</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/classes.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.Atmosphere.html">pyRTX.classes.Atmosphere</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram"><code class="docutils literal notranslate"><span class="pre">VenusGram</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../api/classes.html#planet">Planet</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/classes.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.Drag.html">pyRTX.classes.Drag</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag"><code class="docutils literal notranslate"><span class="pre">Drag</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../api/classes.html#pixelplane">PixelPlane</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/classes.html#pyRTX.classes.PixelPlane.PixelPlane"><code class="docutils literal notranslate"><span class="pre">PixelPlane</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.LookUpTable.html">pyRTX.classes.LookUpTable</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable"><code class="docutils literal notranslate"><span class="pre">LookUpTable</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../api/classes.html#spacecraft">Spacecraft</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../api/classes.html#pyRTX.classes.Spacecraft.Spacecraft"><code class="docutils literal notranslate"><span class="pre">Spacecraft</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.PixelPlane.html">pyRTX.classes.PixelPlane</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane"><code class="docutils literal notranslate"><span class="pre">PixelPlane</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html">pyRTX.classes.Planet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid"><code class="docutils literal notranslate"><span class="pre">PlanetGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.EmissivityGrid"><code class="docutils literal notranslate"><span class="pre">EmissivityGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.AlbedoGrid"><code class="docutils literal notranslate"><span class="pre">AlbedoGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.TemperatureGrid"><code class="docutils literal notranslate"><span class="pre">TemperatureGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.Precompute.html">pyRTX.classes.Precompute</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute"><code class="docutils literal notranslate"><span class="pre">Precompute</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.Radiation.html">pyRTX.classes.Radiation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo"><code class="docutils literal notranslate"><span class="pre">Albedo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity"><code class="docutils literal notranslate"><span class="pre">Emissivity</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.RayTracer.html">pyRTX.classes.RayTracer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.RayTracer.html#pyRTX.classes.RayTracer.RayTracer"><code class="docutils literal notranslate"><span class="pre">RayTracer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.SRP.html">pyRTX.classes.SRP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow"><code class="docutils literal notranslate"><span class="pre">SunShadow</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.Spacecraft.html">pyRTX.classes.Spacecraft</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft"><code class="docutils literal notranslate"><span class="pre">Spacecraft</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -231,15 +277,15 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyRTX.classes.Spacecraft</span> <span class="kn">import</span> <span class="n">Spacecraft</span>
-<span class="kn">from</span> <span class="nn">pyRTX.classes.RayTracer</span> <span class="kn">import</span> <span class="n">RayTracer</span>
-<span class="kn">from</span> <span class="nn">pyRTX.classes.PixelPlane</span> <span class="kn">import</span> <span class="n">PixelPlane</span>
-<span class="kn">from</span> <span class="nn">pyRTX.classes.SRP</span> <span class="kn">import</span> <span class="n">SolarPressure</span>
-<span class="kn">from</span> <span class="nn">pyRTX.core.analysis_utils</span> <span class="kn">import</span> <span class="n">get_spacecraft_area</span>
-<span class="kn">from</span> <span class="nn">pyRTX.visual.utils</span> <span class="kn">import</span> <span class="n">plot_mesh</span>
-<span class="kn">import</span> <span class="nn">trimesh</span> <span class="k">as</span> <span class="nn">tm</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pyRTX.classes.Spacecraft import Spacecraft
+from pyRTX.classes.RayTracer import RayTracer
+from pyRTX.classes.PixelPlane import PixelPlane
+from pyRTX.classes.SRP import SolarPressure
+from pyRTX.core.analysis_utils import get_spacecraft_area
+from pyRTX.visual.utils import plot_mesh
+import trimesh as tm
+import numpy as np
+import matplotlib.pyplot as plt
 </pre></div>
 </div>
 </div>
@@ -247,18 +293,18 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s create a simple object that has an interesting shape for evaluating</span>
-<span class="c1"># advanced SRP effects</span>
-<span class="n">mesh</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">creation</span><span class="o">.</span><span class="n">annulus</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">height</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">)</span>
-<span class="c1"># mesh = tm.creation.icosphere()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Let&#39;s create a simple object that has an interesting shape for evaluating
+# advanced SRP effects
+mesh = tm.creation.annulus(0.5,1,height = 0.5)
+# mesh = tm.creation.icosphere()
 
-<span class="c1"># Define some basic information</span>
-<span class="n">flux</span> <span class="o">=</span> <span class="mi">1361</span> <span class="c1"># W/m2</span>
-<span class="n">mass</span> <span class="o">=</span> <span class="mi">100</span>
+# Define some basic information
+flux = 1361 # W/m2
+mass = 100
 
 
-<span class="c1"># Visualize the object</span>
-<span class="n">plot_mesh</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+# Visualize the object
+plot_mesh(mesh)
 </pre></div>
 </div>
 </div>
@@ -284,29 +330,29 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">Spacecraft</span><span class="p">(</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;My Spacecraft&#39;</span><span class="p">,</span>
-            <span class="n">base_frame</span> <span class="o">=</span> <span class="s1">&#39;SC Frame&#39;</span><span class="p">,</span> <span class="c1"># Name of the spacecraft body-fixed frame</span>
-            <span class="n">mass</span> <span class="o">=</span> <span class="n">mass</span><span class="p">,</span>
-            <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span>
-            <span class="n">spacecraft_model</span> <span class="o">=</span> <span class="p">{</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sc = Spacecraft(
+            name = &#39;My Spacecraft&#39;,
+            base_frame = &#39;SC Frame&#39;, # Name of the spacecraft body-fixed frame
+            mass = mass,
+            units = &#39;m&#39;,
+            spacecraft_model = {
 
 
-            <span class="s1">&#39;Bus&#39;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s1">&#39;file&#39;</span> <span class="p">:</span> <span class="n">mesh</span><span class="p">,</span>  <span class="c1"># Note that you can also input directly a mesh (it must be trimesh.Trimesh object)</span>
-                <span class="s1">&#39;frame_type&#39;</span><span class="p">:</span> <span class="s1">&#39;UD&#39;</span><span class="p">,</span> <span class="c1"># type of frame (can be &#39;Spice&#39; or &#39;UD&#39;= User Defined)</span>
-                <span class="s1">&#39;UD_rotation&#39;</span> <span class="p">:</span> <span class="n">tm</span><span class="o">.</span><span class="n">transformations</span><span class="o">.</span><span class="n">identity_matrix</span><span class="p">(),</span> <span class="c1"># If UD is chosen, the rotation matrix between the element and the base frame must be defined</span>
-                <span class="s1">&#39;frame_name&#39;</span><span class="p">:</span> <span class="s1">&#39;SC Bus&#39;</span><span class="p">,</span> <span class="c1"># Name of the frame</span>
-                <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">],</span> <span class="c1"># Origin of the component</span>
-                <span class="s1">&#39;diffuse&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="c1"># Diffuse reflect. coefficient</span>
-                <span class="s1">&#39;specular&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="c1"># Specular reflect. coefficient</span>
+            &#39;Bus&#39;: {
+                &#39;file&#39; : mesh,  # Note that you can also input directly a mesh (it must be trimesh.Trimesh object)
+                &#39;frame_type&#39;: &#39;UD&#39;, # type of frame (can be &#39;Spice&#39; or &#39;UD&#39;= User Defined)
+                &#39;UD_rotation&#39; : tm.transformations.identity_matrix(), # If UD is chosen, the rotation matrix between the element and the base frame must be defined
+                &#39;frame_name&#39;: &#39;SC Bus&#39;, # Name of the frame
+                &#39;center&#39;: [0.0,0.0,0.0], # Origin of the component
+                &#39;diffuse&#39;: 0.3, # Diffuse reflect. coefficient
+                &#39;specular&#39;: 0.3, # Specular reflect. coefficient
 
 
-            <span class="p">},</span>
-            <span class="p">},</span>
+            },
+            },
 
 
-                <span class="p">)</span>
+                )
 <br/></pre></div>
 </div>
 </div>
@@ -315,21 +361,21 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the origin direction of the pixel plane in the spacecraft frame</span>
-<span class="n">RA</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># rad</span>
-<span class="n">DEC</span> <span class="o">=</span> <span class="mi">5</span><span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span> <span class="c1">#rad</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the origin direction of the pixel plane in the spacecraft frame
+RA = 0 # rad
+DEC = 5* np.pi/180 #rad
 
-<span class="c1"># And visualize the direction</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">DEC</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">RA</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">DEC</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">RA</span><span class="p">)</span>
-<span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">DEC</span><span class="p">)</span>
-<span class="n">start_point</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">direction</span> <span class="o">=</span> <span class="mf">0.0015</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">z</span><span class="p">])</span>
+# And visualize the direction
+x = np.cos(DEC)*np.cos(RA)
+y = np.cos(DEC)*np.sin(RA)
+z = np.sin(DEC)
+start_point = [0,0,0]
+direction = 0.0015*np.array([x,y,z])
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_mesh</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">azim</span> <span class="o">=</span> <span class="mi">90</span><span class="p">,</span> <span class="n">elev</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">quiver</span><span class="p">(</span><span class="n">start_point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">start_point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">start_point</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-          <span class="n">direction</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">direction</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">direction</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-          <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">arrow_length_ratio</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">zorder</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+fig, ax = plot_mesh(mesh, azim = 90, elev = 10)
+ax.quiver(start_point[0], start_point[1], start_point[2],
+          direction[0], direction[1], direction[2],
+          color=&#39;red&#39;, arrow_length_ratio=0.15, linewidth=2, zorder = 10)
 <br/></pre></div>
 </div>
 </div>
@@ -353,46 +399,46 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize the pixel plane</span>
-<span class="n">pixelPlane</span> <span class="o">=</span> <span class="n">PixelPlane</span><span class="p">(</span>
-        <span class="n">spacecraft</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span>
-        <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;Fixed&#39;</span><span class="p">,</span>
-        <span class="n">distance</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
-        <span class="n">width</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
-        <span class="n">height</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
-        <span class="n">ray_spacing</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
-        <span class="n">lon</span> <span class="o">=</span> <span class="n">RA</span><span class="p">,</span>
-        <span class="n">lat</span> <span class="o">=</span> <span class="n">DEC</span><span class="p">,</span>
-        <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span>
-<span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Initialize the pixel plane
+pixelPlane = PixelPlane(
+        spacecraft = &#39;None&#39;,
+        mode = &#39;Fixed&#39;,
+        distance = 30,
+        width = 5,
+        height = 5,
+        ray_spacing = 0.01,
+        lon = RA,
+        lat = DEC,
+        units = &#39;m&#39;,
+)
 
-<span class="c1"># Initialize the ray-tracer explicitly requesting to compute</span>
-<span class="c1"># up to the fourth bounce.</span>
-<span class="n">rtx</span> <span class="o">=</span> <span class="n">RayTracer</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span>
-                <span class="n">pixelPlane</span><span class="p">,</span>
-                <span class="n">kernel</span> <span class="o">=</span> <span class="s1">&#39;Embree3&#39;</span><span class="p">,</span>
-                <span class="n">bounces</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
-                <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                <span class="n">num_diffuse</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+# Initialize the ray-tracer explicitly requesting to compute
+# up to the fourth bounce.
+rtx = RayTracer(sc,
+                pixelPlane,
+                kernel = &#39;Embree3&#39;,
+                bounces = 4,
+                diffusion = False,
+                num_diffuse = 10)
 
 
-<span class="c1"># Asking for grouped=False allows to retrieve</span>
-<span class="c1"># the results for each bounce individually</span>
-<span class="c1"># Note that in this case we have to set the baseflux to None</span>
-<span class="c1"># this is because we don&#39;t have a real spacecraft</span>
-<span class="c1"># so no trajectory is known for this object</span>
-<span class="c1"># if we tried to set the baseflux to some value</span>
-<span class="c1"># the solar pressure object would try to find</span>
-<span class="c1"># the location of the spacecraft to rescale the flux</span>
-<span class="c1"># at the correct distance</span>
-<span class="n">srp</span> <span class="o">=</span> <span class="n">SolarPressure</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">rtx</span><span class="p">,</span>
-                    <span class="n">baseflux</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                    <span class="n">grouped</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+# Asking for grouped=False allows to retrieve
+# the results for each bounce individually
+# Note that in this case we have to set the baseflux to None
+# this is because we don&#39;t have a real spacecraft
+# so no trajectory is known for this object
+# if we tried to set the baseflux to some value
+# the solar pressure object would try to find
+# the location of the spacecraft to rescale the flux
+# at the correct distance
+srp = SolarPressure(sc, rtx,
+                    baseflux = None,
+                    grouped = False,
 
-                   <span class="p">)</span>
-<span class="c1"># This will raise a warning, because tupically this setting</span>
-<span class="c1"># is used for computing a lookup table (LUT)</span>
-<span class="c1"># (See more details in the LUT example)</span>
+                   )
+# This will raise a warning, because tupically this setting
+# is used for computing a lookup table (LUT)
+# (See more details in the LUT example)
 </pre></div>
 </div>
 </div>
@@ -409,11 +455,11 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># To compute the acceleration we need to provide an epoch</span>
-<span class="c1"># Since there are no moving parts, &quot;None&quot; works</span>
-<span class="c1"># as well.</span>
-<span class="n">accel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">srp</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="kc">None</span><span class="p">],</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">flux</span> <span class="o">*</span> <span class="mi">1000</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">accel</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># To compute the acceleration we need to provide an epoch
+# Since there are no moving parts, &quot;None&quot; works
+# as well.
+accel = np.array(srp.compute([None], n_cores = 1)) * flux * 1000
+print(accel)
 </pre></div>
 </div>
 </div>
@@ -432,14 +478,14 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Found bounces </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(f&#39;Found bounces {len(accel[0])}&#39;)
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Acceleration [m/s2]&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Bounce number&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
+fig, ax = plt.subplots()
+ax.bar(np.arange(1, len(accel[0])+1), np.linalg.norm(accel[0], axis = 1))
+ax.set_yscale(&#39;log&#39;)
+ax.set_ylabel(&#39;Acceleration [m/s2]&#39;)
+ax.set_xlabel(&#39;Bounce number&#39;)
+ax.set_xticks(np.arange(1, len(accel[0])+1));
 </pre></div>
 </div>
 </div>
@@ -463,41 +509,41 @@ Found bounces 4
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">45</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
-<span class="n">n_found</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">DEC</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">angles</span><span class="p">):</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>angles = np.linspace(0, 45*np.pi/180, 30)
+n_found = np.zeros_like(angles)
+for i, DEC in enumerate(angles):
 
-    <span class="n">pixelPlane</span> <span class="o">=</span> <span class="n">PixelPlane</span><span class="p">(</span>
-            <span class="n">spacecraft</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span>
-            <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;Fixed&#39;</span><span class="p">,</span>
-            <span class="n">distance</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
-            <span class="n">width</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
-            <span class="n">height</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
-            <span class="n">ray_spacing</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
-            <span class="n">lon</span> <span class="o">=</span> <span class="n">RA</span><span class="p">,</span>
-            <span class="n">lat</span> <span class="o">=</span> <span class="n">DEC</span><span class="p">,</span>
-            <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span>
-    <span class="p">)</span>
+    pixelPlane = PixelPlane(
+            spacecraft = &#39;None&#39;,
+            mode = &#39;Fixed&#39;,
+            distance = 30,
+            width = 5,
+            height = 5,
+            ray_spacing = 0.01,
+            lon = RA,
+            lat = DEC,
+            units = &#39;m&#39;,
+    )
 
-    <span class="n">rtx</span> <span class="o">=</span> <span class="n">RayTracer</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span>
-                    <span class="n">pixelPlane</span><span class="p">,</span>
-                    <span class="n">kernel</span> <span class="o">=</span> <span class="s1">&#39;Embree&#39;</span><span class="p">,</span>
-                    <span class="n">bounces</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span> <span class="c1"># Let&#39;s set a large number to see how many we get</span>
-                    <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                    <span class="n">num_diffuse</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+    rtx = RayTracer(sc,
+                    pixelPlane,
+                    kernel = &#39;Embree&#39;,
+                    bounces = 15, # Let&#39;s set a large number to see how many we get
+                    diffusion = False,
+                    num_diffuse = 10)
 
-    <span class="n">srp</span> <span class="o">=</span> <span class="n">SolarPressure</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">rtx</span><span class="p">,</span>
-                        <span class="n">baseflux</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                        <span class="n">grouped</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    srp = SolarPressure(sc, rtx,
+                        baseflux = None,
+                        grouped = False,
 
-                       <span class="p">)</span>
+                       )
 
-    <span class="n">accel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">srp</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="kc">None</span><span class="p">],</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">flux</span>
-    <span class="n">n_found</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">angles</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">n_found</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Number of effective bounces&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Sun rays incoming angle&#39;</span><span class="p">)</span>
+    accel = np.array(srp.compute([None], n_cores = 1)) * flux
+    n_found[i] = len(accel[0])
+fig, ax = plt.subplots()
+ax.plot(angles*180/np.pi, n_found)
+ax.set_ylabel(&#39;Number of effective bounces&#39;)
+ax.set_xlabel(&#39;Sun rays incoming angle&#39;)
 </pre></div>
 </div>
 </div>
@@ -619,43 +665,43 @@ Text(0.5, 0, &#39;Sun rays incoming angle&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find the angle where we have the maximum number of reflections</span>
-<span class="n">amax</span> <span class="o">=</span> <span class="n">angles</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">n_found</span><span class="p">)]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Find the angle where we have the maximum number of reflections
+amax = angles[np.argmax(n_found)]
 
-<span class="n">pixelPlane</span> <span class="o">=</span> <span class="n">PixelPlane</span><span class="p">(</span>
-            <span class="n">spacecraft</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span>
-            <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;Fixed&#39;</span><span class="p">,</span>
-            <span class="n">distance</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
-            <span class="n">width</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
-            <span class="n">height</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
-            <span class="n">ray_spacing</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
-            <span class="n">lon</span> <span class="o">=</span> <span class="n">RA</span><span class="p">,</span>
-            <span class="n">lat</span> <span class="o">=</span> <span class="n">amax</span><span class="p">,</span>
-            <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span>
-    <span class="p">)</span>
+pixelPlane = PixelPlane(
+            spacecraft = &#39;None&#39;,
+            mode = &#39;Fixed&#39;,
+            distance = 30,
+            width = 5,
+            height = 5,
+            ray_spacing = 0.01,
+            lon = RA,
+            lat = amax,
+            units = &#39;m&#39;,
+    )
 
-<span class="n">rtx</span> <span class="o">=</span> <span class="n">RayTracer</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span>
-                <span class="n">pixelPlane</span><span class="p">,</span>
-                <span class="n">kernel</span> <span class="o">=</span> <span class="s1">&#39;Embree3&#39;</span><span class="p">,</span>
-                <span class="n">bounces</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span> <span class="c1"># Let&#39;s set a large number to see how many we get</span>
-                <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-                <span class="n">num_diffuse</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+rtx = RayTracer(sc,
+                pixelPlane,
+                kernel = &#39;Embree3&#39;,
+                bounces = 15, # Let&#39;s set a large number to see how many we get
+                diffusion = False,
+                num_diffuse = 10)
 
-<span class="n">srp</span> <span class="o">=</span> <span class="n">SolarPressure</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">rtx</span><span class="p">,</span>
-                    <span class="n">baseflux</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                    <span class="n">grouped</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+srp = SolarPressure(sc, rtx,
+                    baseflux = None,
+                    grouped = False,
 
-                   <span class="p">)</span>
+                   )
 
-<span class="n">accel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">srp</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="kc">None</span><span class="p">],</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">flux</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Found bounces </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+accel = np.array(srp.compute([None], n_cores = 1)) * flux
+print(f&#39;Found bounces {len(accel[0])}&#39;)
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Normalized Acceleration&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Bounce number&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">accel</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
+fig, ax = plt.subplots()
+ax.bar(np.arange(1, len(accel[0])+1), np.linalg.norm(accel[0], axis = 1)/np.linalg.norm(accel[0][0]))
+ax.set_yscale(&#39;log&#39;)
+ax.set_ylabel(&#39;Normalized Acceleration&#39;)
+ax.set_xlabel(&#39;Bounce number&#39;)
+ax.set_xticks(np.arange(1, len(accel[0])+1));
 </pre></div>
 </div>
 </div>
@@ -684,52 +730,52 @@ Found bounces 15
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s see the difference between reflection only and reflection + diffusion</span>
-<span class="n">RA</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">DEC</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span>
-<span class="n">pixelPlane</span> <span class="o">=</span> <span class="n">PixelPlane</span><span class="p">(</span>
-            <span class="n">spacecraft</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span>
-            <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;Fixed&#39;</span><span class="p">,</span>
-            <span class="n">distance</span> <span class="o">=</span> <span class="mi">30</span><span class="p">,</span>
-            <span class="n">width</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
-            <span class="n">height</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
-            <span class="n">ray_spacing</span> <span class="o">=</span> <span class="mf">0.01</span><span class="p">,</span>
-            <span class="n">lon</span> <span class="o">=</span> <span class="n">RA</span><span class="p">,</span>
-            <span class="n">lat</span> <span class="o">=</span> <span class="n">DEC</span><span class="p">,</span>
-            <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span>
-    <span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Let&#39;s see the difference between reflection only and reflection + diffusion
+RA = 0
+DEC = 20 * np.pi/180
+pixelPlane = PixelPlane(
+            spacecraft = &#39;None&#39;,
+            mode = &#39;Fixed&#39;,
+            distance = 30,
+            width = 5,
+            height = 5,
+            ray_spacing = 0.01,
+            lon = RA,
+            lat = DEC,
+            units = &#39;m&#39;,
+    )
 
-<span class="n">rtx_diffuse</span> <span class="o">=</span> <span class="n">RayTracer</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span>
-                <span class="n">pixelPlane</span><span class="p">,</span>
-                <span class="n">kernel</span> <span class="o">=</span> <span class="s1">&#39;Embree3&#39;</span><span class="p">,</span>
-                <span class="n">bounces</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="c1"># The diffusion is computed as a second bounce</span>
-                <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-                <span class="n">num_diffuse</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="c1"># This is the number of the rays diffused from the impact point</span>
-               <span class="p">)</span>
+rtx_diffuse = RayTracer(sc,
+                pixelPlane,
+                kernel = &#39;Embree3&#39;,
+                bounces = 2, # The diffusion is computed as a second bounce
+                diffusion = True,
+                num_diffuse = 10, # This is the number of the rays diffused from the impact point
+               )
 
-<span class="n">rtx_specular</span> <span class="o">=</span> <span class="n">RayTracer</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span>
-                <span class="n">pixelPlane</span><span class="p">,</span>
-                <span class="n">kernel</span> <span class="o">=</span> <span class="s1">&#39;Embree3&#39;</span><span class="p">,</span>
-                <span class="n">bounces</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="c1"># One bounce only this time</span>
-                <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-               <span class="p">)</span>
+rtx_specular = RayTracer(sc,
+                pixelPlane,
+                kernel = &#39;Embree3&#39;,
+                bounces = 2, # One bounce only this time
+                diffusion = False,
+               )
 
-<span class="n">srp_diffuse</span> <span class="o">=</span> <span class="n">SolarPressure</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">rtx_diffuse</span><span class="p">,</span>
-                    <span class="n">baseflux</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                    <span class="n">grouped</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># This time we are only interested in the total acceleration</span>
+srp_diffuse = SolarPressure(sc, rtx_diffuse,
+                    baseflux = None,
+                    grouped = True,  # This time we are only interested in the total acceleration
 
-                   <span class="p">)</span>
+                   )
 
-<span class="n">srp_specular</span> <span class="o">=</span> <span class="n">SolarPressure</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">rtx_specular</span><span class="p">,</span>
-                    <span class="n">baseflux</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                    <span class="n">grouped</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># This time we are only interested in the total acceleration</span>
+srp_specular = SolarPressure(sc, rtx_specular,
+                    baseflux = None,
+                    grouped = True,  # This time we are only interested in the total acceleration
 
-                   <span class="p">)</span>
+                   )
 
 
 
-<span class="n">accel_diffuse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">srp_diffuse</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="kc">None</span><span class="p">],</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">flux</span>
-<span class="n">accel_specular</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">srp_specular</span><span class="o">.</span><span class="n">compute</span><span class="p">([</span><span class="kc">None</span><span class="p">],</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span> <span class="o">*</span> <span class="n">flux</span>
+accel_diffuse = np.array(srp_diffuse.compute([None], n_cores = 1)) * flux
+accel_specular = np.array(srp_specular.compute([None], n_cores = 1)) * flux
 </pre></div>
 </div>
 </div>
@@ -748,23 +794,23 @@ Found bounces 15
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Acceleration with only specular reflection:&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">accel_specular</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;Acceleration with only specular reflection:&#39;)
+print(accel_specular[0])
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Acceleration with diffusive effect&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">accel_diffuse</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+print(&#39;Acceleration with diffusive effect&#39;)
+print(accel_diffuse[0])
 
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">accel_specular</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">accel_diffuse</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="p">)</span><span class="o">/</span> <span class="n">accel_diffuse</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Specular only&#39;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">0.3</span><span class="p">)</span>
-    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([])</span>
-    <span class="c1"># ax[i].set_yscale(&#39;log&#39;)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;X&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Y&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Z&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Percent difference&#39;</span><span class="p">);</span>
+fig, ax= plt.subplots(1,3)
+for i in range(3):
+    ax[i].bar( np.arange(0, 1), np.abs((accel_specular[0][i] - accel_diffuse[0][i] )/ accel_diffuse[0][i]) * 100, label = &#39;Specular only&#39;, width = 0.3)
+    ax[i].set_xlabel(&#39;&#39;)
+    ax[i].set_xticklabels([])
+    # ax[i].set_yscale(&#39;log&#39;)
+ax[0].set_title(&#39;X&#39;)
+ax[1].set_title(&#39;Y&#39;)
+ax[2].set_title(&#39;Z&#39;)
+ax[0].set_ylabel(&#39;Percent difference&#39;);
 <br/></pre></div>
 </div>
 </div>

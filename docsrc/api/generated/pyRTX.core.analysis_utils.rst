@@ -4,6 +4,11 @@ pyRTX.core.analysis\_utils
 .. automodule:: pyRTX.core.analysis_utils
 
    
+   
+   
+
+   
+   
    .. rubric:: Functions
 
    .. autosummary::
@@ -19,6 +24,10 @@ pyRTX.core.analysis\_utils
       get_spacecraft_area
       get_sun_exposed_area
    
+   
+
+   
+   
    .. rubric:: Classes
 
    .. autosummary::
@@ -27,3 +36,12 @@ pyRTX.core.analysis\_utils
       LookupTableND
       ScatterLookup
       TiffInterpolator
+   
+   
+
+   
+   
+   
+
+
+
