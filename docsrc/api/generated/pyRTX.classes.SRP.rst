@@ -1,17 +1,8 @@
-﻿pyRTX.classes.SRP
+pyRTX.classes.SRP
 =================
 
 .. automodule:: pyRTX.classes.SRP
 
-   
-   
-   
-
-   
-   
-   
-
-   
    
    .. rubric:: Classes
 
@@ -19,12 +10,3 @@
    
       SolarPressure
       SunShadow
-   
-   
-
-   
-   
-   
-
-
-

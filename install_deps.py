@@ -228,8 +228,8 @@ class DependencyInstaller:
         
         # Construct URL and filename based on platform
         if platform_name == 'darwin':  # macOS
-            if version.startswith('2')
-            archive_ext = 'tar.gz'
+            if version.startswith('2'):
+                archive_ext = 'tar.gz'
             else:
                 archive_ext = 'zip'
         else:  # Linux
@@ -323,7 +323,7 @@ class DependencyInstaller:
         if not embree_dir.exists():
             log_info("Cloning python-embree repository")
             run_command(
-                ['git', 'clone', 'https://github.com/sampotter/python-embree'],
+                ['git', 'clone', 'https://github.com/sampotter/python-embree.git'],
                 cwd=self.lib_dir
             )
         else:

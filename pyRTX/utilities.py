@@ -77,11 +77,11 @@ def export_formatted(accelerations, epochs, filename, units = None):
     exportEXAC : Export to GEODYN EXAC binary format
     numpy.savetxt : Underlying function for text output
     """
-    if not len(accelerations.shape) == 2 and not accelerations.shape[1] == 3:
+    if not len(accelerations.shape) == 2 or not accelerations.shape[1] == 3:
         raise ValueError('Error, the acceleration vector must be (N,3)')
     
     if accelerations.shape[0] != len(epochs):
-        raise ValueError(f'Error the number of epochs ({len(epoch)}) is different from the number of accelerations ({accelerations.shape[0]})')
+        raise ValueError(f'Error the number of epochs ({len(epochs)}) is different from the number of accelerations ({accelerations.shape[0]})')
     todump = np.vstack([epochs.T, accelerations.T]).T
     toadd = ''
     if units != None:

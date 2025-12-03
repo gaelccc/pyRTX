@@ -3,9 +3,6 @@
 
 A collection of functions, classes and tools for the computation of non-gravitational acceleration on space probes leveraging ray tracing techniques.
 
-A collection of functions, classes and tools for the computation of 
-non-gravitational acceleration on space probes leveraging ray tracing techniques.
-
 This library is thought to help scientists and engineers working in orbit determination, 
 navigation, GNC, and similar applications, by providing a framework for precise computation
 of non-gravitational forces. 
@@ -31,106 +28,45 @@ density models (e.g., VenusGRAM, MCD, etc.). [(Example 1)](examples/lro_drag.py)
 Handful classes for computing, storing and reading lookup tables for improved computational performance. ([Example 1](examples/generate_lro_accel_lookup.py),[Example 2](examples/generate_crossection_lut.py))
 
 # Installation
-`pyRTX` requires the installation of a few C++ libraries, supporting the raytracing kernels. 
-This is automatically taken care of by the install script provided. 
-Given the amount of dependencies, the use of a virtual environment (e.g., conda or venv) is strongly required. 
 
-1) clone the repository
-   `git clone git@github.com:gaelccc/pyRTX.git`
-2) create an environment with `python>=3.8`
-   `conda create --name pyrtx python=3.8`
-3) run the installation
-   `pip install .`
+`pyRTX` requires a two-step installation process to handle both its Python and C++ dependencies. The use of a virtual environment (e.g., Conda or venv) is strongly recommended.
 
-### NOTE: at the moment the installation has been tested only on Linux
+**Note:** The installation has been tested and is currently supported on Linux only.
 
+### Step 1: System and C++ Dependencies
 
-<details>
-<summary>In case the automatic installation doesn't work, here is a run through of all the steps required. </summary>
+Before installing the Python package, you must install the necessary C++ libraries.
 
-The installation process is quite convoluted, because of the dependencies on external libraries. 
-For this reason we detail here two separate procedures: [automatic installation](#automatic-installation), [manual installation](#manual-installation)  
+1.  **Install System Prerequisites:**
+    `pyRTX` requires the `GEOS` library for the `basemap` package. On Debian-based systems like Ubuntu, you can install this with:
+    ```bash
+    sudo apt-get update
+    sudo apt-get install libgeos-dev
+    ```
 
-## Automatic Installation 
-Clone the repository:  
-`git clone git@github.com:gaelccc/pyRTX.git`  
-After cloning this repository, just `bash simple_install.sh` inside the pyRTX folder.  
+2.  **Run the C++ Dependency Installer:**
+    The repository includes a script to download and build the C++ ray tracing libraries (Embree). Run this script from the root of the `pyRTX` directory:
+    ```bash
+    python install_deps.py
+    ```
 
-The install script will perform the steps detailed in the [manual installation](#manual-installation) section.    
-Please note: 
-- the installation script will need to download some files (notably the Embree libraries). The default download folder will be
-`pyRTX/lib`. You can change this behavior in the header of the installation script.
-- the installation process assumes that `conda` is available to the user.
+### Step 2: Python Package Installation
 
+Once the C++ dependencies are in place, you can install the `pyRTX` Python package and its dependencies.
 
-Installation tested on Linux (3.10.0-1160.95.1.el7.x86_64) with gcc 9.2 compiler.
+1.  **Install `basemap`:**
+    Install the `basemap` package separately using pip:
+    ```bash
+    pip install basemap
+    ```
 
-## Manual Installation
-If for any reason the simple installation should fail, please follow carefully the following steps. 
-### Download pyRTX and setup an empty environment
-1) Download pyRTX folder
-2) `conda create --name py38 python=3.8  --channel default --channel anaconda`
-3) `conda activate py38`
-### Install dependencies
-5) `pip install "PATH_TO_MAIN_FOLDER" -r requirements.txt` (e.g., pip install -e ~/username/pyRTX -r requirements.txt)
+2.  **Install `pyRTX`:**
+    Install the `pyRTX` package and its remaining Python dependencies using pip:
+    ```bash
+    pip install .
+    ```
 
-### Minimal ray tracing dependencies
-For the ray-tracing algorithms to work the ray tracing kernel programs need to be installed. 
-Here we will detail the installation procedures for Embree 2, Embree 3 and CGAL. 
-The user can decide to install only one of the three kernels.
-
-### Installing Embree 2
-Fetch and download the Embree version which suits your needs (e.g., https://github.com/embree/embree/releases/tag/v2.17.7)  
-Unzip/untar the downloaded archive and place the resulting folder somewhere (e.g., in ~/usr/lib)  
-Enter the Embree directory and   
-`source embree-vars.sh` (or .csh depending on the shell in use)  
-
-You can test the succesfull installation of Embree 2 by opening a python terminal and: 
-`from pyembree import rtcore_scene` 
-
-### Installing Embree3
-This procedure is similar to the installation of Embree 2  
-Fetch and download the Embree version which better suits your needs (e.g., https://github.com/embree/embree/releases/tag/v3.13.5)  
-Unzip/untar the downloaded archive  
-Enter the uncompressed folder and  
-`source embree-vars.sh` (or .csh depending on the shell in use)  
-
-#### Temporary fix to compilation issues with python-embree ([open issue](https://github.com/sampotter/python-embree/issues/23)) 
-Clone python-embree (https://github.com/sampotter/python-embree)  
-in the `python-embree` folder open `embree.pyx` with a text editor and comment `line 548` (i.e., `rtcSetDeviceErrorFunction(self._device, simple_error_function, NULL);`)  
-And then:  
-`pip install .`   
-
-
-### Installing CGAL
-Download CGAL from the official website (e.g., https://github.com/CGAL/cgal/releases/tag/v5.6)  
-`tar xf CGAL-5.6.tar.xz`  
-Download Boost from the official website (e.g., https://www.boost.org/users/history/version_1_82_0.html)  
-`tar xf boost_1_82_0.tar.gz`  
-Install the `aabb` binder  (thanks @steo85it !)  
-`git clone https://github.com/steo85it/py-cgal-aabb.git`  
-modify the setup.py file and add the path to the `include` dirs of CGAL and Boost  
-from inside the `py-cgal-aabb` folder:  
-`python setup.py build_ext --inplace`  
-`pip install .`  
-
-### Run tests
-To verify the succesful outcome of the installation process, from the `tests` folder run 
-`bash run_tests.sh`
-
-</details>
-
-# Quickstart and installation testing
-Download the data required for running the examples running in the `examples` folder:
-
-`python download_lro_kernels.py` 
-
-
-
-# [Documentation](https://gaelccc.github.io/pyRTX)
-The API documentation can be found [here](https://gaelccc.github.io/pyRTX)  
-The user is strongly advised to look at the files contained in the `examples` folder and at the Notebooks contained in the `Notebooks` folder
-
+After completing these steps, the `pyRTX` library will be fully installed and ready to use.
 
 # Change log
 Version 0.0.2 implements the same functionalities as v0.0.1 but the code structure has been heavily restructured. Backwards compatibility is guaranteed for functions and classes call signs but not for imports syntax.
