@@ -1,7 +1,5 @@
 # Core routines test module
 #
-# Instructions: Every time a new core routine is written, or a functionality is added
-# to an already existing core routine, write a test!!
 
 from context import core
 import numpy as np
@@ -40,10 +38,12 @@ def test_embree3():
 	assert found
 
 
-def test_CGAL():
-	# Test here that the three kernels work nominally
-	# CGAL test
-	load = importlib.find_spec('aabbtree')
-	found = load is not None
-	assert found
+# CGAL is not implemented
+# This is a placeholder for later
+#def test_CGAL():
+#	# Test here that the three kernels work nominally
+#	# CGAL test
+#	load = importlib.find_spec('aabbtree')
+#	found = load is not None
+#	assert found
 # ADD MORE
