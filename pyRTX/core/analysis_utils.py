@@ -18,38 +18,50 @@ A set of utilities mainly focused on result analysis and data manipulation
 
 class LookupTable():
 	"""
-	This class is used to store results in the shape aof a lookup table.
-	This is mainly used to store the resultas of a set of raytracing results
-	example: the solar pressure for a body is computed for a grid of RA/DEC values.
-	these values can be stored in the LookupTable object and later retrieved.
-	This class offers the possibility of not oly retrieving pre-computed values, but
-	aslso interpolating between grid points.
+    A class for storing and interpolating 2D lookup tables.
 
-	NOTE: the grid of the lookup table does not need to be regular
-	the interpolation is based on numpy griddata method which is able to cope
-	with unstructured grids
+    This class is used to store results in the shape aof a lookup table.
+    This is mainly used to store the resultas of a set of raytracing results
+    example: the solar pressure for a body is computed for a grid of RA/DEC values.
+    these values can be stored in the LookupTable object and later retrieved.
+    This class offers the possibility of not oly retrieving pre-computed values, but
+    aslso interpolating between grid points.
 
-	The main way of retrieving values is through indexing. The following are implemented:
+    NOTE: the grid of the lookup table does not need to be regular
+    the interpolation is based on numpy griddata method which is able to cope
+    with unstructured grids
 
-	LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated
-	LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested
-	LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)
-	LUT[array-like, array-like]: return the lookup table interpolated in the array-like points
+    The main way of retrieving values is through indexing. The following are implemented:
 
-
-
-	Parameters
-	----------
-	linspace_x : np.array(N,)
-		The x axis of the lookup table
-	linspace_y : np.array(M,)
-		The y axis of the lookup table
-	values : np.ndarray (N,M,1)
-		The lookup table values
+    LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated
+    LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested
+    LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)
+    LUT[array-like, array-like]: return the lookup table interpolated in the array-like points
 
 
+
+    Parameters
+    ----------
+    linspace_x : np.array(N,)
+        The x axis of the lookup table
+    linspace_y : np.array(M,)
+        The y axis of the lookup table
+    values : np.ndarray (N,M,1)
+        The lookup table values
 	"""
 	def __init__(self, linspace_x, linspace_y, values):
+		"""
+        Initializes the LookupTable object.
+
+        Parameters
+        ----------
+        linspace_x : numpy.ndarray
+            The x-coordinates of the grid.
+        linspace_y : numpy.ndarray
+            The y-coordinates of the grid.
+        values : numpy.ndarray
+            The values at the grid points.
+		"""
 		self.linspace_x = linspace_x
 		self.linspace_y = linspace_y
 		self.values = values
@@ -58,9 +70,27 @@ class LookupTable():
 
 
 	def _set_defaults(self):
+		"""
+        Sets the default interpolation type to 'cubic'.
+		"""
 		self.interpType = 'cubic'
 
 	def _interpolator(self, x, y):
+		"""
+        Performs the interpolation.
+
+        Parameters
+        ----------
+        x : numpy.ndarray
+            The x-coordinates at which to interpolate.
+        y : numpy.ndarray
+            The y-coordinates at which to interpolate.
+
+        Returns
+        -------
+        numpy.ndarray
+            The interpolated values.
+		"""
 
 		x, y = np.meshgrid(x,y)
 		meshgrid_x, meshgrid_y = np.meshgrid(self.linspace_x, self.linspace_y)
@@ -68,27 +98,68 @@ class LookupTable():
 		return  interpolate.griddata((meshgrid_x.ravel(), meshgrid_y.ravel()), self.values.T.ravel(),(x,y), method = self.interpType)
 
 	def set_interpType(self, interpType):
+		"""
+        Sets the interpolation type.
+
+        Parameters
+        ----------
+        interpType : str
+            The interpolation method to use (e.g., 'linear', 'cubic').
+		"""
 		self.interpType = interpType
 
 
 	def _get_idx(self, ind, search_list):
+		"""
+        Gets the index of a value in a list.
+
+        Parameters
+        ----------
+        ind : float
+            The value to search for.
+        search_list : list or numpy.ndarray
+            The list to search in.
+
+        Returns
+        -------
+        int
+            The index of the value.
+		"""
 		return np.where(search_list == ind)[0][0]
 
 	
 	def interp_point(self, x, y):
+		"""
+        Interpolates the lookup table at a single point.
+
+        Parameters
+        ----------
+        x : float
+            The x-coordinate of the point.
+        y : float
+            The y-coordinate of the point.
+
+        Returns
+        -------
+        float
+            The interpolated value.
+		"""
 		return self._interpolator(x,y)
 
 
 	def __getitem__(self, idxs):
 		"""
-		Implement a getitem method.
-		Several usages are possible:
+        Allows indexing into the lookup table.
 
-		LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated
-		LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested
-		LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)
-		LUT[array-like, array-like]: return the lookup table interpolated in the array-like points
+        Parameters
+        ----------
+        idxs : tuple
+            A tuple of indices for each dimension of the lookup table.
 
+        Returns
+        -------
+        float or numpy.ndarray
+            The interpolated value(s) at the given indices.
 		"""
 
 		x, y = idxs
@@ -101,27 +172,25 @@ class LookupTable():
 
 
 	def quickPlot(self, xlabel = None, ylabel = None, title = None, conversion = 1, clabel = None, cmap = 'viridis', saveto = None):
-
 		"""
-		Produce a quick plot of the lookup table
+        Produces a quick plot of the lookup table.
 
-		Parameters
-		----------
-		xlabel : str (Optional)
-			label for the x-axis
-		ylabel : str (Optional)
-			label for the y-axis
-		title : str (Optional)
-			title of the plot
-		conversion : float (Optional, default 1)
-			a conversion factor for the plotted values. This method will plot X*conversion, Y*conversion
-		clabel : str (Optional)
-			label of the color bar
-		cmap : str	(Optional, default 'viridis')
-			the colormap to use (matplotlib colormaps)
-		saveto : str (Optional, default None)
-			if not None: the path to save the plot to (the file extension defines the format)
-
+        Parameters
+        ----------
+        xlabel : str, optional
+            The label for the x-axis.
+        ylabel : str, optional
+            The label for the y-axis.
+        title : str, optional
+            The title of the plot.
+        conversion : float, default=1
+            A conversion factor for the plotted values.
+        clabel : str, optional
+            The label for the color bar.
+        cmap : str, default='viridis'
+            The colormap to use.
+        saveto : str, optional
+            The path to save the plot to.
 		"""
 
 
@@ -145,24 +214,39 @@ class LookupTable():
 
 class LookupTableND():
 	"""
-	Same concept as the LookupTable class, but allowing for multi-dimensional (>2) tables
+    A class for storing and interpolating N-dimensional lookup tables.
 
-	Parameters
-	----------
-	axes : tuple of np.array
-		The axes of the lookup table
-	values : np.ndarray(N,M,L,...,1)
-	info : str
-		A string field to store information about the lookup table. This is set as a class property
-		so it can be requested trhough instance.info
-	np.array : np.array
-		unset
+    Same concept as the LookupTable class, but allowing for multi-dimensional (>2) tables
 
+    Parameters
+    ----------
+    axes : tuple of np.array
+        The axes of the lookup table
+    values : np.ndarray(N,M,L,...,1)
+    info : str
+        A string field to store information about the lookup table. This is set as a class property
+        so it can be requested trhough instance.info
+    np_array : np.array
+        unset
 	"""
 
 
 
 	def __init__(self, axes = None, values = None, info = None, np_array = None):
+		"""
+        Initializes the LookupTableND object.
+
+        Parameters
+        ----------
+        axes : tuple of numpy.ndarray, optional
+            The axes of the lookup table.
+        values : numpy.ndarray, optional
+            The values at the grid points.
+        info : str, optional
+            Information about the lookup table.
+        np_array : numpy.ndarray, optional
+            Unused.
+		"""
 		self.axes = axes
 		self.values = values
 		self.info = info
@@ -173,34 +257,89 @@ class LookupTableND():
 
 
 	def _set_defaults(self):
+		"""
+        Sets the default interpolation type to 'linear'.
+		"""
 		self.interpType = 'linear'
 
 	def _interpolator(self, vals):
+		"""
+        Performs the interpolation.
+
+        Parameters
+        ----------
+        vals : tuple
+            A tuple of coordinates at which to interpolate.
+
+        Returns
+        -------
+        numpy.ndarray
+            The interpolated values.
+		"""
 		return interpolate.interpn(self.axes,self.values, vals, method = 'linear') 
 
 
 	def set_interpType(self, interpType):
+		"""
+        Sets the interpolation type.
+
+        Parameters
+        ----------
+        interpType : str
+            The interpolation method to use (e.g., 'linear', 'cubic').
+		"""
 		self.interpType = interpType
 
 
 	def get_idx(self, ind, search_list):
+		"""
+        Gets the index of a value in a list.
+
+        Parameters
+        ----------
+        ind : float
+            The value to search for.
+        search_list : list or numpy.ndarray
+            The list to search in.
+
+        Returns
+        -------
+        int
+            The index of the value.
+		"""
 		return np.where(search_list == ind)[0][0]
 
 	
 	def interp_point(self, vals):
+		"""
+        Interpolates the lookup table at a single point.
+
+        Parameters
+        ----------
+        vals : tuple
+            A tuple of coordinates of the point.
+
+        Returns
+        -------
+        float
+            The interpolated value.
+		"""
 		return self._interpolator(vals)
 
 
 	def __getitem__(self, idxs):
 		"""
-		Implement a getitem method.
-		Several usages are possible:
+        Allows indexing into the lookup table.
 
-		LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated
-		LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested
-		LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)
-		LUT[array-like, array-like]: return the lookup table interpolated in the array-like points
+        Parameters
+        ----------
+        idxs : tuple
+            A tuple of indices for each dimension of the lookup table.
 
+        Returns
+        -------
+        float or numpy.ndarray
+            The interpolated value(s) at the given indices.
 		"""
 
 		
@@ -213,6 +352,14 @@ class LookupTableND():
 			
 
 	def axisExtent(self):
+		"""
+        Returns the extent of each axis.
+
+        Returns
+        -------
+        list
+            A list of [min, max] pairs for each axis.
+		"""
 		extent = []
 		for ax in self.axes:
 			extent.append([np.min(ax), np.max(ax)])
@@ -221,25 +368,24 @@ class LookupTableND():
 
 	def quickPlot(self, xlabel = None, ylabel = None, title = None, conversion = 1, clabel = None, cmap = 'viridis', saveto = None):
 		"""
-		Produce a quick plot of the lookup table
+        Produces a quick plot of a 2D slice of the lookup table.
 
-		Parameters
-		----------
-		xlabel : str (Optional)
-			label for the x-axis
-		ylabel : str (Optional)
-			label for the y-axis
-		title : str (Optional)
-			title of the plot
-		conversion : float (Optional, default 1)
-			a conversion factor for the plotted values. This method will plot X*conversion, Y*conversion
-		clabel : str (Optional)
-			label of the color bar
-		cmap : str	(Optional, default 'viridis')
-			the colormap to use (matplotlib colormaps)
-		saveto : str (Optional, default None)
-			if not None: the path to save the plot to (the file extension defines the format)
-
+        Parameters
+        ----------
+        xlabel : str, optional
+            The label for the x-axis.
+        ylabel : str, optional
+            The label for the y-axis.
+        title : str, optional
+            The title of the plot.
+        conversion : float, default=1
+            A conversion factor for the plotted values.
+        clabel : str, optional
+            The label for the color bar.
+        cmap : str, default='viridis'
+            The colormap to use.
+        saveto : str, optional
+            The path to save the plot to.
 		"""
 
 
@@ -263,34 +409,39 @@ class LookupTableND():
 
 class ScatterLookup():
 	"""
-	A class for dealing with zone-scattered lookup tables
-	Intended for creating a lookup table of sets of computed values that lie in distinct, DISJUNCT,
-	zones of the axes space.
-	Example: the value of a variable has been computed in X = [0,1] Y = [0,1] and X = [3,4] Y = [-2,-1]
+    A class for dealing with zone-scattered lookup tables.
 
-	After instantiating the empty class, the different zones are added. Example
+    Intended for creating a lookup table of sets of computed values that lie in distinct, DISJUNCT,
+    zones of the axes space.
+    Example: the value of a variable has been computed in X = [0,1] Y = [0,1] and X = [3,4] Y = [-2,-1]
 
-	sc = ScatterLookup()
-	zone1 = LookupTableND(*args, **kwargs)
-	zone2 = LookupTableND(*args, **kwargs)
-	sc.addZone(zone1)
-	sc.addZone(zone2)
+    After instantiating the empty class, the different zones are added. Example
+
+    sc = ScatterLookup()
+    zone1 = LookupTableND(*args, **kwargs)
+    zone2 = LookupTableND(*args, **kwargs)
+    sc.addZone(zone1)
+    sc.addZone(zone2)
 
 
 
-	The value retrieval follows the same rules of indexing as the LookupTable and LookupTableND classes
+    The value retrieval follows the same rules of indexing as the LookupTable and LookupTableND classes
 	"""
 	def __init__(self):
+		"""
+        Initializes the ScatterLookup object.
+		"""
 		self.zones = []
 		self.zonedef = []
 
 	def add_zone(self, ZoneLookup = ''):
 		"""
-		Add a zone
-		Parameters
-		----------
-		ZoneLookup : pyRTX.core.analysis_utils.LookupTableND
+        Adds a zone to the lookup table.
 
+        Parameters
+        ----------
+        ZoneLookup : pyRTX.core.analysis_utils.LookupTableND
+            The lookup table for the new zone.
 		"""
 		if not isinstance(ZoneLookup, LookupTableND):
 			raise TypeError('The ZoneLookup argument must be of type class.LookupTableND')
@@ -299,6 +450,19 @@ class ScatterLookup():
 		self.zonedef.append(ZoneLookup.axisExtent())
 
 	def __getitem__(self, idxs):
+		"""
+        Allows indexing into the lookup table.
+
+        Parameters
+        ----------
+        idxs : tuple
+            A tuple of indices for each dimension of the lookup table.
+
+        Returns
+        -------
+        float or numpy.ndarray
+            The interpolated value(s) at the given indices.
+		"""
 
 		zone_no = self.zone_determination(idxs)
 		return self.zones[zone_no][idxs]
@@ -306,6 +470,19 @@ class ScatterLookup():
 
 
 	def zone_determination(self,idxs):
+		"""
+        Determines which zone the given indices belong to.
+
+        Parameters
+        ----------
+        idxs : tuple
+            A tuple of indices for each dimension of the lookup table.
+
+        Returns
+        -------
+        int
+            The index of the zone.
+		"""
 		flag = 1
 		for i, zonedef in enumerate(self.zonedef):
 			#print(f'Zone {zonedef}')  FOR DEBYG
@@ -324,7 +501,20 @@ class ScatterLookup():
 
 
 class TiffInterpolator():
+	"""
+    A class for interpolating TIFF image data.
+	"""
 	def __init__(self, axes = None, values = None):
+		"""
+        Initializes the TiffInterpolator object.
+
+        Parameters
+        ----------
+        axes : tuple of numpy.ndarray, optional
+            The axes of the TIFF image.
+        values : numpy.ndarray, optional
+            The pixel values of the TIFF image.
+		"""
 		self.axes = axes
 		self.values = values
 		
@@ -332,7 +522,7 @@ class TiffInterpolator():
 
 		# Error control
 		#if len(self.axes) != len(values.shape[0:-1]):
-		#	raise ValueError(f'The number of axes provided does not match with provided data\n Provided data has shape {len(values.shape)} while {len(self.axes)} axes have been provided')
+		#	raise ValueError(f'The number of axes provided does not match with provided data\n Provided data has shape {len(values.shape)} while {len(self.axes)} have been provided')
 
 
 
@@ -340,35 +530,90 @@ class TiffInterpolator():
 
 
 	def _set_defaults(self):
+		"""
+        Sets the default interpolation type to 'linear'.
+		"""
 		self.interpType = 'linear'
 
 	def interpolator(self, vals):
+		"""
+        Performs the interpolation.
+
+        Parameters
+        ----------
+        vals : tuple
+            A tuple of coordinates at which to interpolate.
+
+        Returns
+        -------
+        numpy.ndarray
+            The interpolated values.
+		"""
 		
 		return interpolate.interpn(self.axes,self.values.T, vals) 
 
 
 	def set_interpType(self, interpType):
+		"""
+        Sets the interpolation type.
+
+        Parameters
+        ----------
+        interpType : str
+            The interpolation method to use (e.g., 'linear', 'cubic').
+		"""
 		self.interpType = interpType
 
 
 	def get_idx(self, ind, search_list):
+		"""
+        Gets the index of a value in a list.
+
+        Parameters
+        ----------
+        ind : float
+            The value to search for.
+        search_list : list or numpy.ndarray
+            The list to search in.
+
+        Returns
+        -------
+        int
+            The index of the value.
+		"""
 		return np.where(search_list == ind)[0][0]
 
 	
 	def interp_point(self, vals):
+		"""
+        Interpolates the TIFF image at a single point.
+
+        Parameters
+        ----------
+        vals : tuple
+            A tuple of coordinates of the point.
+
+        Returns
+        -------
+        float
+            The interpolated value.
+		"""
 		return self.interpolator(vals)
 
 
 	def __getitem__(self, idxs):
 		"""
-		Implement a getitem method.
-		Several usages are possible:
+        Allows indexing into the TIFF image.
 
-		LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated
-		LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested
-		LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)
-		LUT[array-like, array-like]: return the lookup table interpolated in the array-like points
+        Parameters
+        ----------
+        idxs : tuple
+            A tuple of indices for each dimension of the TIFF image.
 
+        Returns
+        -------
+        float or numpy.ndarray
+            The interpolated value(s) at the given indices.
 		"""
 
 		
@@ -382,6 +627,26 @@ class TiffInterpolator():
 
 
 def getSunAngles(scName = None, scFrame = None, epoch = None, correction = 'LT+S'):
+	"""
+    Computes the right ascension and declination of the Sun as seen from a
+    spacecraft.
+
+    Parameters
+    ----------
+    scName : str, optional
+        The name of the spacecraft.
+    scFrame : str, optional
+        The reference frame of the spacecraft.
+    epoch : float, optional
+        The epoch for the calculation.
+    correction : str, default='LT+S'
+        The aberration correction to use.
+
+    Returns
+    -------
+    tuple
+        A tuple containing the right ascension and declination in radians.
+	"""
 	sunPos = sp.spkezr('Sun', epoch, scFrame, correction, scName)[0][0:3]
 	[_, ra, dec] = sp.recrad(sunPos)
 
@@ -390,6 +655,23 @@ def getSunAngles(scName = None, scFrame = None, epoch = None, correction = 'LT+S
 	
 
 def epochRange(startEpoch = None, duration = None, step = 100):
+	"""
+    Generates a range of epochs.
+
+    Parameters
+    ----------
+    startEpoch : str or float, optional
+        The start epoch in a format recognized by SPICE or as a float.
+    duration : float, optional
+        The duration of the epoch range in seconds.
+    step : int, default=100
+        The step size in seconds.
+
+    Returns
+    -------
+    numpy.ndarray
+        An array of epochs.
+	"""
 	if isinstance(startEpoch, str):
 		startEp = sp.str2et(startEpoch)
 	elif isinstance(startEpoch, float):
@@ -404,6 +686,23 @@ def epochRange(startEpoch = None, duration = None, step = 100):
 
 
 def epochRange2(startEpoch = None, endEpoch = None, step = 100):
+	"""
+    Generates a range of epochs between a start and end epoch.
+
+    Parameters
+    ----------
+    startEpoch : str or float, optional
+        The start epoch in a format recognized by SPICE or as a float.
+    endEpoch : str or float, optional
+        The end epoch in a format recognized by SPICE or as a float.
+    step : int, default=100
+        The step size in seconds.
+
+    Returns
+    -------
+    numpy.ndarray
+        An array of epochs.
+	"""
 	if isinstance(startEpoch, str):
 		startEp = sp.str2et(startEpoch)
 	elif isinstance(startEpoch, float):
@@ -433,12 +732,19 @@ def epochRange2(startEpoch = None, endEpoch = None, step = 100):
 
 def computeRADEC(vecs, periodicity = 360):
 	"""
-	From a ND array of shape (N, 3), compute RA/DEC
+    Computes the right ascension and declination for a set of vectors.
 
-	Parameters:
-	vecs: [ndarray (N,3)]
-	Returns:
-	RA, DEC
+    Parameters
+    ----------
+    vecs : numpy.ndarray
+        An array of shape (N, 3) containing the vectors.
+    periodicity : int, default=360
+        The periodicity of the right ascension in degrees.
+
+    Returns
+    -------
+    tuple
+        A tuple containing the right ascension and declination in radians.
 	"""
 
 	n = block_normalize(vecs)
@@ -460,18 +766,34 @@ def computeRADEC(vecs, periodicity = 360):
 
 def convertTIFtoMesh(tifFile = '', latSampling = '', inferSampling = False, lonSampling = '', planet = '', lat0 = -np.pi/2, lat1 = np.pi/2, lon0 = 0, lon1 = 2*np.pi):
 	"""
-	Convert a TIF map of emissivities to the format needed for assigning values to each face of a planetary 3D mesh
+    Converts a TIFF map to a format that can be used to assign values to a
+    planetary mesh.
 
-	Parameters:
-	tifFile : [str] the path to the TIFF file
-	latSampling: [float, in rad] sampling step of latitude
-	lonSampling: [float, in rad] sampling step of longitude
-	planet: [class.Planet] Planet object containing the mesh and the planetary frames
-	inferSampling: [bool] wether the importer shall infer the sampling or not
-	Returns:
-	emissivityInterpolator: [class.LookupTableND] an interpolator for mapping the temperatures on the mesh faces. This is intended to be passed
-				to the Planet class via the setter method: Planet.emissivity = emissivityInterpolator
+    Parameters
+    ----------
+    tifFile : str, default=''
+        The path to the TIFF file.
+    latSampling : float, default=''
+        The latitude sampling step in radians.
+    inferSampling : bool, default=False
+        Whether to infer the sampling from the TIFF file.
+    lonSampling : float, default=''
+        The longitude sampling step in radians.
+    planet : pyRTX.Planet, default=''
+        The Planet object containing the mesh.
+    lat0 : float, default=-numpy.pi/2
+        The minimum latitude.
+    lat1 : float, default=numpy.pi/2
+        The maximum latitude.
+    lon0 : float, default=0
+        The minimum longitude.
+    lon1 : float, default=2*numpy.pi
+        The maximum longitude.
 
+    Returns
+    -------
+    TiffInterpolator
+        An interpolator for mapping the TIFF values to the mesh.
 	"""
 
 
@@ -570,26 +892,27 @@ def convertEpoch(monteEpoch):
 
 
 def get_spacecraft_area(spacecraft, rays, ra = 0.0, dec = 0.0, epoch = None):
+	"""
+    Computes the apparent area of a spacecraft as seen from a given direction.
 
-	'''
-	Compute a pyRTX.Spacecraft apparent area as seen by the direction specified 
-	by a pair of right ascension - declination
+    Parameters
+    ----------
+    spacecraft : pyRTX.Spacecraft
+        The spacecraft object.
+    rays : pyRTX.PixelPlane
+        The pixel plane for raytracing.
+    ra : float, default=0.0
+        The right ascension of the viewing direction in radians.
+    dec : float, default=0.0
+        The declination of the viewing direction in radians.
+    epoch : float, optional
+        The epoch for the computation.
 
-	Input:
-	spacecraft [pyRTX.Spacecraft] 	: the spacecraft object
-	rays [pyRTX.PixelPlane]			: the pixel plane for raytracing
-	ra [float] 						: right ascension (in rad)
-	dec [float] 					: declination (rad)
-	epoch [float or None]			: epoch for the computation (this is used when moving Spice
-										frames are used for the Spacecraft definition)
-
-	Output:
-	area [float] 					: the apparent area. The measurement units depend on the units of the
-				   						Spacecraft object
-
-	TODO: avoid hardcoded width/height but rather use an automated method
-
-	'''
+    Returns
+    -------
+    float
+        The apparent area of the spacecraft.
+	"""
 	from pyRTX.classes.PixelPlane import PixelPlane
 	from pyRTX.classes.RayTracer  import RayTracer
 
@@ -615,25 +938,23 @@ from pyRTX.core.parallel_utils import parallel
 
 @parallel
 def get_sun_exposed_area(sc, rtx, epoch):
+	"""
+    Computes the sun-exposed area of a spacecraft.
 
-	'''
-	Compute a pyRTX.Spacecraft apparent area as seen by the direction specified 
-	by a pair of right ascension - declination
+    Parameters
+    ----------
+    sc : pyRTX.Spacecraft
+        The spacecraft object.
+    rtx : pyRTX.RayTracer
+        The ray tracer object.
+    epoch : float
+        The epoch for the computation.
 
-	Input:
-	spacecraft [pyRTX.Spacecraft] 	: the spacecraft object
-	ra [float] 						: right ascension (in rad)
-	dec [float] 					: declination (rad)
-	epoch [float or None]			: epoch for the computation (this is used when moving Spice
-										frames are used for the Spacecraft definition)
-
-	Output:
-	area [float] 					: the apparent area. The measurement units depend on the units of the
-				   						Spacecraft object
-
-	TODO: avoid hardcoded width/height but rather use an automated method
-
-	'''
+    Returns
+    -------
+    float
+        The sun-exposed area of the spacecraft.
+	"""
 
 	# Get ra, dec of the solar direction
 	sundir  = sp.spkezr( 'Sun', epoch, sc.base_frame, 'LT+S', sc.name )[0][0:3]
@@ -652,15 +973,26 @@ def get_sun_exposed_area(sc, rtx, epoch):
 
 def compute_body_positions(target, epochs, frame, obs, abcorr = 'LT + S'):
 	"""
-	Functions to compute the relative positions of a target
-	body with respect to an observing body.
+    Computes the relative positions of a target body with respect to an
+    observing body.
 
-	Parameters:
-	-	target: target body name
-	-	epochs: list of epochs
-	-	frame: reference frame of output position vector
-	-	obs: observing body name
-	-	abcorr: aberration correction flag.
+    Parameters
+    ----------
+    target : str
+        The name of the target body.
+    epochs : list of float
+        A list of epochs.
+    frame : str
+        The reference frame of the output position vector.
+    obs : str
+        The name of the observing body.
+    abcorr : str, default='LT + S'
+        The aberration correction flag.
+
+    Returns
+    -------
+    list
+        A list of position vectors.
 	"""
 	state = sp.spkezr(target, np.array(epochs), frame, abcorr, obs)
 
@@ -668,15 +1000,26 @@ def compute_body_positions(target, epochs, frame, obs, abcorr = 'LT + S'):
 
 def compute_body_states(target, epochs, frame, obs, abcorr = 'LT + S'):
 	"""
-	Functions to compute the relative position and velocity of a target
-	body with respect to an observing body.
+    Computes the relative position and velocity of a target body with respect
+    to an observing body.
 
-	Parameters:
-	-	target: target body name
-	-	epochs: list of epochs
-	-	frame: reference frame of output position vector
-	-	obs: observing body name
-	-	abcorr: aberration correction flag.
+    Parameters
+    ----------
+    target : str
+        The name of the target body.
+    epochs : list of float
+        A list of epochs.
+    frame : str
+        The reference frame of the output state vector.
+    obs : str
+        The name of the observing body.
+    abcorr : str, default='LT + S'
+        The aberration correction flag.
+
+    Returns
+    -------
+    list
+        A list of state vectors (position and velocity).
 	"""
 	state = sp.spkezr(target, np.array(epochs), frame, abcorr, obs)
 

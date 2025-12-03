@@ -9,18 +9,28 @@ from copy import deepcopy
 
 class LookUpTable():
 	"""
-	This class is used to store results in the shape aof a lookup table.
-	This is mainly used to store the results of a set of raytracing results
-	example: the solar pressure for a body is computed for a grid of RA/DEC values.
-	these values can be stored in the LookupTable object and later retrieved.
-	This class offers the possibility of not oly retrieving pre-computed values, but
-	also interpolating between grid points.
+    A class for storing and interpolating lookup tables from NetCDF files.
 
-	NOTE: the grid of the lookup table does not need to be regular
-	the interpolation is based on numpy griddata method which is able to cope
-	with unstructured grids
+    This class is used to store results in the shape of a lookup table.
+    This is mainly used to store the results of a set of raytracing results
+    example: the solar pressure for a body is computed for a grid of RA/DEC values.
+    these values can be stored in the LookupTable object and later retrieved.
+    This class offers the possibility of not only retrieving pre-computed values, but
+    also interpolating between grid points.
+
+    NOTE: the grid of the lookup table does not need to be regular
+    the interpolation is based on numpy griddata method which is able to cope
+    with unstructured grids.
 	"""
 	def __init__(self, filename):
+		"""
+        Initializes the LookUpTable object.
+
+        Parameters
+        ----------
+        filename : str
+            The path to the NetCDF file containing the lookup table.
+		"""
 
 		if not isinstance(filename, str) or not '.nc' in filename:
 			print('\n *** ERROR: a .nc filename is expected!')
@@ -29,7 +39,14 @@ class LookUpTable():
 
 
 	def _init_from_xarray(self, filename):
-		"""Init object from an xarray"""
+		"""
+        Initializes the lookup table from an xarray Dataset.
+
+        Parameters
+        ----------
+        filename : str
+            The path to the NetCDF file.
+		"""
 
 		# Load object
 		LUT = xr.open_dataset(filename)
@@ -50,58 +67,143 @@ class LookUpTable():
 
 	@property
 	def moving_frames(self):
-		"""Returns the list of frames wich are NOT fixed wrt spacecraft body-frame."""
+		"""
+        Returns the list of moving frames.
+
+        Returns
+        -------
+        list
+            A list of the moving frames.
+		"""
 		return self._moving_frames
 
 	@property
 	def data(self):
-		"""Returns the xarray data."""
+		"""
+        Returns the lookup table data.
+
+        Returns
+        -------
+        numpy.ndarray
+            The lookup table data.
+		"""
 		return self._data.look_up_table.data
 
 	@property
 	def attrs(self):
-		"""Returns the xarray attributes."""
+		"""
+        Returns the attributes of the xarray Dataset.
+
+        Returns
+        -------
+        dict
+            The attributes of the xarray Dataset.
+		"""
 		return self._data.attrs
 
 	@property
 	def axes(self):
-		"""Returns the xarray axes values."""
+		"""
+        Returns the coordinate axes of the lookup table.
+
+        Returns
+        -------
+        list
+            A list of the lookup table's coordinate axes.
+		"""
 		return self._axes
 
 	@property
 	def base_frame(self):
-		"""Returns the spacecraft body-frame."""
+		"""
+        Returns the base frame of the lookup table.
+
+        Returns
+        -------
+        str
+            The name of the base frame.
+		"""
 		return self._base_frame
 
 	@property
 	def ref_epc(self):
-		"""Returns the reference epoch of the LUT."""
+		"""
+        Returns the reference epoch of the lookup table.
+
+        Returns
+        -------
+        float
+            The reference epoch.
+		"""
 		return self._ref_epc
 
 	@property
 	def eul_set(self):
-		"""Returns the euler set used for the computations."""
+		"""
+        Returns the Euler angle set used for the lookup table.
+
+        Returns
+        -------
+        tuple
+            A tuple of the Euler angle set.
+		"""
 		return self._eul_set
 
 	@property
 	def eul_idxs(self):
-		"""Returns the euler set used for the computations."""
+		"""
+        Returns the Euler angle indices.
+
+        Returns
+        -------
+        dict
+            A dictionary mapping Euler angle axes to their indices.
+		"""
 		return self._eul_idxs
 
 	@property
 	def dims(self):
-		"""Returns the dimension axes of the xarray."""
+		"""
+        Returns the dimensions of the lookup table.
+
+        Returns
+        -------
+        tuple
+            A tuple of the lookup table's dimensions.
+		"""
 		return self._dims[:-1]
 
 	@property
 	def units(self):
-		"""Returns the units of the xarray values."""
+		"""
+        Returns the units of the lookup table values.
+
+        Returns
+        -------
+        str
+            The units of the lookup table values.
+		"""
 		return self._units
   
 
 	def query(self, epoch, ra, dec,):
 		"""
-		Query the look up table for a given epoch, ra, dec (in degrees).
+        Queries the lookup table for a given epoch, right ascension, and
+        declination.
+
+        Parameters
+        ----------
+        epoch : float
+            The epoch in TDB seconds past J2000.
+        ra : float
+            The right ascension in degrees.
+        dec : float
+            The declination in degrees.
+
+        Returns
+        -------
+        numpy.ndarray
+            The interpolated value from the lookup table.
 		"""
   
 		ra = ra * np.pi / 180.; 
@@ -129,5 +231,3 @@ class LookUpTable():
 		output = np.squeeze(interpolate.interpn(self.axes, self.data, query, method = 'linear'))
 
 		return output
-
-

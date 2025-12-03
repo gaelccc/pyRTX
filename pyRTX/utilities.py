@@ -50,19 +50,20 @@ def export_formatted(accelerations, epochs, filename, units = None):
     - Units information if provided
 
     Example output file:
-    ```
-    # Acceleration file. Columns: Epoch (seconds past J2000), X, Y, Z. Units: km/s^2
-    0.000000000000000000e+00,1.234567890123456789e-08,2.345678901234567890e-08,3.456789012345678901e-08
-    6.000000000000000000e+01,1.234567890123456789e-08,2.345678901234567890e-08,3.456789012345678901e-08
-    ...
-    ```
+    .. code-block::
+
+        # Acceleration file. Columns: Epoch (seconds past J2000), X, Y, Z. Units: km/s^2
+        0.000000000000000000e+00,1.234567890123456789e-08,2.345678901234567890e-08,3.456789012345678901e-08
+        6.000000000000000000e+01,1.234567890123456789e-08,2.345678901234567890e-08,3.456789012345678901e-08
+        ...
 
     The output can be read back using:
-    ```python
-    data = np.loadtxt(filename, delimiter=',')
-    epochs = data[:, 0]
-    accelerations = data[:, 1:4]
-    ```
+
+    .. code-block:: python
+
+        data = np.loadtxt(filename, delimiter=',')
+        epochs = data[:, 0]
+        accelerations = data[:, 1:4]
 
     Examples
     --------
@@ -74,7 +75,7 @@ def export_formatted(accelerations, epochs, filename, units = None):
 
     See Also
     --------
-    exportEXAC : Export to GEODYN EXAC binary format
+    export_exac : Export to GEODYN EXAC binary format
     numpy.savetxt : Underlying function for text output
     """
     if not len(accelerations.shape) == 2 or not accelerations.shape[1] == 3:
@@ -177,6 +178,19 @@ def export_exac(satelliteID, data, tstep, startTime, endTime, outFileName):
     
 
 def to_datetime(epoch):
+    """
+    Converts a SPICE epoch to a Python datetime object.
+
+    Parameters
+    ----------
+    epoch : float
+        The SPICE ephemeris time in seconds past J2000.
+
+    Returns
+    -------
+    datetime.datetime
+        The corresponding datetime object.
+    """
     t = sp.et2utc(epoch, 'C', 6)
     dt = datetime.strptime(t, "%Y %b %d %H:%M:%S.%f")
     return dt
@@ -185,6 +199,26 @@ def to_datetime(epoch):
     
 
 def getScPosVel(spacecraft, center, epochs, frame):
+    """
+    Retrieves the position and velocity of a spacecraft.
+
+    Parameters
+    ----------
+    spacecraft : str
+        The name of the spacecraft.
+    center : str
+        The name of the center of motion.
+    epochs : list of float
+        A list of SPICE ephemeris times.
+    frame : str
+        The reference frame.
+
+    Returns
+    -------
+    tuple
+        A tuple containing two numpy arrays: the position vectors and the
+        velocity vectors.
+    """
     correction = 'CN'
     sc_pos, _ = sp.spkezr(spacecraft, epochs, frame, correction, center)
     sc_pos = np.array(sc_pos)

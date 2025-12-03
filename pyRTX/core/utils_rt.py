@@ -871,9 +871,15 @@ class TrimeshShapeModel(ShapeModel):
         self._make_scene()
 
     def __reduce__(self):
+        """
+        Serialization method for pickling.
+        """
         return (self.__class__, (self.V, self.F, self.N, self.P, self.A))
 
     def __repr__(self):
+        """
+        String representation of the object.
+        """
         return 'a TrimeshShapeModel with %d vertices and %d faces' % (
             self.num_verts, self.num_faces)
 
@@ -947,22 +953,36 @@ class TrimeshShapeModel(ShapeModel):
 class CgalTrimeshShapeModel(TrimeshShapeModel):
     """A triangle mesh shape model that uses the CGAL AABB tree for ray tracing."""
     def _make_scene(self):
+        """
+        Set up a CGAL AABB tree.
+        """
         self.aabb = AABB.from_trimesh(
             self.V.astype(np.float64), self.F.astype(np.uintp))
 
     def _intersect1(self, x, d):
+        """
+        Trace a single ray using CGAL.
+        """
         return self.aabb.intersect1(x, d)
 
     def _intersect1_2d(self, X, D):
+        """
+        Trace multiple rays using CGAL.
+        """
         return self.aabb.intersect1_2d(X, D)
 
     def _intersect1_2d_with_coords(self, X, D):
+        """
+        Trace multiple rays with coordinates using CGAL.
+        """
         return self.aabb.intersect1_2d_with_coords(X, D)
 
 class EmbreeTrimeshShapeModel(TrimeshShapeModel):
     """A triangle mesh shape model that uses the Embree ray tracing kernel."""
     def _make_scene(self):
-        '''Set up an Embree scene.'''
+        """
+        Set up an Embree scene.
+        """
         device = embree.Device()
         geometry = device.make_geometry(embree.GeometryType.Triangle)
         geometry.set_build_quality(embree.BuildQuality.High)
@@ -1004,6 +1024,9 @@ class EmbreeTrimeshShapeModel(TrimeshShapeModel):
 
 
     def _intersect1(self, x, d):
+        """
+        Trace a single ray using Embree.
+        """
         raise RuntimeError('intersect1 no implemented for EmbreeTrimeshShapeModel')
 
 

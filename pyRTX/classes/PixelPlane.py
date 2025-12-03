@@ -11,31 +11,6 @@ class PixelPlane():
 	This class creates a planar grid of ray origins and directions, simulating a
 	uniform, parallel light source. It can be configured in a fixed orientation
 	or dynamically aligned with a celestial body (e.g., the Sun).
-
-	Parameters
-	----------
-	spacecraft : object, optional
-	    The spacecraft object, used for dynamic positioning.
-	source : str, optional
-	    The name of the celestial body to track (e.g., 'Sun').
-	mode : str, default='Fixed'
-	    The operational mode ('Fixed' or 'Dynamic').
-	distance : float, default=1.0
-	    The distance of the plane from the origin.
-	lon : float, optional
-	    The longitude of the plane's center in a fixed orientation.
-	lat : float, optional
-	    The latitude of the plane's center in a fixed orientation.
-	width : float, optional
-	    The width of the ray grid.
-	height : float, optional
-	    The height of the ray grid.
-	ray_spacing : float, default=0.1
-	    The spacing between adjacent rays.
-	packets : int, default=1
-	    The number of packets to divide the rays into for processing.
-	units : str, default='m'
-	    The units for all dimensional parameters.
 	"""
 
 
@@ -50,6 +25,34 @@ class PixelPlane():
 			   ray_spacing = .1, 
 			   packets = 1,
 			   units = 'm'):
+		"""
+        Initializes the PixelPlane object.
+
+        Parameters
+        ----------
+        spacecraft : object, optional
+            The spacecraft object, used for dynamic positioning.
+        source : str, optional
+            The name of the celestial body to track (e.g., 'Sun').
+        mode : str, default='Fixed'
+            The operational mode ('Fixed' or 'Dynamic').
+        distance : float, default=1.0
+            The distance of the plane from the origin.
+        lon : float, optional
+            The longitude of the plane's center in a fixed orientation.
+        lat : float, optional
+            The latitude of the plane's center in a fixed orientation.
+        width : float, optional
+            The width of the ray grid.
+        height : float, optional
+            The height of the ray grid.
+        ray_spacing : float, default=0.1
+            The spacing between adjacent rays.
+        packets : int, default=1
+            The number of packets to divide the rays into for processing.
+        units : str, default='m'
+            The units for all dimensional parameters.
+		"""
 
 		conversion_factor = constants.unit_conversions[units]
 
@@ -228,5 +231,3 @@ class PixelPlane():
 		"""
 		self.lon = lon
 		self.lat = lat
-
-

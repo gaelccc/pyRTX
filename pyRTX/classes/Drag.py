@@ -7,18 +7,29 @@ from pyRTX.core.parallel_utils import parallel
 from scipy import interpolate
 
 class Drag():
+	"""
+    A class for computing the drag acceleration on a spacecraft.
+	"""
     
 	def __init__(self, spacecraft, crossectionLUT, density, CD, body, precomputation = None,):
-
 		"""
-		Initialize the Drag instance
+        Initializes the Drag object.
 
-		Parameters:
-		Spacecraft: Spacecraft object
-		crossectionLUT: str or LookupTableND
-		density: function that takes as input the height and returns the density in kg/km**2
-		CD: [float] the object CD
-
+        Parameters
+        ----------
+        spacecraft : pyRTX.Spacecraft
+            The spacecraft object.
+        crossectionLUT : pyRTX.classes.LookUpTable
+            A lookup table of the spacecraft's cross-sectional area.
+        density : callable
+            A function that returns the atmospheric density in kg/km^3 as a
+            function of altitude.
+        CD : float
+            The drag coefficient of the spacecraft.
+        body : str
+            The name of the celestial body causing the drag.
+        precomputation : pyRTX.classes.Precompute, optional
+            A Precompute object with precomputed SPICE data.
 		"""
 
 		self.scName = spacecraft.name
@@ -50,10 +61,7 @@ class Drag():
 
 	def _store_precomputations(self):
 		"""
-		Method to store precomputed data.
-
-		Parameters:
-		-	sp_data: object of the class Precompute
+        Stores precomputed SPICE data in the lookup table object.
 		"""
 
 		self.LUT.sp_data = self.sp_data
@@ -61,11 +69,23 @@ class Drag():
 
 	def compute(self, epochs, frame = '', n_cores = None):
 		"""
-		Method to compute the drag acceleration.
+        Computes the drag acceleration for a series of epochs.
 
-		Parameters:
-		-	epochs: list of epochs
-		-   ncores: number of cores to use for parallel computations
+        Parameters
+        ----------
+        epochs : list of float
+            A list of epochs in TDB seconds past J2000.
+        frame : str, optional
+            The reference frame for the output acceleration. If not specified,
+            the body-fixed frame of the celestial body is used.
+        n_cores : int, optional
+            The number of CPU cores to use for parallel computation.
+
+        Returns
+        -------
+        tuple
+            A tuple containing two numpy arrays: the drag acceleration vectors
+            and the relative velocity vectors.
 		"""
   
 		# if isinstance(epochs, float): epochs = [epochs]
@@ -92,7 +112,18 @@ class Drag():
 	@parallel
 	def run(self, epoch):
 		"""
-		Compute the drag at epoch in the spacecraft body frame
+        Computes the drag acceleration at a single epoch.
+
+        Parameters
+        ----------
+        epoch : float
+            The epoch in TDB seconds past J2000.
+
+        Returns
+        -------
+        tuple
+            A tuple containing the drag acceleration vector and the relative
+            velocity vector.
 		"""
 
 		if self.sp_data != None:

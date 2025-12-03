@@ -4,18 +4,21 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 def color_convert(color, size = 1):
-    """Converts a color to a list of colors of size `size`
+    """
+    Converts a color to a list of colors of a specified size.
+
     Parameters
     ----------
     color : str or tuple
-        Color to be converted
-    size : int
-        Size of the list of colors to be returned
+        The color to be converted.
+    size : int, default=1
+        The size of the list of colors to be returned.
+
     Returns
     -------
-    color : (size,) array-like
-        converted color as a list of rgba lists
-            """
+    list
+        A list of RGBA color values.
+    """
     color = col.to_rgba_array(color)*255.0
     return list(color)*size
 
@@ -28,57 +31,55 @@ def plot_mesh(mesh, title="3D Mesh", figsize=(10, 8), alpha=0.7,
               edge_color='k', face_color=None, labels=None,
               elev=30, azim=45):
     """
-    Plot one or more trimesh meshes using matplotlib.
+    Plots one or more trimesh meshes using matplotlib.
     
-    Parameters:
-    -----------
+    Parameters
+    ----------
     mesh : trimesh.Trimesh or list of trimesh.Trimesh
-        The mesh(es) to plot
-    title : str
-        Plot title
-    figsize : tuple
-        Figure size (width, height)
-    alpha : float
-        Transparency of mesh faces (0-1)
-    edge_color : str or list of str
-        Color of mesh edges. If single string, applied to all meshes.
-        If list, must match number of meshes.
-    face_color : str, list of str, or None
-        Color of mesh faces. If None, uses automatic colors from colormap.
-        If single string, applied to all meshes.
-        If list, must match number of meshes.
+        The mesh or meshes to plot.
+    title : str, default="3D Mesh"
+        The title of the plot.
+    figsize : tuple, default=(10, 8)
+        The size of the figure in inches.
+    alpha : float, default=0.7
+        The transparency of the mesh faces.
+    edge_color : str or list of str, default='k'
+        The color of the mesh edges.
+    face_color : str, list of str, or None, optional
+        The color of the mesh faces. If None, automatic colors are used.
     labels : list of str, optional
-        Labels for each mesh (for legend)
-    elev : float
-        Elevation viewing angle in degrees (default: 30)
-    azim : float
-        Azimuthal viewing angle in degrees (default: 45)
+        Labels for each mesh, for use in the legend.
+    elev : float, default=30
+        The elevation viewing angle in degrees.
+    azim : float, default=45
+        The azimuthal viewing angle in degrees.
     
-    Returns:
+    Returns
+    -------
+    tuple
+        A tuple containing the matplotlib figure and axis objects.
+    
+    Examples
     --------
-    fig, ax : matplotlib figure and axis objects
+    >>> # Single mesh with default colors
+    >>> fig, ax = plot_mesh(mesh)
     
-    Examples:
-    ---------
-    # Single mesh with default colors
-    fig, ax = plot_mesh(mesh)
+    >>> # Single mesh with custom color
+    >>> fig, ax = plot_mesh(mesh, face_color='lightblue')
     
-    # Single mesh with custom color
-    fig, ax = plot_mesh(mesh, face_color='lightblue')
+    >>> # Multiple meshes with automatic colors
+    >>> fig, ax = plot_mesh([mesh1, mesh2, mesh3])
     
-    # Multiple meshes with automatic colors
-    fig, ax = plot_mesh([mesh1, mesh2, mesh3])
+    >>> # Multiple meshes with custom colors
+    >>> fig, ax = plot_mesh([mesh1, mesh2],
+    ...                     face_color=['red', 'blue'],
+    ...                     labels=['Mesh 1', 'Mesh 2'])
     
-    # Multiple meshes with custom colors
-    fig, ax = plot_mesh([mesh1, mesh2], 
-                        face_color=['red', 'blue'],
-                        labels=['Mesh 1', 'Mesh 2'])
+    >>> # Custom viewing angle (top-down view)
+    >>> fig, ax = plot_mesh(mesh, elev=90, azim=0)
     
-    # Custom viewing angle (top-down view)
-    fig, ax = plot_mesh(mesh, elev=90, azim=0)
-    
-    # Side view
-    fig, ax = plot_mesh(mesh, elev=0, azim=0)
+    >>> # Side view
+    >>> fig, ax = plot_mesh(mesh, elev=0, azim=0)
     """
     fig = plt.figure(figsize=figsize)
     ax = fig.add_subplot(111, projection='3d')

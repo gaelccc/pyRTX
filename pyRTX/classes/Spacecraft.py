@@ -11,55 +11,43 @@ import pyRTX.core.utils_rt as utils_rt
 
 class Spacecraft():
 	"""
-	This is the main class for defining spacecraft objects.
+	Represents a spacecraft, including its geometry, materials, and orientation.
+
+    This class manages the different components of a spacecraft, their transformations,
+    and material properties. It can load geometry from OBJ files and uses SPICE
+    kernels to determine the orientation of each component.
 	"""
 
 
-	def __init__(self, name = None, base_frame = None, spacecraft_model = None, units = 'm', mass = 0.):
+	def __init__(self, name=None, base_frame=None, spacecraft_model=None, units='m', mass=0.):
 		"""
-		Parameters
-		----------
-		name : str
-			Spacecraft name
+		Initializes the Spacecraft object.
 
-		base_frame : str
-			Spacecraft body (base) frame
-
-		spacecraft_model : dict
-			dict of {file:str, frame_type:str, frame_name:str, center:list, specular:float, diffuse:float, UD_rotation:trimesh.rotation}
-		a dictionary with keys the name of
-
-			file: str
-				the obj file for the part
-
-			frame_type: str
-				'Spice' or 'UD' to choose wether to define a reference to a spice frame or UserDefined one
-				in the case of 'UD' a rotation matrix must be specified in the UD_rotation (optional) key
-
-			frame_name: str
-				The name of the Spice (or UD) frame
-
-			center: list
-				position of the origin of the object (in km) with respect to the base frame
-
-			specular: float
-				specular coefficient
-
-			diffuse: float
-				diffuse coefficient
-
-			UD_rotation: trimesh.rotation
-				optional specify a user defined rotations matrix
-
-		units : str
-			units for transformations
-
-		mass : float or .nc file
-			Spacecraft mass. Can be a float value or an xarray with times and mass values
-
-		Returns
-		-------
-		bla : pyRTX.classes.Spacecraft
+        Parameters
+        ----------
+        name : str, optional
+            The name of the spacecraft.
+        base_frame : str, optional
+            The SPICE reference frame for the spacecraft's body.
+        spacecraft_model : dict, optional
+            A dictionary defining the spacecraft's components. Each key is the
+            component name, and the value is another dictionary with the following
+            keys:
+            - 'file' (str): Path to the OBJ file for the component.
+            - 'frame_type' (str): 'Spice' or 'UD' (User Defined).
+            - 'frame_name' (str): The name of the SPICE or UD frame.
+            - 'center' (list): The position of the component's origin in the
+              base frame.
+            - 'specular' (float): The specular reflection coefficient.
+            - 'diffuse' (float): The diffuse reflection coefficient.
+            - 'UD_rotation' (trimesh.transformations.Transform, optional): A
+              user-defined rotation matrix.
+        units : str, default='m'
+            The units for the spacecraft model's dimensions ('m' for meters,
+            'km' for kilometers, etc.).
+        mass : float or xarray.Dataset, default=0.
+            The spacecraft's mass. Can be a constant float or an xarray Dataset
+            with time-varying mass.
 		"""
 
 		self.name = name
@@ -82,6 +70,19 @@ class Spacecraft():
 
 
 	def _load_obj(self, fname):
+		"""
+		Loads a mesh from an OBJ file and applies the specified unit conversion.
+
+        Parameters
+        ----------
+        fname : str
+            The path to the OBJ file.
+
+        Returns
+        -------
+        trimesh.Trimesh
+            The loaded mesh, scaled according to the spacecraft's units.
+		"""
 		mesh = tm.load_mesh(fname, skip_texture = True)
 		#if isinstance(mesh, tm.Scene): mesh = mesh.dump(concatenate = True)
 		mesh.apply_transform(tmt.scale_matrix(self.conversion_factor, [0,0,0]))
@@ -89,6 +90,16 @@ class Spacecraft():
 
 
 	def _initialize(self, input_model):
+		"""
+        Initializes the spacecraft model by loading meshes and setting up
+        transformations.
+
+        Parameters
+        ----------
+        input_model : dict
+            A dictionary describing the spacecraft's components, as defined
+            in the `__init__` method.
+		"""
 
 		# Load the meshes
 		self.spacecraft_model.update(input_model)
@@ -107,11 +118,17 @@ class Spacecraft():
 
 	def _precompute_rot_matrices(self, epochs, convert = True):
 		"""
-		Method to pre-compute rotation matrices.
+		Pre-computes the rotation matrices for each component at a given set of
+        epochs.
 
-		Parameters:
-		-	epochs: list of epochs
-		-	convert: boolean flag to convert the output of pxform into a 4x4 matrix
+        Parameters
+        ----------
+        epochs : list of float
+            The list of epochs (in SPICE ephemeris time) for which to
+            pre-compute the rotation matrices.
+        convert : bool, default=True
+            If True, converts the 3x3 SPICE rotation matrices to 4x4
+            transformation matrices.
 		"""
 		# Index - epochs mapping
 		self._epochs_dict = {epoch: idx for idx, epoch in enumerate(epochs)}
@@ -130,13 +147,21 @@ class Spacecraft():
 				self._rot_matrices[elem][i] = tmatrix
 
 
-	def add_parts(self, spacecraft_model = None):
+	def add_parts(self, spacecraft_model=None):
 		"""
-		Add parts to the model instance
-		Parameters
-		----------
-		spacecraft_model : dict
-			See the main constructor documentation
+		Adds new parts to the spacecraft model.
+
+        Parameters
+        ----------
+        spacecraft_model : dict
+            A dictionary describing the new components to add, in the same
+            format as the `spacecraft_model` parameter of the `__init__`
+            method.
+
+        Raises
+        ------
+        Exception
+            If a part with the same name already exists in the model.
 		"""
 
 		if name in  self.spacecraft_model.keys():
@@ -146,13 +171,21 @@ class Spacecraft():
 
 
 	def subset(self, elem_names):
-		'''
-		Return an instance of Spacecraft with only the elements contained
-		in the list elem_names.
-		Suppose the Spacecraft (self) is composed of elements A,B,C
-		Spacecraft.subset(['A','B']) would return a new instance
-		of Spacecraft with only the elements A and B
-		'''
+		"""
+		Creates a new Spacecraft instance containing only a subset of the
+        components of the current instance.
+
+        Parameters
+        ----------
+        elem_names : list of str
+            A list of the names of the components to include in the new
+            instance.
+
+        Returns
+        -------
+        Spacecraft
+            A new Spacecraft instance with only the specified components.
+		"""
 
 		cself  = copy.deepcopy(self)
 		orig_elems = copy.deepcopy(list(cself.spacecraft_model.keys()))
@@ -163,15 +196,27 @@ class Spacecraft():
 
 
 	def remove_part(self, name):
+		"""
+		Removes a part from the spacecraft model.
+
+        Parameters
+        ----------
+        name : str
+            The name of the part to remove.
+		"""
 		del self.spacecraft_model[name]
 
 
 	def apply_transforms(self, epoch):
 		"""
-		Method to rotate and translate the components.
+		Applies the rotations and translations to each component for a given
+        epoch.
 
-		Parameters:
-		-	epoch: epoch of the transformation
+        Parameters
+        ----------
+        epoch : float
+            The epoch (in SPICE ephemeris time) at which to apply the
+            transformations.
 		"""
 		for elem in self.spacecraft_model.keys():
 
@@ -201,10 +246,36 @@ class Spacecraft():
 
 
 	def materials(self):
+		"""
+		Returns the material properties dictionary for the spacecraft.
+
+        Returns
+        -------
+        dict
+            A dictionary containing the material properties of each component.
+		"""
 		return self.material_dict
 
 
-	def dump(self,epoch = None, split = False):
+	def dump(self, epoch=None, split=False):
+		"""
+		Returns the combined or individual meshes of the spacecraft's components
+        at a specific epoch.
+
+        Parameters
+        ----------
+        epoch : float, optional
+            The epoch (in SPICE ephemeris time) for which to get the meshes.
+            If None, the base meshes are used without transformation.
+        split : bool, default=False
+            If True, returns a list of individual meshes for each component.
+            If False, returns a single combined mesh.
+
+        Returns
+        -------
+        trimesh.Trimesh or list of trimesh.Trimesh
+            The combined mesh or a list of individual component meshes.
+		"""
 
 		mesh_todump =[]
 
@@ -239,6 +310,10 @@ class Spacecraft():
 
 
 	def dump_materials(self):
+		"""
+		Generates and stores a dictionary of material properties for all
+        components.
+		"""
 		counter = 0
 		stored_idxs = []
 		props = {}
@@ -255,11 +330,27 @@ class Spacecraft():
 
 
 	def _elem_info(self, elem):
+		"""
+		Returns a formatted string with information about a specific component.
+
+        Parameters
+        ----------
+        elem : str
+            The name of the component.
+
+        Returns
+        -------
+        str
+            A string containing the component's frame information.
+		"""
 		# print(self.spacecraft_model[elem]['frame_name'])
 		return f"{elem}: Proper Frame: {self.spacecraft_model[elem]['frame_name']} | Frame Type: {self.spacecraft_model[elem]['frame_type']}"
 
 
 	def info(self):
+		"""
+		Prints a summary of the spacecraft's components.
+		"""
 		elems = self.spacecraft_model.keys()
 		n_parts = len(elems)
 		printstr = f"Spacecraft {self.name} composed of {n_parts} elements: \n"
@@ -269,4 +360,12 @@ class Spacecraft():
 
 
 	def __str__(self):
+		"""
+		Returns a string representation of the spacecraft's information.
+
+        Returns
+        -------
+        str
+            A string containing the spacecraft's summary.
+		"""
 		return self.info()

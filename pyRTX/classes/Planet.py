@@ -23,11 +23,15 @@ import matplotlib.cm as cmx
 
 
 class PlanetGrid():
+	"""
+    A base class for representing planetary grids, such as albedo, emissivity,
+    and temperature maps.
+	"""
     
     
 	def __init__(self,):
 		"""
-		A class to represent the albedo, emissivity and temperature grid of a planet.
+		Initializes the PlanetGrid object.
 		"""
 		self._albedo          =  None
 		self._base_flux       =  None
@@ -42,33 +46,75 @@ class PlanetGrid():
   
 	@property
 	def attrs(self):
-		"""Returns the xarray attributes."""
+		"""
+        Returns the attributes of the underlying xarray Dataset.
+
+        Returns
+        -------
+        dict
+            The attributes of the xarray Dataset.
+		"""
 		return self._data.attrs
 
 	@property
 	def axes(self):
-		"""Returns the xarray axes values."""
+		"""
+        Returns the coordinate axes of the grid.
+
+        Returns
+        -------
+        list
+            A list of the grid's coordinate axes.
+		"""
 		return self._axes
 
 	@property
 	def frame(self):
-		"""Returns the name of the grid-fixed frame."""
+		"""
+        Returns the SPICE reference frame of the grid.
+
+        Returns
+        -------
+        str
+            The name of the SPICE reference frame.
+		"""
 		return self._frame
 
 	@property
 	def dims(self):
-		"""Returns the dimension axes of the xarray."""
+		"""
+        Returns the dimensions of the grid's data.
+
+        Returns
+        -------
+        tuple
+            A tuple of the grid's dimensions.
+		"""
 		return self._dims
 
 	@property
 	def periodicity(self):
-		"""Returns the property of the grid (temperature / albedo / emissivity)."""
+		"""
+        Returns the longitudinal periodicity of the grid (180 or 360 degrees).
+
+        Returns
+        -------
+        int
+            The periodicity of the grid in degrees.
+		"""
 		periodicity = 180 if self._data.coords['lon'][0] == -180 else 360
 		return periodicity
 
 
 	def _init_from_array(self, filename):
-		"""Init object from an array"""
+		"""
+        Initializes the grid from a file (.nc or .npy).
+
+        Parameters
+        ----------
+        filename : str
+            The path to the input file.
+		"""
 
 		# Case 1: Initialization from an xarray
 		
@@ -113,7 +159,20 @@ class PlanetGrid():
 
   
 	def get_data(self, epoch = None):
-		"""Returns the xarray data."""
+		"""
+        Returns the grid's data.
+
+        Parameters
+        ----------
+        epoch : float, optional
+            The epoch for which to retrieve the data, if the grid is
+            time-dependent.
+
+        Returns
+        -------
+        numpy.ndarray
+            The grid's data.
+		"""
 
 		if self._property == 'temperature' and epoch != None:
 			return self._data.temperature.interp(coords={'time': epoch}, method='linear', assume_sorted=False).data
@@ -122,7 +181,17 @@ class PlanetGrid():
 
 	def __getitem__(self, idxs):
 		"""
-		Implement a getitem method.
+        Allows indexing into the grid to retrieve interpolated values.
+
+        Parameters
+        ----------
+        idxs : tuple
+            A tuple of indices for each dimension of the grid.
+
+        Returns
+        -------
+        float or numpy.ndarray
+            The interpolated value(s) at the given indices.
 		"""
 
 		if np.any([isinstance(x, slice) for x in idxs]):
@@ -134,7 +203,14 @@ class PlanetGrid():
 
 	def save(self, filename: str, complev: int = 1):
 		"""
-		Method to save precomputed x-array.
+        Saves the grid to a NetCDF file.
+
+        Parameters
+        ----------
+        filename : str
+            The path to the output file.
+        complev : int, default=1
+            The compression level for the output file.
 		"""
 		if os.path.exists(filename): os.remove(filename)
 		self._dataset.to_netcdf(filename, encoding = self._dataset.encoding.update({'zlib': True, 'complevel': complev}))
@@ -142,10 +218,13 @@ class PlanetGrid():
 
 	def plot(self, epoch = None):
 		"""
-		Implement a method to plot the grid at a specific epoch.
-  
-		Input: 
-  		- spiceypy epoch
+        Plots the grid data on a 2D map and a 3D sphere.
+
+        Parameters
+        ----------
+        epoch : float, optional
+            The epoch for which to plot the data, if the grid is
+            time-dependent.
 		"""
   
 		# Build Lon, Lat array
@@ -236,11 +315,27 @@ class PlanetGrid():
   
 
 class EmissivityGrid(PlanetGrid):
+	"""
+    Represents a planetary emissivity grid.
+	"""
     
     
 	def __init__(self,**kwargs):
 		"""
-		A class to represent the emissivity grid of a planet.
+        Initializes the EmissivityGrid object.
+
+        Parameters
+        ----------
+        radius : float, optional
+            The radius of the planet.
+        frame : str, optional
+            The SPICE reference frame of the grid.
+        planet_name : str, optional
+            The name of the planet.
+        axes : list, optional
+            A list of the grid's coordinate axes.
+        from_array : str, optional
+            The path to a file (.nc or .npy) from which to load the grid data.
 		"""
 		super().__init__()
   
@@ -261,11 +356,27 @@ class EmissivityGrid(PlanetGrid):
    
     
 class AlbedoGrid(PlanetGrid):
+	"""
+    Represents a planetary albedo grid.
+	"""
     
     
 	def __init__(self,**kwargs):
 		"""
-		A class to represent the albedo grid of a planet.
+        Initializes the AlbedoGrid object.
+
+        Parameters
+        ----------
+        radius : float, optional
+            The radius of the planet.
+        frame : str, optional
+            The SPICE reference frame of the grid.
+        planet_name : str, optional
+            The name of the planet.
+        axes : list, optional
+            A list of the grid's coordinate axes.
+        from_array : str, optional
+            The path to a file (.nc or .npy) from which to load the grid data.
 		"""
 		super().__init__()
   
@@ -286,11 +397,39 @@ class AlbedoGrid(PlanetGrid):
   
 
 class TemperatureGrid(PlanetGrid):
+	"""
+    Represents a planetary temperature grid.
+	"""
     
     
 	def __init__(self,**kwargs):
 		"""
-		A class to represent the temperature grid of a planet.
+        Initializes the TemperatureGrid object.
+
+        Parameters
+        ----------
+        albedo : AlbedoGrid or float, optional
+            The albedo of the planet.
+        base_flux : float, optional
+            The base solar flux at 1 AU.
+        radius : float, optional
+            The radius of the planet.
+        frame : str, optional
+            The SPICE reference frame of the grid.
+        planet_name : str, optional
+            The name of the planet.
+        nightside_temp : float, optional
+            The nightside temperature of the planet.
+        emissivity : EmissivityGrid or float, optional
+            The emissivity of the planet.
+        step : int, optional
+            The step size for the grid computation.
+        axes : list, optional
+            A list of the grid's coordinate axes.
+        epochs : list of float, optional
+            A list of epochs for which to compute the temperature grid.
+        from_array : str, optional
+            The path to a file (.nc or .npy) from which to load the grid data.
 		"""
 		super().__init__()
 
@@ -324,7 +463,21 @@ class TemperatureGrid(PlanetGrid):
 
 
 	def get_albedo(self, epoch, dir):
-		""" Method to get the albedo value"""
+		"""
+        Retrieves the albedo value for a given direction and epoch.
+
+        Parameters
+        ----------
+        epoch : float
+            The epoch for which to retrieve the albedo.
+        dir : numpy.ndarray
+            The direction vector for which to retrieve the albedo.
+
+        Returns
+        -------
+        float
+            The albedo value.
+		"""
 
 		if self._albedo.frame != self._frame:
       
@@ -339,7 +492,21 @@ class TemperatureGrid(PlanetGrid):
 
 
 	def get_emissivity(self, epoch, dir):
-		""" Method to get the emissivity value"""
+		"""
+        Retrieves the emissivity value for a given direction and epoch.
+
+        Parameters
+        ----------
+        epoch : float
+            The epoch for which to retrieve the emissivity.
+        dir : numpy.ndarray
+            The direction vector for which to retrieve the emissivity.
+
+        Returns
+        -------
+        float
+            The emissivity value.
+		"""
 
 		if self._emissivity.frame != self._frame:
       
@@ -355,13 +522,14 @@ class TemperatureGrid(PlanetGrid):
      
 	def compute(self, epochs, step):
 		"""
-		Implement a compute method to calculate the temperature grid in the sun-fixed frame
-		(X-axis pointing the Sun).
-  
-		Input: 
-  		- list of epochs
-		- Latitude/Longitude step in degree
+        Computes the temperature grid in the sun-fixed frame.
 
+        Parameters
+        ----------
+        epochs : list of float
+            A list of epochs for which to compute the temperature grid.
+        step : int
+            The latitude and longitude step in degrees.
 		"""
   
 		# -------------------------------------------------------------------
@@ -455,22 +623,33 @@ class TemperatureGrid(PlanetGrid):
   
 
 class Planet():
+	"""
+    Represents a celestial body, such as a planet or moon.
+	"""
     
     
 	def __init__(self, fromFile = None, radius = 0, name = '', bodyFrame = '', sunFixedFrame = '', units = 'km', subdivs = 4):
 		"""
-		A class to represent a planet/moon
+        Initializes the Planet object.
 
-		Input:
-		fromFile : put here an obj file if requested to build the model. If None (default) a sphere with radius defined in "radius" will be built
-		radius : (float) the radius of the planet. Not used if "fromFile" is not None
-		name : (str) the name of the planet
-		bodyFrame: (str) the planet body fixed frame
-		sunFixedFrame: (str) the body centered - sun fixed frame
-		units: (str) [Default: km] the measurement units defining the body (can be km or m)
-		subdivs: (int) [Default: 4] the number of subdivision for the creation of the spherical planet. Note that the number of faces will grow as function of 4 ** subdivisions, so you probably want to keep this under ~5.
-
-
+        Parameters
+        ----------
+        fromFile : str, optional
+            Path to an OBJ file to build the model from. If None, a sphere is
+            created.
+        radius : float, default=0
+            The radius of the planet (if creating a sphere).
+        name : str, default=''
+            The name of the planet.
+        bodyFrame : str, default=''
+            The SPICE reference frame for the planet's body.
+        sunFixedFrame : str, default=''
+            The body-centered, sun-fixed reference frame.
+        units : str, default='km'
+            The units for the planet's dimensions.
+        subdivs : int, default=4
+            The number of subdivisions for the icosphere (if creating a
+            sphere).
 		"""
 
 		self.name = name
@@ -495,6 +674,25 @@ class Planet():
 
 
 	def mesh(self, translate = None, rotate = None, epoch = None, targetFrame = None):
+		"""
+        Returns the planet's mesh, optionally transformed.
+
+        Parameters
+        ----------
+        translate : list or numpy.ndarray, optional
+            A 3-element vector for the translation.
+        rotate : str, optional
+            The name of the reference frame to rotate from.
+        epoch : float, optional
+            The epoch for the rotation.
+        targetFrame : str, optional
+            The name of the reference frame to rotate to.
+
+        Returns
+        -------
+        trimesh.Trimesh
+            The transformed mesh.
+		"""
 
 		if targetFrame is None:
 			targetFrame = self.bodyFrame
@@ -517,6 +715,19 @@ class Planet():
 
 
 	def _is_sunlit(self, epoch):
+		"""
+        Determines which faces of the planet are sunlit at a given epoch.
+
+        Parameters
+        ----------
+        epoch : float
+            The epoch for the calculation.
+
+        Returns
+        -------
+        numpy.ndarray
+            The indices of the sunlit faces.
+		"""
      
 		rotated_mesh = self.mesh(epoch = epoch, rotate = self.bodyFrame, targetFrame = self.sunFixedFrame, translate = None)
 		
@@ -531,6 +742,22 @@ class Planet():
 
 
 	def _is_visible(self, spacecraft_name, epoch):
+		"""
+        Determines which faces of the planet are visible from a spacecraft at a
+        given epoch.
+
+        Parameters
+        ----------
+        spacecraft_name : str
+            The name of the spacecraft.
+        epoch : float
+            The epoch for the calculation.
+
+        Returns
+        -------
+        numpy.ndarray
+            The indices of the visible faces.
+		"""
 
 		if self.name == '':
 			raise Error('You must provide a name for the planet')
@@ -558,11 +785,22 @@ class Planet():
 
 
 	def albedoFaces(self, epoch, spacecraft_name):
-
 		"""
-		Public method:
-		Return the idxs of the mesh faces that are needed for albedo computation at time:epoch for the spacecraft:spacectaft name
+        Returns the indices and albedo values of the faces that contribute to
+        the albedo calculation.
 
+        Parameters
+        ----------
+        epoch : float
+            The epoch for the calculation.
+        spacecraft_name : str
+            The name of the spacecraft.
+
+        Returns
+        -------
+        tuple
+            A tuple containing the indices of the albedo faces and their
+            corresponding albedo values.
 		"""
 
 		id_visible = self._is_visible(spacecraft_name, epoch)
@@ -577,15 +815,43 @@ class Planet():
 
 
 	def rot_toSCframe(self, epoch, scFrame = None):
+		"""
+        Returns the rotation matrix from the sun-fixed frame to a spacecraft
+        frame.
+
+        Parameters
+        ----------
+        epoch : float
+            The epoch for the rotation.
+        scFrame : str, optional
+            The name of the spacecraft frame.
+
+        Returns
+        -------
+        numpy.ndarray
+            The 3x3 rotation matrix.
+		"""
      
 		return sp.pxform(self.sunFixedFrame, scFrame, epoch)
 
 
 	def emissivityFaces(self, epoch, spacecraft_name):
 		"""
-		Public method:
-		Return the idxs of the mesh faces and the temperature of each face that are needed for emissivity computation at time:epoch for the spacecraft:spacectaft name
+        Returns the indices, temperatures, and emissivities of the faces that
+        contribute to the emissivity calculation.
 
+        Parameters
+        ----------
+        epoch : float
+            The epoch for the calculation.
+        spacecraft_name : str
+            The name of the spacecraft.
+
+        Returns
+        -------
+        tuple
+            A tuple containing the indices of the emissive faces, their
+            temperatures, and their emissivities.
 		"""
 	
 		visible_ids = self._is_visible(spacecraft_name, epoch)
@@ -597,7 +863,17 @@ class Planet():
 
 	def getFaceAlbedo(self, epoch):
 		"""
-		Return the albedo of each face at epoch
+        Returns the albedo of each face at a given epoch.
+
+        Parameters
+        ----------
+        epoch : float
+            The epoch for the calculation.
+
+        Returns
+        -------
+        numpy.ndarray
+            An array containing the albedo of each face.
 		"""
 		
 		if isinstance(self._albedo, AlbedoGrid):
@@ -617,7 +893,17 @@ class Planet():
  
 	def getFaceTemperatures(self, epoch):
 		"""
-		Return the temperature of each face at epoch
+        Returns the temperature of each face at a given epoch.
+
+        Parameters
+        ----------
+        epoch : float
+            The epoch for the calculation.
+
+        Returns
+        -------
+        numpy.ndarray
+            An array containing the temperature of each face.
 		"""
   
 		if (self._dayside_temperature == -1 or self._nightside_temp_temperature == -1) and self._gridded_temperature == -1:
@@ -643,6 +929,21 @@ class Planet():
 
 
 	def getFaceEmissivity(self, epoch, sunFixedFrame = False):
+		"""
+        Returns the emissivity of each face at a given epoch.
+
+        Parameters
+        ----------
+        epoch : float
+            The epoch for the calculation.
+        sunFixedFrame : bool, default=False
+            If True, the calculation is performed in the sun-fixed frame.
+
+        Returns
+        -------
+        numpy.ndarray
+            An array containing the emissivity of each face.
+		"""
      
 		if isinstance(self._emissivity, TiffInterpolator):
 			_,_,_,C = self.VFNC(epoch, sunFixedFrame = sunFixedFrame)
@@ -656,12 +957,19 @@ class Planet():
 
 	def VFNC(self, epoch, sunFixedFrame = True):
 		"""
-		Public method:
-		Returns  V F N C rotating the planet in the sunFixedFrame at epoch epoch
-		V: Vertices
-		F: Faces
-		N: Normals
-		C: Centroids
+        Returns the vertices, faces, normals, and centroids of the planet's mesh.
+
+        Parameters
+        ----------
+        epoch : float
+            The epoch for the calculation.
+        sunFixedFrame : bool, default=True
+            If True, the mesh is rotated to the sun-fixed frame.
+
+        Returns
+        -------
+        tuple
+            A tuple containing the vertices, faces, normals, and centroids.
 		"""
   
 		if sunFixedFrame:
@@ -678,6 +986,21 @@ class Planet():
 
 
 	def getScPosSunFixed(self,epoch, spacecraft_name):
+		"""
+        Returns the position of a spacecraft in the sun-fixed frame.
+
+        Parameters
+        ----------
+        epoch : float
+            The epoch for the calculation.
+        spacecraft_name : str
+            The name of the spacecraft.
+
+        Returns
+        -------
+        numpy.ndarray
+            The position of the spacecraft.
+		"""
 		correction = 'CN'
 		sc_pos = sp.spkezr(spacecraft_name, epoch, self.sunFixedFrame, correction, self.name)
 
@@ -700,6 +1023,19 @@ class Planet():
 
 
 	def pxform_convert(self,pxform):
+		"""
+        Converts a 3x3 SPICE rotation matrix to a 4x4 transformation matrix.
+
+        Parameters
+        ----------
+        pxform : numpy.ndarray
+            The 3x3 rotation matrix.
+
+        Returns
+        -------
+        numpy.ndarray
+            The 4x4 transformation matrix.
+		"""
 		pxform = np.array([pxform[0],pxform[1],pxform[2]])
 
 		p = np.append(pxform,[[0,0,0]],0)
@@ -713,39 +1049,63 @@ class Planet():
  
 	@property
 	def dayside_temperature(self):
+		"""
+        The dayside temperature of the planet.
+		"""
 
 		return self._dayside_temperature
 
 	@dayside_temperature.setter
 	def dayside_temperature(self, value):
+		"""
+        Sets the dayside temperature of the planet.
+		"""
 		self._dayside_temperature = value
 
 	@property
 	def nightside_temperature(self):
+		"""
+        The nightside temperature of the planet.
+		"""
 
 		return self._nightside_temp_temperature
 
 	@nightside_temperature.setter
 	def nightside_temperature(self, value):
+		"""
+        Sets the nightside temperature of the planet.
+		"""
 		self._nightside_temp_temperature = value
 		
 	@property
 	def gridded_temperature(self):
+		"""
+        The gridded temperature of the planet.
+		"""
 
 		return self._gridded_temperature
 
 	@gridded_temperature.setter
 	def gridded_temperature(self, value):
+		"""
+        Sets the gridded temperature of the planet.
+		"""
 		if not isinstance(value, TemperatureGrid):
 			raise ValueError('Error: the input must be a TemperatureGrid object')
 		self._gridded_temperature = value
 
 	@property
 	def albedo(self):
+		"""
+        The albedo of the planet.
+		"""
 		return self._albedo
 
 	@albedo.setter
 	def albedo(self, value):
+		"""
+        Sets the albedo of the planet.
+		"""
 		nFaces = len(self.base_shape.faces)  
 		if isinstance(value, float):
 			print('Setting a single value of albedo for all the faces')
@@ -760,6 +1120,9 @@ class Planet():
 
 	@property
 	def albedo_map(self):
+		"""
+        The albedo map settings for the planet.
+		"""
 		try:
 			return self._albedo_map
 		except AttributeError:
@@ -767,10 +1130,16 @@ class Planet():
    
 	@albedo_map.setter
 	def albedo_map(self, value):
+		"""
+        Sets the albedo map settings for the planet.
+		"""
 		self._albedo_map = value
 
 	@property
 	def emissivity(self):
+		"""
+        The emissivity of the planet.
+		"""
 		try:
 			return self._emissivity
 		except AttributeError:
@@ -778,6 +1147,9 @@ class Planet():
    
 	@emissivity.setter
 	def emissivity(self, value):
+		"""
+        Sets the emissivity of the planet.
+		"""
 		nFaces = len(self.base_shape.faces)  
 		if isinstance(value, float) == 1:
 			print('Setting a single value of emissivity for all the faces')

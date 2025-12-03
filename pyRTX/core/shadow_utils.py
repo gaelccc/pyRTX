@@ -15,17 +15,17 @@ def circular_mask(R, coords, origin):
 	Parameters
 	----------
 	R : float
-	Radius of the circular region (in same units as coords).
+	    Radius of the circular region (in same units as coords).
 	coords : ndarray, shape (N, 3)
-	Array of 3D coordinate points to test.
+	    Array of 3D coordinate points to test.
 	origin : ndarray, shape (3,)
-	Center point of the circular region.
+	    Center point of the circular region.
 
 	Returns
 	-------
 	maskIds : ndarray, shape (M,), dtype=int32
-	Indices of points in coords that satisfy ||coords[i] - origin|| <= R.
-					M is the number of points within the circle.
+	    Indices of points in coords that satisfy ||coords[i] - origin|| <= R.
+	    M is the number of points within the circle.
 
 
 	See Also
@@ -197,21 +197,23 @@ def compute_pixel_intensities(beta, Type = 'Standard'):
 	-----
 	**Standard (Quadratic) Model:**
 
-	I(β) = a₀ + a₁·cos(β) + a₂·cos²(β)
+	.. math::
+	    I(\\beta) = a_0 + a_1 \\cos(\\beta) + a_2 \\cos^2(\\beta)
 
 	Coefficients:
-	- a₀ = 0.3  : constant term
-	- a₁ = 0.93 : linear coefficient  
-	- a₂ = -0.23: quadratic coefficient
+	- :math:`a_0 = 0.3`  : constant term
+	- :math:`a_1 = 0.93` : linear coefficient
+	- :math:`a_2 = -0.23`: quadratic coefficient
 
 	This empirical model provides excellent agreement with observations in
 	visible wavelengths. The center-to-limb intensity ratio is approximately 0.6.
 
 	**Eddington Approximation Model:**
 
-	I(μ) = (3/4) · [(7/12) + (μ/2) - (μ²/3) + (μ³/12)·ln((1+μ)/μ)]
+	.. math::
+	    I(\\mu) = \\frac{3}{4} \\left( \\frac{7}{12} + \\frac{\\mu}{2} - \\frac{\\mu^2}{3} + \\frac{\\mu^3}{12} \\ln{\\left(\\frac{1+\\mu}{\\mu}\\right)} \\right)
 
-	where μ = cos(β)
+	where :math:`\\mu = \\cos(\\beta)`
 
 
 	See Also
