@@ -1,54 +1,55 @@
 ---
-title: 'Gala: A Python package for galactic dynamics'
+title: 'pyRTX: a Python package high precision computation of non gravitational forces on deep space probes'
 tags:
   - Python
-  - astronomy
-  - dynamics
-  - galactic dynamics
-  - milky way
+  - astodynamics
+  - solar pressure
+  - atmospheric drag
+  - ray tracing
 authors:
-  - name: Adrian M. Price-Whelan
-    orcid: 0000-0000-0000-0000
+  - name: Gael Cascioli
+    corresponding: true # (This is how to denote the corresponding author)
+    orcid: 0000-0001-9070-7947
     equal-contrib: true
     affiliation: "1, 2" # (Multiple affiliations must be quoted)
-  - name: Author Without ORCID
-    equal-contrib: true # (This is how you can denote equal contributions between multiple authors)
+  - name: Ariele Zurria
+    orcid: 0009-0003-6155-7160
+    equal-contrib: false # (This is how you can denote equal contributions between multiple authors)
+    affiliation: 3
+  - name: Erwan M. Mazarico
+    orcid: 0000-0003-3456-427X
     affiliation: 2
-  - name: Author with no affiliation
-    corresponding: true # (This is how to denote the corresponding author)
-    affiliation: 3
-  - given-names: Ludwig
-    dropping-particle: van
-    surname: Beethoven
-    affiliation: 3
 affiliations:
- - name: Lyman Spitzer, Jr. Fellow, Princeton University, United States
+ - name: University of Maryland Baltimore County, United States
    index: 1
    ror: 00hx57361
- - name: Institution Name, Country
+ - name: NASA Goddard Space Flight Center, United States
    index: 2
- - name: Independent Researcher, Country
+ - name: Sapienza University, Italy
    index: 3
-date: 13 August 2017
+date: 3 December 2025
 bibliography: paper.bib
 
 # Optional fields if submitting to a AAS journal too, see this blog post:
 # https://blog.joss.theoj.org/2018/12/a-new-collaboration-with-aas-publishing
 aas-doi: 10.3847/xxxxx <- update this with the DOI from AAS once you know it.
-aas-journal: Astrophysical Journal <- The name of the AAS journal.
+aas-journal: The Planetary Science Journal <- The name of the AAS journal.
 ---
 
 # Summary
 
-The forces on stars, galaxies, and dark matter under external gravitational
-fields lead to the dynamical evolution of structures in the universe. The orbits
-of these bodies are therefore key to understanding the formation, history, and
-future state of galaxies. The field of "galactic dynamics," which aims to model
-the gravitating components of galaxies to study their structure and evolution,
-is now well-established, commonly taught, and frequently used in astronomy.
-Aside from toy problems and demonstrations, the majority of problems require
-efficient numerical tools, many of which require the same base code (e.g., for
-performing numerical orbit integration).
+With the constant improvement of radiometric tracking systems, inaccuracies
+in the non-gravitational force modeling have become one of the limiting factors
+to precise orbit determination, and the scientific products that it enables. 
+The main factor impacting the limited accuracy of non-gravitational force models
+is the complex 3D shape of the spacecraft. While fast, reliable,  analytical models
+are available for simple shapes (spheres, cubes, etc), no such model is generally
+available for a complex shape. This software package aims to address this limitation. 
+By leveraging ray-tracing, the interaction of the complex spacecraft shape with 
+the forcing environment (radiation, atmosphere) can be accounted for.
+
+
+
 
 # Statement of need
 
