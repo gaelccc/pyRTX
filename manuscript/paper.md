@@ -16,7 +16,7 @@ authors:
     orcid: 0009-0003-6155-7160
     equal-contrib: false # (This is how you can denote equal contributions between multiple authors)
     affiliation: 3
-  - name: Erwan M. Mazarico
+  - name: Erwan Mazarico
     orcid: 0000-0003-3456-427X
     affiliation: 2
 affiliations:

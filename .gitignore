@@ -5,6 +5,7 @@
 *.bc
 *.pkl
 *.nc
+*.pdf
 .DS_Store
 docs/.DS_Store
 lib/
