@@ -97,3 +97,15 @@ def test_RTXkernel_cgal(mock_cgal_init_geometry):
     assert len(index_tri) == 1
     assert len(index_ray) == 1
     assert len(locations) == 1
+
+def test_sample_lambert_dist():
+    normal = np.array([0, 0, 1], dtype=np.float64)
+    num_samples = 100
+    reflected = utils.sample_lambert_dist(normal, num=num_samples)
+
+    # Check that the z-component of all reflected vectors is non-negative
+    assert np.all(reflected[:, 2] >= 0)
+
+    # Check that the dot product of each reflected vector and the normal is non-negative
+    dot_products = np.dot(reflected, normal)
+    assert np.all(dot_products >= 0)
