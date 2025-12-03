@@ -43,3 +43,21 @@ Computing albedo and thermal infrared pressure
    :maxdepth: 1
    
    Notebook4
+
+Tutorial 5: Atmospheric Drag
+-------------------------------
+
+Computing atmospheric drag on complex spacecraft shapes. 
+
+.. toctree::
+   :maxdepth: 1
+   
+   Notebook5
+
+
+Next Steps
+___________
+Where to go from here? Check the examples in the github repository. 
+They show how to treat more complex cases, where the spacecraft has 
+moveable appendages. 
+

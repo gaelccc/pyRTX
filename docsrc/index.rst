@@ -17,7 +17,6 @@ pyRTX v1.0
    quickstart
    tutorials/index
    api/index
-   examples
 
 Introduction
 ------------

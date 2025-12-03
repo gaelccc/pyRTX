@@ -68,5 +68,14 @@ Once the C++ dependencies are in place, you can install the `pyRTX` Python packa
 
 After completing these steps, the `pyRTX` library will be fully installed and ready to use.
 
-# Change log
-Version 0.0.2 implements the same functionalities as v0.0.1 but the code structure has been heavily restructured. Backwards compatibility is guaranteed for functions and classes call signs but not for imports syntax.
+
+# Quickstart and installation testing
+Download the data required for running the examples running in the `examples` folder:
+
+`python download_lro_kernels.py` 
+
+
+
+# [Documentation](https://gaelccc.github.io/pyRTX)
+The API documentation can be found [here](https://gaelccc.github.io/pyRTX)  
+The user is strongly advised to look at the files contained in the `examples` folder and at the Notebooks contained in the `Notebooks` folder

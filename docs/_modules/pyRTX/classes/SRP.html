@@ -6,8 +6,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyRTX.classes.SRP &mdash; pyRTX 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b76e3c8a" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=51279e30" />
 
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
@@ -43,11 +44,11 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#from-source">From Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-1-system-and-c-dependencies">Step 1: System and C++ Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-2-python-package-installation">Step 2: Python Package Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#basic-usage">Basic Usage</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#next-steps">Next Steps</a></li>
 </ul>
 </li>
@@ -73,83 +74,138 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../tutorials/Notebook3.html#Computing-the-LUT">Computing the LUT</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#tutorial-3-planetary-radiation">Tutorial 3: Planetary Radiation</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#tutorial-4-planetary-radiation">Tutorial 4: Planetary Radiation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/Notebook4.html">Planetary radiation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../tutorials/index.html#tutorial-5-atmospheric-drag">Tutorial 5: Atmospheric Drag</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/Notebook5.html">Atmospheric drag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/Notebook5.html#Compute-the-cross-section-LUT">Compute the cross-section LUT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/Notebook5.html#Computing-the-drag">Computing the drag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../tutorials/index.html#next-steps">Next Steps</a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../api/index.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/core.html">Core Utilities</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.utils_rt">Ray Tracing Utilities</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.block_dot"><code class="docutils literal notranslate"><span class="pre">block_dot()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.pixel_plane"><code class="docutils literal notranslate"><span class="pre">pixel_plane()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.fast_vector_build"><code class="docutils literal notranslate"><span class="pre">fast_vector_build()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.pixel_plane_opt"><code class="docutils literal notranslate"><span class="pre">pixel_plane_opt()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.reflected"><code class="docutils literal notranslate"><span class="pre">reflected()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_orthogonal"><code class="docutils literal notranslate"><span class="pre">get_orthogonal()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.sample_lambert_dist"><code class="docutils literal notranslate"><span class="pre">sample_lambert_dist()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.cgal_init_geometry"><code class="docutils literal notranslate"><span class="pre">cgal_init_geometry()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_centroids"><code class="docutils literal notranslate"><span class="pre">get_centroids()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_cross_products"><code class="docutils literal notranslate"><span class="pre">get_cross_products()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_face_areas"><code class="docutils literal notranslate"><span class="pre">get_face_areas()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_surface_normals"><code class="docutils literal notranslate"><span class="pre">get_surface_normals()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="docutils literal notranslate"><span class="pre">get_surface_normals_and_face_areas()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.ShapeModel"><code class="docutils literal notranslate"><span class="pre">ShapeModel</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.TrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.core.analysis_utils.html">pyRTX.core.analysis_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable"><code class="docutils literal notranslate"><span class="pre">LookupTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND"><code class="docutils literal notranslate"><span class="pre">LookupTableND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.ScatterLookup"><code class="docutils literal notranslate"><span class="pre">ScatterLookup</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator"><code class="docutils literal notranslate"><span class="pre">TiffInterpolator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.getSunAngles"><code class="docutils literal notranslate"><span class="pre">getSunAngles()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.epochRange"><code class="docutils literal notranslate"><span class="pre">epochRange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.epochRange2"><code class="docutils literal notranslate"><span class="pre">epochRange2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.computeRADEC"><code class="docutils literal notranslate"><span class="pre">computeRADEC()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.convertTIFtoMesh"><code class="docutils literal notranslate"><span class="pre">convertTIFtoMesh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.convertEpoch"><code class="docutils literal notranslate"><span class="pre">convertEpoch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.get_spacecraft_area"><code class="docutils literal notranslate"><span class="pre">get_spacecraft_area()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.get_sun_exposed_area"><code class="docutils literal notranslate"><span class="pre">get_sun_exposed_area()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.compute_body_positions"><code class="docutils literal notranslate"><span class="pre">compute_body_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.compute_body_states"><code class="docutils literal notranslate"><span class="pre">compute_body_states()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.shadow_utils">Shadow Utilities</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.core.parallel_utils.html">pyRTX.core.parallel_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.get_ncores"><code class="docutils literal notranslate"><span class="pre">get_ncores()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.is_method"><code class="docutils literal notranslate"><span class="pre">is_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.get_unwrapped"><code class="docutils literal notranslate"><span class="pre">get_unwrapped()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.parallel"><code class="docutils literal notranslate"><span class="pre">parallel()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.physical_utils">Physical Utilities</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.srp_core"><code class="docutils literal notranslate"><span class="pre">srp_core()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.physical_utils.compute_srp"><code class="docutils literal notranslate"><span class="pre">compute_srp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.core.physical_utils.html">pyRTX.core.physical_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.srp_core"><code class="docutils literal notranslate"><span class="pre">srp_core()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.compute_srp"><code class="docutils literal notranslate"><span class="pre">compute_srp()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/core.html#module-pyRTX.core.parallel_utils">Parallel Utilities</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.parallel_utils.get_ncores"><code class="docutils literal notranslate"><span class="pre">get_ncores()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.parallel_utils.is_method"><code class="docutils literal notranslate"><span class="pre">is_method()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.parallel_utils.get_unwrapped"><code class="docutils literal notranslate"><span class="pre">get_unwrapped()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/core.html#pyRTX.core.parallel_utils.parallel"><code class="docutils literal notranslate"><span class="pre">parallel()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.core.shadow_utils.html">pyRTX.core.shadow_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html">pyRTX.core.utils_rt</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_cached_embree_scene"><code class="docutils literal notranslate"><span class="pre">get_cached_embree_scene()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.block_dot"><code class="docutils literal notranslate"><span class="pre">block_dot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pixel_plane"><code class="docutils literal notranslate"><span class="pre">pixel_plane()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.fast_vector_build"><code class="docutils literal notranslate"><span class="pre">fast_vector_build()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pixel_plane_opt"><code class="docutils literal notranslate"><span class="pre">pixel_plane_opt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.reflected"><code class="docutils literal notranslate"><span class="pre">reflected()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_orthogonal"><code class="docutils literal notranslate"><span class="pre">get_orthogonal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.sample_lambert_dist"><code class="docutils literal notranslate"><span class="pre">sample_lambert_dist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.cgal_init_geometry"><code class="docutils literal notranslate"><span class="pre">cgal_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_centroids"><code class="docutils literal notranslate"><span class="pre">get_centroids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_cross_products"><code class="docutils literal notranslate"><span class="pre">get_cross_products()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_face_areas"><code class="docutils literal notranslate"><span class="pre">get_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_surface_normals"><code class="docutils literal notranslate"><span class="pre">get_surface_normals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="docutils literal notranslate"><span class="pre">get_surface_normals_and_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.ShapeModel"><code class="docutils literal notranslate"><span class="pre">ShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/classes.html">Classes</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#sunshadow">SunShadow</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#solarpressure">SolarPressure</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Atmosphere.html">pyRTX.classes.Atmosphere</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram"><code class="docutils literal notranslate"><span class="pre">VenusGram</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#planet">Planet</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Drag.html">pyRTX.classes.Drag</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag"><code class="docutils literal notranslate"><span class="pre">Drag</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#pixelplane">PixelPlane</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.PixelPlane.PixelPlane"><code class="docutils literal notranslate"><span class="pre">PixelPlane</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.classes.LookUpTable.html">pyRTX.classes.LookUpTable</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable"><code class="docutils literal notranslate"><span class="pre">LookUpTable</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/classes.html#spacecraft">Spacecraft</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/classes.html#pyRTX.classes.Spacecraft.Spacecraft"><code class="docutils literal notranslate"><span class="pre">Spacecraft</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.classes.PixelPlane.html">pyRTX.classes.PixelPlane</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane"><code class="docutils literal notranslate"><span class="pre">PixelPlane</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Planet.html">pyRTX.classes.Planet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid"><code class="docutils literal notranslate"><span class="pre">PlanetGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.EmissivityGrid"><code class="docutils literal notranslate"><span class="pre">EmissivityGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.AlbedoGrid"><code class="docutils literal notranslate"><span class="pre">AlbedoGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.TemperatureGrid"><code class="docutils literal notranslate"><span class="pre">TemperatureGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Precompute.html">pyRTX.classes.Precompute</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute"><code class="docutils literal notranslate"><span class="pre">Precompute</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Radiation.html">pyRTX.classes.Radiation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo"><code class="docutils literal notranslate"><span class="pre">Albedo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity"><code class="docutils literal notranslate"><span class="pre">Emissivity</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.classes.RayTracer.html">pyRTX.classes.RayTracer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.RayTracer.html#pyRTX.classes.RayTracer.RayTracer"><code class="docutils literal notranslate"><span class="pre">RayTracer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.classes.SRP.html">pyRTX.classes.SRP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow"><code class="docutils literal notranslate"><span class="pre">SunShadow</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Spacecraft.html">pyRTX.classes.Spacecraft</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft"><code class="docutils literal notranslate"><span class="pre">Spacecraft</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -211,238 +267,56 @@
            <div itemprop="articleBody">
              
   <h1>Source code for pyRTX.classes.SRP</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">spiceypy</span> <span class="k">as</span> <span class="nn">sp</span>
-<span class="kn">import</span> <span class="nn">xarray</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">spiceypy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span>
 
-<span class="kn">from</span> <span class="nn">pyRTX</span> <span class="kn">import</span> <span class="n">constants</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX</span><span class="w"> </span><span class="kn">import</span> <span class="n">constants</span>
 
-<span class="kn">from</span> <span class="nn">pyRTX.classes.PixelPlane</span> <span class="kn">import</span> <span class="n">PixelPlane</span>
-<span class="kn">from</span> <span class="nn">pyRTX.classes.Planet</span> <span class="kn">import</span> <span class="n">Planet</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.PixelPlane</span><span class="w"> </span><span class="kn">import</span> <span class="n">PixelPlane</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.Planet</span><span class="w"> </span><span class="kn">import</span> <span class="n">Planet</span>
 
-<span class="kn">from</span> <span class="nn">pyRTX.core</span> <span class="kn">import</span> <span class="n">utils_rt</span>
-<span class="kn">from</span> <span class="nn">pyRTX.core.shadow_utils</span> <span class="kn">import</span> <span class="n">circular_mask</span><span class="p">,</span> <span class="n">circular_rim</span><span class="p">,</span> <span class="n">compute_directions</span><span class="p">,</span> <span class="n">compute_beta</span><span class="p">,</span> <span class="n">compute_pixel_intensities</span>
-<span class="kn">from</span> <span class="nn">pyRTX.core.parallel_utils</span> <span class="kn">import</span> <span class="n">parallel</span>
-<span class="kn">from</span> <span class="nn">pyRTX.core.physical_utils</span> <span class="kn">import</span> <span class="n">preprocess_RTX_geometry</span><span class="p">,</span> <span class="n">preprocess_materials</span>
-<span class="kn">from</span> <span class="nn">pyRTX.core.utils_rt</span> <span class="kn">import</span> <span class="n">reflected</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">utils_rt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.shadow_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">circular_mask</span><span class="p">,</span> <span class="n">circular_rim</span><span class="p">,</span> <span class="n">compute_directions</span><span class="p">,</span> <span class="n">compute_beta</span><span class="p">,</span> <span class="n">compute_pixel_intensities</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.parallel_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">parallel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.physical_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">preprocess_RTX_geometry</span><span class="p">,</span> <span class="n">preprocess_materials</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.utils_rt</span><span class="w"> </span><span class="kn">import</span> <span class="n">reflected</span>
 
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">interpolate</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">interpolate</span>
 
 
 
-<div class="viewcode-block" id="SunShadow"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow">[docs]</a><span class="k">class</span> <span class="nc">SunShadow</span><span class="p">():</span>
+<div class="viewcode-block" id="SunShadow"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">SunShadow</span><span class="p">():</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	SunShadow Class Documentation</span>
-<span class="sd">	==============================</span>
+<span class="sd">	Computes the solar flux ratio considering eclipse effects.</span>
 
-<span class="sd">	A class to compute the solar flux ratio that impacts a spacecraft, accounting for</span>
-<span class="sd">	eclipse effects from airless celestial bodies. This class simulates the shadow cast</span>
-<span class="sd">	by a planetary body on the spacecraft and can incorporate solar limb darkening effects.</span>
-
-<span class="sd">	Overview</span>
-<span class="sd">	--------</span>
-<span class="sd">	The SunShadow class performs ray-tracing calculations to determine what fraction of</span>
-<span class="sd">	the Sun&#39;s disk is visible from a spacecraft&#39;s perspective when partially or fully</span>
-<span class="sd">	occulted by a planetary body. It discretizes the Sun&#39;s disk into a grid of rays and</span>
-<span class="sd">	traces each ray to determine if it is blocked by the intervening body.</span>
+<span class="sd">	This class simulates the shadow cast by a celestial body on a spacecraft,</span>
+<span class="sd">	accounting for solar limb darkening effects to provide a precise solar flux ratio.</span>
 
 <span class="sd">	Parameters</span>
 <span class="sd">	----------</span>
-<span class="sd">	spacecraft : Spacecraft object, optional</span>
-<span class="sd">		The spacecraft object containing position and orientation information.</span>
-<span class="sd">		</span>
+<span class="sd">	spacecraft : object, optional</span>
+<span class="sd">	    An object representing the spacecraft, containing position and orientation.</span>
 <span class="sd">	body : str, optional</span>
-<span class="sd">		Name of the occulting body (e.g., &#39;Moon&#39;, &#39;Mars&#39;). Used for SPICE queries.</span>
-<span class="sd">		</span>
+<span class="sd">	    The name of the celestial body causing the eclipse (e.g., &#39;Moon&#39;).</span>
 <span class="sd">	bodyRadius : float, optional</span>
-<span class="sd">		Radius of the occulting body in kilometers. Used if bodyShape is not provided.</span>
-<span class="sd">		</span>
+<span class="sd">	    The radius of the occulting body in kilometers.</span>
 <span class="sd">	numrays : int, default=100</span>
-<span class="sd">		Number of rays across the Sun&#39;s disk diameter. Total rays = numrays^2.</span>
-<span class="sd">		Higher values increase accuracy but computational cost.</span>
-<span class="sd">		</span>
-<span class="sd">	sunRadius : float, default=600000 km</span>
-<span class="sd">		Radius of the Sun in kilometers. Default is approximate photospheric radius.</span>
-<span class="sd">		</span>
-<span class="sd">	bodyShape : Planet object or str, optional</span>
-<span class="sd">		Either a Planet object with mesh data, or path to a shape model file.</span>
-<span class="sd">		If None, uses a sphere with bodyRadius.</span>
-<span class="sd">		</span>
+<span class="sd">	    The number of rays to trace across the Sun&#39;s diameter.</span>
+<span class="sd">	sunRadius : float, default=600e3</span>
+<span class="sd">	    The radius of the Sun in kilometers.</span>
+<span class="sd">	bodyShape : object or str, optional</span>
+<span class="sd">	    A `Planet` object or a path to a shape model file.</span>
 <span class="sd">	bodyFrame : str, optional</span>
-<span class="sd">		SPICE reference frame for the body shape model orientation.</span>
-<span class="sd">		</span>
+<span class="sd">	    The SPICE reference frame for the body&#39;s shape model.</span>
 <span class="sd">	limbDarkening : str, default=&#39;Standard&#39;</span>
-<span class="sd">		Solar limb darkening model to use. Options:</span>
-<span class="sd">		- &#39;Standard&#39;: Quadratic model (most commonly used)</span>
-<span class="sd">		- &#39;Eddington&#39;: Eddington approximation model</span>
-<span class="sd">		- None: Uniform solar disk (no limb darkening)</span>
-<span class="sd">		</span>
-<span class="sd">	precomputation : Precompute object, optional</span>
-<span class="sd">		Precomputed SPICE data for faster ephemeris queries.</span>
+<span class="sd">	    The solar limb darkening model to use (&#39;Standard&#39;, &#39;Eddington&#39;, or None).</span>
+<span class="sd">	precomputation : object, optional</span>
+<span class="sd">	    A `Precompute` object with precomputed SPICE data.</span>
 
-<span class="sd">	Attributes</span>
-<span class="sd">	----------</span>
-<span class="sd">	sunRadius : float</span>
-<span class="sd">		Radius of the Sun in kilometers.</span>
-<span class="sd">		</span>
-<span class="sd">	spacecraft : Spacecraft object</span>
-<span class="sd">		Reference to the spacecraft object.</span>
-<span class="sd">		</span>
-<span class="sd">	body : str</span>
-<span class="sd">		Name of the occulting body.</span>
-<span class="sd">		</span>
-<span class="sd">	limbDarkening : str or None</span>
-<span class="sd">		Solar limb darkening model being used.</span>
-<span class="sd">		</span>
-<span class="sd">	pxPlane : PixelPlane object</span>
-<span class="sd">		Discretized representation of the Sun&#39;s disk as viewed from spacecraft.</span>
-<span class="sd">		</span>
-<span class="sd">	shape : Planet object</span>
-<span class="sd">		Geometric representation of the occulting body.</span>
-<span class="sd">		</span>
-<span class="sd">	sp_data : Precompute object</span>
-<span class="sd">		Precomputed SPICE data for ephemeris queries.</span>
-
-<span class="sd">	Solar Limb Darkening Models</span>
-<span class="sd">	----------------------------</span>
-
-<span class="sd">	Solar limb darkening is the observed decrease in brightness from the center to the </span>
-<span class="sd">	edge (limb) of the solar disk. This occurs because light from the limb travels through</span>
-<span class="sd">	more of the Sun&#39;s atmosphere, causing greater absorption.</span>
-
-<span class="sd">	1. Standard (Quadratic) Model</span>
-<span class="sd">	---------------------------</span>
-<span class="sd">	The most commonly used empirical model, particularly accurate for optical wavelengths:</span>
-<span class="sd">	</span>
-<span class="sd">	I(β) = a₀ + a₁·cos(β) + a₂·cos²(β)</span>
-<span class="sd">	</span>
-<span class="sd">	where:</span>
-<span class="sd">	- β is the angle between the ray direction and the Sun center</span>
-<span class="sd">	- a₀ = 0.3  : constant term</span>
-<span class="sd">	- a₁ = 0.93 : linear coefficient</span>
-<span class="sd">	- a₂ = -0.23: quadratic coefficient</span>
-<span class="sd">	</span>
-<span class="sd">	This model provides:</span>
-<span class="sd">	- Center-to-limb intensity ratio of ~0.6</span>
-<span class="sd">	- Good agreement with observations in visible spectrum</span>
-<span class="sd">	- Fast computation</span>
-<span class="sd">	- Widely validated for spacecraft applications</span>
-<span class="sd">	</span>
-<span class="sd">	Use when: Standard solar radiation modeling, most accurate for visible wavelengths</span>
-
-<span class="sd">	2. Eddington Approximation Model</span>
-<span class="sd">	-------------------------------</span>
-<span class="sd">	A physically-based model derived from radiative transfer theory:</span>
-<span class="sd">	</span>
-<span class="sd">	I(μ) = (3/4) · [(7/12) + (μ/2) - (μ²/3) + (μ³/12)·ln((1+μ)/μ)]</span>
-<span class="sd">	</span>
-<span class="sd">	where:</span>
-<span class="sd">	- μ = cos(β), the cosine of the heliocentric angle</span>
-<span class="sd">	</span>
-<span class="sd">	This model:</span>
-<span class="sd">	- Based on stellar atmosphere theory (Eddington 1926)</span>
-<span class="sd">	- Assumes gray atmosphere in radiative equilibrium</span>
-<span class="sd">	- More physically rigorous than empirical models</span>
-<span class="sd">	- Slightly more computationally expensive</span>
-<span class="sd">	- Better for theoretical studies</span>
-<span class="sd">	</span>
-<span class="sd">	Use when: Theoretical accuracy is paramount, or for consistency with </span>
-<span class="sd">				astrophysical modeling conventions</span>
-
-<span class="sd">	3. No Limb Darkening (None)</span>
-<span class="sd">	-------------------------</span>
-<span class="sd">	Uniform solar disk assumption:</span>
-<span class="sd">	</span>
-<span class="sd">	I(β) = 1.0 (constant)</span>
-<span class="sd">	</span>
-<span class="sd">	Use when:</span>
-<span class="sd">	- Quick approximations needed</span>
-<span class="sd">	- Limb darkening effects are negligible (&lt;1% accuracy requirement)</span>
-<span class="sd">	- Testing or debugging purposes</span>
-
-<span class="sd">	Methods</span>
-<span class="sd">	-------</span>
-<span class="sd">	run(epoch)</span>
-<span class="sd">		Compute eclipse ratio at a single epoch using ray-tracing.</span>
-<span class="sd">		</span>
-<span class="sd">		Parameters</span>
-<span class="sd">		----------</span>
-<span class="sd">		epoch : float</span>
-<span class="sd">			SPICE ephemeris time (seconds past J2000).</span>
-<span class="sd">			</span>
-<span class="sd">		Returns</span>
-<span class="sd">		-------</span>
-<span class="sd">		float</span>
-<span class="sd">			Solar flux ratio: 1.0 = full Sun visible, 0.0 = total eclipse,</span>
-<span class="sd">			0.0-1.0 = partial eclipse. Accounts for limb darkening if enabled.</span>
-
-<span class="sd">	compute(epochs, n_cores=None)</span>
-<span class="sd">		Compute eclipse ratios for multiple epochs, with optional parallelization.</span>
-<span class="sd">		</span>
-<span class="sd">		Parameters</span>
-<span class="sd">		----------</span>
-<span class="sd">		epochs : float, list, or array</span>
-<span class="sd">			Single epoch or array of epochs (SPICE ephemeris times).</span>
-<span class="sd">		n_cores : int, optional</span>
-<span class="sd">			Number of CPU cores for parallel computation. Default uses all available.</span>
-<span class="sd">			</span>
-<span class="sd">		Returns</span>
-<span class="sd">		-------</span>
-<span class="sd">		float or array</span>
-<span class="sd">			Eclipse ratio(s) corresponding to input epoch(s).</span>
-
-<span class="sd">	Algorithm Details</span>
-<span class="sd">	-----------------</span>
-<span class="sd">	1. Create a PixelPlane representing the Sun&#39;s disk as viewed from spacecraft</span>
-<span class="sd">	2. Generate a grid of rays across the solar disk</span>
-<span class="sd">	3. For each ray:</span>
-<span class="sd">	a. Check if ray direction intersects the occulting body using ray-tracing</span>
-<span class="sd">	b. If limb darkening enabled, weight ray by intensity based on position</span>
-<span class="sd">	4. Compute eclipse ratio as (blocked rays) / (total rays)</span>
-<span class="sd">	5. If limb darkening: use weighted sum instead of simple count</span>
-
-<span class="sd">	Example Usage</span>
-<span class="sd">	-------------</span>
-<span class="sd">	&gt;&gt;&gt; from pyRTX.classes.SunShadow import SunShadow</span>
-<span class="sd">	&gt;&gt;&gt; import spiceypy as sp</span>
-<span class="sd">	&gt;&gt;&gt; </span>
-<span class="sd">	&gt;&gt;&gt; # Initialize with standard limb darkening</span>
-<span class="sd">	&gt;&gt;&gt; shadow = SunShadow(</span>
-<span class="sd">	...     spacecraft=my_spacecraft,</span>
-<span class="sd">	...     body=&#39;Moon&#39;,</span>
-<span class="sd">	...     bodyRadius=1737.4,  # km</span>
-<span class="sd">	...     numrays=200,</span>
-<span class="sd">	...     limbDarkening=&#39;Standard&#39;</span>
-<span class="sd">	... )</span>
-<span class="sd">	&gt;&gt;&gt; </span>
-<span class="sd">	&gt;&gt;&gt; # Compute at single epoch</span>
-<span class="sd">	&gt;&gt;&gt; epoch = sp.str2et(&#39;2024-01-01T12:00:00&#39;)</span>
-<span class="sd">	&gt;&gt;&gt; flux_ratio = shadow.compute(epoch)</span>
-<span class="sd">	&gt;&gt;&gt; print(f&quot;Visible solar flux: {flux_ratio*100:.1f}%&quot;)</span>
-<span class="sd">	&gt;&gt;&gt;</span>
-<span class="sd">	&gt;&gt;&gt; # Compute over time series</span>
-<span class="sd">	&gt;&gt;&gt; epochs = sp.str2et([&#39;2024-01-01T{:02d}:00:00&#39;.format(h) for h in range(24)])</span>
-<span class="sd">	&gt;&gt;&gt; flux_ratios = shadow.compute(epochs, n_cores=4)</span>
-
-<span class="sd">	Notes</span>
-<span class="sd">	-----</span>
-<span class="sd">	- Currently limited to airless bodies (no atmospheric effects)</span>
-<span class="sd">	- Uses Embree ray-tracing kernel for efficient intersection tests</span>
-<span class="sd">	- Limb darkening coefficients are wavelength-dependent; default values are </span>
-<span class="sd">	for optical wavelengths (~500 nm)</span>
-<span class="sd">	- For very close approaches, increase numrays for better accuracy</span>
-<span class="sd">	- Precomputation of SPICE data recommended for large time series</span>
-
-<span class="sd">	References</span>
-<span class="sd">	----------</span>
-<span class="sd">	- Pierce, A.K. &amp; Slaughter, C.D. (1977), &quot;Solar limb darkening&quot;, </span>
-<span class="sd">	Solar Physics, 51, 25-41</span>
-<span class="sd">	- Eddington, A.S. (1926), &quot;The Internal Constitution of the Stars&quot;</span>
-<span class="sd">	- Neckel, H. &amp; Labs, D. (1994), &quot;Solar limb darkening 1986-1990&quot;, </span>
-<span class="sd">	Solar Physics, 153, 91-114</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="SunShadow.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">bodyRadius</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">numrays</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">sunRadius</span> <span class="o">=</span> <span class="mf">600e3</span><span class="p">,</span> <span class="n">bodyShape</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">bodyFrame</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">limbDarkening</span> <span class="o">=</span> <span class="s1">&#39;Standard&#39;</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SunShadow.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">bodyRadius</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">numrays</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">sunRadius</span> <span class="o">=</span> <span class="mf">600e3</span><span class="p">,</span> <span class="n">bodyShape</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">bodyFrame</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">limbDarkening</span> <span class="o">=</span> <span class="s1">&#39;Standard&#39;</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 		
 		<span class="bp">self</span><span class="o">.</span><span class="n">sunRadius</span> <span class="o">=</span> <span class="n">sunRadius</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">spacecraft</span> <span class="o">=</span> <span class="n">spacecraft</span>
@@ -469,12 +343,9 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">=</span> <span class="n">precomputation</span></div>
 
 
-	<span class="k">def</span> <span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Method to store precomputed data.</span>
-
-<span class="sd">		Parameters:</span>
-<span class="sd">		-	sp_data: object of the class Precompute</span>
+<span class="sd">		Store precomputed SPICE data in relevant objects.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">sp_data</span>    <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span>
@@ -482,12 +353,19 @@
 
 
 <div class="viewcode-block" id="SunShadow.run"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.run">[docs]</a>	<span class="nd">@parallel</span>
-	<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Method to compute eclipse ratio at a single epoch.</span>
+<span class="sd">		Compute the eclipse ratio for a single epoch.</span>
 
-<span class="sd">		Parameters:</span>
-<span class="sd">		-	epoch: spiceypy epoch</span>
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		epoch : float</span>
+<span class="sd">		    The SPICE ephemeris time for the computation.</span>
+
+<span class="sd">		Returns</span>
+<span class="sd">		-------</span>
+<span class="sd">		float</span>
+<span class="sd">		    The solar flux ratio (1.0 for full sun, 0.0 for total eclipse).</span>
 <span class="sd">		&quot;&quot;&quot;</span>
   
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
@@ -540,11 +418,21 @@
 		<span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">numerator</span><span class="o">/</span><span class="n">denominator</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="SunShadow.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.compute">[docs]</a>	<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SunShadow.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.compute">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Parameters:</span>
-<span class="sd">		-	epochs: list of epochs</span>
-<span class="sd">		-   ncores: number of cores to use for parallel computations</span>
+<span class="sd">		Compute eclipse ratios for multiple epochs.</span>
+
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		epochs : list or array</span>
+<span class="sd">		    A list or array of SPICE ephemeris times.</span>
+<span class="sd">		n_cores : int, optional</span>
+<span class="sd">		    The number of CPU cores to use for parallel computation.</span>
+
+<span class="sd">		Returns</span>
+<span class="sd">		-------</span>
+<span class="sd">		array</span>
+<span class="sd">		    An array of solar flux ratios for each epoch.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
   
 		<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span> <span class="n">epochs</span> <span class="o">=</span> <span class="p">[</span><span class="n">epochs</span><span class="p">]</span>
@@ -556,9 +444,34 @@
 
 
 
-<div class="viewcode-block" id="SolarPressure"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure">[docs]</a><span class="k">class</span> <span class="nc">SolarPressure</span><span class="p">():</span>
+<div class="viewcode-block" id="SolarPressure"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">SolarPressure</span><span class="p">():</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">	Computes the solar radiation pressure (SRP) on a spacecraft.</span>
+
+<span class="sd">	This class orchestrates the SRP calculation by using a ray-tracer to simulate</span>
+<span class="sd">	sunlight hitting a spacecraft model. It accounts for material properties,</span>
+<span class="sd">	self-shadowing, and eclipse conditions.</span>
+
+<span class="sd">	Parameters</span>
+<span class="sd">	----------</span>
+<span class="sd">	spacecraft : object</span>
+<span class="sd">	    The spacecraft model, containing geometry and material properties.</span>
+<span class="sd">	rayTracer : object, optional</span>
+<span class="sd">	    A `RayTracer` object to perform the ray-tracing simulation.</span>
+<span class="sd">	baseflux : float, default=1361.5</span>
+<span class="sd">	    The nominal solar flux at 1 AU in W/m^2.</span>
+<span class="sd">	grouped : bool, default=True</span>
+<span class="sd">	    If True, returns the total force vector; otherwise, returns forces per-face.</span>
+<span class="sd">	shadowObj : object, optional</span>
+<span class="sd">	    A `SunShadow` object to compute eclipse factors.</span>
+<span class="sd">	lookup : object, optional</span>
+<span class="sd">	    A lookup table for precomputed SRP values.</span>
+<span class="sd">	precomputation : object, optional</span>
+<span class="sd">	    A `Precompute` object with precomputed SPICE data.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
+
 	
-<div class="viewcode-block" id="SolarPressure.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">rayTracer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">baseflux</span> <span class="o">=</span> <span class="mf">1361.5</span><span class="p">,</span> <span class="n">grouped</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">shadowObj</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">lookup</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SolarPressure.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">rayTracer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">baseflux</span> <span class="o">=</span> <span class="mf">1361.5</span><span class="p">,</span> <span class="n">grouped</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">shadowObj</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">lookup</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 
 		<span class="bp">self</span><span class="o">.</span><span class="n">spacecraft</span> <span class="o">=</span> <span class="n">spacecraft</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">rayTracer</span>  <span class="o">=</span> <span class="n">rayTracer</span>
@@ -582,9 +495,9 @@
 			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> *** WARNING: For LUT computation SC mass should be set to 1.0!&#39;</span><span class="p">)</span></div>
 
 
-	<span class="k">def</span> <span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Method to store precomputed data.</span>
+<span class="sd">		Store precomputed SPICE data in relevant objects.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">shadowObj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">shadowObj</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
@@ -602,12 +515,19 @@
 
 
 <div class="viewcode-block" id="SolarPressure.run"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.run">[docs]</a>	<span class="nd">@parallel</span>
-	<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Method to compute solar pressure acceleration at a single epoch.</span>
+<span class="sd">		Compute the solar pressure acceleration for a single epoch.</span>
 
-<span class="sd">		Parameters:</span>
-<span class="sd">		-	epoch: spiceypy epoch</span>
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		epoch : float</span>
+<span class="sd">		    The SPICE ephemeris time for the computation.</span>
+
+<span class="sd">		Returns</span>
+<span class="sd">		-------</span>
+<span class="sd">		array</span>
+<span class="sd">		    The 3D solar pressure acceleration vector.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
   
 		<span class="c1"># Launch rayTracer</span>
@@ -642,13 +562,21 @@
 		<span class="k">return</span> <span class="n">f_srp</span> <span class="o">/</span> <span class="n">mass</span></div>
   
   
-<div class="viewcode-block" id="SolarPressure.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.compute">[docs]</a>	<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SolarPressure.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.compute">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Method to compute the solar pressure acceleration.</span>
+<span class="sd">		Compute the solar pressure acceleration for multiple epochs.</span>
 
-<span class="sd">		Parameters:</span>
-<span class="sd">		-	epochs: list of epochs</span>
-<span class="sd">		-   ncores: number of cores to use for parallel computations</span>
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		epochs : list or array</span>
+<span class="sd">		    A list or array of SPICE ephemeris times.</span>
+<span class="sd">		n_cores : int, optional</span>
+<span class="sd">		    The number of CPU cores to use for parallel computation.</span>
+
+<span class="sd">		Returns</span>
+<span class="sd">		-------</span>
+<span class="sd">		array</span>
+<span class="sd">		    An array of 3D acceleration vectors for each epoch.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
   
 		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span> <span class="n">epochs</span> <span class="o">=</span> <span class="p">[</span><span class="n">epochs</span><span class="p">]</span>
@@ -662,12 +590,19 @@
 		<span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="n">n_cores</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="SolarPressure.lookupCompute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.lookupCompute">[docs]</a>	<span class="k">def</span> <span class="nf">lookupCompute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">):</span>
+<div class="viewcode-block" id="SolarPressure.lookupCompute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.lookupCompute">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">lookupCompute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Method to compute the solar pressure force with Look Up Table.</span>
+<span class="sd">		Compute the solar pressure force using a lookup table.</span>
 
-<span class="sd">		Parameters:</span>
-<span class="sd">		-	epochs: list of epochs</span>
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		epochs : list or array</span>
+<span class="sd">		    A list or array of SPICE ephemeris times.</span>
+
+<span class="sd">		Returns</span>
+<span class="sd">		-------</span>
+<span class="sd">		array</span>
+<span class="sd">		    An array of 3D acceleration vectors for each epoch.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span> <span class="n">epochs</span> <span class="o">=</span> <span class="p">[</span><span class="n">epochs</span><span class="p">]</span>
@@ -698,12 +633,19 @@
 		<span class="k">return</span> <span class="n">acc</span></div>
  
 
-<div class="viewcode-block" id="SolarPressure.get_flux"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.get_flux">[docs]</a>	<span class="k">def</span> <span class="nf">get_flux</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+<div class="viewcode-block" id="SolarPressure.get_flux"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.get_flux">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">get_flux</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Method to get the scaled solar flux.</span>
+<span class="sd">		Get the scaled solar flux at a given epoch.</span>
 
-<span class="sd">		Parameters:</span>
-<span class="sd">		-	epoch: requested epoch</span>
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		epoch : float</span>
+<span class="sd">		    The SPICE ephemeris time for the computation.</span>
+
+<span class="sd">		Returns</span>
+<span class="sd">		-------</span>
+<span class="sd">		float</span>
+<span class="sd">		    The solar flux in W/m^2, scaled by the spacecraft&#39;s distance from the Sun.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
   
 		<span class="n">au</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">au</span>
@@ -720,19 +662,44 @@
 		<span class="k">return</span> <span class="n">flux</span></div>
 
 
-<div class="viewcode-block" id="SolarPressure.get_force"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.get_force">[docs]</a>	<span class="k">def</span> <span class="nf">get_force</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">mesh_obj</span><span class="p">,</span> <span class="n">index_tri</span><span class="p">,</span> <span class="n">index_ray</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">ray_origins</span><span class="p">,</span> <span class="n">ray_directions</span><span class="p">,</span> <span class="n">pixel_spacing</span><span class="p">,</span> <span class="n">materials</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">grouped</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<div class="viewcode-block" id="SolarPressure.get_force"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.get_force">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">get_force</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">mesh_obj</span><span class="p">,</span> <span class="n">index_tri</span><span class="p">,</span> <span class="n">index_ray</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">ray_origins</span><span class="p">,</span> <span class="n">ray_directions</span><span class="p">,</span> <span class="n">pixel_spacing</span><span class="p">,</span> <span class="n">materials</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">grouped</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 		<span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">num_diffuse</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diffusion_pack</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span> 
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Compute the SRP force</span>
+<span class="sd">		Compute the total SRP force from ray-tracing results.</span>
 
-<span class="sd">		Parameters:</span>
-<span class="sd">		flux: Solar input flux [W/m^2]</span>
-<span class="sd">		A: areas of the mesh faces</span>
-<span class="sd">		s: incident ray directions</span>
-<span class="sd">		r: reflcted ray directions</span>
-<span class="sd">		n: normal unit vector to the faces</span>
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		flux : float</span>
+<span class="sd">		    The incident solar flux in W/m^2.</span>
+<span class="sd">		mesh_obj : object</span>
+<span class="sd">		    The `trimesh` object representing the spacecraft.</span>
+<span class="sd">		index_tri : list</span>
+<span class="sd">		    A list of arrays of intersected triangle indices for each bounce.</span>
+<span class="sd">		index_ray : list</span>
+<span class="sd">		    A list of arrays of intersecting ray indices for each bounce.</span>
+<span class="sd">		location : list</span>
+<span class="sd">		    A list of arrays of intersection locations for each bounce.</span>
+<span class="sd">		ray_origins : list</span>
+<span class="sd">		    A list of arrays of ray origins for each bounce.</span>
+<span class="sd">		ray_directions : list</span>
+<span class="sd">		    A list of arrays of ray directions for each bounce.</span>
+<span class="sd">		pixel_spacing : float</span>
+<span class="sd">		    The spacing between rays, used for normalization.</span>
+<span class="sd">		materials : str or dict, default=&#39;None&#39;</span>
+<span class="sd">		    A dictionary of material properties for each face.</span>
+<span class="sd">		grouped : bool, default=True</span>
+<span class="sd">		    If True, returns the total force vector.</span>
+<span class="sd">		diffusion : bool, default=False</span>
+<span class="sd">		    If True, computes diffuse reflection forces.</span>
+<span class="sd">		num_diffuse : int, optional</span>
+<span class="sd">		    The number of diffuse rays to sample per intersection.</span>
+<span class="sd">		diffusion_pack : list, optional</span>
+<span class="sd">		    A list containing data from the diffusion ray-tracing pass.</span>
 
-
+<span class="sd">		Returns</span>
+<span class="sd">		-------</span>
+<span class="sd">		array or list</span>
+<span class="sd">		    The total SRP force vector, or a list of per-face forces if `grouped` is False.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="c1"># Compute geometric quantities	</span>
 		<span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">A</span> <span class="o">=</span> <span class="n">preprocess_RTX_geometry</span><span class="p">(</span><span class="n">mesh_obj</span><span class="p">)</span>
@@ -776,23 +743,39 @@
 		<span class="k">return</span> <span class="n">force</span></div>
 
 
-<div class="viewcode-block" id="SolarPressure.srp_core"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.srp_core">[docs]</a>	<span class="k">def</span> <span class="nf">srp_core</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">indexes_tri</span><span class="p">,</span> <span class="n">indexes_ray</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">norm_factor</span><span class="p">,</span> <span class="n">mesh_obj</span><span class="p">,</span> <span class="n">materials</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">num_diffuse</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diffusion_pack</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SolarPressure.srp_core"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.srp_core">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">srp_core</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">indexes_tri</span><span class="p">,</span> <span class="n">indexes_ray</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">norm_factor</span><span class="p">,</span> <span class="n">mesh_obj</span><span class="p">,</span> <span class="n">materials</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">num_diffuse</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diffusion_pack</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Core of SRP computation.</span>
-<span class="sd">		Highly vectorized version. For explicit algorithm implementation refer to the old version</span>
+<span class="sd">		Core computation of the SRP force (vectorized).</span>
 
-<span class="sd">		Parameters:</span>
-<span class="sd">		flux: solar flux (float, W/m^2)</span>
-<span class="sd">		indexes_tri: indexes of intersected triangles</span>
-<span class="sd">		indexes_ray: indexes of intersecting rays</span>
-<span class="sd">		N: normals</span>
-<span class="sd">		S: incident direction vectors</span>
-<span class="sd">		norm_factor: normalization factor computed from ray spacing (float)</span>
-<span class="sd">		mesh_obj: trimesh.Trimesh object [Not used for now, will be used when interrogating mesh</span>
-<span class="sd">					for surface properties]</span>
+<span class="sd">		Parameters</span>
+<span class="sd">		----------</span>
+<span class="sd">		flux : float</span>
+<span class="sd">		    The incident solar flux in W/m^2.</span>
+<span class="sd">		indexes_tri : array</span>
+<span class="sd">		    The indices of the intersected triangles.</span>
+<span class="sd">		indexes_ray : array</span>
+<span class="sd">		    The indices of the intersecting rays.</span>
+<span class="sd">		N : array</span>
+<span class="sd">		    The normal vectors of the mesh faces.</span>
+<span class="sd">		S : array</span>
+<span class="sd">		    The incident ray direction vectors.</span>
+<span class="sd">		norm_factor : float</span>
+<span class="sd">		    The normalization factor computed from ray spacing.</span>
+<span class="sd">		mesh_obj : object</span>
+<span class="sd">		    The `trimesh` object representing the spacecraft.</span>
+<span class="sd">		materials : str or dict, default=&#39;None&#39;</span>
+<span class="sd">		    A dictionary of material properties for each face.</span>
+<span class="sd">		diffusion : bool, default=False</span>
+<span class="sd">		    If True, computes diffuse reflection forces.</span>
+<span class="sd">		num_diffuse : int, optional</span>
+<span class="sd">		    The number of diffuse rays to sample per intersection.</span>
+<span class="sd">		diffusion_pack : list, optional</span>
+<span class="sd">		    A list containing data from the diffusion ray-tracing pass.</span>
 
-<span class="sd">		Returns:</span>
-<span class="sd">		force: np.array of SRP force</span>
+<span class="sd">		Returns</span>
+<span class="sd">		-------</span>
+<span class="sd">		tuple</span>
+<span class="sd">		    A tuple containing the SRP force vector and the new flux for the next bounce.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="n">c</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">c</span>
@@ -861,8 +844,6 @@
 			<span class="n">force</span> <span class="o">=</span> <span class="n">force</span> <span class="o">+</span> <span class="n">force2</span>
 
 		<span class="k">return</span> <span class="n">force</span><span class="p">,</span> <span class="n">newFlux</span></div></div>
-
-
 </pre></div>
 
            </div>

@@ -1,4 +1,4 @@
-﻿pyRTX.core.utils\_rt
+pyRTX.core.utils\_rt
 ====================
 
 .. automodule:: pyRTX.core.utils_rt
