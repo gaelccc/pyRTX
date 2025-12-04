@@ -1,0 +1,647 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compute Lookup Table &mdash; pyRTX 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51279e30" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=2389946f"></script>
+      <script src="../_static/doctools.js?v=888ff710"></script>
+      <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="LRO Solar Radiation Pressure" href="lro_srp.html" />
+    <link rel="prev" title="Generate the time-variable mass input" href="lro_mass.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pyRTX
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#step-1-system-and-c-dependencies">Step 1: System and C++ Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#step-2-python-package-installation">Step 2: Python Package Installation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#tutorial-1-first-steps-with-pyrtx">Tutorial 1: First Steps with pyRTX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Notebook1.html">Notebook n. 1:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Notebook1.html#Spacecraft-shape-definition">Spacecraft shape definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Notebook1.html#Speeding-up-the-code">Speeding up the code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Notebook1.html#Exporting-the-data">Exporting the data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#tutorial-2-advanced-srp-calculations">Tutorial 2: Advanced SRP Calculations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Notebook2.html">Solar Radiation Pressure: Various contributions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Notebook2.html#Effect-of-diffusion">Effect of diffusion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#tutorial-3-lookup-tables">Tutorial 3: Lookup Tables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Notebook3.html">Lookup Tables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Notebook3.html#Computing-the-LUT">Computing the LUT</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#tutorial-4-planetary-radiation">Tutorial 4: Planetary Radiation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Notebook4.html">Planetary radiation</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#tutorial-5-atmospheric-drag">Tutorial 5: Atmospheric Drag</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="Notebook5.html">Atmospheric drag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Notebook5.html#Compute-the-cross-section-LUT">Compute the cross-section LUT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Notebook5.html#Computing-the-drag">Computing the drag</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#next-steps">Next Steps</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="lro_mass.html">Generate the time-variable mass input</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Compute Lookup Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lro_srp.html">LRO Solar Radiation Pressure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lro_srp_with_lut.html">LRO Solar Radiation Pressure with Lookup Table</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lro_alb_ir_simple.html">LRO Albedo and Thermal IR (Simple)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lro_alb_ir_complex.html">LRO Albedo and Thermal IR (Complex)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/core.html">Core Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html">pyRTX.core.analysis_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable"><code class="docutils literal notranslate"><span class="pre">LookupTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND"><code class="docutils literal notranslate"><span class="pre">LookupTableND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.ScatterLookup"><code class="docutils literal notranslate"><span class="pre">ScatterLookup</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator"><code class="docutils literal notranslate"><span class="pre">TiffInterpolator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.getSunAngles"><code class="docutils literal notranslate"><span class="pre">getSunAngles()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.epochRange"><code class="docutils literal notranslate"><span class="pre">epochRange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.epochRange2"><code class="docutils literal notranslate"><span class="pre">epochRange2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.computeRADEC"><code class="docutils literal notranslate"><span class="pre">computeRADEC()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.convertTIFtoMesh"><code class="docutils literal notranslate"><span class="pre">convertTIFtoMesh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.convertEpoch"><code class="docutils literal notranslate"><span class="pre">convertEpoch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.get_spacecraft_area"><code class="docutils literal notranslate"><span class="pre">get_spacecraft_area()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.get_sun_exposed_area"><code class="docutils literal notranslate"><span class="pre">get_sun_exposed_area()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.compute_body_positions"><code class="docutils literal notranslate"><span class="pre">compute_body_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.compute_body_states"><code class="docutils literal notranslate"><span class="pre">compute_body_states()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.core.parallel_utils.html">pyRTX.core.parallel_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.get_ncores"><code class="docutils literal notranslate"><span class="pre">get_ncores()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.is_method"><code class="docutils literal notranslate"><span class="pre">is_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.get_unwrapped"><code class="docutils literal notranslate"><span class="pre">get_unwrapped()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.parallel"><code class="docutils literal notranslate"><span class="pre">parallel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.core.physical_utils.html">pyRTX.core.physical_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.srp_core"><code class="docutils literal notranslate"><span class="pre">srp_core()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.compute_srp"><code class="docutils literal notranslate"><span class="pre">compute_srp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html">pyRTX.core.shadow_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html">pyRTX.core.utils_rt</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_cached_embree_scene"><code class="docutils literal notranslate"><span class="pre">get_cached_embree_scene()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.block_dot"><code class="docutils literal notranslate"><span class="pre">block_dot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pixel_plane"><code class="docutils literal notranslate"><span class="pre">pixel_plane()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.fast_vector_build"><code class="docutils literal notranslate"><span class="pre">fast_vector_build()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pixel_plane_opt"><code class="docutils literal notranslate"><span class="pre">pixel_plane_opt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.reflected"><code class="docutils literal notranslate"><span class="pre">reflected()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_orthogonal"><code class="docutils literal notranslate"><span class="pre">get_orthogonal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.sample_lambert_dist"><code class="docutils literal notranslate"><span class="pre">sample_lambert_dist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.cgal_init_geometry"><code class="docutils literal notranslate"><span class="pre">cgal_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_centroids"><code class="docutils literal notranslate"><span class="pre">get_centroids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_cross_products"><code class="docutils literal notranslate"><span class="pre">get_cross_products()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_face_areas"><code class="docutils literal notranslate"><span class="pre">get_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_surface_normals"><code class="docutils literal notranslate"><span class="pre">get_surface_normals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="docutils literal notranslate"><span class="pre">get_surface_normals_and_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.ShapeModel"><code class="docutils literal notranslate"><span class="pre">ShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/classes.html">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.Atmosphere.html">pyRTX.classes.Atmosphere</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram"><code class="docutils literal notranslate"><span class="pre">VenusGram</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.Drag.html">pyRTX.classes.Drag</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag"><code class="docutils literal notranslate"><span class="pre">Drag</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.LookUpTable.html">pyRTX.classes.LookUpTable</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable"><code class="docutils literal notranslate"><span class="pre">LookUpTable</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.PixelPlane.html">pyRTX.classes.PixelPlane</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane"><code class="docutils literal notranslate"><span class="pre">PixelPlane</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html">pyRTX.classes.Planet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid"><code class="docutils literal notranslate"><span class="pre">PlanetGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.EmissivityGrid"><code class="docutils literal notranslate"><span class="pre">EmissivityGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.AlbedoGrid"><code class="docutils literal notranslate"><span class="pre">AlbedoGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.TemperatureGrid"><code class="docutils literal notranslate"><span class="pre">TemperatureGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.Precompute.html">pyRTX.classes.Precompute</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute"><code class="docutils literal notranslate"><span class="pre">Precompute</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.Radiation.html">pyRTX.classes.Radiation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo"><code class="docutils literal notranslate"><span class="pre">Albedo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity"><code class="docutils literal notranslate"><span class="pre">Emissivity</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.RayTracer.html">pyRTX.classes.RayTracer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.RayTracer.html#pyRTX.classes.RayTracer.RayTracer"><code class="docutils literal notranslate"><span class="pre">RayTracer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.SRP.html">pyRTX.classes.SRP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow"><code class="docutils literal notranslate"><span class="pre">SunShadow</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.Spacecraft.html">pyRTX.classes.Spacecraft</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft"><code class="docutils literal notranslate"><span class="pre">Spacecraft</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/defaults.html">Default Values and Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#core-modules">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.core.html">pyRTX.core</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html">pyRTX.core.analysis_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.parallel_utils.html">pyRTX.core.parallel_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.physical_utils.html">pyRTX.core.physical_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html">pyRTX.core.shadow_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html">pyRTX.core.utils_rt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#classes">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.html">pyRTX.classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Atmosphere.html">pyRTX.classes.Atmosphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Drag.html">pyRTX.classes.Drag</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.LookUpTable.html">pyRTX.classes.LookUpTable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.PixelPlane.html">pyRTX.classes.PixelPlane</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html">pyRTX.classes.Planet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Precompute.html">pyRTX.classes.Precompute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Radiation.html">pyRTX.classes.Radiation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.RayTracer.html">pyRTX.classes.RayTracer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.SRP.html">pyRTX.classes.SRP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Spacecraft.html">pyRTX.classes.Spacecraft</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pyRTX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Compute Lookup Table</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/compute_lut.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="compute-lookup-table">
+<h1>Compute Lookup Table<a class="headerlink" href="#compute-lookup-table" title="Permalink to this heading"></a></h1>
+<p>This example demonstrates lookup table generation when
+the spacecraft has moveable appendages</p>
+<div class="literal-block-wrapper docutils container" id="id1">
+<div class="code-block-caption"><span class="caption-text">compute_lut.py</span><a class="headerlink" href="#id1" title="Permalink to this code"></a></div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">  1</span><span class="c1">### -------------------------------------------------------------------- ###</span>
+<span class="linenos">  2</span>
+<span class="linenos">  3</span><span class="c1">#					    LOOK UP TABLE OBJECT BUILDING</span>
+<span class="linenos">  4</span>
+<span class="linenos">  5</span><span class="c1"># Example case:</span>
+<span class="linenos">  6</span><span class="c1"># Generate the normalized optical response lookup table for LRO.</span>
+<span class="linenos">  7</span>
+<span class="linenos">  8</span><span class="c1"># The look up table is designed to store the &quot;geometry vector&quot; of a spacecraft.</span>
+<span class="linenos">  9</span><span class="c1"># This vector is representative of how the spacecraft’s shape and surface </span>
+<span class="linenos"> 10</span><span class="c1"># properties interact with radiation coming from a specific direction. </span>
+<span class="linenos"> 11</span>
+<span class="linenos"> 12</span><span class="c1"># The lookup table helps to speed up the computation of non-gravitational</span>
+<span class="linenos"> 13</span><span class="c1"># accelerations and is MANDATORY for albedo, thermal infrared and drag</span>
+<span class="linenos"> 14</span><span class="c1"># acceleration.</span>
+<span class="linenos"> 15</span>
+<span class="linenos"> 16</span><span class="c1"># To compute a lookup table, we need to define a grid of right ascensions</span>
+<span class="linenos"> 17</span><span class="c1"># and declinations that represents the directions from which the radiation </span>
+<span class="linenos"> 18</span><span class="c1"># is coming in the spacecraft body-fixed frame. </span>
+<span class="linenos"> 19</span>
+<span class="linenos"> 20</span><span class="c1"># Also, we need to specify every frame that is not fixed with respect to </span>
+<span class="linenos"> 21</span><span class="c1"># the body-fixed frame. These frames are stored in the variable &#39;moving_frames&#39;. </span>
+<span class="linenos"> 22</span><span class="c1"># If a frame is not specified inside &#39;moving_frames&#39;, it is represented </span>
+<span class="linenos"> 23</span><span class="c1"># fixed with respect to the spacecraft body frame. For every moving_frame, </span>
+<span class="linenos"> 24</span><span class="c1"># a range of euler angles in a specific euler set must be defined.</span>
+<span class="linenos"> 25</span>
+<span class="linenos"> 26</span><span class="c1"># The LUT have two computational mode:</span>
+<span class="linenos"> 27</span><span class="c1"># - If units is &#39;km/s**2&#39;, the LUT computes the acceleration for a </span>
+<span class="linenos"> 28</span><span class="c1">#   normalized radiation flux. The LUT values will be 3x1 vectors. This</span>
+<span class="linenos"> 29</span><span class="c1">#	mode is for srp, albedo and thermal infrared acceleration.</span>
+<span class="linenos"> 30</span><span class="c1"># - If units is &#39;km**2&#39;, the LUT computes the cross-section for the</span>
+<span class="linenos"> 31</span><span class="c1">#	drag acceleration. The LUT values will be single float. </span>
+<span class="linenos"> 32</span>
+<span class="linenos"> 33</span><span class="c1"># NOTE: Here we compute the lookup table for the Lunar Redonnaissance orbiter</span>
+<span class="linenos"> 34</span><span class="c1"># by varying the orientation of the solar array. The High Gain Antenna</span>
+<span class="linenos"> 35</span><span class="c1"># is considered fixed with respect to the bus. </span>
+<span class="linenos"> 36</span>
+<span class="linenos"> 37</span><span class="c1">### -------------------------------------------------------------------- ###</span>
+<span class="linenos"> 38</span><span class="c1">### IMPORTS</span>
+<span class="linenos"> 39</span>
+<span class="linenos"> 40</span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="linenos"> 41</span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span class="linenos"> 42</span><span class="kn">import</span><span class="w"> </span><span class="nn">spiceypy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+<span class="linenos"> 43</span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="linenos"> 44</span><span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pkl</span>
+<span class="linenos"> 45</span>
+<span class="linenos"> 46</span><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">floor</span><span class="p">,</span> <span class="n">mod</span>
+<span class="linenos"> 47</span><span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">ceil</span>
+<span class="linenos"> 48</span>
+<span class="linenos"> 49</span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.SRP</span><span class="w"> </span><span class="kn">import</span> <span class="n">SolarPressure</span>
+<span class="linenos"> 50</span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.Spacecraft</span><span class="w"> </span><span class="kn">import</span> <span class="n">Spacecraft</span>
+<span class="linenos"> 51</span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.PixelPlane</span><span class="w"> </span><span class="kn">import</span> <span class="n">PixelPlane</span>
+<span class="linenos"> 52</span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.RayTracer</span><span class="w"> </span><span class="kn">import</span> <span class="n">RayTracer</span>
+<span class="linenos"> 53</span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.analysis_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">epochRange2</span>
+<span class="linenos"> 54</span>
+<span class="linenos"> 55</span><span class="kn">import</span><span class="w"> </span><span class="nn">multiprocessing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mproc</span>
+<span class="linenos"> 56</span>
+<span class="linenos"> 57</span><span class="kn">import</span><span class="w"> </span><span class="nn">timeit</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">itertools</span><span class="o">,</span><span class="w"> </span><span class="nn">logging</span>
+<span class="linenos"> 58</span>
+<span class="linenos"> 59</span><span class="c1">### -------------------------------------------------------------------- ###</span>
+<span class="linenos"> 60</span><span class="c1">### INPUTS &amp; LUT CONFIG</span>
+<span class="linenos"> 61</span>			  	
+<span class="linenos"> 62</span><span class="n">n_cores</span>    <span class="o">=</span>  <span class="mi">10</span>							      <span class="c1"># number of cores for parallel computation</span>
+<span class="linenos"> 63</span><span class="n">grid_res</span>   <span class="o">=</span>  <span class="mi">20</span>							      <span class="c1"># angular resolution for RA, DEC</span>
+<span class="linenos"> 64</span><span class="n">angle_res</span>  <span class="o">=</span>  <span class="mi">10</span>						          <span class="c1"># angular resolution for moving parts</span>
+<span class="linenos"> 65</span><span class="n">spacing</span>	   <span class="o">=</span>  <span class="mf">0.01</span>								  <span class="c1"># spacing between rays </span>
+<span class="linenos"> 66</span>
+<span class="linenos"> 67</span><span class="n">ref_epc</span>	    <span class="o">=</span> <span class="s2">&quot;2010 may 10 09:25:00&quot;</span>	          <span class="c1"># reference epoch</span>
+<span class="linenos"> 68</span><span class="n">duration</span>    <span class="o">=</span> <span class="mi">10000</span>  							  <span class="c1"># seconds</span>
+<span class="linenos"> 69</span><span class="n">timestep</span>    <span class="o">=</span> <span class="mi">100</span>
+<span class="linenos"> 70</span>
+<span class="linenos"> 71</span><span class="n">sc_mass</span> 	  <span class="o">=</span> <span class="mi">1</span>								  <span class="c1"># the sc mass must be 1 for LUT computation</span>
+<span class="linenos"> 72</span><span class="n">base_frame</span>    <span class="o">=</span> <span class="s1">&#39;LRO_SC_BUS&#39;</span>				      <span class="c1"># sc body-fixed frame</span>
+<span class="linenos"> 73</span><span class="n">moving_frames</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;LRO_SA&#39;</span><span class="p">,]</span>					      <span class="c1"># frames that are not fixed wrt the sc base frame</span>
+<span class="linenos"> 74</span>
+<span class="linenos"> 75</span><span class="n">eul_set</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>								  <span class="c1"># euler representation for moving frames attitude</span>
+<span class="linenos"> 76</span>
+<span class="linenos"> 77</span><span class="n">obj_path</span> <span class="o">=</span> <span class="s1">&#39;../example_data/LRO/&#39;</span>		          <span class="c1"># path for 3D shape elements</span>
+<span class="linenos"> 78</span>
+<span class="linenos"> 79</span><span class="n">METAKR</span> <span class="o">=</span> <span class="s1">&#39;../example_data/LRO/metakernel_lro.tm&#39;</span>  <span class="c1"># metakernel</span>
+<span class="linenos"> 80</span>
+<span class="linenos"> 81</span><span class="n">units</span>  <span class="o">=</span> <span class="s1">&#39;km/s**2&#39;</span>	                              <span class="c1"># units for lookup table values: km/s**2 or km**2</span>
+<span class="linenos"> 82</span>
+<span class="linenos"> 83</span><span class="n">lutfile</span> <span class="o">=</span>  <span class="s1">&#39;luts/lro_accel_lut.nc&#39;</span>	    		  <span class="c1"># output file</span>
+<span class="linenos"> 84</span>
+<span class="linenos"> 85</span><span class="c1">### --------------------------------------------------------------------------- ###</span>
+<span class="linenos"> 86</span><span class="c1">### LUT LIMITS</span>
+<span class="linenos"> 87</span>
+<span class="linenos"> 88</span><span class="n">sp</span><span class="o">.</span><span class="n">furnsh</span><span class="p">(</span><span class="n">METAKR</span><span class="p">)</span>
+<span class="linenos"> 89</span>
+<span class="linenos"> 90</span><span class="c1"># List of right ascension and declination values for the incoming rays</span>
+<span class="linenos"> 91</span><span class="n">RA</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mi">360</span><span class="o">/</span><span class="n">grid_res</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span>
+<span class="linenos"> 92</span><span class="n">DEC</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="mi">180</span><span class="o">/</span><span class="n">grid_res</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span>
+<span class="linenos"> 93</span>
+<span class="linenos"> 94</span><span class="c1">###  Here we find the limits for every moving frame, in terms of euler angles  ###</span>
+<span class="linenos"> 95</span>
+<span class="linenos"> 96</span><span class="c1"># Define timespan</span>
+<span class="linenos"> 97</span><span class="n">eul_limits</span> <span class="o">=</span> <span class="p">{</span><span class="n">frame</span><span class="p">:</span> <span class="p">{</span><span class="n">e</span><span class="p">:</span> <span class="p">[]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">eul_set</span><span class="p">}</span> <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">moving_frames</span><span class="p">}</span>
+<span class="linenos"> 98</span><span class="n">epc_et0</span>  <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">str2et</span><span class="p">(</span> <span class="n">ref_epc</span> <span class="p">)</span>
+<span class="linenos"> 99</span><span class="n">epc_et1</span>  <span class="o">=</span> <span class="n">epc_et0</span> <span class="o">+</span> <span class="n">duration</span>
+<span class="linenos">100</span><span class="n">epochs</span>   <span class="o">=</span> <span class="n">epochRange2</span><span class="p">(</span><span class="n">startEpoch</span> <span class="o">=</span> <span class="n">epc_et0</span><span class="p">,</span> <span class="n">endEpoch</span> <span class="o">=</span> <span class="n">epc_et1</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="n">timestep</span><span class="p">)</span>
+<span class="linenos">101</span>
+<span class="linenos">102</span><span class="c1"># Find euler limits</span>
+<span class="linenos">103</span><span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">moving_frames</span><span class="p">:</span>
+<span class="linenos">104</span>    
+<span class="linenos">105</span>	<span class="n">EUL</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">),</span><span class="mi">3</span><span class="p">))</span>
+<span class="linenos">106</span>
+<span class="linenos">107</span>	<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">epc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+<span class="linenos">108</span>
+<span class="linenos">109</span>		<span class="n">rot</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">pxform</span><span class="p">(</span><span class="n">frame</span><span class="p">,</span> <span class="n">base_frame</span><span class="p">,</span> <span class="n">epc</span><span class="p">)</span>
+<span class="linenos">110</span>		<span class="n">EUL</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">m2eul</span><span class="p">(</span><span class="n">rot</span><span class="p">,</span> <span class="o">*</span><span class="n">eul_set</span><span class="p">))</span> <span class="o">*</span> <span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="linenos">111</span> 
+<span class="linenos">112</span>	<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">eul_set</span><span class="p">):</span>
+<span class="linenos">113</span>  
+<span class="linenos">114</span>		<span class="k">if</span> <span class="nb">max</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">EUL</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()),</span> <span class="nb">abs</span><span class="p">(</span><span class="n">EUL</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()))</span> <span class="o">&gt;=</span> <span class="n">grid_res</span><span class="p">:</span>
+<span class="linenos">115</span>			<span class="n">eul_limits</span><span class="p">[</span><span class="n">frame</span><span class="p">][</span><span class="n">e</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">EUL</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">EUL</span><span class="p">[:,</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.05</span><span class="p">]</span>
+<span class="linenos">116</span>
+<span class="linenos">117</span><span class="n">sp</span><span class="o">.</span><span class="n">unload</span><span class="p">(</span><span class="n">METAKR</span><span class="p">)</span>
+<span class="linenos">118</span>
+<span class="linenos">119</span><span class="c1">### --------------------------------------------------------------------------- ###</span>
+<span class="linenos">120</span><span class="c1">### OBJECT DEFINITION</span>
+<span class="linenos">121</span>
+<span class="linenos">122</span><span class="c1"># Define a spacecraft model</span>
+<span class="linenos">123</span><span class="n">spacecraft_model</span> <span class="o">=</span> <span class="p">{</span>						        
+<span class="linenos">124</span>                          
+<span class="linenos">125</span>					<span class="s1">&#39;LRO_BUS&#39;</span><span class="p">:</span> <span class="p">{</span> 
+<span class="linenos">126</span>							 <span class="s1">&#39;file&#39;</span> <span class="p">:</span> <span class="n">obj_path</span> <span class="o">+</span> <span class="s1">&#39;bus_rotated.obj&#39;</span><span class="p">,</span>	 <span class="c1"># .obj file of the spacecraft component</span>
+<span class="linenos">127</span>							 <span class="s1">&#39;frame_type&#39;</span><span class="p">:</span> <span class="s1">&#39;Spice&#39;</span><span class="p">,</span>				     <span class="c1"># type of frame (can be &#39;Spice&#39; or &#39;UD&#39;</span>
+<span class="linenos">128</span>							 <span class="s1">&#39;frame_name&#39;</span><span class="p">:</span> <span class="s1">&#39;LRO_SC_BUS&#39;</span><span class="p">,</span>			 <span class="c1"># Name of the frame</span>
+<span class="linenos">129</span>							 <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">],</span>			     <span class="c1"># Origin of the component</span>
+<span class="linenos">130</span>							 <span class="s1">&#39;diffuse&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>				         <span class="c1"># Diffuse reflect. coefficient</span>
+<span class="linenos">131</span>							 <span class="s1">&#39;specular&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>				         <span class="c1"># Specular reflect. coefficient</span>
+<span class="linenos">132</span>							 <span class="p">},</span>
+<span class="linenos">133</span>
+<span class="linenos">134</span>					<span class="s1">&#39;LRO_SA&#39;</span><span class="p">:</span> <span class="p">{</span>	
+<span class="linenos">135</span>							<span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="n">obj_path</span> <span class="o">+</span> <span class="s1">&#39;SA_recentred.obj&#39;</span><span class="p">,</span>
+<span class="linenos">136</span>							<span class="s1">&#39;frame_type&#39;</span><span class="p">:</span> <span class="s1">&#39;Spice&#39;</span><span class="p">,</span>
+<span class="linenos">137</span>							<span class="s1">&#39;frame_name&#39;</span><span class="p">:</span> <span class="s1">&#39;LRO_SA&#39;</span><span class="p">,</span>
+<span class="linenos">138</span>							<span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">],</span>
+<span class="linenos">139</span>							<span class="s1">&#39;diffuse&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="linenos">140</span>							<span class="s1">&#39;specular&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>
+<span class="linenos">141</span>							<span class="p">},</span>
+<span class="linenos">142</span>
+<span class="linenos">143</span>
+<span class="linenos">144</span>					<span class="s1">&#39;LRO_HGA&#39;</span><span class="p">:</span> <span class="p">{</span> 	
+<span class="linenos">145</span>							<span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="n">obj_path</span> <span class="o">+</span> <span class="s1">&#39;HGA_recentred.obj&#39;</span><span class="p">,</span>
+<span class="linenos">146</span>							<span class="s1">&#39;frame_type&#39;</span><span class="p">:</span> <span class="s1">&#39;Spice&#39;</span><span class="p">,</span>
+<span class="linenos">147</span>							<span class="s1">&#39;frame_name&#39;</span><span class="p">:</span> <span class="s1">&#39;LRO_HGA&#39;</span><span class="p">,</span>
+<span class="linenos">148</span>							<span class="s1">&#39;center&#39;</span><span class="p">:[</span><span class="o">-</span><span class="mf">0.99</span><span class="p">,</span>    <span class="o">-</span><span class="mf">0.3</span><span class="p">,</span>  <span class="o">-</span><span class="mf">3.1</span><span class="p">],</span>
+<span class="linenos">149</span>							<span class="s1">&#39;diffuse&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span>
+<span class="linenos">150</span>							<span class="s1">&#39;specular&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+<span class="linenos">151</span>							<span class="p">},</span>
+<span class="linenos">152</span>					<span class="p">}</span>
+<span class="linenos">153</span> 
+<span class="linenos">154</span> <span class="c1"># Elements with moving frames must have an user defined rotation</span>
+<span class="linenos">155</span><span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">spacecraft_model</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+<span class="linenos">156</span>    <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;frame_name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">frame</span> <span class="k">for</span> <span class="n">frame</span> <span class="ow">in</span> <span class="n">moving_frames</span><span class="p">]):</span>
+<span class="linenos">157</span>        <span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;frame_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;UD&#39;</span>
+<span class="linenos">158</span>        <span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;UD_rotation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="linenos">159</span>
+<span class="linenos">160</span><span class="c1"># Define the Spacecraft Object (Refer to the class documentation for further details)</span>
+<span class="linenos">161</span><span class="n">lro</span> <span class="o">=</span> <span class="n">Spacecraft</span><span class="p">(</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;LRO&#39;</span><span class="p">,</span>     
+<span class="linenos">162</span>				  <span class="n">base_frame</span> <span class="o">=</span> <span class="s1">&#39;LRO_SC_BUS&#39;</span><span class="p">,</span> 					     <span class="c1"># Name of the spacecraft body-fixed frame</span>
+<span class="linenos">163</span>                  <span class="n">mass</span> <span class="o">=</span> <span class="n">sc_mass</span><span class="p">,</span>									 <span class="c1"># The mass should be 1 for LUT computation </span>
+<span class="linenos">164</span>				  <span class="n">spacecraft_model</span> <span class="o">=</span> <span class="n">spacecraft_model</span><span class="p">,</span>
+<span class="linenos">165</span>				<span class="p">)</span>
+<span class="linenos">166</span>
+<span class="linenos">167</span><span class="c1"># Define the Sun rays object</span>
+<span class="linenos">168</span><span class="n">rays</span> <span class="o">=</span> <span class="n">PixelPlane</span><span class="p">(</span> <span class="n">spacecraft</span> <span class="o">=</span> <span class="n">lro</span><span class="p">,</span>
+<span class="linenos">169</span>				   <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;Fixed&#39;</span><span class="p">,</span>
+<span class="linenos">170</span>				   <span class="n">width</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span>
+<span class="linenos">171</span>				   <span class="n">height</span> <span class="o">=</span> <span class="mi">15</span><span class="p">,</span>
+<span class="linenos">172</span>				   <span class="n">ray_spacing</span> <span class="o">=</span> <span class="n">spacing</span><span class="p">,</span> 
+<span class="linenos">173</span>				   <span class="n">lon</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<span class="linenos">174</span>				   <span class="n">lat</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+<span class="linenos">175</span>				   <span class="n">distance</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span>
+<span class="linenos">176</span>
+<span class="linenos">177</span><span class="c1"># Define the Ray Tracer</span>
+<span class="linenos">178</span><span class="n">rtx</span> <span class="o">=</span> <span class="n">RayTracer</span><span class="p">(</span> <span class="n">lro</span><span class="p">,</span>                    <span class="c1"># Spacecraft object</span>
+<span class="linenos">179</span>				 <span class="n">rays</span><span class="p">,</span>                   <span class="c1"># pixelPlane object</span>
+<span class="linenos">180</span>				 <span class="n">kernel</span> <span class="o">=</span> <span class="s1">&#39;Embree3&#39;</span><span class="p">,</span>     <span class="c1"># The RTX kernel to use (use Embree 3)</span>
+<span class="linenos">181</span>				 <span class="n">bounces</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>            <span class="c1"># The number of bounces to account for</span>
+<span class="linenos">182</span>				 <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>      <span class="c1"># Account for secondary diffusion</span>
+<span class="linenos">183</span>				 <span class="p">)</span> 
+<span class="linenos">184</span>
+<span class="linenos">185</span><span class="c1"># Define the Solar Pressure Object </span>
+<span class="linenos">186</span><span class="c1"># NOTE: for LUT computation the baseflux must be set to None.</span>
+<span class="linenos">187</span><span class="n">srp</span> <span class="o">=</span> <span class="n">SolarPressure</span><span class="p">(</span> <span class="n">lro</span><span class="p">,</span> <span class="n">rtx</span><span class="p">,</span> <span class="n">baseflux</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="p">)</span>
+<span class="linenos">188</span>
+<span class="linenos">189</span><span class="c1">### -------------------------------------------------------------------- ###</span>
+<span class="linenos">190</span><span class="c1">### LUT INITIALIZATION</span>
+<span class="linenos">191</span>
+<span class="linenos">192</span><span class="c1"># Time initialization</span>
+<span class="linenos">193</span><span class="n">tic</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span>
+<span class="linenos">194</span>
+<span class="linenos">195</span><span class="c1"># Refresh inputs and output directiories</span>
+<span class="linenos">196</span><span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;rm inputs/*&#39;</span><span class="p">)</span>
+<span class="linenos">197</span><span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;rm outputs/*&#39;</span><span class="p">)</span>
+<span class="linenos">198</span>
+<span class="linenos">199</span><span class="c1"># Save srp object</span>
+<span class="linenos">200</span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;inputs/srp.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> <span class="n">pkl</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">srp</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+<span class="linenos">201</span>
+<span class="linenos">202</span><span class="c1"># Deactivate trimesh logging</span>
+<span class="linenos">203</span><span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;trimesh&#39;</span><span class="p">)</span>
+<span class="linenos">204</span><span class="n">log</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="linenos">205</span>
+<span class="linenos">206</span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> *** Calculating dimension ...&#39;</span><span class="p">)</span>
+<span class="linenos">207</span>
+<span class="linenos">208</span><span class="c1"># Build dimensions and axes</span>
+<span class="linenos">209</span><span class="n">axes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos">210</span><span class="n">dims</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos">211</span><span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">moving_frames</span><span class="p">:</span>
+<span class="linenos">212</span>    <span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="n">eul_set</span><span class="p">:</span>
+<span class="linenos">213</span>        
+<span class="linenos">214</span>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">eul_limits</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">ax</span><span class="p">]):</span> <span class="k">continue</span>
+<span class="linenos">215</span>        <span class="n">lb</span> <span class="o">=</span> <span class="n">eul_limits</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">ax</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+<span class="linenos">216</span>        <span class="n">ub</span> <span class="o">=</span> <span class="n">eul_limits</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">ax</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+<span class="linenos">217</span>        
+<span class="linenos">218</span>        <span class="n">dims</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s%d</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="n">ax</span><span class="p">))</span>
+<span class="linenos">219</span>        <span class="n">axes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">lb</span><span class="p">,</span> <span class="n">ub</span><span class="p">,</span> <span class="n">ceil</span><span class="p">((</span><span class="n">ub</span><span class="o">-</span><span class="n">lb</span><span class="p">)</span><span class="o">/</span><span class="n">angle_res</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">180</span><span class="p">)</span>	  
+<span class="linenos">220</span>
+<span class="linenos">221</span><span class="c1"># Append ra and dec</span>
+<span class="linenos">222</span><span class="n">dims</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;ra&#39;</span><span class="p">)</span>
+<span class="linenos">223</span><span class="n">dims</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;dec&#39;</span><span class="p">)</span>
+<span class="linenos">224</span><span class="n">dims</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+<span class="linenos">225</span><span class="n">axes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">RA</span><span class="p">)</span> 
+<span class="linenos">226</span><span class="n">axes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DEC</span><span class="p">)</span> 
+<span class="linenos">227</span>
+<span class="linenos">228</span><span class="c1"># Build attribute dictionary for xarray</span>
+<span class="linenos">229</span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span>
+<span class="linenos">230</span>	<span class="s1">&#39;moving_frames&#39;</span><span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">moving_frames</span><span class="p">),</span>
+<span class="linenos">231</span>	<span class="s1">&#39;base_frame&#39;</span><span class="p">:</span> <span class="n">base_frame</span><span class="p">,</span>
+<span class="linenos">232</span>	<span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="n">units</span><span class="p">,</span>
+<span class="linenos">233</span>	<span class="s1">&#39;ref_epoch&#39;</span><span class="p">:</span> <span class="n">ref_epc</span><span class="p">,</span>
+<span class="linenos">234</span>	<span class="s1">&#39;eul_set&#39;</span><span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">eul_set</span><span class="p">]),</span>
+<span class="linenos">235</span>	<span class="s1">&#39;dims&#39;</span><span class="p">:</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dims</span><span class="p">),</span>
+<span class="linenos">236</span>	<span class="p">}</span>
+<span class="linenos">237</span>
+<span class="linenos">238</span><span class="c1"># Save attributes dictionary</span>
+<span class="linenos">239</span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;inputs/attrs.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> <span class="n">pkl</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+<span class="linenos">240</span>
+<span class="linenos">241</span><span class="c1"># Compute shape for xarray</span>
+<span class="linenos">242</span><span class="n">shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+<span class="linenos">243</span>
+<span class="linenos">244</span><span class="c1"># Build coordinates</span>
+<span class="linenos">245</span><span class="n">coords</span> <span class="o">=</span> <span class="p">{</span><span class="n">dims</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span> <span class="n">vals</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">vals</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axes</span><span class="p">)}</span>
+<span class="linenos">246</span>
+<span class="linenos">247</span><span class="c1">### -------------------------------------------------------------------- ###</span>
+<span class="linenos">248</span><span class="c1">### LUT PARALLEL COMPUTATION </span>
+<span class="linenos">249</span>
+<span class="linenos">250</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> *** LUT size: </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s1"> ...&#39;</span><span class="p">)</span>
+<span class="linenos">251</span>
+<span class="linenos">252</span><span class="c1"># Init data array</span>
+<span class="linenos">253</span><span class="n">data</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+<span class="linenos">254</span>
+<span class="linenos">255</span><span class="c1"># Find all permutations</span>
+<span class="linenos">256</span><span class="n">SEQ</span>    <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">axes</span><span class="p">))</span>
+<span class="linenos">257</span><span class="n">IDX</span>    <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]]))</span>
+<span class="linenos">258</span><span class="n">steps</span>  <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">SEQ</span><span class="p">),</span><span class="n">n_cores</span><span class="p">)]</span>
+<span class="linenos">259</span><span class="n">SEQ</span>    <span class="o">=</span> <span class="p">[</span><span class="n">SEQ</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">steps</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">steps</span><span class="p">[</span><span class="mi">1</span><span class="p">:])]</span>
+<span class="linenos">260</span><span class="n">IDX</span>    <span class="o">=</span> <span class="p">[</span><span class="n">IDX</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">j</span><span class="p">]</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">steps</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">steps</span><span class="p">[</span><span class="mi">1</span><span class="p">:])]</span>
+<span class="linenos">261</span><span class="n">INPUTS</span> <span class="o">=</span> <span class="p">[(</span><span class="n">I</span><span class="p">,</span><span class="n">S</span><span class="p">)</span> <span class="k">for</span> <span class="n">I</span><span class="p">,</span><span class="n">S</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">IDX</span><span class="p">,</span><span class="n">SEQ</span><span class="p">)]</span>
+<span class="linenos">262</span>
+<span class="linenos">263</span><span class="c1"># Save inputs file</span>
+<span class="linenos">264</span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;inputs/inputs.pkl&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span> <span class="n">pkl</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">INPUTS</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+<span class="linenos">265</span>
+<span class="linenos">266</span><span class="c1">### -------------------------------------------------- ###</span>
+<span class="linenos">267</span><span class="c1">### Multiprocessing target function</span>
+<span class="linenos">268</span>
+<span class="linenos">269</span><span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="n">ID</span><span class="p">,</span> <span class="n">METAKR</span><span class="p">):</span>
+<span class="linenos">270</span>	<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;python task_lut.py </span><span class="si">{</span><span class="n">ID</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">METAKR</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="linenos">271</span>	<span class="k">return</span>
+<span class="linenos">272</span>
+<span class="linenos">273</span><span class="c1">### -------------------------------------------------- ###</span>
+<span class="linenos">274</span>
+<span class="linenos">275</span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> *** Filling the LUT values ...&#39;</span><span class="p">)</span>
+<span class="linenos">276</span>
+<span class="linenos">277</span><span class="c1"># --------------------------------- #</span>
+<span class="linenos">278</span><span class="c1"># PYTHON MULTIPROCESSING</span>
+<span class="linenos">279</span>
+<span class="linenos">280</span><span class="n">p</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">INPUTS</span><span class="p">)</span>
+<span class="linenos">281</span>
+<span class="linenos">282</span><span class="c1"># Process in parallel</span>
+<span class="linenos">283</span><span class="k">for</span> <span class="n">ID</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">INPUTS</span><span class="p">)):</span>
+<span class="linenos">284</span>	<span class="n">p</span><span class="p">[</span><span class="n">ID</span><span class="p">]</span> <span class="o">=</span> <span class="n">mproc</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span> <span class="n">target</span><span class="o">=</span><span class="n">process</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">ID</span><span class="p">,</span> <span class="n">METAKR</span><span class="p">,)</span> <span class="p">)</span>
+<span class="linenos">285</span>
+<span class="linenos">286</span><span class="k">for</span> <span class="n">ID</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">INPUTS</span><span class="p">)):</span>       
+<span class="linenos">287</span>	<span class="n">p</span><span class="p">[</span><span class="n">ID</span><span class="p">]</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="linenos">288</span>	<span class="k">while</span> <span class="nb">sum</span><span class="p">([</span><span class="n">pi</span><span class="o">.</span><span class="n">is_alive</span><span class="p">()</span> <span class="k">for</span> <span class="n">pi</span> <span class="ow">in</span> <span class="n">p</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="n">n_cores</span><span class="p">:</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="linenos">289</span>
+<span class="linenos">290</span><span class="k">for</span> <span class="n">ID</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">INPUTS</span><span class="p">)):</span> 
+<span class="linenos">291</span>	<span class="k">while</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">ID</span><span class="p">]</span><span class="o">.</span><span class="n">is_alive</span><span class="p">()):</span> <span class="n">p</span><span class="p">[</span><span class="n">ID</span><span class="p">]</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="linenos">292</span>
+<span class="linenos">293</span><span class="c1"># --------------------------------- #</span>
+<span class="linenos">294</span>
+<span class="linenos">295</span><span class="c1"># Fill LUT values</span>
+<span class="linenos">296</span><span class="k">for</span> <span class="n">ID</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">INPUTS</span><span class="p">)):</span>
+<span class="linenos">297</span>    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;outputs/output</span><span class="si">{</span><span class="n">ID</span><span class="si">}</span><span class="s1">.npy&#39;</span><span class="p">)</span>
+<span class="linenos">298</span>    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">idxs</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">INPUTS</span><span class="p">[</span><span class="n">ID</span><span class="p">][</span><span class="mi">0</span><span class="p">]):</span>
+<span class="linenos">299</span>        <span class="n">data</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">idxs</span><span class="p">)]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="linenos">300</span>
+<span class="linenos">301</span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> *** Generating the x-array ...&#39;</span><span class="p">)</span>
+<span class="linenos">302</span>
+<span class="linenos">303</span><span class="c1"># Define X-array LUT</span>
+<span class="linenos">304</span><span class="n">data</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span> <span class="n">data_vars</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;look_up_table&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">dims</span><span class="p">,</span> <span class="n">data</span><span class="p">)},</span> 
+<span class="linenos">305</span>				   <span class="n">coords</span>    <span class="o">=</span> <span class="n">coords</span><span class="p">,</span>
+<span class="linenos">306</span>				   <span class="n">attrs</span>     <span class="o">=</span> <span class="n">attrs</span><span class="p">,)</span>
+<span class="linenos">307</span>
+<span class="linenos">308</span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> *** LUT completed!</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="linenos">309</span>
+<span class="linenos">310</span><span class="c1"># Reactivate trimesh logging</span>
+<span class="linenos">311</span><span class="n">log</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="linenos">312</span>
+<span class="linenos">313</span><span class="c1"># Save</span>
+<span class="linenos">314</span><span class="n">data</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="n">lutfile</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">encoding</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;zlib&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;complevel&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}))</span>
+<span class="linenos">315</span>
+<span class="linenos">316</span><span class="c1">### ... Elapsed time</span>
+<span class="linenos">317</span><span class="n">toc</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span>
+<span class="linenos">318</span><span class="n">time_min</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">floor</span><span class="p">((</span><span class="n">toc</span><span class="o">-</span><span class="n">tic</span><span class="p">)</span><span class="o">/</span><span class="mi">60</span><span class="p">))</span>
+<span class="linenos">319</span><span class="n">time_sec</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">mod</span><span class="p">((</span><span class="n">toc</span><span class="o">-</span><span class="n">tic</span><span class="p">),</span> <span class="mi">60</span><span class="p">))</span>
+<span class="linenos">320</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="linenos">321</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> Elapsed time: </span><span class="si">%d</span><span class="s2"> min, </span><span class="si">%d</span><span class="s2"> sec&quot;</span> <span class="o">%</span><span class="p">(</span><span class="n">time_min</span><span class="p">,</span> <span class="n">time_sec</span><span class="p">))</span>
+<span class="linenos">322</span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="linenos">323</span>
+<span class="linenos">324</span><span class="c1">### -------------------------------------------------------------------- ###</span>
+</pre></div>
+</div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lro_mass.html" class="btn btn-neutral float-left" title="Generate the time-variable mass input" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lro_srp.html" class="btn btn-neutral float-right" title="LRO Solar Radiation Pressure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Gael Cascioli.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

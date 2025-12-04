@@ -1,1 +1,0 @@
-../../examples/lro_drag.py
