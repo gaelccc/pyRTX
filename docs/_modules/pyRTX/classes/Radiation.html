@@ -284,297 +284,371 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Albedo"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Albedo</span><span class="p">():</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class for computing the albedo acceleration on a spacecraft.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Albedo.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo.__init__">[docs]</a>        <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">lookup</span><span class="p">,</span> <span class="n">Planet</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">baseflux</span> <span class="o">=</span> <span class="mf">1361.5</span><span class="p">,):</span>
-<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                Parameters</span>
-<span class="sd">                ----------</span>
-<span class="sd">                Planet : pyRTX.classes.Planet</span>
-<span class="sd">                        The planet object the Albedo is for</span>
-<span class="sd">                spacecraft : pyRTX.classes.Spacecraft</span>
-<span class="sd">                        The spacecraft object the Albedo is for</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">scname</span>   <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">name</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">scFrame</span>  <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">base_frame</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span>   <span class="o">=</span> <span class="n">Planet</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span>  <span class="o">=</span> <span class="n">precomputation</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">baseflux</span> <span class="o">=</span> <span class="n">baseflux</span>
-                
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span><span class="nb">int</span><span class="p">)):</span> 
-                        <span class="bp">self</span><span class="o">.</span><span class="n">scMass</span> <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span>
-                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span><span class="p">,</span> <span class="n">xarray</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span> 
-                        <span class="n">mass_times</span> <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span>
-                        <span class="n">mass_data</span> <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span><span class="o">.</span><span class="n">mass</span><span class="o">.</span><span class="n">data</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">scMass</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">mass_times</span><span class="p">,</span> <span class="n">mass_data</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;previous&#39;</span><span class="p">,</span> <span class="n">assume_sorted</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> *** WARNING: SC mass should be float, int or xarray!&#39;</span><span class="p">)</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">scMass</span> <span class="o">=</span> <span class="kc">None</span>
-                
-                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lookup</span><span class="p">,</span> <span class="n">LookUpTable</span><span class="p">):</span>
-                        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Error: the input lookup table must be a classes.LookUpTable object&#39;</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">lookup</span> <span class="o">=</span> <span class="n">lookup</span></div>
+<div class="viewcode-block" id="Albedo.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">lookup</span><span class="p">,</span> <span class="n">Planet</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">baseflux</span> <span class="o">=</span> <span class="mf">1361.5</span><span class="p">,):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the Albedo object.</span>
 
-        <span class="k">def</span><span class="w"> </span><span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                Method to store precomputed data.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spacecraft : pyRTX.Spacecraft</span>
+<span class="sd">            The spacecraft object.</span>
+<span class="sd">        lookup : pyRTX.classes.LookUpTable</span>
+<span class="sd">            A lookup table for the spacecraft&#39;s albedo properties.</span>
+<span class="sd">        Planet : pyRTX.Planet</span>
+<span class="sd">            The planet object.</span>
+<span class="sd">        precomputation : pyRTX.classes.Precompute, optional</span>
+<span class="sd">            A Precompute object with precomputed SPICE data.</span>
+<span class="sd">        baseflux : float, default=1361.5</span>
+<span class="sd">            The base solar flux at 1 AU in W/m^2.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">scname</span>   <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">name</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">scFrame</span>  <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">base_frame</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">Planet</span>   <span class="o">=</span> <span class="n">Planet</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span>  <span class="o">=</span> <span class="n">precomputation</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">baseflux</span> <span class="o">=</span> <span class="n">baseflux</span>
 
-<span class="sd">                Parameters:</span>
-<span class="sd">                -	sp_data: object of the class Precompute</span>
-<span class="sd">                &quot;&quot;&quot;</span>
+		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span><span class="nb">int</span><span class="p">)):</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">scMass</span> <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span>
+		<span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span><span class="p">,</span> <span class="n">xarray</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+			<span class="n">mass_times</span> <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span>
+			<span class="n">mass_data</span> <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span><span class="o">.</span><span class="n">mass</span><span class="o">.</span><span class="n">data</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">scMass</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">mass_times</span><span class="p">,</span> <span class="n">mass_data</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;previous&#39;</span><span class="p">,</span> <span class="n">assume_sorted</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> *** WARNING: SC mass should be float, int or xarray!&#39;</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">scMass</span> <span class="o">=</span> <span class="kc">None</span>
 
-                <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">lookup</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span>
-                
+		<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lookup</span><span class="p">,</span> <span class="n">LookUpTable</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Error: the input lookup table must be a classes.LookUpTable object&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">lookup</span> <span class="o">=</span> <span class="n">lookup</span></div>
 
-<div class="viewcode-block" id="Albedo.run"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo.run">[docs]</a>        <span class="nd">@parallel</span>
-        <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stores precomputed SPICE data in the Planet and lookup table objects.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
-<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                Compute the fundamental quantities for the albedo force computation</span>
-<span class="sd">                Parameters</span>
-<span class="sd">                ----------</span>
-<span class="sd">                epoch : str or float</span>
-<span class="sd">                        the epoch at which to compute the albedo (it can be either a string or a float)</span>
-<span class="sd">                Returns</span>
-<span class="sd">                -------</span>
-<span class="sd">                normalized_fluxes : np.ndarray</span>
-<span class="sd">                        (i.e. for each face that is responsible for albedo contribution  cos(alpha)*cos(theta)*dA/pi/r**2</span>
-<span class="sd">                dirs: np.ndarray</span>
-<span class="sd">                        direction of each ray relative to the SC frame</span>
-<span class="sd">                vals : np.array</span>
-<span class="sd">                        values of the albedo for each face of the planet</span>
-
-<span class="sd">                &quot;&quot;&quot;</span>
-
-                <span class="n">normFluxes</span><span class="p">,</span> <span class="n">scRelative</span><span class="p">,</span> <span class="n">albedoIdxs</span><span class="p">,</span> <span class="n">albedoVals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_core_compute</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
-
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="n">rotMat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span><span class="o">.</span><span class="n">getRotation</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">sunFixedFrame</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scFrame</span><span class="p">)</span>
-                        <span class="n">rotMat</span> <span class="o">=</span> <span class="n">rotMat</span><span class="p">[:</span><span class="mi">3</span><span class="p">,:</span><span class="mi">3</span><span class="p">]</span>
-                        <span class="n">sundir</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span><span class="o">.</span><span class="n">getPosition</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;Sun&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">bodyFrame</span><span class="p">,</span> <span class="s1">&#39;CN&#39;</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                        <span class="n">rotMat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">rot_toSCframe</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">scFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scFrame</span><span class="p">)</span>
-                        <span class="n">sundir</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">spkezr</span><span class="p">(</span> <span class="s1">&#39;Sun&#39;</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">bodyFrame</span><span class="p">,</span> <span class="s1">&#39;CN&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
-
-                <span class="n">dirs_to_sc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">scRelative</span><span class="p">,</span> <span class="n">rotMat</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-                <span class="n">dirs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">normFluxes</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
-
-                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ddir</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dirs_to_sc</span><span class="p">):</span>
-                        <span class="p">[</span><span class="n">_</span><span class="p">,</span> <span class="n">dirs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">dirs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">recrad</span><span class="p">(</span><span class="n">ddir</span><span class="p">)</span>
-
-                <span class="c1"># Compute normalized fluxes, directions and albedo values</span>
-                <span class="n">lll</span>         <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">dirs</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">dirs</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
-                <span class="n">norm_fluxes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">normFluxes</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
-                <span class="n">alb_values</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">albedoVals</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
-        
-                <span class="c1"># Scale flux</span>
-                <span class="n">sunflux</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">baseflux</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">sundir</span><span class="p">)</span><span class="o">/</span><span class="n">au</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
-                
-                <span class="c1"># Compute acceleration	</span>
-                <span class="n">mass</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scMass</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scMass</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span><span class="nb">int</span><span class="p">))</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">scMass</span>
-                <span class="n">alb_accel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">alb_values</span> <span class="o">*</span> <span class="n">sunflux</span><span class="o">/</span><span class="n">mass</span> <span class="o">*</span> <span class="n">norm_fluxes</span> <span class="o">*</span> <span class="n">lll</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> 
- 
-                <span class="k">return</span> <span class="n">alb_accel</span><span class="p">,</span> <span class="n">normFluxes</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">albedoVals</span></div>
-        
-
-<div class="viewcode-block" id="Albedo.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo.compute">[docs]</a>        <span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                Method to perform the computations for albedo acceleration.</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-                
-                <span class="bp">self</span><span class="o">.</span><span class="n">_store_precomputations</span><span class="p">()</span>
-                
-                <span class="n">alb_accel</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
-                <span class="n">norm_fluxes</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
-                <span class="n">dirs</span>        <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
-                <span class="n">albedoVals</span>  <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
-                
-                <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="n">n_cores</span><span class="p">)</span>
-
-                <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">):</span> 
-                        <span class="n">alb_accel</span><span class="p">[</span><span class="n">r</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                        <span class="n">norm_fluxes</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                        <span class="n">dirs</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>        <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-                        <span class="n">albedoVals</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>  <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-                        
-                <span class="k">return</span> <span class="n">alb_accel</span><span class="p">,</span> <span class="n">norm_fluxes</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">albedoVals</span></div>
+		<span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">lookup</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span>
 
 
-        <span class="k">def</span><span class="w"> </span><span class="nf">_core_compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
-                <span class="s2">&quot; Get the rays to be used in the computation &quot;</span>
+<div class="viewcode-block" id="Albedo.run"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo.run">[docs]</a>	<span class="nd">@parallel</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the albedo acceleration at a single epoch.</span>
 
-                <span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">C</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">VFNC</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch in TDB seconds past J2000.</span>
 
-                <span class="n">albedoIdxs</span><span class="p">,</span> <span class="n">albedoVals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">albedoFaces</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scname</span><span class="p">)</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            A tuple containing the albedo acceleration vector, the normalized</span>
+<span class="sd">            fluxes, the directions of the rays, and the albedo values.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="n">scPos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span><span class="o">.</span><span class="n">getPosition</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">sunFixedFrame</span><span class="p">,</span> <span class="s1">&#39;CN&#39;</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                        <span class="n">scPos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">getScPosSunFixed</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scname</span><span class="p">)</span>
+		<span class="n">normFluxes</span><span class="p">,</span> <span class="n">scRelative</span><span class="p">,</span> <span class="n">albedoIdxs</span><span class="p">,</span> <span class="n">albedoVals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_core_compute</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
 
-                <span class="c1"># Get the direction of the rays in the SC frame</span>
-                <span class="n">centers</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="n">albedoIdxs</span><span class="p">]</span>
-                <span class="n">scRelative</span> <span class="o">=</span> <span class="o">-</span> <span class="n">centers</span> <span class="o">+</span> <span class="n">scPos</span>
-                <span class="n">dirs</span> <span class="o">=</span> <span class="n">scRelative</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">scRelative</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">scRelative</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">rotMat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span><span class="o">.</span><span class="n">getRotation</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">sunFixedFrame</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scFrame</span><span class="p">)</span>
+			<span class="n">rotMat</span> <span class="o">=</span> <span class="n">rotMat</span><span class="p">[:</span><span class="mi">3</span><span class="p">,:</span><span class="mi">3</span><span class="p">]</span>
+			<span class="n">sundir</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span><span class="o">.</span><span class="n">getPosition</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;Sun&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">bodyFrame</span><span class="p">,</span> <span class="s1">&#39;CN&#39;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">rotMat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">rot_toSCframe</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">scFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scFrame</span><span class="p">)</span>
+			<span class="n">sundir</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">spkezr</span><span class="p">(</span> <span class="s1">&#39;Sun&#39;</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">bodyFrame</span><span class="p">,</span> <span class="s1">&#39;CN&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">name</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
 
-                <span class="c1"># Get normal-to-spacecraft angles</span>
-                <span class="n">normals</span> <span class="o">=</span> <span class="n">N</span><span class="p">[</span><span class="n">albedoIdxs</span><span class="p">]</span>
-                <span class="n">cos_theta</span> <span class="o">=</span> <span class="n">block_dot</span><span class="p">(</span><span class="n">normals</span><span class="p">,</span> <span class="n">dirs</span><span class="p">)</span>
+		<span class="n">dirs_to_sc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">scRelative</span><span class="p">,</span> <span class="n">rotMat</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+		<span class="n">dirs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">normFluxes</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
 
-                <span class="c1"># Get sun-to-normal angles</span>
-                <span class="n">cos_alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">normals</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">,</span> <span class="n">normals</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># The sun is in the x direction. This is equivalent to dot(normals, [1,0,0])</span>
+		<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ddir</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dirs_to_sc</span><span class="p">):</span>
+			<span class="p">[</span><span class="n">_</span><span class="p">,</span> <span class="n">dirs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">dirs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">recrad</span><span class="p">(</span><span class="n">ddir</span><span class="p">)</span>
 
-                <span class="c1"># Distance between sc and each element mesh</span>
-                <span class="n">scRelativeMag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scRelative</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="c1"># Compute normalized fluxes, directions and albedo values</span>
+		<span class="n">lll</span>         <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">dirs</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">dirs</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+		<span class="n">norm_fluxes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">normFluxes</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="n">alb_values</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">albedoVals</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
 
-                <span class="c1"># Compute the geometric contribution to the flux</span>
-                <span class="n">_</span><span class="p">,</span> <span class="n">dA</span> <span class="o">=</span> <span class="n">get_surface_normals_and_face_areas</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">)</span>
-                <span class="n">dA</span> <span class="o">=</span> <span class="n">dA</span><span class="p">[</span><span class="n">albedoIdxs</span><span class="p">]</span>
+		<span class="c1"># Scale flux</span>
+		<span class="n">sunflux</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">baseflux</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">sundir</span><span class="p">)</span><span class="o">/</span><span class="n">au</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span>
 
-                <span class="n">norm_fluxes</span> <span class="o">=</span> <span class="n">cos_alpha</span> <span class="o">*</span> <span class="n">cos_theta</span> <span class="o">*</span> <span class="n">dA</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">scRelativeMag</span>
+		<span class="c1"># Compute acceleration</span>
+		<span class="n">mass</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scMass</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scMass</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span><span class="nb">int</span><span class="p">))</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">scMass</span>
+		<span class="n">alb_accel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">alb_values</span> <span class="o">*</span> <span class="n">sunflux</span><span class="o">/</span><span class="n">mass</span> <span class="o">*</span> <span class="n">norm_fluxes</span> <span class="o">*</span> <span class="n">lll</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
 
-                
-                <span class="k">return</span> <span class="n">norm_fluxes</span><span class="p">,</span> <span class="o">-</span><span class="n">scRelative</span><span class="p">,</span> <span class="n">albedoIdxs</span><span class="p">,</span> <span class="n">albedoVals</span></div>
+		<span class="k">return</span> <span class="n">alb_accel</span><span class="p">,</span> <span class="n">normFluxes</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">albedoVals</span></div>
 
-                
+
+<div class="viewcode-block" id="Albedo.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo.compute">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the albedo acceleration for a series of epochs.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epochs : list of float</span>
+<span class="sd">            A list of epochs in TDB seconds past J2000.</span>
+<span class="sd">        n_cores : int, optional</span>
+<span class="sd">            The number of CPU cores to use for parallel computation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            A tuple containing the albedo acceleration vectors, the</span>
+<span class="sd">            normalized fluxes, the directions of the rays, and the albedo</span>
+<span class="sd">            values for each epoch.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+
+		<span class="bp">self</span><span class="o">.</span><span class="n">_store_precomputations</span><span class="p">()</span>
+
+		<span class="n">alb_accel</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+		<span class="n">norm_fluxes</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
+		<span class="n">dirs</span>        <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
+		<span class="n">albedoVals</span>  <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
+
+		<span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="n">n_cores</span><span class="p">)</span>
+
+		<span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
+			<span class="n">alb_accel</span><span class="p">[</span><span class="n">r</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+			<span class="n">norm_fluxes</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+			<span class="n">dirs</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>        <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+			<span class="n">albedoVals</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>  <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+		<span class="k">return</span> <span class="n">alb_accel</span><span class="p">,</span> <span class="n">norm_fluxes</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">albedoVals</span></div>
+
+
+	<span class="k">def</span><span class="w"> </span><span class="nf">_core_compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Core computation for the albedo acceleration.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch in TDB seconds past J2000.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            A tuple containing the normalized fluxes, the spacecraft-relative</span>
+<span class="sd">            positions, the albedo indices, and the albedo values.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="s2">&quot; Get the rays to be used in the computation &quot;</span>
+
+		<span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">C</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">VFNC</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
+
+		<span class="n">albedoIdxs</span><span class="p">,</span> <span class="n">albedoVals</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">albedoFaces</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scname</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">scPos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span><span class="o">.</span><span class="n">getPosition</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">sunFixedFrame</span><span class="p">,</span> <span class="s1">&#39;CN&#39;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">scPos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">getScPosSunFixed</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scname</span><span class="p">)</span>
+
+		<span class="c1"># Get the direction of the rays in the SC frame</span>
+		<span class="n">centers</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="n">albedoIdxs</span><span class="p">]</span>
+		<span class="n">scRelative</span> <span class="o">=</span> <span class="o">-</span> <span class="n">centers</span> <span class="o">+</span> <span class="n">scPos</span>
+		<span class="n">dirs</span> <span class="o">=</span> <span class="n">scRelative</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">scRelative</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">scRelative</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+
+		<span class="c1"># Get normal-to-spacecraft angles</span>
+		<span class="n">normals</span> <span class="o">=</span> <span class="n">N</span><span class="p">[</span><span class="n">albedoIdxs</span><span class="p">]</span>
+		<span class="n">cos_theta</span> <span class="o">=</span> <span class="n">block_dot</span><span class="p">(</span><span class="n">normals</span><span class="p">,</span> <span class="n">dirs</span><span class="p">)</span>
+
+		<span class="c1"># Get sun-to-normal angles</span>
+		<span class="n">cos_alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">normals</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">,</span> <span class="n">normals</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># The sun is in the x direction. This is equivalent to dot(normals, [1,0,0])</span>
+
+		<span class="c1"># Distance between sc and each element mesh</span>
+		<span class="n">scRelativeMag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scRelative</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+		<span class="c1"># Compute the geometric contribution to the flux</span>
+		<span class="n">_</span><span class="p">,</span> <span class="n">dA</span> <span class="o">=</span> <span class="n">get_surface_normals_and_face_areas</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">)</span>
+		<span class="n">dA</span> <span class="o">=</span> <span class="n">dA</span><span class="p">[</span><span class="n">albedoIdxs</span><span class="p">]</span>
+
+		<span class="n">norm_fluxes</span> <span class="o">=</span> <span class="n">cos_alpha</span> <span class="o">*</span> <span class="n">cos_theta</span> <span class="o">*</span> <span class="n">dA</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">scRelativeMag</span>
+
+
+		<span class="k">return</span> <span class="n">norm_fluxes</span><span class="p">,</span> <span class="o">-</span><span class="n">scRelative</span><span class="p">,</span> <span class="n">albedoIdxs</span><span class="p">,</span> <span class="n">albedoVals</span></div>
+
+
 <div class="viewcode-block" id="Emissivity"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Emissivity</span><span class="p">():</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class for computing the thermal emissivity acceleration on a spacecraft.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Emissivity.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity.__init__">[docs]</a>        <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">lookup</span><span class="p">,</span> <span class="n">Planet</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">baseflux</span> <span class="o">=</span> <span class="mf">1361.5</span><span class="p">):</span>
-<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                Parameters</span>
-<span class="sd">                ----------</span>
-<span class="sd">                Planet : pyRTX.classes.Planet</span>
-<span class="sd">                        The planet object the Albedo is for</span>
-<span class="sd">                spacecraft : pyRTX.classes.Spacecraft</span>
-<span class="sd">                        The spacecraft object the Albedo is for</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">scname</span>   <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">name</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">scFrame</span>  <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">base_frame</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span>   <span class="o">=</span> <span class="n">Planet</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span>  <span class="o">=</span> <span class="n">precomputation</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">baseflux</span> <span class="o">=</span> <span class="n">baseflux</span>
-                
-                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span><span class="nb">int</span><span class="p">)):</span> 
-                        <span class="bp">self</span><span class="o">.</span><span class="n">scMass</span> <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span>
-                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span><span class="p">,</span> <span class="n">xarray</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span> 
-                        <span class="n">mass_times</span> <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span>
-                        <span class="n">mass_data</span> <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span><span class="o">.</span><span class="n">mass</span><span class="o">.</span><span class="n">data</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">scMass</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">mass_times</span><span class="p">,</span> <span class="n">mass_data</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;previous&#39;</span><span class="p">,</span> <span class="n">assume_sorted</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> *** WARNING: SC mass should be float, int or xarray!&#39;</span><span class="p">)</span>
-                        <span class="bp">self</span><span class="o">.</span><span class="n">scMass</span> <span class="o">=</span> <span class="kc">None</span>
-                
-                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lookup</span><span class="p">,</span> <span class="n">LookUpTable</span><span class="p">):</span>
-                        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Error: the input lookup table must be a classes.LookUpTable object&#39;</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">lookup</span> <span class="o">=</span> <span class="n">lookup</span></div>
+<div class="viewcode-block" id="Emissivity.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">lookup</span><span class="p">,</span> <span class="n">Planet</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">baseflux</span> <span class="o">=</span> <span class="mf">1361.5</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the Emissivity object.</span>
 
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spacecraft : pyRTX.Spacecraft</span>
+<span class="sd">            The spacecraft object.</span>
+<span class="sd">        lookup : pyRTX.classes.LookUpTable</span>
+<span class="sd">            A lookup table for the spacecraft&#39;s emissivity properties.</span>
+<span class="sd">        Planet : pyRTX.Planet</span>
+<span class="sd">            The planet object.</span>
+<span class="sd">        precomputation : pyRTX.classes.Precompute, optional</span>
+<span class="sd">            A Precompute object with precomputed SPICE data.</span>
+<span class="sd">        baseflux : float, default=1361.5</span>
+<span class="sd">            The base solar flux at 1 AU in W/m^2.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">scname</span>   <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">name</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">scFrame</span>  <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">base_frame</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">Planet</span>   <span class="o">=</span> <span class="n">Planet</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span>  <span class="o">=</span> <span class="n">precomputation</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">baseflux</span> <span class="o">=</span> <span class="n">baseflux</span>
 
-        <span class="k">def</span><span class="w"> </span><span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                Method to store precomputed data.</span>
+		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span><span class="nb">int</span><span class="p">)):</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">scMass</span> <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span>
+		<span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span><span class="p">,</span> <span class="n">xarray</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">dataset</span><span class="o">.</span><span class="n">Dataset</span><span class="p">):</span>
+			<span class="n">mass_times</span> <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">data</span>
+			<span class="n">mass_data</span> <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">mass</span><span class="o">.</span><span class="n">mass</span><span class="o">.</span><span class="n">data</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">scMass</span> <span class="o">=</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interp1d</span><span class="p">(</span><span class="n">mass_times</span><span class="p">,</span> <span class="n">mass_data</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s1">&#39;previous&#39;</span><span class="p">,</span> <span class="n">assume_sorted</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> *** WARNING: SC mass should be float, int or xarray!&#39;</span><span class="p">)</span>
+			<span class="bp">self</span><span class="o">.</span><span class="n">scMass</span> <span class="o">=</span> <span class="kc">None</span>
 
-<span class="sd">                Parameters:</span>
-<span class="sd">                -	sp_data: object of the class Precompute</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-
-                <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">lookup</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span>
-
-                
-<div class="viewcode-block" id="Emissivity.run"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity.run">[docs]</a>        <span class="nd">@parallel</span>   
-        <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
-
-<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                Compute the fundamental quantities for the emissivity force computation</span>
-<span class="sd">                returns </span>
-<span class="sd">                1) normalized fluxes (i.e. for each face that is responsible for albedo contribution</span>
-<span class="sd">                cos(theta)*dA/pi/r**2</span>
-<span class="sd">                2) direction of each ray relative to the SC frame</span>
-
-<span class="sd">                &quot;&quot;&quot;</span>
-
-                <span class="n">normFluxes</span><span class="p">,</span> <span class="n">scRelative</span><span class="p">,</span> <span class="n">emiIdxs</span><span class="p">,</span> <span class="n">faceEmi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_core_compute</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
-                
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="n">rotMat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span><span class="o">.</span><span class="n">getRotation</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">sunFixedFrame</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scFrame</span><span class="p">)</span>
-                        <span class="n">rotMat</span> <span class="o">=</span> <span class="n">rotMat</span><span class="p">[:</span><span class="mi">3</span><span class="p">,:</span><span class="mi">3</span><span class="p">]</span>
-                <span class="k">else</span><span class="p">:</span>
-                        <span class="n">rotMat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">rot_toSCframe</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">scFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scFrame</span><span class="p">)</span>
-
-                <span class="n">dirs_to_sc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">scRelative</span><span class="p">,</span> <span class="n">rotMat</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-                
-                <span class="n">dirs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">normFluxes</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
-                
-                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ddir</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dirs_to_sc</span><span class="p">):</span>
-                        <span class="p">[</span><span class="n">_</span><span class="p">,</span> <span class="n">dirs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">dirs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">recrad</span><span class="p">(</span><span class="n">ddir</span><span class="p">)</span>
-                        
-                <span class="n">lll</span>         <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">dirs</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">dirs</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
-                <span class="n">norm_fluxes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">normFluxes</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
-                <span class="n">emi_values</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">faceEmi</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
- 
-                <span class="c1"># Compute acceleration	</span>
-                <span class="n">mass</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scMass</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scMass</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span><span class="nb">int</span><span class="p">))</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">scMass</span>
-                <span class="n">ir_accel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">emi_values</span> <span class="o">*</span> <span class="mi">1</span><span class="o">/</span><span class="n">mass</span> <span class="o">*</span> <span class="n">norm_fluxes</span> <span class="o">*</span> <span class="n">lll</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> 
-                
-                <span class="k">return</span> <span class="n">ir_accel</span><span class="p">,</span> <span class="n">normFluxes</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">faceEmi</span></div>
+		<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">lookup</span><span class="p">,</span> <span class="n">LookUpTable</span><span class="p">):</span>
+			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Error: the input lookup table must be a classes.LookUpTable object&#39;</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">lookup</span> <span class="o">=</span> <span class="n">lookup</span></div>
 
 
-<div class="viewcode-block" id="Emissivity.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity.compute">[docs]</a>        <span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">                </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">                Method to perform the computations for albedo acceleration.</span>
-<span class="sd">                &quot;&quot;&quot;</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_store_precomputations</span><span class="p">()</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stores precomputed SPICE data in the Planet and lookup table objects.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
-                <span class="n">ir_accel</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
-                <span class="n">norm_fluxes</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
-                <span class="n">dirs</span>        <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
-                <span class="n">faceEmi</span>     <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
-                               
-                <span class="n">results</span>     <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="n">n_cores</span><span class="p">)</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">lookup</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span>
 
-                <span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">):</span> 
-                        <span class="n">ir_accel</span><span class="p">[</span><span class="n">r</span><span class="p">,:]</span>  <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-                        <span class="n">norm_fluxes</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-                        <span class="n">dirs</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>        <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
-                        <span class="n">faceEmi</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>     <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-                
-                <span class="k">return</span> <span class="n">ir_accel</span><span class="p">,</span> <span class="n">norm_fluxes</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">faceEmi</span></div>
-        
-        
-        <span class="k">def</span><span class="w"> </span><span class="nf">_core_compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
-                <span class="s2">&quot; Get the rays to be used in the computation &quot;</span>
 
-                <span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">C</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">VFNC</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
-                
-                <span class="n">emiIdxs</span><span class="p">,</span> <span class="n">faceTemps</span><span class="p">,</span> <span class="n">faceEmi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">emissivityFaces</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scname</span><span class="p">)</span>
+<div class="viewcode-block" id="Emissivity.run"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity.run">[docs]</a>	<span class="nd">@parallel</span>
+	<span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the emissivity acceleration at a single epoch.</span>
 
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
-                        <span class="n">scPos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span><span class="o">.</span><span class="n">getPosition</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">sunFixedFrame</span><span class="p">,</span> <span class="s1">&#39;CN&#39;</span><span class="p">)</span>
-                <span class="k">else</span><span class="p">:</span>
-                        <span class="n">scPos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">getScPosSunFixed</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scname</span><span class="p">)</span>
-                
-                <span class="c1"># Get the direction of the rays in the SC frame</span>
-                <span class="n">centers</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="n">emiIdxs</span><span class="p">]</span>
-                <span class="n">scRelative</span> <span class="o">=</span> <span class="o">-</span> <span class="n">centers</span> <span class="o">+</span> <span class="n">scPos</span>
-                
-                <span class="n">dirs</span> <span class="o">=</span> <span class="n">scRelative</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">scRelative</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">scRelative</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch in TDB seconds past J2000.</span>
 
-                <span class="c1"># Get normal-to-spacecraft angles</span>
-                <span class="n">normals</span> <span class="o">=</span> <span class="n">N</span><span class="p">[</span><span class="n">emiIdxs</span><span class="p">]</span>
-                <span class="c1">#cos_theta = np.dot(normals, scPos/np.linalg.norm(scPos))</span>
-                <span class="n">cos_theta</span> <span class="o">=</span> <span class="n">block_dot</span><span class="p">(</span><span class="n">normals</span><span class="p">,</span> <span class="n">dirs</span><span class="p">)</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            A tuple containing the emissivity acceleration vector, the</span>
+<span class="sd">            normalized fluxes, the directions of the rays, and the face</span>
+<span class="sd">            emissivities.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
-                <span class="c1"># Distance between sc and each element mesh</span>
-                <span class="n">scRelativeMag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scRelative</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+		<span class="n">normFluxes</span><span class="p">,</span> <span class="n">scRelative</span><span class="p">,</span> <span class="n">emiIdxs</span><span class="p">,</span> <span class="n">faceEmi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_core_compute</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
 
-                <span class="c1"># Compute the geometric contribution to the flux</span>
-                <span class="n">_</span><span class="p">,</span> <span class="n">dA</span> <span class="o">=</span> <span class="n">get_surface_normals_and_face_areas</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">)</span>
-                <span class="n">dA</span> <span class="o">=</span> <span class="n">dA</span><span class="p">[</span><span class="n">emiIdxs</span><span class="p">]</span>
-                
-                <span class="n">norm_fluxes</span> <span class="o">=</span>  <span class="n">sb</span> <span class="o">*</span> <span class="n">faceTemps</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">cos_theta</span> <span class="o">*</span> <span class="n">dA</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">scRelativeMag</span> 
-                 
-                <span class="k">return</span> <span class="n">norm_fluxes</span><span class="p">,</span> <span class="o">-</span><span class="n">scRelative</span><span class="p">,</span> <span class="n">emiIdxs</span><span class="p">,</span> <span class="n">faceEmi</span></div>
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">rotMat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span><span class="o">.</span><span class="n">getRotation</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">sunFixedFrame</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scFrame</span><span class="p">)</span>
+			<span class="n">rotMat</span> <span class="o">=</span> <span class="n">rotMat</span><span class="p">[:</span><span class="mi">3</span><span class="p">,:</span><span class="mi">3</span><span class="p">]</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">rotMat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">rot_toSCframe</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">scFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scFrame</span><span class="p">)</span>
 
+		<span class="n">dirs_to_sc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">scRelative</span><span class="p">,</span> <span class="n">rotMat</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+		<span class="n">dirs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">normFluxes</span><span class="p">),</span> <span class="mi">2</span><span class="p">))</span>
+
+		<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ddir</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dirs_to_sc</span><span class="p">):</span>
+			<span class="p">[</span><span class="n">_</span><span class="p">,</span> <span class="n">dirs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">dirs</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">recrad</span><span class="p">(</span><span class="n">ddir</span><span class="p">)</span>
+
+		<span class="n">lll</span>         <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lookup</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">dirs</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">dirs</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+		<span class="n">norm_fluxes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">normFluxes</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="n">emi_values</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">faceEmi</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+		<span class="c1"># Compute acceleration</span>
+		<span class="n">mass</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scMass</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scMass</span><span class="p">,</span> <span class="p">(</span><span class="nb">float</span><span class="p">,</span><span class="nb">int</span><span class="p">))</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">scMass</span>
+		<span class="n">ir_accel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">emi_values</span> <span class="o">*</span> <span class="mi">1</span><span class="o">/</span><span class="n">mass</span> <span class="o">*</span> <span class="n">norm_fluxes</span> <span class="o">*</span> <span class="n">lll</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+
+		<span class="k">return</span> <span class="n">ir_accel</span><span class="p">,</span> <span class="n">normFluxes</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">faceEmi</span></div>
+
+
+<div class="viewcode-block" id="Emissivity.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity.compute">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Computes the emissivity acceleration for a series of epochs.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epochs : list of float</span>
+<span class="sd">            A list of epochs in TDB seconds past J2000.</span>
+<span class="sd">        n_cores : int, optional</span>
+<span class="sd">            The number of CPU cores to use for parallel computation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            A tuple containing the emissivity acceleration vectors, the</span>
+<span class="sd">            normalized fluxes, the directions of the rays, and the face</span>
+<span class="sd">            emissivities for each epoch.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="bp">self</span><span class="o">.</span><span class="n">_store_precomputations</span><span class="p">()</span>
+
+		<span class="n">ir_accel</span>    <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+		<span class="n">norm_fluxes</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
+		<span class="n">dirs</span>        <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
+		<span class="n">faceEmi</span>     <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span>
+
+		<span class="n">results</span>     <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="n">n_cores</span><span class="p">)</span>
+
+		<span class="k">for</span> <span class="n">r</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
+			<span class="n">ir_accel</span><span class="p">[</span><span class="n">r</span><span class="p">,:]</span>  <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+			<span class="n">norm_fluxes</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+			<span class="n">dirs</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>        <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+			<span class="n">faceEmi</span><span class="p">[</span><span class="n">r</span><span class="p">]</span>     <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+		<span class="k">return</span> <span class="n">ir_accel</span><span class="p">,</span> <span class="n">norm_fluxes</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">faceEmi</span></div>
+
+
+	<span class="k">def</span><span class="w"> </span><span class="nf">_core_compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Core computation for the emissivity acceleration.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch in TDB seconds past J2000.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            A tuple containing the normalized fluxes, the spacecraft-relative</span>
+<span class="sd">            positions, the emissivity indices, and the face emissivities.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="s2">&quot; Get the rays to be used in the computation &quot;</span>
+
+		<span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">C</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">VFNC</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
+
+		<span class="n">emiIdxs</span><span class="p">,</span> <span class="n">faceTemps</span><span class="p">,</span> <span class="n">faceEmi</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">emissivityFaces</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scname</span><span class="p">)</span>
+
+		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+			<span class="n">scPos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span><span class="o">.</span><span class="n">getPosition</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">sunFixedFrame</span><span class="p">,</span> <span class="s1">&#39;CN&#39;</span><span class="p">)</span>
+		<span class="k">else</span><span class="p">:</span>
+			<span class="n">scPos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Planet</span><span class="o">.</span><span class="n">getScPosSunFixed</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scname</span><span class="p">)</span>
+
+		<span class="c1"># Get the direction of the rays in the SC frame</span>
+		<span class="n">centers</span> <span class="o">=</span> <span class="n">C</span><span class="p">[</span><span class="n">emiIdxs</span><span class="p">]</span>
+		<span class="n">scRelative</span> <span class="o">=</span> <span class="o">-</span> <span class="n">centers</span> <span class="o">+</span> <span class="n">scPos</span>
+
+		<span class="n">dirs</span> <span class="o">=</span> <span class="n">scRelative</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">scRelative</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">scRelative</span><span class="p">),</span> <span class="mi">1</span><span class="p">)</span>
+
+		<span class="c1"># Get normal-to-spacecraft angles</span>
+		<span class="n">normals</span> <span class="o">=</span> <span class="n">N</span><span class="p">[</span><span class="n">emiIdxs</span><span class="p">]</span>
+		<span class="c1">#cos_theta = np.dot(normals, scPos/np.linalg.norm(scPos))</span>
+		<span class="n">cos_theta</span> <span class="o">=</span> <span class="n">block_dot</span><span class="p">(</span><span class="n">normals</span><span class="p">,</span> <span class="n">dirs</span><span class="p">)</span>
+
+		<span class="c1"># Distance between sc and each element mesh</span>
+		<span class="n">scRelativeMag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">scRelative</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+		<span class="c1"># Compute the geometric contribution to the flux</span>
+		<span class="n">_</span><span class="p">,</span> <span class="n">dA</span> <span class="o">=</span> <span class="n">get_surface_normals_and_face_areas</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">F</span><span class="p">)</span>
+		<span class="n">dA</span> <span class="o">=</span> <span class="n">dA</span><span class="p">[</span><span class="n">emiIdxs</span><span class="p">]</span>
+
+		<span class="n">norm_fluxes</span> <span class="o">=</span>  <span class="n">sb</span> <span class="o">*</span> <span class="n">faceTemps</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="n">cos_theta</span> <span class="o">*</span> <span class="n">dA</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">scRelativeMag</span>
+
+		<span class="k">return</span> <span class="n">norm_fluxes</span><span class="p">,</span> <span class="o">-</span><span class="n">scRelative</span><span class="p">,</span> <span class="n">emiIdxs</span><span class="p">,</span> <span class="n">faceEmi</span></div>
 </pre></div>
 
            </div>

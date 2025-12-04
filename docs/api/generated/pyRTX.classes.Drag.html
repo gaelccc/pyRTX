@@ -277,37 +277,72 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.classes.Drag.Drag" title="pyRTX.classes.Drag.Drag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Drag</span></code></a>(spacecraft, crossectionLUT, density, ...)</p></td>
-<td><p></p></td>
+<td><p>A class for computing the drag acceleration on a spacecraft.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyRTX.classes.Drag.Drag">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.classes.Drag.</span></span><span class="sig-name descname"><span class="pre">Drag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crossectionLUT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precomputation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Drag.html#Drag"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Drag.Drag" title="Permalink to this definition"></a></dt>
-<dd><dl class="py method">
+<dd><p>A class for computing the drag acceleration on a spacecraft.</p>
+<dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Drag.Drag.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crossectionLUT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">density</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">CD</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">body</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precomputation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Drag.html#Drag.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Drag.Drag.__init__" title="Permalink to this definition"></a></dt>
-<dd><p>Initialize the Drag instance</p>
-<p>Parameters:
-Spacecraft: Spacecraft object
-crossectionLUT: str or LookupTableND
-density: function that takes as input the height and returns the density in kg/km**2
-CD: [float] the object CD</p>
+<dd><p>Initializes the Drag object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spacecraft</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.Spacecraft</span></code>) – The spacecraft object.</p></li>
+<li><p><strong>crossectionLUT</strong> (<a class="reference internal" href="pyRTX.classes.LookUpTable.html#module-pyRTX.classes.LookUpTable" title="pyRTX.classes.LookUpTable"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.classes.LookUpTable</span></code></a>) – A lookup table of the spacecraft’s cross-sectional area.</p></li>
+<li><p><strong>density</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">callable</span></code>) – A function that returns the atmospheric density in kg/km^3 as a
+function of altitude.</p></li>
+<li><p><strong>CD</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The drag coefficient of the spacecraft.</p></li>
+<li><p><strong>body</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The name of the celestial body causing the drag.</p></li>
+<li><p><strong>precomputation</strong> (<a class="reference internal" href="pyRTX.classes.Precompute.html#module-pyRTX.classes.Precompute" title="pyRTX.classes.Precompute"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.classes.Precompute</span></code></a>, <em>optional</em>) – A Precompute object with precomputed SPICE data.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Drag.Drag.compute">
 <span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Drag.html#Drag.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Drag.Drag.compute" title="Permalink to this definition"></a></dt>
-<dd><p>Method to compute the drag acceleration.</p>
-<p>Parameters:
--       epochs: list of epochs
--   ncores: number of cores to use for parallel computations</p>
+<dd><p>Computes the drag acceleration for a series of epochs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – A list of epochs in TDB seconds past J2000.</p></li>
+<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – The reference frame for the output acceleration. If not specified,
+the body-fixed frame of the celestial body is used.</p></li>
+<li><p><strong>n_cores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>optional</em>) – The number of CPU cores to use for parallel computation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing two numpy arrays: the drag acceleration vectors
+and the relative velocity vectors.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Drag.Drag.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Drag.html#Drag.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Drag.Drag.run" title="Permalink to this definition"></a></dt>
-<dd><p>Compute the drag at epoch in the spacecraft body frame</p>
+<dd><p>Computes the drag acceleration at a single epoch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The epoch in TDB seconds past J2000.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the drag acceleration vector and the relative
+velocity vector.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

@@ -277,91 +277,194 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.classes.LookUpTable.LookUpTable" title="pyRTX.classes.LookUpTable.LookUpTable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LookUpTable</span></code></a>(filename)</p></td>
-<td><p>This class is used to store results in the shape aof a lookup table.</p></td>
+<td><p>A class for storing and interpolating lookup tables from NetCDF files.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyRTX.classes.LookUpTable.LookUpTable">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.classes.LookUpTable.</span></span><span class="sig-name descname"><span class="pre">LookUpTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/LookUpTable.html#LookUpTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.LookUpTable.LookUpTable" title="Permalink to this definition"></a></dt>
-<dd><p>This class is used to store results in the shape aof a lookup table.
+<dd><p>A class for storing and interpolating lookup tables from NetCDF files.</p>
+<p>This class is used to store results in the shape of a lookup table.
 This is mainly used to store the results of a set of raytracing results
 example: the solar pressure for a body is computed for a grid of RA/DEC values.
 these values can be stored in the LookupTable object and later retrieved.
-This class offers the possibility of not oly retrieving pre-computed values, but
+This class offers the possibility of not only retrieving pre-computed values, but
 also interpolating between grid points.</p>
 <p>NOTE: the grid of the lookup table does not need to be regular
 the interpolation is based on numpy griddata method which is able to cope
-with unstructured grids</p>
+with unstructured grids.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.LookUpTable.LookUpTable.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/LookUpTable.html#LookUpTable.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.LookUpTable.LookUpTable.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initializes the LookUpTable object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The path to the NetCDF file containing the lookup table.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyRTX.classes.LookUpTable.LookUpTable.moving_frames">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">moving_frames</span></span><a class="headerlink" href="#pyRTX.classes.LookUpTable.LookUpTable.moving_frames" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the list of frames wich are NOT fixed wrt spacecraft body-frame.</p>
+<dd><p>Returns the list of moving frames.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of the moving frames.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyRTX.classes.LookUpTable.LookUpTable.data">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#pyRTX.classes.LookUpTable.LookUpTable.data" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the xarray data.</p>
+<dd><p>Returns the lookup table data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The lookup table data.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyRTX.classes.LookUpTable.LookUpTable.attrs">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">attrs</span></span><a class="headerlink" href="#pyRTX.classes.LookUpTable.LookUpTable.attrs" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the xarray attributes.</p>
+<dd><p>Returns the attributes of the xarray Dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The attributes of the xarray Dataset.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyRTX.classes.LookUpTable.LookUpTable.axes">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">axes</span></span><a class="headerlink" href="#pyRTX.classes.LookUpTable.LookUpTable.axes" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the xarray axes values.</p>
+<dd><p>Returns the coordinate axes of the lookup table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of the lookup table’s coordinate axes.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyRTX.classes.LookUpTable.LookUpTable.base_frame">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">base_frame</span></span><a class="headerlink" href="#pyRTX.classes.LookUpTable.LookUpTable.base_frame" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the spacecraft body-frame.</p>
+<dd><p>Returns the base frame of the lookup table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The name of the base frame.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyRTX.classes.LookUpTable.LookUpTable.ref_epc">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ref_epc</span></span><a class="headerlink" href="#pyRTX.classes.LookUpTable.LookUpTable.ref_epc" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the reference epoch of the LUT.</p>
+<dd><p>Returns the reference epoch of the lookup table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The reference epoch.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyRTX.classes.LookUpTable.LookUpTable.eul_set">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eul_set</span></span><a class="headerlink" href="#pyRTX.classes.LookUpTable.LookUpTable.eul_set" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the euler set used for the computations.</p>
+<dd><p>Returns the Euler angle set used for the lookup table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple of the Euler angle set.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyRTX.classes.LookUpTable.LookUpTable.eul_idxs">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eul_idxs</span></span><a class="headerlink" href="#pyRTX.classes.LookUpTable.LookUpTable.eul_idxs" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the euler set used for the computations.</p>
+<dd><p>Returns the Euler angle indices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dictionary mapping Euler angle axes to their indices.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyRTX.classes.LookUpTable.LookUpTable.dims">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dims</span></span><a class="headerlink" href="#pyRTX.classes.LookUpTable.LookUpTable.dims" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the dimension axes of the xarray.</p>
+<dd><p>Returns the dimensions of the lookup table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple of the lookup table’s dimensions.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py" id="pyRTX.classes.LookUpTable.LookUpTable.units">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">units</span></span><a class="headerlink" href="#pyRTX.classes.LookUpTable.LookUpTable.units" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the units of the xarray values.</p>
+<dd><p>Returns the units of the lookup table values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The units of the lookup table values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.LookUpTable.LookUpTable.query">
 <span class="sig-name descname"><span class="pre">query</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/LookUpTable.html#LookUpTable.query"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.LookUpTable.LookUpTable.query" title="Permalink to this definition"></a></dt>
-<dd><p>Query the look up table for a given epoch, ra, dec (in degrees).</p>
+<dd><p>Queries the lookup table for a given epoch, right ascension, and
+declination.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The epoch in TDB seconds past J2000.</p></li>
+<li><p><strong>ra</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The right ascension in degrees.</p></li>
+<li><p><strong>dec</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The declination in degrees.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The interpolated value from the lookup table.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

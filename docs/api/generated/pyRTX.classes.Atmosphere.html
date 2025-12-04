@@ -277,73 +277,137 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.classes.Atmosphere.VenusGram" title="pyRTX.classes.Atmosphere.VenusGram"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VenusGram</span></code></a>([dataFolder, execFolder, tmpFolder])</p></td>
-<td><p>An utility class for providing a python interface to VenusGram2005</p></td>
+<td><p>A utility class for providing a Python interface to VenusGram2005.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyRTX.classes.Atmosphere.VenusGram">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.classes.Atmosphere.</span></span><span class="sig-name descname"><span class="pre">VenusGram</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataFolder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/home/cascioli/VenusGram2005/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">execFolder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/home/cascioli/VenusGram2005/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tmpFolder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./tmp'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Atmosphere.html#VenusGram"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Atmosphere.VenusGram" title="Permalink to this definition"></a></dt>
-<dd><p>An utility class for providing a python interface to VenusGram2005</p>
-<p>Requirements:
-- python3
-- numpy
-- spiceypy
-- A compiled version of VenusGram2005</p>
-<p>Note: This version has been tested only on UNIX machines</p>
-<p>The intended usage:</p>
-<p>vg = VenusGram()
-rho, T = vg.compute(epoch, lat, lon, height, inputUnits = ‘deg’)</p>
-<p>Parameters:
-<a href="#id1"><span class="problematic" id="id2">*</span></a>all these patameters can be either float or numpy  arrays of floats
-epoch: epoch output of spiceypy.str2et [The epoch must be provided in TDB. This can be changed modyfying ‘epoch_converter’ sub]
-lat: latitude in the units specified in inputUnits
-lon: longitude in the units specified in inputUnits
-height: height above the reference ellipsoid [km]</p>
-<p>Returns:
-rho: density in kg/m3
-T:   temperature in K</p>
+<dd><p>A utility class for providing a Python interface to VenusGram2005.</p>
+<p>This class allows users to compute atmospheric density and temperature at
+Venus for a given epoch, latitude, longitude, and height.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataFolder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'/home/cascioli/VenusGram2005/'</span></code>) – The path to the data folder of VenusGram2005.</p></li>
+<li><p><strong>execFolder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'/home/cascioli/VenusGram2005/'</span></code>) – The path to the VenusGram2005 executable.</p></li>
+<li><p><strong>tmpFolder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'./tmp'</span></code>) – The path to a temporary folder for caching VenusGram inputs and outputs.</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Atmosphere.VenusGram.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataFolder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/home/cascioli/VenusGram2005/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">execFolder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'/home/cascioli/VenusGram2005/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tmpFolder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./tmp'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Atmosphere.html#VenusGram.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Atmosphere.VenusGram.__init__" title="Permalink to this definition"></a></dt>
-<dd><p>Initialize the istance of the class</p>
-<p>Parameters:
-dataFolder: [str] the path to the data folder of VenusGram2005
-execFolder: [str] the path to where the venusgrm_V05.x executable is
-tmpFolder:  [str] the path to create a temporary convenience folder for Vgram input/output caching. Defaults to ./tmp</p>
+<dd><p>Initializes the VenusGram object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataFolder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'/home/cascioli/VenusGram2005/'</span></code>) – The path to the data folder of VenusGram2005.</p></li>
+<li><p><strong>execFolder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'/home/cascioli/VenusGram2005/'</span></code>) – The path to the VenusGram2005 executable.</p></li>
+<li><p><strong>tmpFolder</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'./tmp'</span></code>) – The path to a temporary folder for caching VenusGram inputs and
+outputs.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Atmosphere.VenusGram.namelistWriter">
 <span class="sig-name descname"><span class="pre">namelistWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Atmosphere.html#VenusGram.namelistWriter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Atmosphere.VenusGram.namelistWriter" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Writes the input file for the VenusGram executable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The epoch in TDB seconds past J2000.</p></li>
+<li><p><strong>lat</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The latitude.</p></li>
+<li><p><strong>lon</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The longitude.</p></li>
+<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The height above the reference ellipsoid in km.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Atmosphere.VenusGram.epoch_converter">
 <span class="sig-name descname"><span class="pre">epoch_converter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputFormat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'TDB'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputformat</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'UTC'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Atmosphere.html#VenusGram.epoch_converter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Atmosphere.VenusGram.epoch_converter" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Converts a SPICE epoch to a calendar date.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The epoch in TDB seconds past J2000.</p></li>
+<li><p><strong>inputFormat</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'TDB'</span></code>) – The format of the input epoch.</p></li>
+<li><p><strong>outputformat</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'UTC'</span></code>) – The format of the output date.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the month, day, year, hour, minute, and second.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Atmosphere.VenusGram.readResults">
 <span class="sig-name descname"><span class="pre">readResults</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Atmosphere.html#VenusGram.readResults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Atmosphere.VenusGram.readResults" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Reads the output file from the VenusGram executable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple containing the density, temperature, pressure, and
+composition.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Atmosphere.VenusGram.readVariabilities">
 <span class="sig-name descname"><span class="pre">readVariabilities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kind</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Atmosphere.html#VenusGram.readVariabilities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Atmosphere.VenusGram.readVariabilities" title="Permalink to this definition"></a></dt>
-<dd><p>Read results on variables with variabilities (e.g. Density)</p>
-<p>Input:
-kind : [str] The requested variable (available: Density)</p>
-<p>Output:</p>
-<p>low : [float] Variable low range
-avg : [float] Variable average range
-hig : [float] Variable high range</p>
+<dd><p>Reads the variability results from the VenusGram output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kind</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The variable to read (e.g., ‘Density’).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the low, average, and high values of the
+variable.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Atmosphere.VenusGram.compute">
 <span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputUnits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'deg'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variabilities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Atmosphere.html#VenusGram.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Atmosphere.VenusGram.compute" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Computes the atmospheric density and temperature.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The epoch(s) in TDB seconds past J2000.</p></li>
+<li><p><strong>lat</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The latitude(s).</p></li>
+<li><p><strong>lon</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The longitude(s).</p></li>
+<li><p><strong>height</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The height(s) above the reference ellipsoid in km.</p></li>
+<li><p><strong>inputUnits</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'deg'</span></code>) – The units of the input latitude and longitude (‘deg’ or ‘rad’).</p></li>
+<li><p><strong>variabilities</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – If specified, returns the variabilities for the given variable
+(e.g., ‘Density’).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the density, temperature, pressure, and
+composition. If <cite>variabilities</cite> is specified, the tuple also
+contains the low, average, and high values of the variable.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

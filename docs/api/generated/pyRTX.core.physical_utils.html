@@ -277,68 +277,131 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.physical_utils.compute_srp" title="pyRTX.core.physical_utils.compute_srp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_srp</span></code></a>(flux, mesh_obj, index_tri, ...)</p></td>
-<td><p>Compute the SRP force</p></td>
+<td><p>Computes the total solar radiation pressure force on a spacecraft.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.physical_utils.preprocess_RTX_geometry" title="pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preprocess_RTX_geometry</span></code></a>(mesh_obj)</p></td>
-<td><p>Preprocess the RTX output to obtain the information required</p></td>
+<td><p>Preprocesses the geometry of a mesh object for ray-tracing.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.physical_utils.preprocess_materials" title="pyRTX.core.physical_utils.preprocess_materials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">preprocess_materials</span></code></a>(material_dict)</p></td>
-<td><p>Get the material properties and set up an array for handling Parameters: material_dict: a dictionary with the shape:         {'props': dictionary of properties for each material, 'idxs': indexes of faces associated with each material}</p></td>
+<td><p>Preprocesses a dictionary of material properties into a numpy array.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.physical_utils.srp_core" title="pyRTX.core.physical_utils.srp_core"><code class="xref py py-obj docutils literal notranslate"><span class="pre">srp_core</span></code></a>(flux, indexes_tri, indexes_ray, N, ...)</p></td>
-<td><p>Core of SRP computation.</p></td>
+<td><p>Core computation of the solar radiation pressure force (vectorized).</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.physical_utils.preprocess_RTX_geometry">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.physical_utils.</span></span><span class="sig-name descname"><span class="pre">preprocess_RTX_geometry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh_obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/physical_utils.html#preprocess_RTX_geometry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.physical_utils.preprocess_RTX_geometry" title="Permalink to this definition"></a></dt>
-<dd><p>Preprocess the RTX output to obtain the information required</p>
+<dd><p>Preprocesses the geometry of a mesh object for ray-tracing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mesh_obj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">trimesh.Trimesh</span></code>) – The mesh object to preprocess.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the vertices, faces, face normals, and face areas
+of the mesh.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.physical_utils.preprocess_materials">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.physical_utils.</span></span><span class="sig-name descname"><span class="pre">preprocess_materials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">material_dict</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/physical_utils.html#preprocess_materials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.physical_utils.preprocess_materials" title="Permalink to this definition"></a></dt>
-<dd><p>Get the material properties and set up an array for handling
-Parameters:
-material_dict: a dictionary with the shape:</p>
+<dd><p>Preprocesses a dictionary of material properties into a numpy array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>material_dict</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – <p>A dictionary with the following structure:
+{</p>
 <blockquote>
-<div><p>{‘props’: dictionary of properties for each material, ‘idxs’: indexes of faces associated with each material}</p>
+<div><dl class="simple">
+<dt>’props’: {</dt><dd><p>‘material_name_1’: {‘specular’: float, ‘diffuse’: float},
+…</p>
+</dd>
+</dl>
+<p>},
+‘idxs’: [</p>
+<blockquote>
+<div><p>[start_idx_1, end_idx_1],
+…</p>
 </div></blockquote>
-<p>Returns:
-prop_container: a (len(mesh), 2) numpy array containing [specular, diffuse] coefficients for each face of the mesh</p>
+<p>]</p>
+</div></blockquote>
+<p>}</p>
+</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A (N, 2) numpy array where N is the number of faces in the mesh.
+Each row contains the [specular, diffuse] coefficients for the
+corresponding face.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.physical_utils.srp_core">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.physical_utils.</span></span><span class="sig-name descname"><span class="pre">srp_core</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flux</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indexes_tri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">indexes_ray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">S</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm_factor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">materials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'None'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_diffuse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_pack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/physical_utils.html#srp_core"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.physical_utils.srp_core" title="Permalink to this definition"></a></dt>
-<dd><p>Core of SRP computation.
-Highly vectorized version. For explicit algorithm implementation refer to the old version</p>
-<p>Parameters:
-flux: solar flux (float, W/m^2)
-indexes_tri: indexes of intersected triangles
-indexes_ray: indexes of intersecting rays
-N: normals
-S: incident direction vectors
-norm_factor: normalization factor computed from ray spacing (float)
-mesh_obj: trimesh.Trimesh object [Not used for now, will be used when interrogating mesh</p>
-<blockquote>
-<div><p>for surface properties]</p>
-</div></blockquote>
-<p>Returns:
-force: np.array of SRP force</p>
+<dd><p>Core computation of the solar radiation pressure force (vectorized).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>flux</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The incident solar flux in W/m^2.</p></li>
+<li><p><strong>indexes_tri</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – The indices of the intersected triangles.</p></li>
+<li><p><strong>indexes_ray</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – The indices of the intersecting rays.</p></li>
+<li><p><strong>N</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – The normal vectors of the mesh faces.</p></li>
+<li><p><strong>S</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – The incident ray direction vectors.</p></li>
+<li><p><strong>norm_factor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The normalization factor computed from ray spacing.</p></li>
+<li><p><strong>mesh_obj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">trimesh.Trimesh</span></code>) – The <cite>trimesh</cite> object representing the spacecraft.</p></li>
+<li><p><strong>materials</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'None'</span></code>) – A (N, 2) numpy array of material properties for each face.</p></li>
+<li><p><strong>diffusion</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>default</em> <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>) – If True, computes diffuse reflection forces.</p></li>
+<li><p><strong>num_diffuse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>optional</em>) – The number of diffuse rays to sample per intersection.</p></li>
+<li><p><strong>diffusion_pack</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>, <em>optional</em>) – A list containing data from the diffusion ray-tracing pass.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the SRP force vector and the new flux for the next bounce.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.physical_utils.compute_srp">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.physical_utils.</span></span><span class="sig-name descname"><span class="pre">compute_srp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flux</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_tri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index_ray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ray_origins</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ray_directions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_spacing</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">materials</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'None'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grouped</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_diffuse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion_pack</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/physical_utils.html#compute_srp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.physical_utils.compute_srp" title="Permalink to this definition"></a></dt>
-<dd><p>Compute the SRP force</p>
-<p>Parameters:
-flux: Solar input flux [W/m^2]
-A: areas of the mesh faces
-s: incident ray directions
-r: reflcted ray directions
-n: normal unit vector to the faces</p>
+<dd><p>Computes the total solar radiation pressure force on a spacecraft.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>flux</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The incident solar flux in W/m^2.</p></li>
+<li><p><strong>mesh_obj</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">trimesh.Trimesh</span></code>) – The spacecraft’s mesh model.</p></li>
+<li><p><strong>index_tri</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – A list of arrays of intersected triangle indices for each bounce.</p></li>
+<li><p><strong>index_ray</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – A list of arrays of intersecting ray indices for each bounce.</p></li>
+<li><p><strong>location</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – A list of arrays of intersection locations for each bounce.</p></li>
+<li><p><strong>ray_origins</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – A list of arrays of ray origins for each bounce.</p></li>
+<li><p><strong>ray_directions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – A list of arrays of ray directions for each bounce.</p></li>
+<li><p><strong>pixel_spacing</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The spacing between rays, used for normalization.</p></li>
+<li><p><strong>materials</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'None'</span></code>) – A (N, 2) numpy array of material properties for each face.</p></li>
+<li><p><strong>grouped</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>default</em> <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>) – If True, returns the total force vector.</p></li>
+<li><p><strong>diffusion</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>default</em> <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>) – If True, computes diffuse reflection forces.</p></li>
+<li><p><strong>num_diffuse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>optional</em>) – The number of diffuse rays to sample per intersection.</p></li>
+<li><p><strong>diffusion_pack</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>, <em>optional</em>) – A list containing data from the diffusion ray-tracing pass.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The total SRP force vector, or a list of per-face forces if <cite>grouped</cite> is False.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>

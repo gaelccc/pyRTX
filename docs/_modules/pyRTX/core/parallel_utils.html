@@ -280,7 +280,22 @@
 <div class="viewcode-block" id="get_ncores"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.get_ncores">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_ncores</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the number of cores for parallel computations.</span>
-<span class="sd">    If not specified, the number of cores is set to the number available on your machine.</span>
+
+<span class="sd">    If not specified, the number of cores is set to the number available on</span>
+<span class="sd">    your machine minus one.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    lst : list or numpy.ndarray</span>
+<span class="sd">        The list of items to be processed in parallel.</span>
+<span class="sd">    **kwargs : dict</span>
+<span class="sd">        Additional keyword arguments. If &#39;n_cores&#39; is present, it will be</span>
+<span class="sd">        used as the number of cores.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    int</span>
+<span class="sd">        The number of cores to use for parallel computation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
       
     <span class="k">if</span> <span class="p">(</span><span class="s1">&#39;n_cores&#39;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;n_cores&#39;</span><span class="p">],</span> <span class="nb">int</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;n_cores&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">):</span> 
@@ -296,6 +311,18 @@
 <div class="viewcode-block" id="is_method"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.is_method">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">is_method</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">cls_inst</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Checks if the wrapped object is a method of a class.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    func : function</span>
+<span class="sd">        The function to check.</span>
+<span class="sd">    cls_inst : object</span>
+<span class="sd">        The class instance.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    bool</span>
+<span class="sd">        True if the function is a method of the class, False otherwise.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">(</span><span class="ow">not</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">cls_inst</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="nb">hasattr</span><span class="p">(</span><span class="n">cls_inst</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="s1">&#39;self&#39;</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getargspec</span><span class="p">(</span><span class="n">func</span><span class="p">)</span><span class="o">.</span><span class="n">args</span><span class="p">)</span></div>
 
@@ -304,6 +331,19 @@
 <div class="viewcode-block" id="get_unwrapped"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.get_unwrapped">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_unwrapped</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the unwrapped version of a class method.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    *args : tuple</span>
+<span class="sd">        The arguments to pass to the method.</span>
+<span class="sd">    **kwargs : dict</span>
+<span class="sd">        The keyword arguments to pass to the method. &#39;method&#39; must be present</span>
+<span class="sd">        and contain the name of the method to unwrap.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    object</span>
+<span class="sd">        The result of the unwrapped method call.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">cls_inst</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">cls_attr</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">]</span>
@@ -313,39 +353,38 @@
 
 <div class="viewcode-block" id="parallel"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.parallel">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">parallel</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Decorator for parallel computations.</span>
-<span class="sd">    The decorated object can be a class method or a regular function.</span>
-<span class="sd">    It applies the function to every item of an iterable performing the computations in parallel. </span>
-<span class="sd">    The output will be an iterator which contains the return value of every function call.</span>
-<span class="sd">    </span>
-<span class="sd">    The decorated object can accept multiple arguments, but the last positional argument </span>
-<span class="sd">    must be an item of the input iterable (e.g. an item of a list / numpy array / range object ...).</span>
-<span class="sd">    </span>
-<span class="sd">    If the keyword argument &#39;n_cores&#39; is specified, the decorated object will run on n_cores processes. </span>
-<span class="sd">    Otherwise, the number of cores is set to the number available on your machine.</span>
-<span class="sd">    </span>
-<span class="sd">    Basic usage:</span>
-<span class="sd">    </span>
-<span class="sd">    - Define the input iterable:</span>
-<span class="sd">    </span>
-<span class="sd">    iterable = [2,5,6,7,3,4,1] </span>
-<span class="sd">    </span>
-<span class="sd">    - Define the function that will be applied to every item of the input iterable:</span>
-<span class="sd">    </span>
-<span class="sd">    @parallel</span>
-<span class="sd">    def target_func( some_inputs, item ): </span>
-<span class="sd">        ... perform tasks </span>
-<span class="sd">        return result</span>
-<span class="sd">    </span>
-<span class="sd">    - Apply the function to every item of the iterable using 5 cores in parallel:</span>
-<span class="sd">    </span>
-<span class="sd">    results = target_func( some_inputs, iterable, n_cores = 5 )   </span>
+<span class="sd">    A decorator for parallel computations.</span>
 
-<span class="sd">    NOTE: In its definition, the decorated object accepts the item of the iterable as last positional argument.</span>
-<span class="sd">    However, in the function call, you must pass directly the iterable (the list of integers in this example) </span>
-<span class="sd">    in place of the item. Every other positional argument before the iterable must be the same.</span>
-<span class="sd">    In the function call it is possible to also pass the number of cores, but only as a keyword argument.</span>
-<span class="sd">    </span>
+<span class="sd">    The decorated object can be a class method or a regular function. It</span>
+<span class="sd">    applies the function to every item of an iterable, performing the</span>
+<span class="sd">    computations in parallel. The output will be an iterator which contains</span>
+<span class="sd">    the return value of every function call.</span>
+
+<span class="sd">    The decorated object can accept multiple arguments, but the last</span>
+<span class="sd">    positional argument must be an item of the input iterable (e.g., an</span>
+<span class="sd">    item of a list, numpy array, or range object).</span>
+
+<span class="sd">    If the keyword argument &#39;n_cores&#39; is specified, the decorated object</span>
+<span class="sd">    will run on `n_cores` processes. Otherwise, the number of cores is set</span>
+<span class="sd">    to the number available on your machine.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    func : function</span>
+<span class="sd">        The function to be decorated.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    function</span>
+<span class="sd">        The decorated function.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; iterable = [2, 5, 6, 7, 3, 4, 1]</span>
+<span class="sd">    &gt;&gt;&gt; @parallel</span>
+<span class="sd">    ... def target_func(some_input, item):</span>
+<span class="sd">    ...     return some_input * item</span>
+<span class="sd">    &gt;&gt;&gt; results = target_func(10, iterable, n_cores=5)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
@@ -382,7 +421,6 @@
         <span class="k">return</span> <span class="n">results</span>
 
     <span class="k">return</span> <span class="n">wrapper</span></div>
-
 </pre></div>
 
            </div>

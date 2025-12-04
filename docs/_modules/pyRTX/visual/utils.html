@@ -273,18 +273,21 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.mplot3d.art3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Poly3DCollection</span>
 
 <div class="viewcode-block" id="color_convert"><a class="viewcode-back" href="../../../api/pyRTX.visual.html#pyRTX.visual.utils.color_convert">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">color_convert</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Converts a color to a list of colors of size `size`</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts a color to a list of colors of a specified size.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    color : str or tuple</span>
-<span class="sd">        Color to be converted</span>
-<span class="sd">    size : int</span>
-<span class="sd">        Size of the list of colors to be returned</span>
+<span class="sd">        The color to be converted.</span>
+<span class="sd">    size : int, default=1</span>
+<span class="sd">        The size of the list of colors to be returned.</span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    color : (size,) array-like</span>
-<span class="sd">        converted color as a list of rgba lists</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+<span class="sd">    list</span>
+<span class="sd">        A list of RGBA color values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">color</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">to_rgba_array</span><span class="p">(</span><span class="n">color</span><span class="p">)</span><span class="o">*</span><span class="mf">255.0</span>
     <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">color</span><span class="p">)</span><span class="o">*</span><span class="n">size</span></div>
 
@@ -297,57 +300,55 @@
               <span class="n">edge_color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">face_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
               <span class="n">elev</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">azim</span><span class="o">=</span><span class="mi">45</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Plot one or more trimesh meshes using matplotlib.</span>
+<span class="sd">    Plots one or more trimesh meshes using matplotlib.</span>
 <span class="sd">    </span>
-<span class="sd">    Parameters:</span>
-<span class="sd">    -----------</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
 <span class="sd">    mesh : trimesh.Trimesh or list of trimesh.Trimesh</span>
-<span class="sd">        The mesh(es) to plot</span>
-<span class="sd">    title : str</span>
-<span class="sd">        Plot title</span>
-<span class="sd">    figsize : tuple</span>
-<span class="sd">        Figure size (width, height)</span>
-<span class="sd">    alpha : float</span>
-<span class="sd">        Transparency of mesh faces (0-1)</span>
-<span class="sd">    edge_color : str or list of str</span>
-<span class="sd">        Color of mesh edges. If single string, applied to all meshes.</span>
-<span class="sd">        If list, must match number of meshes.</span>
-<span class="sd">    face_color : str, list of str, or None</span>
-<span class="sd">        Color of mesh faces. If None, uses automatic colors from colormap.</span>
-<span class="sd">        If single string, applied to all meshes.</span>
-<span class="sd">        If list, must match number of meshes.</span>
+<span class="sd">        The mesh or meshes to plot.</span>
+<span class="sd">    title : str, default=&quot;3D Mesh&quot;</span>
+<span class="sd">        The title of the plot.</span>
+<span class="sd">    figsize : tuple, default=(10, 8)</span>
+<span class="sd">        The size of the figure in inches.</span>
+<span class="sd">    alpha : float, default=0.7</span>
+<span class="sd">        The transparency of the mesh faces.</span>
+<span class="sd">    edge_color : str or list of str, default=&#39;k&#39;</span>
+<span class="sd">        The color of the mesh edges.</span>
+<span class="sd">    face_color : str, list of str, or None, optional</span>
+<span class="sd">        The color of the mesh faces. If None, automatic colors are used.</span>
 <span class="sd">    labels : list of str, optional</span>
-<span class="sd">        Labels for each mesh (for legend)</span>
-<span class="sd">    elev : float</span>
-<span class="sd">        Elevation viewing angle in degrees (default: 30)</span>
-<span class="sd">    azim : float</span>
-<span class="sd">        Azimuthal viewing angle in degrees (default: 45)</span>
+<span class="sd">        Labels for each mesh, for use in the legend.</span>
+<span class="sd">    elev : float, default=30</span>
+<span class="sd">        The elevation viewing angle in degrees.</span>
+<span class="sd">    azim : float, default=45</span>
+<span class="sd">        The azimuthal viewing angle in degrees.</span>
 <span class="sd">    </span>
-<span class="sd">    Returns:</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        A tuple containing the matplotlib figure and axis objects.</span>
+<span class="sd">    </span>
+<span class="sd">    Examples</span>
 <span class="sd">    --------</span>
-<span class="sd">    fig, ax : matplotlib figure and axis objects</span>
+<span class="sd">    &gt;&gt;&gt; # Single mesh with default colors</span>
+<span class="sd">    &gt;&gt;&gt; fig, ax = plot_mesh(mesh)</span>
 <span class="sd">    </span>
-<span class="sd">    Examples:</span>
-<span class="sd">    ---------</span>
-<span class="sd">    # Single mesh with default colors</span>
-<span class="sd">    fig, ax = plot_mesh(mesh)</span>
+<span class="sd">    &gt;&gt;&gt; # Single mesh with custom color</span>
+<span class="sd">    &gt;&gt;&gt; fig, ax = plot_mesh(mesh, face_color=&#39;lightblue&#39;)</span>
 <span class="sd">    </span>
-<span class="sd">    # Single mesh with custom color</span>
-<span class="sd">    fig, ax = plot_mesh(mesh, face_color=&#39;lightblue&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; # Multiple meshes with automatic colors</span>
+<span class="sd">    &gt;&gt;&gt; fig, ax = plot_mesh([mesh1, mesh2, mesh3])</span>
 <span class="sd">    </span>
-<span class="sd">    # Multiple meshes with automatic colors</span>
-<span class="sd">    fig, ax = plot_mesh([mesh1, mesh2, mesh3])</span>
+<span class="sd">    &gt;&gt;&gt; # Multiple meshes with custom colors</span>
+<span class="sd">    &gt;&gt;&gt; fig, ax = plot_mesh([mesh1, mesh2],</span>
+<span class="sd">    ...                     face_color=[&#39;red&#39;, &#39;blue&#39;],</span>
+<span class="sd">    ...                     labels=[&#39;Mesh 1&#39;, &#39;Mesh 2&#39;])</span>
 <span class="sd">    </span>
-<span class="sd">    # Multiple meshes with custom colors</span>
-<span class="sd">    fig, ax = plot_mesh([mesh1, mesh2], </span>
-<span class="sd">                        face_color=[&#39;red&#39;, &#39;blue&#39;],</span>
-<span class="sd">                        labels=[&#39;Mesh 1&#39;, &#39;Mesh 2&#39;])</span>
+<span class="sd">    &gt;&gt;&gt; # Custom viewing angle (top-down view)</span>
+<span class="sd">    &gt;&gt;&gt; fig, ax = plot_mesh(mesh, elev=90, azim=0)</span>
 <span class="sd">    </span>
-<span class="sd">    # Custom viewing angle (top-down view)</span>
-<span class="sd">    fig, ax = plot_mesh(mesh, elev=90, azim=0)</span>
-<span class="sd">    </span>
-<span class="sd">    # Side view</span>
-<span class="sd">    fig, ax = plot_mesh(mesh, elev=0, azim=0)</span>
+<span class="sd">    &gt;&gt;&gt; # Side view</span>
+<span class="sd">    &gt;&gt;&gt; fig, ax = plot_mesh(mesh, elev=0, azim=0)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>

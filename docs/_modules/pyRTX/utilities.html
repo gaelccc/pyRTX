@@ -319,19 +319,20 @@
 <span class="sd">    - Units information if provided</span>
 
 <span class="sd">    Example output file:</span>
-<span class="sd">    ```</span>
-<span class="sd">    # Acceleration file. Columns: Epoch (seconds past J2000), X, Y, Z. Units: km/s^2</span>
-<span class="sd">    0.000000000000000000e+00,1.234567890123456789e-08,2.345678901234567890e-08,3.456789012345678901e-08</span>
-<span class="sd">    6.000000000000000000e+01,1.234567890123456789e-08,2.345678901234567890e-08,3.456789012345678901e-08</span>
-<span class="sd">    ...</span>
-<span class="sd">    ```</span>
+<span class="sd">    .. code-block::</span>
+
+<span class="sd">        # Acceleration file. Columns: Epoch (seconds past J2000), X, Y, Z. Units: km/s^2</span>
+<span class="sd">        0.000000000000000000e+00,1.234567890123456789e-08,2.345678901234567890e-08,3.456789012345678901e-08</span>
+<span class="sd">        6.000000000000000000e+01,1.234567890123456789e-08,2.345678901234567890e-08,3.456789012345678901e-08</span>
+<span class="sd">        ...</span>
 
 <span class="sd">    The output can be read back using:</span>
-<span class="sd">    ```python</span>
-<span class="sd">    data = np.loadtxt(filename, delimiter=&#39;,&#39;)</span>
-<span class="sd">    epochs = data[:, 0]</span>
-<span class="sd">    accelerations = data[:, 1:4]</span>
-<span class="sd">    ```</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        data = np.loadtxt(filename, delimiter=&#39;,&#39;)</span>
+<span class="sd">        epochs = data[:, 0]</span>
+<span class="sd">        accelerations = data[:, 1:4]</span>
 
 <span class="sd">    Examples</span>
 <span class="sd">    --------</span>
@@ -343,7 +344,7 @@
 
 <span class="sd">    See Also</span>
 <span class="sd">    --------</span>
-<span class="sd">    exportEXAC : Export to GEODYN EXAC binary format</span>
+<span class="sd">    export_exac : Export to GEODYN EXAC binary format</span>
 <span class="sd">    numpy.savetxt : Underlying function for text output</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">accelerations</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">accelerations</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
@@ -446,6 +447,19 @@
     
 
 <div class="viewcode-block" id="to_datetime"><a class="viewcode-back" href="../../api/pyRTX.html#pyRTX.utilities.to_datetime">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">to_datetime</span><span class="p">(</span><span class="n">epoch</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Converts a SPICE epoch to a Python datetime object.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    epoch : float</span>
+<span class="sd">        The SPICE ephemeris time in seconds past J2000.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    datetime.datetime</span>
+<span class="sd">        The corresponding datetime object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">et2utc</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
     <span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="s2">&quot;%Y %b </span><span class="si">%d</span><span class="s2"> %H:%M:%S.</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">dt</span></div>
@@ -454,6 +468,26 @@
     
 
 <div class="viewcode-block" id="getScPosVel"><a class="viewcode-back" href="../../api/pyRTX.html#pyRTX.utilities.getScPosVel">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">getScPosVel</span><span class="p">(</span><span class="n">spacecraft</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Retrieves the position and velocity of a spacecraft.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    spacecraft : str</span>
+<span class="sd">        The name of the spacecraft.</span>
+<span class="sd">    center : str</span>
+<span class="sd">        The name of the center of motion.</span>
+<span class="sd">    epochs : list of float</span>
+<span class="sd">        A list of SPICE ephemeris times.</span>
+<span class="sd">    frame : str</span>
+<span class="sd">        The reference frame.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        A tuple containing two numpy arrays: the position vectors and the</span>
+<span class="sd">        velocity vectors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">correction</span> <span class="o">=</span> <span class="s1">&#39;CN&#39;</span>
     <span class="n">sc_pos</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">spkezr</span><span class="p">(</span><span class="n">spacecraft</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span> <span class="n">correction</span><span class="p">,</span> <span class="n">center</span><span class="p">)</span>
     <span class="n">sc_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">sc_pos</span><span class="p">)</span>

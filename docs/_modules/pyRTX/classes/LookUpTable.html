@@ -278,18 +278,28 @@
 
 <div class="viewcode-block" id="LookUpTable"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">LookUpTable</span><span class="p">():</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	This class is used to store results in the shape aof a lookup table.</span>
-<span class="sd">	This is mainly used to store the results of a set of raytracing results</span>
-<span class="sd">	example: the solar pressure for a body is computed for a grid of RA/DEC values.</span>
-<span class="sd">	these values can be stored in the LookupTable object and later retrieved.</span>
-<span class="sd">	This class offers the possibility of not oly retrieving pre-computed values, but</span>
-<span class="sd">	also interpolating between grid points.</span>
+<span class="sd">    A class for storing and interpolating lookup tables from NetCDF files.</span>
 
-<span class="sd">	NOTE: the grid of the lookup table does not need to be regular</span>
-<span class="sd">	the interpolation is based on numpy griddata method which is able to cope</span>
-<span class="sd">	with unstructured grids</span>
+<span class="sd">    This class is used to store results in the shape of a lookup table.</span>
+<span class="sd">    This is mainly used to store the results of a set of raytracing results</span>
+<span class="sd">    example: the solar pressure for a body is computed for a grid of RA/DEC values.</span>
+<span class="sd">    these values can be stored in the LookupTable object and later retrieved.</span>
+<span class="sd">    This class offers the possibility of not only retrieving pre-computed values, but</span>
+<span class="sd">    also interpolating between grid points.</span>
+
+<span class="sd">    NOTE: the grid of the lookup table does not need to be regular</span>
+<span class="sd">    the interpolation is based on numpy griddata method which is able to cope</span>
+<span class="sd">    with unstructured grids.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 <div class="viewcode-block" id="LookUpTable.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the LookUpTable object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            The path to the NetCDF file containing the lookup table.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="s1">&#39;.nc&#39;</span> <span class="ow">in</span> <span class="n">filename</span><span class="p">:</span>
 			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> *** ERROR: a .nc filename is expected!&#39;</span><span class="p">)</span>
@@ -298,7 +308,14 @@
 
 
 	<span class="k">def</span><span class="w"> </span><span class="nf">_init_from_xarray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Init object from an xarray&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the lookup table from an xarray Dataset.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            The path to the NetCDF file.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="c1"># Load object</span>
 		<span class="n">LUT</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
@@ -319,58 +336,143 @@
 
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">moving_frames</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Returns the list of frames wich are NOT fixed wrt spacecraft body-frame.&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the list of moving frames.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            A list of the moving frames.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_moving_frames</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Returns the xarray data.&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the lookup table data.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            The lookup table data.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">look_up_table</span><span class="o">.</span><span class="n">data</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">attrs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Returns the xarray attributes.&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the attributes of the xarray Dataset.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            The attributes of the xarray Dataset.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">attrs</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">axes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Returns the xarray axes values.&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the coordinate axes of the lookup table.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            A list of the lookup table&#39;s coordinate axes.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_axes</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">base_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Returns the spacecraft body-frame.&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the base frame of the lookup table.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            The name of the base frame.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_base_frame</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">ref_epc</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Returns the reference epoch of the LUT.&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the reference epoch of the lookup table.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            The reference epoch.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ref_epc</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">eul_set</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Returns the euler set used for the computations.&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the Euler angle set used for the lookup table.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            A tuple of the Euler angle set.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eul_set</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">eul_idxs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Returns the euler set used for the computations.&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the Euler angle indices.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            A dictionary mapping Euler angle axes to their indices.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eul_idxs</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">dims</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Returns the dimension axes of the xarray.&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the dimensions of the lookup table.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            A tuple of the lookup table&#39;s dimensions.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">units</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Returns the units of the xarray values.&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the units of the lookup table values.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            The units of the lookup table values.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_units</span>
   
 
 <div class="viewcode-block" id="LookUpTable.query"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable.query">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">,):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Query the look up table for a given epoch, ra, dec (in degrees).</span>
+<span class="sd">        Queries the lookup table for a given epoch, right ascension, and</span>
+<span class="sd">        declination.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch in TDB seconds past J2000.</span>
+<span class="sd">        ra : float</span>
+<span class="sd">            The right ascension in degrees.</span>
+<span class="sd">        dec : float</span>
+<span class="sd">            The declination in degrees.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            The interpolated value from the lookup table.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
   
 		<span class="n">ra</span> <span class="o">=</span> <span class="n">ra</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mf">180.</span><span class="p">;</span> 
@@ -398,8 +500,6 @@
 		<span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">interpolate</span><span class="o">.</span><span class="n">interpn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;linear&#39;</span><span class="p">))</span>
 
 		<span class="k">return</span> <span class="n">output</span></div></div>
-
-
 </pre></div>
 
            </div>

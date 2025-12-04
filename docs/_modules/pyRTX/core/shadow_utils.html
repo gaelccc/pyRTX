@@ -284,17 +284,17 @@
 <span class="sd">	Parameters</span>
 <span class="sd">	----------</span>
 <span class="sd">	R : float</span>
-<span class="sd">	Radius of the circular region (in same units as coords).</span>
+<span class="sd">	    Radius of the circular region (in same units as coords).</span>
 <span class="sd">	coords : ndarray, shape (N, 3)</span>
-<span class="sd">	Array of 3D coordinate points to test.</span>
+<span class="sd">	    Array of 3D coordinate points to test.</span>
 <span class="sd">	origin : ndarray, shape (3,)</span>
-<span class="sd">	Center point of the circular region.</span>
+<span class="sd">	    Center point of the circular region.</span>
 
 <span class="sd">	Returns</span>
 <span class="sd">	-------</span>
 <span class="sd">	maskIds : ndarray, shape (M,), dtype=int32</span>
-<span class="sd">	Indices of points in coords that satisfy ||coords[i] - origin|| &lt;= R.</span>
-<span class="sd">					M is the number of points within the circle.</span>
+<span class="sd">	    Indices of points in coords that satisfy ||coords[i] - origin|| &lt;= R.</span>
+<span class="sd">	    M is the number of points within the circle.</span>
 
 
 <span class="sd">	See Also</span>
@@ -466,21 +466,23 @@
 <span class="sd">	-----</span>
 <span class="sd">	**Standard (Quadratic) Model:**</span>
 
-<span class="sd">	I(β) = a₀ + a₁·cos(β) + a₂·cos²(β)</span>
+<span class="sd">	.. math::</span>
+<span class="sd">	    I(\\beta) = a_0 + a_1 \\cos(\\beta) + a_2 \\cos^2(\\beta)</span>
 
 <span class="sd">	Coefficients:</span>
-<span class="sd">	- a₀ = 0.3  : constant term</span>
-<span class="sd">	- a₁ = 0.93 : linear coefficient  </span>
-<span class="sd">	- a₂ = -0.23: quadratic coefficient</span>
+<span class="sd">	- :math:`a_0 = 0.3`  : constant term</span>
+<span class="sd">	- :math:`a_1 = 0.93` : linear coefficient</span>
+<span class="sd">	- :math:`a_2 = -0.23`: quadratic coefficient</span>
 
 <span class="sd">	This empirical model provides excellent agreement with observations in</span>
 <span class="sd">	visible wavelengths. The center-to-limb intensity ratio is approximately 0.6.</span>
 
 <span class="sd">	**Eddington Approximation Model:**</span>
 
-<span class="sd">	I(μ) = (3/4) · [(7/12) + (μ/2) - (μ²/3) + (μ³/12)·ln((1+μ)/μ)]</span>
+<span class="sd">	.. math::</span>
+<span class="sd">	    I(\\mu) = \\frac{3}{4} \\left( \\frac{7}{12} + \\frac{\\mu}{2} - \\frac{\\mu^2}{3} + \\frac{\\mu^3}{12} \\ln{\\left(\\frac{1+\\mu}{\\mu}\\right)} \\right)</span>
 
-<span class="sd">	where μ = cos(β)</span>
+<span class="sd">	where :math:`\\mu = \\cos(\\beta)`</span>
 
 
 <span class="sd">	See Also</span>

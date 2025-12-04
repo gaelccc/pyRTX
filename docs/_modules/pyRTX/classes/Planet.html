@@ -292,11 +292,15 @@
 
 
 <div class="viewcode-block" id="PlanetGrid"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">PlanetGrid</span><span class="p">():</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A base class for representing planetary grids, such as albedo, emissivity,</span>
+<span class="sd">    and temperature maps.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
     
     
 <div class="viewcode-block" id="PlanetGrid.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		A class to represent the albedo, emissivity and temperature grid of a planet.</span>
+<span class="sd">		Initializes the PlanetGrid object.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_albedo</span>          <span class="o">=</span>  <span class="kc">None</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_base_flux</span>       <span class="o">=</span>  <span class="kc">None</span>
@@ -311,33 +315,75 @@
   
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">attrs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Returns the xarray attributes.&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the attributes of the underlying xarray Dataset.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            The attributes of the xarray Dataset.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">attrs</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">axes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Returns the xarray axes values.&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the coordinate axes of the grid.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            A list of the grid&#39;s coordinate axes.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_axes</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">frame</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Returns the name of the grid-fixed frame.&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the SPICE reference frame of the grid.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            The name of the SPICE reference frame.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frame</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">dims</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Returns the dimension axes of the xarray.&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the dimensions of the grid&#39;s data.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            A tuple of the grid&#39;s dimensions.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dims</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">periodicity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Returns the property of the grid (temperature / albedo / emissivity).&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the longitudinal periodicity of the grid (180 or 360 degrees).</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            The periodicity of the grid in degrees.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="n">periodicity</span> <span class="o">=</span> <span class="mi">180</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">coords</span><span class="p">[</span><span class="s1">&#39;lon&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">180</span> <span class="k">else</span> <span class="mi">360</span>
 		<span class="k">return</span> <span class="n">periodicity</span>
 
 
 	<span class="k">def</span><span class="w"> </span><span class="nf">_init_from_array</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Init object from an array&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the grid from a file (.nc or .npy).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            The path to the input file.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="c1"># Case 1: Initialization from an xarray</span>
 		
@@ -382,7 +428,20 @@
 
   
 <div class="viewcode-block" id="PlanetGrid.get_data"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid.get_data">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot;Returns the xarray data.&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the grid&#39;s data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float, optional</span>
+<span class="sd">            The epoch for which to retrieve the data, if the grid is</span>
+<span class="sd">            time-dependent.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            The grid&#39;s data.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_property</span> <span class="o">==</span> <span class="s1">&#39;temperature&#39;</span> <span class="ow">and</span> <span class="n">epoch</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">temperature</span><span class="o">.</span><span class="n">interp</span><span class="p">(</span><span class="n">coords</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">epoch</span><span class="p">},</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">assume_sorted</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">data</span>
@@ -391,7 +450,17 @@
 
 <div class="viewcode-block" id="PlanetGrid.__getitem__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid.__getitem__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idxs</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Implement a getitem method.</span>
+<span class="sd">        Allows indexing into the grid to retrieve interpolated values.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        idxs : tuple</span>
+<span class="sd">            A tuple of indices for each dimension of the grid.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float or numpy.ndarray</span>
+<span class="sd">            The interpolated value(s) at the given indices.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">slice</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">idxs</span><span class="p">]):</span>
@@ -403,7 +472,14 @@
 
 <div class="viewcode-block" id="PlanetGrid.save"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid.save">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">complev</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Method to save precomputed x-array.</span>
+<span class="sd">        Saves the grid to a NetCDF file.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            The path to the output file.</span>
+<span class="sd">        complev : int, default=1</span>
+<span class="sd">            The compression level for the output file.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span> <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">encoding</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;zlib&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;complevel&#39;</span><span class="p">:</span> <span class="n">complev</span><span class="p">}))</span></div>
@@ -411,10 +487,13 @@
 
 <div class="viewcode-block" id="PlanetGrid.plot"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid.plot">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Implement a method to plot the grid at a specific epoch.</span>
-<span class="sd">  </span>
-<span class="sd">		Input: </span>
-<span class="sd">  		- spiceypy epoch</span>
+<span class="sd">        Plots the grid data on a 2D map and a 3D sphere.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float, optional</span>
+<span class="sd">            The epoch for which to plot the data, if the grid is</span>
+<span class="sd">            time-dependent.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
   
 		<span class="c1"># Build Lon, Lat array</span>
@@ -505,11 +584,27 @@
   
 
 <div class="viewcode-block" id="EmissivityGrid"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.EmissivityGrid">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">EmissivityGrid</span><span class="p">(</span><span class="n">PlanetGrid</span><span class="p">):</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a planetary emissivity grid.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
     
     
 <div class="viewcode-block" id="EmissivityGrid.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.EmissivityGrid.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		A class to represent the emissivity grid of a planet.</span>
+<span class="sd">        Initializes the EmissivityGrid object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        radius : float, optional</span>
+<span class="sd">            The radius of the planet.</span>
+<span class="sd">        frame : str, optional</span>
+<span class="sd">            The SPICE reference frame of the grid.</span>
+<span class="sd">        planet_name : str, optional</span>
+<span class="sd">            The name of the planet.</span>
+<span class="sd">        axes : list, optional</span>
+<span class="sd">            A list of the grid&#39;s coordinate axes.</span>
+<span class="sd">        from_array : str, optional</span>
+<span class="sd">            The path to a file (.nc or .npy) from which to load the grid data.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
   
@@ -530,11 +625,27 @@
    
     
 <div class="viewcode-block" id="AlbedoGrid"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.AlbedoGrid">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">AlbedoGrid</span><span class="p">(</span><span class="n">PlanetGrid</span><span class="p">):</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a planetary albedo grid.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
     
     
 <div class="viewcode-block" id="AlbedoGrid.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.AlbedoGrid.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		A class to represent the albedo grid of a planet.</span>
+<span class="sd">        Initializes the AlbedoGrid object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        radius : float, optional</span>
+<span class="sd">            The radius of the planet.</span>
+<span class="sd">        frame : str, optional</span>
+<span class="sd">            The SPICE reference frame of the grid.</span>
+<span class="sd">        planet_name : str, optional</span>
+<span class="sd">            The name of the planet.</span>
+<span class="sd">        axes : list, optional</span>
+<span class="sd">            A list of the grid&#39;s coordinate axes.</span>
+<span class="sd">        from_array : str, optional</span>
+<span class="sd">            The path to a file (.nc or .npy) from which to load the grid data.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
   
@@ -555,11 +666,39 @@
   
 
 <div class="viewcode-block" id="TemperatureGrid"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.TemperatureGrid">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">TemperatureGrid</span><span class="p">(</span><span class="n">PlanetGrid</span><span class="p">):</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a planetary temperature grid.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
     
     
 <div class="viewcode-block" id="TemperatureGrid.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.TemperatureGrid.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		A class to represent the temperature grid of a planet.</span>
+<span class="sd">        Initializes the TemperatureGrid object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        albedo : AlbedoGrid or float, optional</span>
+<span class="sd">            The albedo of the planet.</span>
+<span class="sd">        base_flux : float, optional</span>
+<span class="sd">            The base solar flux at 1 AU.</span>
+<span class="sd">        radius : float, optional</span>
+<span class="sd">            The radius of the planet.</span>
+<span class="sd">        frame : str, optional</span>
+<span class="sd">            The SPICE reference frame of the grid.</span>
+<span class="sd">        planet_name : str, optional</span>
+<span class="sd">            The name of the planet.</span>
+<span class="sd">        nightside_temp : float, optional</span>
+<span class="sd">            The nightside temperature of the planet.</span>
+<span class="sd">        emissivity : EmissivityGrid or float, optional</span>
+<span class="sd">            The emissivity of the planet.</span>
+<span class="sd">        step : int, optional</span>
+<span class="sd">            The step size for the grid computation.</span>
+<span class="sd">        axes : list, optional</span>
+<span class="sd">            A list of the grid&#39;s coordinate axes.</span>
+<span class="sd">        epochs : list of float, optional</span>
+<span class="sd">            A list of epochs for which to compute the temperature grid.</span>
+<span class="sd">        from_array : str, optional</span>
+<span class="sd">            The path to a file (.nc or .npy) from which to load the grid data.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
 
@@ -593,7 +732,21 @@
 
 
 <div class="viewcode-block" id="TemperatureGrid.get_albedo"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.TemperatureGrid.get_albedo">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">get_albedo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="nb">dir</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot; Method to get the albedo value&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the albedo value for a given direction and epoch.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch for which to retrieve the albedo.</span>
+<span class="sd">        dir : numpy.ndarray</span>
+<span class="sd">            The direction vector for which to retrieve the albedo.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            The albedo value.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_albedo</span><span class="o">.</span><span class="n">frame</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frame</span><span class="p">:</span>
       
@@ -608,7 +761,21 @@
 
 
 <div class="viewcode-block" id="TemperatureGrid.get_emissivity"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.TemperatureGrid.get_emissivity">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">get_emissivity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="nb">dir</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&quot;&quot;&quot; Method to get the emissivity value&quot;&quot;&quot;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the emissivity value for a given direction and epoch.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch for which to retrieve the emissivity.</span>
+<span class="sd">        dir : numpy.ndarray</span>
+<span class="sd">            The direction vector for which to retrieve the emissivity.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            The emissivity value.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_emissivity</span><span class="o">.</span><span class="n">frame</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_frame</span><span class="p">:</span>
       
@@ -624,13 +791,14 @@
      
 <div class="viewcode-block" id="TemperatureGrid.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.TemperatureGrid.compute">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">step</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Implement a compute method to calculate the temperature grid in the sun-fixed frame</span>
-<span class="sd">		(X-axis pointing the Sun).</span>
-<span class="sd">  </span>
-<span class="sd">		Input: </span>
-<span class="sd">  		- list of epochs</span>
-<span class="sd">		- Latitude/Longitude step in degree</span>
+<span class="sd">        Computes the temperature grid in the sun-fixed frame.</span>
 
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epochs : list of float</span>
+<span class="sd">            A list of epochs for which to compute the temperature grid.</span>
+<span class="sd">        step : int</span>
+<span class="sd">            The latitude and longitude step in degrees.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
   
 		<span class="c1"># -------------------------------------------------------------------</span>
@@ -724,22 +892,33 @@
   
 
 <div class="viewcode-block" id="Planet"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Planet</span><span class="p">():</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a celestial body, such as a planet or moon.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
     
     
 <div class="viewcode-block" id="Planet.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fromFile</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">radius</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">bodyFrame</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">sunFixedFrame</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;km&#39;</span><span class="p">,</span> <span class="n">subdivs</span> <span class="o">=</span> <span class="mi">4</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		A class to represent a planet/moon</span>
+<span class="sd">        Initializes the Planet object.</span>
 
-<span class="sd">		Input:</span>
-<span class="sd">		fromFile : put here an obj file if requested to build the model. If None (default) a sphere with radius defined in &quot;radius&quot; will be built</span>
-<span class="sd">		radius : (float) the radius of the planet. Not used if &quot;fromFile&quot; is not None</span>
-<span class="sd">		name : (str) the name of the planet</span>
-<span class="sd">		bodyFrame: (str) the planet body fixed frame</span>
-<span class="sd">		sunFixedFrame: (str) the body centered - sun fixed frame</span>
-<span class="sd">		units: (str) [Default: km] the measurement units defining the body (can be km or m)</span>
-<span class="sd">		subdivs: (int) [Default: 4] the number of subdivision for the creation of the spherical planet. Note that the number of faces will grow as function of 4 ** subdivisions, so you probably want to keep this under ~5.</span>
-
-
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        fromFile : str, optional</span>
+<span class="sd">            Path to an OBJ file to build the model from. If None, a sphere is</span>
+<span class="sd">            created.</span>
+<span class="sd">        radius : float, default=0</span>
+<span class="sd">            The radius of the planet (if creating a sphere).</span>
+<span class="sd">        name : str, default=&#39;&#39;</span>
+<span class="sd">            The name of the planet.</span>
+<span class="sd">        bodyFrame : str, default=&#39;&#39;</span>
+<span class="sd">            The SPICE reference frame for the planet&#39;s body.</span>
+<span class="sd">        sunFixedFrame : str, default=&#39;&#39;</span>
+<span class="sd">            The body-centered, sun-fixed reference frame.</span>
+<span class="sd">        units : str, default=&#39;km&#39;</span>
+<span class="sd">            The units for the planet&#39;s dimensions.</span>
+<span class="sd">        subdivs : int, default=4</span>
+<span class="sd">            The number of subdivisions for the icosphere (if creating a</span>
+<span class="sd">            sphere).</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
@@ -764,6 +943,25 @@
 
 
 <div class="viewcode-block" id="Planet.mesh"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.mesh">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">mesh</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">translate</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">rotate</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">epoch</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">targetFrame</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the planet&#39;s mesh, optionally transformed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        translate : list or numpy.ndarray, optional</span>
+<span class="sd">            A 3-element vector for the translation.</span>
+<span class="sd">        rotate : str, optional</span>
+<span class="sd">            The name of the reference frame to rotate from.</span>
+<span class="sd">        epoch : float, optional</span>
+<span class="sd">            The epoch for the rotation.</span>
+<span class="sd">        targetFrame : str, optional</span>
+<span class="sd">            The name of the reference frame to rotate to.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        trimesh.Trimesh</span>
+<span class="sd">            The transformed mesh.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="k">if</span> <span class="n">targetFrame</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 			<span class="n">targetFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bodyFrame</span>
@@ -786,6 +984,19 @@
 
 
 	<span class="k">def</span><span class="w"> </span><span class="nf">_is_sunlit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determines which faces of the planet are sunlit at a given epoch.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch for the calculation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            The indices of the sunlit faces.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
      
 		<span class="n">rotated_mesh</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mesh</span><span class="p">(</span><span class="n">epoch</span> <span class="o">=</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">rotate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bodyFrame</span><span class="p">,</span> <span class="n">targetFrame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sunFixedFrame</span><span class="p">,</span> <span class="n">translate</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
 		
@@ -800,6 +1011,22 @@
 
 
 	<span class="k">def</span><span class="w"> </span><span class="nf">_is_visible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft_name</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determines which faces of the planet are visible from a spacecraft at a</span>
+<span class="sd">        given epoch.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spacecraft_name : str</span>
+<span class="sd">            The name of the spacecraft.</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch for the calculation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            The indices of the visible faces.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
 			<span class="k">raise</span> <span class="n">Error</span><span class="p">(</span><span class="s1">&#39;You must provide a name for the planet&#39;</span><span class="p">)</span>
@@ -827,11 +1054,22 @@
 
 
 <div class="viewcode-block" id="Planet.albedoFaces"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.albedoFaces">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">albedoFaces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">spacecraft_name</span><span class="p">):</span>
-
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Public method:</span>
-<span class="sd">		Return the idxs of the mesh faces that are needed for albedo computation at time:epoch for the spacecraft:spacectaft name</span>
+<span class="sd">        Returns the indices and albedo values of the faces that contribute to</span>
+<span class="sd">        the albedo calculation.</span>
 
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch for the calculation.</span>
+<span class="sd">        spacecraft_name : str</span>
+<span class="sd">            The name of the spacecraft.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            A tuple containing the indices of the albedo faces and their</span>
+<span class="sd">            corresponding albedo values.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="n">id_visible</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_visible</span><span class="p">(</span><span class="n">spacecraft_name</span><span class="p">,</span> <span class="n">epoch</span><span class="p">)</span>
@@ -846,15 +1084,43 @@
 
 
 <div class="viewcode-block" id="Planet.rot_toSCframe"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.rot_toSCframe">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">rot_toSCframe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">scFrame</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the rotation matrix from the sun-fixed frame to a spacecraft</span>
+<span class="sd">        frame.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch for the rotation.</span>
+<span class="sd">        scFrame : str, optional</span>
+<span class="sd">            The name of the spacecraft frame.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            The 3x3 rotation matrix.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
      
 		<span class="k">return</span> <span class="n">sp</span><span class="o">.</span><span class="n">pxform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sunFixedFrame</span><span class="p">,</span> <span class="n">scFrame</span><span class="p">,</span> <span class="n">epoch</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Planet.emissivityFaces"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.emissivityFaces">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">emissivityFaces</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">spacecraft_name</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Public method:</span>
-<span class="sd">		Return the idxs of the mesh faces and the temperature of each face that are needed for emissivity computation at time:epoch for the spacecraft:spacectaft name</span>
+<span class="sd">        Returns the indices, temperatures, and emissivities of the faces that</span>
+<span class="sd">        contribute to the emissivity calculation.</span>
 
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch for the calculation.</span>
+<span class="sd">        spacecraft_name : str</span>
+<span class="sd">            The name of the spacecraft.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            A tuple containing the indices of the emissive faces, their</span>
+<span class="sd">            temperatures, and their emissivities.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 	
 		<span class="n">visible_ids</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_visible</span><span class="p">(</span><span class="n">spacecraft_name</span><span class="p">,</span> <span class="n">epoch</span><span class="p">)</span>
@@ -866,7 +1132,17 @@
 
 <div class="viewcode-block" id="Planet.getFaceAlbedo"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.getFaceAlbedo">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">getFaceAlbedo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Return the albedo of each face at epoch</span>
+<span class="sd">        Returns the albedo of each face at a given epoch.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch for the calculation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            An array containing the albedo of each face.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		
 		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_albedo</span><span class="p">,</span> <span class="n">AlbedoGrid</span><span class="p">):</span>
@@ -886,7 +1162,17 @@
  
 <div class="viewcode-block" id="Planet.getFaceTemperatures"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.getFaceTemperatures">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">getFaceTemperatures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Return the temperature of each face at epoch</span>
+<span class="sd">        Returns the temperature of each face at a given epoch.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch for the calculation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            An array containing the temperature of each face.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
   
 		<span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dayside_temperature</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nightside_temp_temperature</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gridded_temperature</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
@@ -912,6 +1198,21 @@
 
 
 <div class="viewcode-block" id="Planet.getFaceEmissivity"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.getFaceEmissivity">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">getFaceEmissivity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">sunFixedFrame</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the emissivity of each face at a given epoch.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch for the calculation.</span>
+<span class="sd">        sunFixedFrame : bool, default=False</span>
+<span class="sd">            If True, the calculation is performed in the sun-fixed frame.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            An array containing the emissivity of each face.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
      
 		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_emissivity</span><span class="p">,</span> <span class="n">TiffInterpolator</span><span class="p">):</span>
 			<span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">_</span><span class="p">,</span><span class="n">C</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">VFNC</span><span class="p">(</span><span class="n">epoch</span><span class="p">,</span> <span class="n">sunFixedFrame</span> <span class="o">=</span> <span class="n">sunFixedFrame</span><span class="p">)</span>
@@ -925,12 +1226,19 @@
 
 <div class="viewcode-block" id="Planet.VFNC"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.VFNC">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">VFNC</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">sunFixedFrame</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Public method:</span>
-<span class="sd">		Returns  V F N C rotating the planet in the sunFixedFrame at epoch epoch</span>
-<span class="sd">		V: Vertices</span>
-<span class="sd">		F: Faces</span>
-<span class="sd">		N: Normals</span>
-<span class="sd">		C: Centroids</span>
+<span class="sd">        Returns the vertices, faces, normals, and centroids of the planet&#39;s mesh.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch for the calculation.</span>
+<span class="sd">        sunFixedFrame : bool, default=True</span>
+<span class="sd">            If True, the mesh is rotated to the sun-fixed frame.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            A tuple containing the vertices, faces, normals, and centroids.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
   
 		<span class="k">if</span> <span class="n">sunFixedFrame</span><span class="p">:</span>
@@ -947,6 +1255,21 @@
 
 
 <div class="viewcode-block" id="Planet.getScPosSunFixed"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.getScPosSunFixed">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">getScPosSunFixed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">epoch</span><span class="p">,</span> <span class="n">spacecraft_name</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the position of a spacecraft in the sun-fixed frame.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch for the calculation.</span>
+<span class="sd">        spacecraft_name : str</span>
+<span class="sd">            The name of the spacecraft.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            The position of the spacecraft.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="n">correction</span> <span class="o">=</span> <span class="s1">&#39;CN&#39;</span>
 		<span class="n">sc_pos</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">spkezr</span><span class="p">(</span><span class="n">spacecraft_name</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sunFixedFrame</span><span class="p">,</span> <span class="n">correction</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
 
@@ -969,6 +1292,19 @@
 
 
 <div class="viewcode-block" id="Planet.pxform_convert"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.pxform_convert">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">pxform_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">pxform</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts a 3x3 SPICE rotation matrix to a 4x4 transformation matrix.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        pxform : numpy.ndarray</span>
+<span class="sd">            The 3x3 rotation matrix.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            The 4x4 transformation matrix.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="n">pxform</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">pxform</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">pxform</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">pxform</span><span class="p">[</span><span class="mi">2</span><span class="p">]])</span>
 
 		<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pxform</span><span class="p">,[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span><span class="mi">0</span><span class="p">)</span>
@@ -982,39 +1318,63 @@
  
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">dayside_temperature</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The dayside temperature of the planet.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dayside_temperature</span>
 
 	<span class="nd">@dayside_temperature</span><span class="o">.</span><span class="n">setter</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">dayside_temperature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the dayside temperature of the planet.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_dayside_temperature</span> <span class="o">=</span> <span class="n">value</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">nightside_temperature</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The nightside temperature of the planet.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nightside_temp_temperature</span>
 
 	<span class="nd">@nightside_temperature</span><span class="o">.</span><span class="n">setter</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">nightside_temperature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the nightside temperature of the planet.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_nightside_temp_temperature</span> <span class="o">=</span> <span class="n">value</span>
 		
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">gridded_temperature</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The gridded temperature of the planet.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gridded_temperature</span>
 
 	<span class="nd">@gridded_temperature</span><span class="o">.</span><span class="n">setter</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">gridded_temperature</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the gridded temperature of the planet.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">TemperatureGrid</span><span class="p">):</span>
 			<span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Error: the input must be a TemperatureGrid object&#39;</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_gridded_temperature</span> <span class="o">=</span> <span class="n">value</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">albedo</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The albedo of the planet.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_albedo</span>
 
 	<span class="nd">@albedo</span><span class="o">.</span><span class="n">setter</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">albedo</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the albedo of the planet.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="n">nFaces</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_shape</span><span class="o">.</span><span class="n">faces</span><span class="p">)</span>  
 		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
 			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Setting a single value of albedo for all the faces&#39;</span><span class="p">)</span>
@@ -1029,6 +1389,9 @@
 
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">albedo_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The albedo map settings for the planet.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">try</span><span class="p">:</span>
 			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_albedo_map</span>
 		<span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
@@ -1036,10 +1399,16 @@
    
 	<span class="nd">@albedo_map</span><span class="o">.</span><span class="n">setter</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">albedo_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the albedo map settings for the planet.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_albedo_map</span> <span class="o">=</span> <span class="n">value</span>
 
 	<span class="nd">@property</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">emissivity</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The emissivity of the planet.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">try</span><span class="p">:</span>
 			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_emissivity</span>
 		<span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
@@ -1047,6 +1416,9 @@
    
 	<span class="nd">@emissivity</span><span class="o">.</span><span class="n">setter</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">emissivity</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the emissivity of the planet.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="n">nFaces</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">base_shape</span><span class="o">.</span><span class="n">faces</span><span class="p">)</span>  
 		<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">float</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
 			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Setting a single value of emissivity for all the faces&#39;</span><span class="p">)</span>

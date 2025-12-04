@@ -276,18 +276,29 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">interpolate</span>
 
 <div class="viewcode-block" id="Drag"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Drag</span><span class="p">():</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class for computing the drag acceleration on a spacecraft.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
     
 <div class="viewcode-block" id="Drag.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">crossectionLUT</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">CD</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,):</span>
-
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Initialize the Drag instance</span>
+<span class="sd">        Initializes the Drag object.</span>
 
-<span class="sd">		Parameters:</span>
-<span class="sd">		Spacecraft: Spacecraft object</span>
-<span class="sd">		crossectionLUT: str or LookupTableND</span>
-<span class="sd">		density: function that takes as input the height and returns the density in kg/km**2</span>
-<span class="sd">		CD: [float] the object CD</span>
-
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spacecraft : pyRTX.Spacecraft</span>
+<span class="sd">            The spacecraft object.</span>
+<span class="sd">        crossectionLUT : pyRTX.classes.LookUpTable</span>
+<span class="sd">            A lookup table of the spacecraft&#39;s cross-sectional area.</span>
+<span class="sd">        density : callable</span>
+<span class="sd">            A function that returns the atmospheric density in kg/km^3 as a</span>
+<span class="sd">            function of altitude.</span>
+<span class="sd">        CD : float</span>
+<span class="sd">            The drag coefficient of the spacecraft.</span>
+<span class="sd">        body : str</span>
+<span class="sd">            The name of the celestial body causing the drag.</span>
+<span class="sd">        precomputation : pyRTX.classes.Precompute, optional</span>
+<span class="sd">            A Precompute object with precomputed SPICE data.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="bp">self</span><span class="o">.</span><span class="n">scName</span> <span class="o">=</span> <span class="n">spacecraft</span><span class="o">.</span><span class="n">name</span>
@@ -319,10 +330,7 @@
 
 	<span class="k">def</span><span class="w"> </span><span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Method to store precomputed data.</span>
-
-<span class="sd">		Parameters:</span>
-<span class="sd">		-	sp_data: object of the class Precompute</span>
+<span class="sd">        Stores precomputed SPICE data in the lookup table object.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="bp">self</span><span class="o">.</span><span class="n">LUT</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span>
@@ -330,11 +338,23 @@
 
 <div class="viewcode-block" id="Drag.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag.compute">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Method to compute the drag acceleration.</span>
+<span class="sd">        Computes the drag acceleration for a series of epochs.</span>
 
-<span class="sd">		Parameters:</span>
-<span class="sd">		-	epochs: list of epochs</span>
-<span class="sd">		-   ncores: number of cores to use for parallel computations</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epochs : list of float</span>
+<span class="sd">            A list of epochs in TDB seconds past J2000.</span>
+<span class="sd">        frame : str, optional</span>
+<span class="sd">            The reference frame for the output acceleration. If not specified,</span>
+<span class="sd">            the body-fixed frame of the celestial body is used.</span>
+<span class="sd">        n_cores : int, optional</span>
+<span class="sd">            The number of CPU cores to use for parallel computation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            A tuple containing two numpy arrays: the drag acceleration vectors</span>
+<span class="sd">            and the relative velocity vectors.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
   
 		<span class="c1"># if isinstance(epochs, float): epochs = [epochs]</span>
@@ -361,7 +381,18 @@
 <div class="viewcode-block" id="Drag.run"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag.run">[docs]</a>	<span class="nd">@parallel</span>
 	<span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Compute the drag at epoch in the spacecraft body frame</span>
+<span class="sd">        Computes the drag acceleration at a single epoch.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch in TDB seconds past J2000.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            A tuple containing the drag acceleration vector and the relative</span>
+<span class="sd">            velocity vector.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>

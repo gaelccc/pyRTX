@@ -290,7 +290,18 @@
 
 <div class="viewcode-block" id="preprocess_RTX_geometry"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.preprocess_RTX_geometry">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">preprocess_RTX_geometry</span><span class="p">(</span><span class="n">mesh_obj</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	Preprocess the RTX output to obtain the information required</span>
+<span class="sd">    Preprocesses the geometry of a mesh object for ray-tracing.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    mesh_obj : trimesh.Trimesh</span>
+<span class="sd">        The mesh object to preprocess.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        A tuple containing the vertices, faces, face normals, and face areas</span>
+<span class="sd">        of the mesh.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
 	<span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mesh_obj</span><span class="o">.</span><span class="n">vertices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
@@ -303,13 +314,29 @@
 
 <div class="viewcode-block" id="preprocess_materials"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.preprocess_materials">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">preprocess_materials</span><span class="p">(</span><span class="n">material_dict</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	Get the material properties and set up an array for handling</span>
-<span class="sd">	Parameters:</span>
-<span class="sd">	material_dict: a dictionary with the shape:</span>
-<span class="sd">		{&#39;props&#39;: dictionary of properties for each material, &#39;idxs&#39;: indexes of faces associated with each material}</span>
-<span class="sd">	</span>
-<span class="sd">	Returns:</span>
-<span class="sd">	prop_container: a (len(mesh), 2) numpy array containing [specular, diffuse] coefficients for each face of the mesh</span>
+<span class="sd">    Preprocesses a dictionary of material properties into a numpy array.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    material_dict : dict</span>
+<span class="sd">        A dictionary with the following structure:</span>
+<span class="sd">        {</span>
+<span class="sd">            &#39;props&#39;: {</span>
+<span class="sd">                &#39;material_name_1&#39;: {&#39;specular&#39;: float, &#39;diffuse&#39;: float},</span>
+<span class="sd">                ...</span>
+<span class="sd">            },</span>
+<span class="sd">            &#39;idxs&#39;: [</span>
+<span class="sd">                [start_idx_1, end_idx_1],</span>
+<span class="sd">                ...</span>
+<span class="sd">            ]</span>
+<span class="sd">        }</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        A (N, 2) numpy array where N is the number of faces in the mesh.</span>
+<span class="sd">        Each row contains the [specular, diffuse] coefficients for the</span>
+<span class="sd">        corresponding face.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
 	<span class="n">properties</span> <span class="o">=</span> <span class="n">material_dict</span><span class="p">[</span><span class="s1">&#39;props&#39;</span><span class="p">]</span>
@@ -328,21 +355,37 @@
 
 <div class="viewcode-block" id="srp_core"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.srp_core">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">srp_core</span><span class="p">(</span><span class="n">flux</span><span class="p">,</span> <span class="n">indexes_tri</span><span class="p">,</span> <span class="n">indexes_ray</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">norm_factor</span><span class="p">,</span> <span class="n">mesh_obj</span><span class="p">,</span> <span class="n">materials</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">num_diffuse</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diffusion_pack</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	Core of SRP computation.</span>
-<span class="sd">	Highly vectorized version. For explicit algorithm implementation refer to the old version</span>
+<span class="sd">    Core computation of the solar radiation pressure force (vectorized).</span>
 
-<span class="sd">	Parameters:</span>
-<span class="sd">	flux: solar flux (float, W/m^2)</span>
-<span class="sd">	indexes_tri: indexes of intersected triangles</span>
-<span class="sd">	indexes_ray: indexes of intersecting rays</span>
-<span class="sd">	N: normals</span>
-<span class="sd">	S: incident direction vectors</span>
-<span class="sd">	norm_factor: normalization factor computed from ray spacing (float)</span>
-<span class="sd">	mesh_obj: trimesh.Trimesh object [Not used for now, will be used when interrogating mesh</span>
-<span class="sd">				for surface properties]</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    flux : float</span>
+<span class="sd">        The incident solar flux in W/m^2.</span>
+<span class="sd">    indexes_tri : numpy.ndarray</span>
+<span class="sd">        The indices of the intersected triangles.</span>
+<span class="sd">    indexes_ray : numpy.ndarray</span>
+<span class="sd">        The indices of the intersecting rays.</span>
+<span class="sd">    N : numpy.ndarray</span>
+<span class="sd">        The normal vectors of the mesh faces.</span>
+<span class="sd">    S : numpy.ndarray</span>
+<span class="sd">        The incident ray direction vectors.</span>
+<span class="sd">    norm_factor : float</span>
+<span class="sd">        The normalization factor computed from ray spacing.</span>
+<span class="sd">    mesh_obj : trimesh.Trimesh</span>
+<span class="sd">        The `trimesh` object representing the spacecraft.</span>
+<span class="sd">    materials : str or numpy.ndarray, default=&#39;None&#39;</span>
+<span class="sd">        A (N, 2) numpy array of material properties for each face.</span>
+<span class="sd">    diffusion : bool, default=False</span>
+<span class="sd">        If True, computes diffuse reflection forces.</span>
+<span class="sd">    num_diffuse : int, optional</span>
+<span class="sd">        The number of diffuse rays to sample per intersection.</span>
+<span class="sd">    diffusion_pack : list, optional</span>
+<span class="sd">        A list containing data from the diffusion ray-tracing pass.</span>
 
-<span class="sd">	Returns:</span>
-<span class="sd">	force: np.array of SRP force</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        A tuple containing the SRP force vector and the new flux for the next bounce.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
 	<span class="n">c</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">c</span>
@@ -425,16 +468,41 @@
 <div class="viewcode-block" id="compute_srp"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.compute_srp">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">compute_srp</span><span class="p">(</span><span class="n">flux</span><span class="p">,</span> <span class="n">mesh_obj</span><span class="p">,</span> <span class="n">index_tri</span><span class="p">,</span> <span class="n">index_ray</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">ray_origins</span><span class="p">,</span> <span class="n">ray_directions</span><span class="p">,</span> <span class="n">pixel_spacing</span><span class="p">,</span> <span class="n">materials</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">grouped</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 		<span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">num_diffuse</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diffusion_pack</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	Compute the SRP force</span>
+<span class="sd">    Computes the total solar radiation pressure force on a spacecraft.</span>
 
-<span class="sd">	Parameters:</span>
-<span class="sd">	flux: Solar input flux [W/m^2]</span>
-<span class="sd">	A: areas of the mesh faces</span>
-<span class="sd">	s: incident ray directions</span>
-<span class="sd">	r: reflcted ray directions</span>
-<span class="sd">	n: normal unit vector to the faces</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    flux : float</span>
+<span class="sd">        The incident solar flux in W/m^2.</span>
+<span class="sd">    mesh_obj : trimesh.Trimesh</span>
+<span class="sd">        The spacecraft&#39;s mesh model.</span>
+<span class="sd">    index_tri : list of numpy.ndarray</span>
+<span class="sd">        A list of arrays of intersected triangle indices for each bounce.</span>
+<span class="sd">    index_ray : list of numpy.ndarray</span>
+<span class="sd">        A list of arrays of intersecting ray indices for each bounce.</span>
+<span class="sd">    location : list of numpy.ndarray</span>
+<span class="sd">        A list of arrays of intersection locations for each bounce.</span>
+<span class="sd">    ray_origins : list of numpy.ndarray</span>
+<span class="sd">        A list of arrays of ray origins for each bounce.</span>
+<span class="sd">    ray_directions : list of numpy.ndarray</span>
+<span class="sd">        A list of arrays of ray directions for each bounce.</span>
+<span class="sd">    pixel_spacing : float</span>
+<span class="sd">        The spacing between rays, used for normalization.</span>
+<span class="sd">    materials : str or numpy.ndarray, default=&#39;None&#39;</span>
+<span class="sd">        A (N, 2) numpy array of material properties for each face.</span>
+<span class="sd">    grouped : bool, default=True</span>
+<span class="sd">        If True, returns the total force vector.</span>
+<span class="sd">    diffusion : bool, default=False</span>
+<span class="sd">        If True, computes diffuse reflection forces.</span>
+<span class="sd">    num_diffuse : int, optional</span>
+<span class="sd">        The number of diffuse rays to sample per intersection.</span>
+<span class="sd">    diffusion_pack : list, optional</span>
+<span class="sd">        A list containing data from the diffusion ray-tracing pass.</span>
 
-
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray or list</span>
+<span class="sd">        The total SRP force vector, or a list of per-face forces if `grouped` is False.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
 	<span class="c1"># Compute geometric quantities	</span>

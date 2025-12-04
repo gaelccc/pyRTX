@@ -280,55 +280,43 @@
 
 <div class="viewcode-block" id="Spacecraft"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Spacecraft</span><span class="p">():</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	This is the main class for defining spacecraft objects.</span>
+<span class="sd">	Represents a spacecraft, including its geometry, materials, and orientation.</span>
+
+<span class="sd">    This class manages the different components of a spacecraft, their transformations,</span>
+<span class="sd">    and material properties. It can load geometry from OBJ files and uses SPICE</span>
+<span class="sd">    kernels to determine the orientation of each component.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="Spacecraft.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">base_frame</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">spacecraft_model</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">mass</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">):</span>
+<div class="viewcode-block" id="Spacecraft.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">base_frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">spacecraft_model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="mf">0.</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Parameters</span>
-<span class="sd">		----------</span>
-<span class="sd">		name : str</span>
-<span class="sd">			Spacecraft name</span>
+<span class="sd">		Initializes the Spacecraft object.</span>
 
-<span class="sd">		base_frame : str</span>
-<span class="sd">			Spacecraft body (base) frame</span>
-
-<span class="sd">		spacecraft_model : dict</span>
-<span class="sd">			dict of {file:str, frame_type:str, frame_name:str, center:list, specular:float, diffuse:float, UD_rotation:trimesh.rotation}</span>
-<span class="sd">		a dictionary with keys the name of</span>
-
-<span class="sd">			file: str</span>
-<span class="sd">				the obj file for the part</span>
-
-<span class="sd">			frame_type: str</span>
-<span class="sd">				&#39;Spice&#39; or &#39;UD&#39; to choose wether to define a reference to a spice frame or UserDefined one</span>
-<span class="sd">				in the case of &#39;UD&#39; a rotation matrix must be specified in the UD_rotation (optional) key</span>
-
-<span class="sd">			frame_name: str</span>
-<span class="sd">				The name of the Spice (or UD) frame</span>
-
-<span class="sd">			center: list</span>
-<span class="sd">				position of the origin of the object (in km) with respect to the base frame</span>
-
-<span class="sd">			specular: float</span>
-<span class="sd">				specular coefficient</span>
-
-<span class="sd">			diffuse: float</span>
-<span class="sd">				diffuse coefficient</span>
-
-<span class="sd">			UD_rotation: trimesh.rotation</span>
-<span class="sd">				optional specify a user defined rotations matrix</span>
-
-<span class="sd">		units : str</span>
-<span class="sd">			units for transformations</span>
-
-<span class="sd">		mass : float or .nc file</span>
-<span class="sd">			Spacecraft mass. Can be a float value or an xarray with times and mass values</span>
-
-<span class="sd">		Returns</span>
-<span class="sd">		-------</span>
-<span class="sd">		bla : pyRTX.classes.Spacecraft</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str, optional</span>
+<span class="sd">            The name of the spacecraft.</span>
+<span class="sd">        base_frame : str, optional</span>
+<span class="sd">            The SPICE reference frame for the spacecraft&#39;s body.</span>
+<span class="sd">        spacecraft_model : dict, optional</span>
+<span class="sd">            A dictionary defining the spacecraft&#39;s components. Each key is the</span>
+<span class="sd">            component name, and the value is another dictionary with the following</span>
+<span class="sd">            keys:</span>
+<span class="sd">            - &#39;file&#39; (str): Path to the OBJ file for the component.</span>
+<span class="sd">            - &#39;frame_type&#39; (str): &#39;Spice&#39; or &#39;UD&#39; (User Defined).</span>
+<span class="sd">            - &#39;frame_name&#39; (str): The name of the SPICE or UD frame.</span>
+<span class="sd">            - &#39;center&#39; (list): The position of the component&#39;s origin in the</span>
+<span class="sd">              base frame.</span>
+<span class="sd">            - &#39;specular&#39; (float): The specular reflection coefficient.</span>
+<span class="sd">            - &#39;diffuse&#39; (float): The diffuse reflection coefficient.</span>
+<span class="sd">            - &#39;UD_rotation&#39; (trimesh.transformations.Transform, optional): A</span>
+<span class="sd">              user-defined rotation matrix.</span>
+<span class="sd">        units : str, default=&#39;m&#39;</span>
+<span class="sd">            The units for the spacecraft model&#39;s dimensions (&#39;m&#39; for meters,</span>
+<span class="sd">            &#39;km&#39; for kilometers, etc.).</span>
+<span class="sd">        mass : float or xarray.Dataset, default=0.</span>
+<span class="sd">            The spacecraft&#39;s mass. Can be a constant float or an xarray Dataset</span>
+<span class="sd">            with time-varying mass.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
@@ -351,6 +339,19 @@
 
 
 	<span class="k">def</span><span class="w"> </span><span class="nf">_load_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Loads a mesh from an OBJ file and applies the specified unit conversion.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        fname : str</span>
+<span class="sd">            The path to the OBJ file.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        trimesh.Trimesh</span>
+<span class="sd">            The loaded mesh, scaled according to the spacecraft&#39;s units.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="n">mesh</span> <span class="o">=</span> <span class="n">tm</span><span class="o">.</span><span class="n">load_mesh</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">skip_texture</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
 		<span class="c1">#if isinstance(mesh, tm.Scene): mesh = mesh.dump(concatenate = True)</span>
 		<span class="n">mesh</span><span class="o">.</span><span class="n">apply_transform</span><span class="p">(</span><span class="n">tmt</span><span class="o">.</span><span class="n">scale_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conversion_factor</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
@@ -358,6 +359,16 @@
 
 
 	<span class="k">def</span><span class="w"> </span><span class="nf">_initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_model</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the spacecraft model by loading meshes and setting up</span>
+<span class="sd">        transformations.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        input_model : dict</span>
+<span class="sd">            A dictionary describing the spacecraft&#39;s components, as defined</span>
+<span class="sd">            in the `__init__` method.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="c1"># Load the meshes</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">input_model</span><span class="p">)</span>
@@ -376,11 +387,17 @@
 
 	<span class="k">def</span><span class="w"> </span><span class="nf">_precompute_rot_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">convert</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Method to pre-compute rotation matrices.</span>
+<span class="sd">		Pre-computes the rotation matrices for each component at a given set of</span>
+<span class="sd">        epochs.</span>
 
-<span class="sd">		Parameters:</span>
-<span class="sd">		-	epochs: list of epochs</span>
-<span class="sd">		-	convert: boolean flag to convert the output of pxform into a 4x4 matrix</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epochs : list of float</span>
+<span class="sd">            The list of epochs (in SPICE ephemeris time) for which to</span>
+<span class="sd">            pre-compute the rotation matrices.</span>
+<span class="sd">        convert : bool, default=True</span>
+<span class="sd">            If True, converts the 3x3 SPICE rotation matrices to 4x4</span>
+<span class="sd">            transformation matrices.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="c1"># Index - epochs mapping</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">_epochs_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">epoch</span><span class="p">:</span> <span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">epochs</span><span class="p">)}</span>
@@ -399,13 +416,21 @@
 				<span class="bp">self</span><span class="o">.</span><span class="n">_rot_matrices</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmatrix</span>
 
 
-<div class="viewcode-block" id="Spacecraft.add_parts"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.add_parts">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">add_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft_model</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Spacecraft.add_parts"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.add_parts">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">add_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft_model</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Add parts to the model instance</span>
-<span class="sd">		Parameters</span>
-<span class="sd">		----------</span>
-<span class="sd">		spacecraft_model : dict</span>
-<span class="sd">			See the main constructor documentation</span>
+<span class="sd">		Adds new parts to the spacecraft model.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spacecraft_model : dict</span>
+<span class="sd">            A dictionary describing the new components to add, in the same</span>
+<span class="sd">            format as the `spacecraft_model` parameter of the `__init__`</span>
+<span class="sd">            method.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        Exception</span>
+<span class="sd">            If a part with the same name already exists in the model.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="k">if</span> <span class="n">name</span> <span class="ow">in</span>  <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
@@ -415,13 +440,21 @@
 
 
 <div class="viewcode-block" id="Spacecraft.subset"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.subset">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">subset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elem_names</span><span class="p">):</span>
-<span class="w">		</span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">		Return an instance of Spacecraft with only the elements contained</span>
-<span class="sd">		in the list elem_names.</span>
-<span class="sd">		Suppose the Spacecraft (self) is composed of elements A,B,C</span>
-<span class="sd">		Spacecraft.subset([&#39;A&#39;,&#39;B&#39;]) would return a new instance</span>
-<span class="sd">		of Spacecraft with only the elements A and B</span>
-<span class="sd">		&#39;&#39;&#39;</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Creates a new Spacecraft instance containing only a subset of the</span>
+<span class="sd">        components of the current instance.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        elem_names : list of str</span>
+<span class="sd">            A list of the names of the components to include in the new</span>
+<span class="sd">            instance.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Spacecraft</span>
+<span class="sd">            A new Spacecraft instance with only the specified components.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="n">cself</span>  <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 		<span class="n">orig_elems</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">cself</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
@@ -432,15 +465,27 @@
 
 
 <div class="viewcode-block" id="Spacecraft.remove_part"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.remove_part">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">remove_part</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Removes a part from the spacecraft model.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str</span>
+<span class="sd">            The name of the part to remove.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
 
 
 <div class="viewcode-block" id="Spacecraft.apply_transforms"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.apply_transforms">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">apply_transforms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Method to rotate and translate the components.</span>
+<span class="sd">		Applies the rotations and translations to each component for a given</span>
+<span class="sd">        epoch.</span>
 
-<span class="sd">		Parameters:</span>
-<span class="sd">		-	epoch: epoch of the transformation</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float</span>
+<span class="sd">            The epoch (in SPICE ephemeris time) at which to apply the</span>
+<span class="sd">            transformations.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
 
@@ -470,10 +515,36 @@
 
 
 <div class="viewcode-block" id="Spacecraft.materials"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.materials">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">materials</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Returns the material properties dictionary for the spacecraft.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            A dictionary containing the material properties of each component.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">material_dict</span></div>
 
 
-<div class="viewcode-block" id="Spacecraft.dump"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.dump">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">epoch</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">split</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Spacecraft.dump"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.dump">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Returns the combined or individual meshes of the spacecraft&#39;s components</span>
+<span class="sd">        at a specific epoch.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float, optional</span>
+<span class="sd">            The epoch (in SPICE ephemeris time) for which to get the meshes.</span>
+<span class="sd">            If None, the base meshes are used without transformation.</span>
+<span class="sd">        split : bool, default=False</span>
+<span class="sd">            If True, returns a list of individual meshes for each component.</span>
+<span class="sd">            If False, returns a single combined mesh.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        trimesh.Trimesh or list of trimesh.Trimesh</span>
+<span class="sd">            The combined mesh or a list of individual component meshes.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="n">mesh_todump</span> <span class="o">=</span><span class="p">[]</span>
 
@@ -508,6 +579,10 @@
 
 
 <div class="viewcode-block" id="Spacecraft.dump_materials"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.dump_materials">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">dump_materials</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Generates and stores a dictionary of material properties for all</span>
+<span class="sd">        components.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
 		<span class="n">stored_idxs</span> <span class="o">=</span> <span class="p">[]</span>
 		<span class="n">props</span> <span class="o">=</span> <span class="p">{}</span>
@@ -524,11 +599,27 @@
 
 
 	<span class="k">def</span><span class="w"> </span><span class="nf">_elem_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elem</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Returns a formatted string with information about a specific component.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        elem : str</span>
+<span class="sd">            The name of the component.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            A string containing the component&#39;s frame information.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="c1"># print(self.spacecraft_model[elem][&#39;frame_name&#39;])</span>
 		<span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">elem</span><span class="si">}</span><span class="s2">: Proper Frame: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;frame_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> | Frame Type: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;frame_type&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
 
 
 <div class="viewcode-block" id="Spacecraft.info"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.info">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Prints a summary of the spacecraft&#39;s components.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="n">elems</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 		<span class="n">n_parts</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">elems</span><span class="p">)</span>
 		<span class="n">printstr</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Spacecraft </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> composed of </span><span class="si">{</span><span class="n">n_parts</span><span class="si">}</span><span class="s2"> elements: </span><span class="se">\n</span><span class="s2">&quot;</span>
@@ -537,8 +628,16 @@
 		<span class="nb">print</span><span class="p">(</span><span class="n">printstr</span><span class="p">)</span></div>
 
 
-	<span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">()</span></div>
+<div class="viewcode-block" id="Spacecraft.__str__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.__str__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">		Returns a string representation of the spacecraft&#39;s information.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            A string containing the spacecraft&#39;s summary.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">()</span></div></div>
 </pre></div>
 
            </div>

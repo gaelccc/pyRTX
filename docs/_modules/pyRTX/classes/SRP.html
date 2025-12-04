@@ -292,31 +292,35 @@
 
 <span class="sd">	This class simulates the shadow cast by a celestial body on a spacecraft,</span>
 <span class="sd">	accounting for solar limb darkening effects to provide a precise solar flux ratio.</span>
-
-<span class="sd">	Parameters</span>
-<span class="sd">	----------</span>
-<span class="sd">	spacecraft : object, optional</span>
-<span class="sd">	    An object representing the spacecraft, containing position and orientation.</span>
-<span class="sd">	body : str, optional</span>
-<span class="sd">	    The name of the celestial body causing the eclipse (e.g., &#39;Moon&#39;).</span>
-<span class="sd">	bodyRadius : float, optional</span>
-<span class="sd">	    The radius of the occulting body in kilometers.</span>
-<span class="sd">	numrays : int, default=100</span>
-<span class="sd">	    The number of rays to trace across the Sun&#39;s diameter.</span>
-<span class="sd">	sunRadius : float, default=600e3</span>
-<span class="sd">	    The radius of the Sun in kilometers.</span>
-<span class="sd">	bodyShape : object or str, optional</span>
-<span class="sd">	    A `Planet` object or a path to a shape model file.</span>
-<span class="sd">	bodyFrame : str, optional</span>
-<span class="sd">	    The SPICE reference frame for the body&#39;s shape model.</span>
-<span class="sd">	limbDarkening : str, default=&#39;Standard&#39;</span>
-<span class="sd">	    The solar limb darkening model to use (&#39;Standard&#39;, &#39;Eddington&#39;, or None).</span>
-<span class="sd">	precomputation : object, optional</span>
-<span class="sd">	    A `Precompute` object with precomputed SPICE data.</span>
-
 <span class="sd">	&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="SunShadow.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">bodyRadius</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">numrays</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">sunRadius</span> <span class="o">=</span> <span class="mf">600e3</span><span class="p">,</span> <span class="n">bodyShape</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">bodyFrame</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">limbDarkening</span> <span class="o">=</span> <span class="s1">&#39;Standard&#39;</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the SunShadow object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spacecraft : object, optional</span>
+<span class="sd">            An object representing the spacecraft, containing position and</span>
+<span class="sd">            orientation.</span>
+<span class="sd">        body : str, optional</span>
+<span class="sd">            The name of the celestial body causing the eclipse (e.g., &#39;Moon&#39;).</span>
+<span class="sd">        bodyRadius : float, optional</span>
+<span class="sd">            The radius of the occulting body in kilometers.</span>
+<span class="sd">        numrays : int, default=100</span>
+<span class="sd">            The number of rays to trace across the Sun&#39;s diameter.</span>
+<span class="sd">        sunRadius : float, default=600e3</span>
+<span class="sd">            The radius of the Sun in kilometers.</span>
+<span class="sd">        bodyShape : object or str, optional</span>
+<span class="sd">            A `Planet` object or a path to a shape model file.</span>
+<span class="sd">        bodyFrame : str, optional</span>
+<span class="sd">            The SPICE reference frame for the body&#39;s shape model.</span>
+<span class="sd">        limbDarkening : str, default=&#39;Standard&#39;</span>
+<span class="sd">            The solar limb darkening model to use (&#39;Standard&#39;, &#39;Eddington&#39;,</span>
+<span class="sd">            or None).</span>
+<span class="sd">        precomputation : object, optional</span>
+<span class="sd">            A `Precompute` object with precomputed SPICE data.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		
 		<span class="bp">self</span><span class="o">.</span><span class="n">sunRadius</span> <span class="o">=</span> <span class="n">sunRadius</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">spacecraft</span> <span class="o">=</span> <span class="n">spacecraft</span>
@@ -451,27 +455,31 @@
 <span class="sd">	This class orchestrates the SRP calculation by using a ray-tracer to simulate</span>
 <span class="sd">	sunlight hitting a spacecraft model. It accounts for material properties,</span>
 <span class="sd">	self-shadowing, and eclipse conditions.</span>
-
-<span class="sd">	Parameters</span>
-<span class="sd">	----------</span>
-<span class="sd">	spacecraft : object</span>
-<span class="sd">	    The spacecraft model, containing geometry and material properties.</span>
-<span class="sd">	rayTracer : object, optional</span>
-<span class="sd">	    A `RayTracer` object to perform the ray-tracing simulation.</span>
-<span class="sd">	baseflux : float, default=1361.5</span>
-<span class="sd">	    The nominal solar flux at 1 AU in W/m^2.</span>
-<span class="sd">	grouped : bool, default=True</span>
-<span class="sd">	    If True, returns the total force vector; otherwise, returns forces per-face.</span>
-<span class="sd">	shadowObj : object, optional</span>
-<span class="sd">	    A `SunShadow` object to compute eclipse factors.</span>
-<span class="sd">	lookup : object, optional</span>
-<span class="sd">	    A lookup table for precomputed SRP values.</span>
-<span class="sd">	precomputation : object, optional</span>
-<span class="sd">	    A `Precompute` object with precomputed SPICE data.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
 	
 <div class="viewcode-block" id="SolarPressure.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">rayTracer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">baseflux</span> <span class="o">=</span> <span class="mf">1361.5</span><span class="p">,</span> <span class="n">grouped</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">shadowObj</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">lookup</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the SolarPressure object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spacecraft : object</span>
+<span class="sd">            The spacecraft model, containing geometry and material properties.</span>
+<span class="sd">        rayTracer : object, optional</span>
+<span class="sd">            A `RayTracer` object to perform the ray-tracing simulation.</span>
+<span class="sd">        baseflux : float, default=1361.5</span>
+<span class="sd">            The nominal solar flux at 1 AU in W/m^2.</span>
+<span class="sd">        grouped : bool, default=True</span>
+<span class="sd">            If True, returns the total force vector; otherwise, returns</span>
+<span class="sd">            forces per-face.</span>
+<span class="sd">        shadowObj : object, optional</span>
+<span class="sd">            A `SunShadow` object to compute eclipse factors.</span>
+<span class="sd">        lookup : object, optional</span>
+<span class="sd">            A lookup table for precomputed SRP values.</span>
+<span class="sd">        precomputation : object, optional</span>
+<span class="sd">            A `Precompute` object with precomputed SPICE data.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="bp">self</span><span class="o">.</span><span class="n">spacecraft</span> <span class="o">=</span> <span class="n">spacecraft</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">rayTracer</span>  <span class="o">=</span> <span class="n">rayTracer</span>

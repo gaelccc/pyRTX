@@ -277,50 +277,52 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.classes.Spacecraft.Spacecraft" title="pyRTX.classes.Spacecraft.Spacecraft"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Spacecraft</span></code></a>([name, base_frame, ...])</p></td>
-<td><p>This is the main class for defining spacecraft objects.</p></td>
+<td><p>Represents a spacecraft, including its geometry, materials, and orientation.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.classes.Spacecraft.</span></span><span class="sig-name descname"><span class="pre">Spacecraft</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacecraft_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'m'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Spacecraft.html#Spacecraft"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft" title="Permalink to this definition"></a></dt>
-<dd><p>This is the main class for defining spacecraft objects.</p>
+<dd><blockquote>
+<div><p>Represents a spacecraft, including its geometry, materials, and orientation.</p>
+</div></blockquote>
+<p>This class manages the different components of a spacecraft, their transformations,
+and material properties. It can load geometry from OBJ files and uses SPICE
+kernels to determine the orientation of each component.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_frame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spacecraft_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'m'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.__init__" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><blockquote>
+<div><p>Initializes the Spacecraft object.</p>
+</div></blockquote>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Spacecraft name</p></li>
-<li><p><strong>base_frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – Spacecraft body (base) frame</p></li>
-<li><p><strong>spacecraft_model</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – dict of {<a class="reference external" href="file:str">file:str</a>, frame_type:str, frame_name:str, center:list, specular:float, diffuse:float, UD_rotation:trimesh.rotation}</p></li>
-<li><p><strong>of</strong> (<em>a dictionary with keys the name</em>) – <dl class="simple">
-<dt>file: str</dt><dd><p>the obj file for the part</p>
-</dd>
-<dt>frame_type: str</dt><dd><p>’Spice’ or ‘UD’ to choose wether to define a reference to a spice frame or UserDefined one
-in the case of ‘UD’ a rotation matrix must be specified in the UD_rotation (optional) key</p>
-</dd>
-<dt>frame_name: str</dt><dd><p>The name of the Spice (or UD) frame</p>
-</dd>
-<dt>center: list</dt><dd><p>position of the origin of the object (in km) with respect to the base frame</p>
-</dd>
-<dt>specular: float</dt><dd><p>specular coefficient</p>
-</dd>
-<dt>diffuse: float</dt><dd><p>diffuse coefficient</p>
-</dd>
-<dt>UD_rotation: trimesh.rotation</dt><dd><p>optional specify a user defined rotations matrix</p>
-</dd>
-</dl>
-</p></li>
-<li><p><strong>units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – units for transformations</p></li>
-<li><p><strong>mass</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> or <code class="xref py py-class docutils literal notranslate"><span class="pre">nc</span> <span class="pre">file</span></code>) – Spacecraft mass. Can be a float value or an xarray with times and mass values</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – The name of the spacecraft.</p></li>
+<li><p><strong>base_frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – The SPICE reference frame for the spacecraft’s body.</p></li>
+<li><p><strong>spacecraft_model</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>, <em>optional</em>) – <p>A dictionary defining the spacecraft’s components. Each key is the
+component name, and the value is another dictionary with the following
+keys:
+- ‘file’ (str): Path to the OBJ file for the component.
+- ‘frame_type’ (str): ‘Spice’ or ‘UD’ (User Defined).
+- ‘frame_name’ (str): The name of the SPICE or UD frame.
+- ‘center’ (list): The position of the component’s origin in the</p>
+<blockquote>
+<div><p>base frame.</p>
+</div></blockquote>
+<ul>
+<li><p>’specular’ (float): The specular reflection coefficient.</p></li>
+<li><p>’diffuse’ (float): The diffuse reflection coefficient.</p></li>
+<li><p>’UD_rotation’ (trimesh.transformations.Transform, optional): A
+user-defined rotation matrix.</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>bla</strong></p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#module-pyRTX.classes.Spacecraft" title="pyRTX.classes.Spacecraft"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.classes.Spacecraft</span></code></a></p>
+</p></li>
+<li><p><strong>units</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'m'</span></code>) – The units for the spacecraft model’s dimensions (‘m’ for meters,
+‘km’ for kilometers, etc.).</p></li>
+<li><p><strong>mass</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> or <code class="xref py py-class docutils literal notranslate"><span class="pre">xarray.Dataset</span></code>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">0.</span></code>) – The spacecraft’s mass. Can be a constant float or an xarray Dataset
+with time-varying mass.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -328,53 +330,141 @@ in the case of ‘UD’ a rotation matrix must be specified in the UD_rotation (
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.add_parts">
 <span class="sig-name descname"><span class="pre">add_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft_model</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.add_parts"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.add_parts" title="Permalink to this definition"></a></dt>
-<dd><p>Add parts to the model instance
-:param spacecraft_model: See the main constructor documentation
-:type spacecraft_model: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+<dd><blockquote>
+<div><p>Adds new parts to the spacecraft model.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>spacecraft_model</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – A dictionary describing the new components to add, in the same
+format as the <cite>spacecraft_model</cite> parameter of the <cite>__init__</cite>
+method.</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.14)"><strong>Exception</strong></a> – If a part with the same name already exists in the model.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.subset">
 <span class="sig-name descname"><span class="pre">subset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elem_names</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.subset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.subset" title="Permalink to this definition"></a></dt>
-<dd><p>Return an instance of Spacecraft with only the elements contained
-in the list elem_names.
-Suppose the Spacecraft (self) is composed of elements A,B,C
-Spacecraft.subset([‘A’,’B’]) would return a new instance
-of Spacecraft with only the elements A and B</p>
+<dd><blockquote>
+<div><p>Creates a new Spacecraft instance containing only a subset of the</p>
+</div></blockquote>
+<p>components of the current instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>elem_names</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – A list of the names of the components to include in the new
+instance.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A new Spacecraft instance with only the specified components.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pyRTX.classes.Spacecraft.Spacecraft" title="pyRTX.classes.Spacecraft.Spacecraft"><code class="xref py py-class docutils literal notranslate"><span class="pre">Spacecraft</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.remove_part">
 <span class="sig-name descname"><span class="pre">remove_part</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.remove_part"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.remove_part" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><blockquote>
+<div><p>Removes a part from the spacecraft model.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The name of the part to remove.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.apply_transforms">
 <span class="sig-name descname"><span class="pre">apply_transforms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.apply_transforms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.apply_transforms" title="Permalink to this definition"></a></dt>
-<dd><p>Method to rotate and translate the components.</p>
-<p>Parameters:
--       epoch: epoch of the transformation</p>
+<dd><blockquote>
+<div><p>Applies the rotations and translations to each component for a given</p>
+</div></blockquote>
+<p>epoch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The epoch (in SPICE ephemeris time) at which to apply the
+transformations.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.materials">
 <span class="sig-name descname"><span class="pre">materials</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.materials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.materials" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><blockquote>
+<div><p>Returns the material properties dictionary for the spacecraft.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dictionary containing the material properties of each component.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.dump">
 <span class="sig-name descname"><span class="pre">dump</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.dump"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.dump" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><blockquote>
+<div><p>Returns the combined or individual meshes of the spacecraft’s components</p>
+</div></blockquote>
+<p>at a specific epoch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – The epoch (in SPICE ephemeris time) for which to get the meshes.
+If None, the base meshes are used without transformation.</p></li>
+<li><p><strong>split</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>default</em> <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>) – If True, returns a list of individual meshes for each component.
+If False, returns a single combined mesh.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The combined mesh or a list of individual component meshes.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">trimesh.Trimesh</span></code> or <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <code class="xref py py-class docutils literal notranslate"><span class="pre">trimesh.Trimesh</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.dump_materials">
 <span class="sig-name descname"><span class="pre">dump_materials</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.dump_materials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.dump_materials" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><blockquote>
+<div><p>Generates and stores a dictionary of material properties for all</p>
+</div></blockquote>
+<p>components.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.info">
 <span class="sig-name descname"><span class="pre">info</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.info" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Prints a summary of the spacecraft’s components.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.classes.Spacecraft.Spacecraft.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Spacecraft.html#Spacecraft.__str__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Spacecraft.Spacecraft.__str__" title="Permalink to this definition"></a></dt>
+<dd><blockquote>
+<div><p>Returns a string representation of the spacecraft’s information.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A string containing the spacecraft’s summary.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

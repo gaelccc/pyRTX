@@ -277,22 +277,51 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.classes.RayTracer.RayTracer" title="pyRTX.classes.RayTracer.RayTracer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">RayTracer</span></code></a>(spacecraft, rays[, kernel, ...])</p></td>
-<td><p></p></td>
+<td><p>A class for performing ray-tracing simulations.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyRTX.classes.RayTracer.RayTracer">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.classes.RayTracer.</span></span><span class="sig-name descname"><span class="pre">RayTracer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rays</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Embree'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_diffuse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/RayTracer.html#RayTracer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.RayTracer.RayTracer" title="Permalink to this definition"></a></dt>
-<dd><dl class="py method">
+<dd><p>A class for performing ray-tracing simulations.</p>
+<p>This class orchestrates the ray-tracing process by taking a spacecraft
+model and a set of rays (defined by a PixelPlane object) and using a
+specified ray-tracing kernel to compute the intersections.</p>
+<dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.RayTracer.RayTracer.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rays</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Embree'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diffusion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_diffuse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/RayTracer.html#RayTracer.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.RayTracer.RayTracer.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initializes the RayTracer object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spacecraft</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.Spacecraft</span></code>) – The spacecraft object to be ray-traced.</p></li>
+<li><p><strong>rays</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.PixelPlane</span></code>) – The PixelPlane object defining the rays.</p></li>
+<li><p><strong>kernel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'Embree'</span></code>) – The ray-tracing kernel to use (e.g., ‘Embree’).</p></li>
+<li><p><strong>bounces</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">1</span></code>) – The number of bounces to simulate for each ray.</p></li>
+<li><p><strong>diffusion</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>default</em> <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>) – Whether to simulate diffuse reflections.</p></li>
+<li><p><strong>num_diffuse</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>optional</em>) – The number of diffuse rays to cast from each intersection point.
+Required if <cite>diffusion</cite> is True.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.RayTracer.RayTracer.trace">
 <span class="sig-name descname"><span class="pre">trace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/RayTracer.html#RayTracer.trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.RayTracer.RayTracer.trace" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Performs the ray-tracing simulation.</p>
+<p>This method computes the intersections of the rays with the spacecraft
+mesh at a given epoch and stores the results in the object’s
+attributes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – The epoch in TDB seconds past J2000 for which to perform the
+ray-tracing. This is necessary if the spacecraft’s geometry or
+orientation is time-dependent.</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

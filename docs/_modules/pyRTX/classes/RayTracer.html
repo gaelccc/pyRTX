@@ -271,8 +271,34 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">timeit</span>
 
 <div class="viewcode-block" id="RayTracer"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.RayTracer.html#pyRTX.classes.RayTracer.RayTracer">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">RayTracer</span><span class="p">():</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class for performing ray-tracing simulations.</span>
+
+<span class="sd">    This class orchestrates the ray-tracing process by taking a spacecraft</span>
+<span class="sd">    model and a set of rays (defined by a PixelPlane object) and using a</span>
+<span class="sd">    specified ray-tracing kernel to compute the intersections.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
 	
 <div class="viewcode-block" id="RayTracer.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.RayTracer.html#pyRTX.classes.RayTracer.RayTracer.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">rays</span><span class="p">,</span> <span class="n">kernel</span> <span class="o">=</span> <span class="s1">&#39;Embree&#39;</span><span class="p">,</span> <span class="n">bounces</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">num_diffuse</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the RayTracer object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spacecraft : pyRTX.Spacecraft</span>
+<span class="sd">            The spacecraft object to be ray-traced.</span>
+<span class="sd">        rays : pyRTX.PixelPlane</span>
+<span class="sd">            The PixelPlane object defining the rays.</span>
+<span class="sd">        kernel : str, default=&#39;Embree&#39;</span>
+<span class="sd">            The ray-tracing kernel to use (e.g., &#39;Embree&#39;).</span>
+<span class="sd">        bounces : int, default=1</span>
+<span class="sd">            The number of bounces to simulate for each ray.</span>
+<span class="sd">        diffusion : bool, default=False</span>
+<span class="sd">            Whether to simulate diffuse reflections.</span>
+<span class="sd">        num_diffuse : int, optional</span>
+<span class="sd">            The number of diffuse rays to cast from each intersection point.</span>
+<span class="sd">            Required if `diffusion` is True.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="n">kernel</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">bounces</span> <span class="o">=</span> <span class="n">bounces</span>
@@ -289,6 +315,20 @@
 
 
 <div class="viewcode-block" id="RayTracer.trace"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.RayTracer.html#pyRTX.classes.RayTracer.RayTracer.trace">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">trace</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs the ray-tracing simulation.</span>
+
+<span class="sd">        This method computes the intersections of the rays with the spacecraft</span>
+<span class="sd">        mesh at a given epoch and stores the results in the object&#39;s</span>
+<span class="sd">        attributes.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        epoch : float, optional</span>
+<span class="sd">            The epoch in TDB seconds past J2000 for which to perform the</span>
+<span class="sd">            ray-tracing. This is necessary if the spacecraft&#39;s geometry or</span>
+<span class="sd">            orientation is time-dependent.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="n">mesh_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
 		<span class="n">ray_origins</span><span class="p">,</span> <span class="n">ray_directions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rays</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
@@ -336,15 +376,6 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">ray_origins_container</span> <span class="o">=</span> <span class="n">d</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">ray_directions_container</span> <span class="o">=</span> <span class="n">e</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">diffusion_pack</span> <span class="o">=</span> <span class="n">f</span></div></div>
-
-
-	
-
-
-
-		
-
-
 </pre></div>
 
            </div>

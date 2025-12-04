@@ -1139,12 +1139,18 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_make_scene</span><span class="p">()</span></div>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">A</span><span class="p">))</span>
+<div class="viewcode-block" id="TrimeshShapeModel.__reduce__"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel.__reduce__">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Serialization method for pickling.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">A</span><span class="p">))</span></div>
 
-    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="TrimeshShapeModel.__repr__"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel.__repr__">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        String representation of the object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s1">&#39;a TrimeshShapeModel with </span><span class="si">%d</span><span class="s1"> vertices and </span><span class="si">%d</span><span class="s1"> faces&#39;</span> <span class="o">%</span> <span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">num_verts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_faces</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">num_verts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">num_faces</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">num_faces</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1216,22 +1222,36 @@
 <div class="viewcode-block" id="CgalTrimeshShapeModel"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">CgalTrimeshShapeModel</span><span class="p">(</span><span class="n">TrimeshShapeModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A triangle mesh shape model that uses the CGAL AABB tree for ray tracing.&quot;&quot;&quot;</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_make_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set up a CGAL AABB tree.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">aabb</span> <span class="o">=</span> <span class="n">AABB</span><span class="o">.</span><span class="n">from_trimesh</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">F</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uintp</span><span class="p">))</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_intersect1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Trace a single ray using CGAL.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">aabb</span><span class="o">.</span><span class="n">intersect1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_intersect1_2d</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">D</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Trace multiple rays using CGAL.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">aabb</span><span class="o">.</span><span class="n">intersect1_2d</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_intersect1_2d_with_coords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">D</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Trace multiple rays with coordinates using CGAL.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">aabb</span><span class="o">.</span><span class="n">intersect1_2d_with_coords</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">D</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="EmbreeTrimeshShapeModel"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">EmbreeTrimeshShapeModel</span><span class="p">(</span><span class="n">TrimeshShapeModel</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A triangle mesh shape model that uses the Embree ray tracing kernel.&quot;&quot;&quot;</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">_make_scene</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&#39;&#39;&#39;Set up an Embree scene.&#39;&#39;&#39;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set up an Embree scene.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">device</span> <span class="o">=</span> <span class="n">embree</span><span class="o">.</span><span class="n">Device</span><span class="p">()</span>
         <span class="n">geometry</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">make_geometry</span><span class="p">(</span><span class="n">embree</span><span class="o">.</span><span class="n">GeometryType</span><span class="o">.</span><span class="n">Triangle</span><span class="p">)</span>
         <span class="n">geometry</span><span class="o">.</span><span class="n">set_build_quality</span><span class="p">(</span><span class="n">embree</span><span class="o">.</span><span class="n">BuildQuality</span><span class="o">.</span><span class="n">High</span><span class="p">)</span>
@@ -1273,6 +1293,9 @@
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_intersect1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Trace a single ray using Embree.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;intersect1 no implemented for EmbreeTrimeshShapeModel&#39;</span><span class="p">)</span></div>
 
 

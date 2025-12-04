@@ -287,38 +287,50 @@
 
 <div class="viewcode-block" id="LookupTable"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">LookupTable</span><span class="p">():</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	This class is used to store results in the shape aof a lookup table.</span>
-<span class="sd">	This is mainly used to store the resultas of a set of raytracing results</span>
-<span class="sd">	example: the solar pressure for a body is computed for a grid of RA/DEC values.</span>
-<span class="sd">	these values can be stored in the LookupTable object and later retrieved.</span>
-<span class="sd">	This class offers the possibility of not oly retrieving pre-computed values, but</span>
-<span class="sd">	aslso interpolating between grid points.</span>
+<span class="sd">    A class for storing and interpolating 2D lookup tables.</span>
 
-<span class="sd">	NOTE: the grid of the lookup table does not need to be regular</span>
-<span class="sd">	the interpolation is based on numpy griddata method which is able to cope</span>
-<span class="sd">	with unstructured grids</span>
+<span class="sd">    This class is used to store results in the shape aof a lookup table.</span>
+<span class="sd">    This is mainly used to store the resultas of a set of raytracing results</span>
+<span class="sd">    example: the solar pressure for a body is computed for a grid of RA/DEC values.</span>
+<span class="sd">    these values can be stored in the LookupTable object and later retrieved.</span>
+<span class="sd">    This class offers the possibility of not oly retrieving pre-computed values, but</span>
+<span class="sd">    aslso interpolating between grid points.</span>
 
-<span class="sd">	The main way of retrieving values is through indexing. The following are implemented:</span>
+<span class="sd">    NOTE: the grid of the lookup table does not need to be regular</span>
+<span class="sd">    the interpolation is based on numpy griddata method which is able to cope</span>
+<span class="sd">    with unstructured grids</span>
 
-<span class="sd">	LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated</span>
-<span class="sd">	LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested</span>
-<span class="sd">	LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)</span>
-<span class="sd">	LUT[array-like, array-like]: return the lookup table interpolated in the array-like points</span>
+<span class="sd">    The main way of retrieving values is through indexing. The following are implemented:</span>
 
-
-
-<span class="sd">	Parameters</span>
-<span class="sd">	----------</span>
-<span class="sd">	linspace_x : np.array(N,)</span>
-<span class="sd">		The x axis of the lookup table</span>
-<span class="sd">	linspace_y : np.array(M,)</span>
-<span class="sd">		The y axis of the lookup table</span>
-<span class="sd">	values : np.ndarray (N,M,1)</span>
-<span class="sd">		The lookup table values</span>
+<span class="sd">    LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated</span>
+<span class="sd">    LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested</span>
+<span class="sd">    LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)</span>
+<span class="sd">    LUT[array-like, array-like]: return the lookup table interpolated in the array-like points</span>
 
 
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    linspace_x : np.array(N,)</span>
+<span class="sd">        The x axis of the lookup table</span>
+<span class="sd">    linspace_y : np.array(M,)</span>
+<span class="sd">        The y axis of the lookup table</span>
+<span class="sd">    values : np.ndarray (N,M,1)</span>
+<span class="sd">        The lookup table values</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 <div class="viewcode-block" id="LookupTable.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">linspace_x</span><span class="p">,</span> <span class="n">linspace_y</span><span class="p">,</span> <span class="n">values</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the LookupTable object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        linspace_x : numpy.ndarray</span>
+<span class="sd">            The x-coordinates of the grid.</span>
+<span class="sd">        linspace_y : numpy.ndarray</span>
+<span class="sd">            The y-coordinates of the grid.</span>
+<span class="sd">        values : numpy.ndarray</span>
+<span class="sd">            The values at the grid points.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">linspace_x</span> <span class="o">=</span> <span class="n">linspace_x</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">linspace_y</span> <span class="o">=</span> <span class="n">linspace_y</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span>
@@ -327,9 +339,27 @@
 
 
 	<span class="k">def</span><span class="w"> </span><span class="nf">_set_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the default interpolation type to &#39;cubic&#39;.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">interpType</span> <span class="o">=</span> <span class="s1">&#39;cubic&#39;</span>
 
 	<span class="k">def</span><span class="w"> </span><span class="nf">_interpolator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs the interpolation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : numpy.ndarray</span>
+<span class="sd">            The x-coordinates at which to interpolate.</span>
+<span class="sd">        y : numpy.ndarray</span>
+<span class="sd">            The y-coordinates at which to interpolate.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            The interpolated values.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
 		<span class="n">meshgrid_x</span><span class="p">,</span> <span class="n">meshgrid_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">linspace_x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">linspace_y</span><span class="p">)</span>
@@ -337,27 +367,68 @@
 		<span class="k">return</span>  <span class="n">interpolate</span><span class="o">.</span><span class="n">griddata</span><span class="p">((</span><span class="n">meshgrid_x</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">meshgrid_y</span><span class="o">.</span><span class="n">ravel</span><span class="p">()),</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">),</span> <span class="n">method</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">interpType</span><span class="p">)</span>
 
 <div class="viewcode-block" id="LookupTable.set_interpType"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable.set_interpType">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">set_interpType</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interpType</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the interpolation type.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        interpType : str</span>
+<span class="sd">            The interpolation method to use (e.g., &#39;linear&#39;, &#39;cubic&#39;).</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">interpType</span> <span class="o">=</span> <span class="n">interpType</span></div>
 
 
 	<span class="k">def</span><span class="w"> </span><span class="nf">_get_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ind</span><span class="p">,</span> <span class="n">search_list</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the index of a value in a list.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ind : float</span>
+<span class="sd">            The value to search for.</span>
+<span class="sd">        search_list : list or numpy.ndarray</span>
+<span class="sd">            The list to search in.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            The index of the value.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">search_list</span> <span class="o">==</span> <span class="n">ind</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 
 	
 <div class="viewcode-block" id="LookupTable.interp_point"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable.interp_point">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">interp_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interpolates the lookup table at a single point.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        x : float</span>
+<span class="sd">            The x-coordinate of the point.</span>
+<span class="sd">        y : float</span>
+<span class="sd">            The y-coordinate of the point.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            The interpolated value.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interpolator</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="LookupTable.__getitem__"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable.__getitem__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idxs</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Implement a getitem method.</span>
-<span class="sd">		Several usages are possible:</span>
+<span class="sd">        Allows indexing into the lookup table.</span>
 
-<span class="sd">		LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated</span>
-<span class="sd">		LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested</span>
-<span class="sd">		LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)</span>
-<span class="sd">		LUT[array-like, array-like]: return the lookup table interpolated in the array-like points</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        idxs : tuple</span>
+<span class="sd">            A tuple of indices for each dimension of the lookup table.</span>
 
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float or numpy.ndarray</span>
+<span class="sd">            The interpolated value(s) at the given indices.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">idxs</span>
@@ -370,27 +441,25 @@
 
 
 <div class="viewcode-block" id="LookupTable.quickPlot"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable.quickPlot">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">quickPlot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xlabel</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">conversion</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">clabel</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">saveto</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Produce a quick plot of the lookup table</span>
+<span class="sd">        Produces a quick plot of the lookup table.</span>
 
-<span class="sd">		Parameters</span>
-<span class="sd">		----------</span>
-<span class="sd">		xlabel : str (Optional)</span>
-<span class="sd">			label for the x-axis</span>
-<span class="sd">		ylabel : str (Optional)</span>
-<span class="sd">			label for the y-axis</span>
-<span class="sd">		title : str (Optional)</span>
-<span class="sd">			title of the plot</span>
-<span class="sd">		conversion : float (Optional, default 1)</span>
-<span class="sd">			a conversion factor for the plotted values. This method will plot X*conversion, Y*conversion</span>
-<span class="sd">		clabel : str (Optional)</span>
-<span class="sd">			label of the color bar</span>
-<span class="sd">		cmap : str	(Optional, default &#39;viridis&#39;)</span>
-<span class="sd">			the colormap to use (matplotlib colormaps)</span>
-<span class="sd">		saveto : str (Optional, default None)</span>
-<span class="sd">			if not None: the path to save the plot to (the file extension defines the format)</span>
-
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        xlabel : str, optional</span>
+<span class="sd">            The label for the x-axis.</span>
+<span class="sd">        ylabel : str, optional</span>
+<span class="sd">            The label for the y-axis.</span>
+<span class="sd">        title : str, optional</span>
+<span class="sd">            The title of the plot.</span>
+<span class="sd">        conversion : float, default=1</span>
+<span class="sd">            A conversion factor for the plotted values.</span>
+<span class="sd">        clabel : str, optional</span>
+<span class="sd">            The label for the color bar.</span>
+<span class="sd">        cmap : str, default=&#39;viridis&#39;</span>
+<span class="sd">            The colormap to use.</span>
+<span class="sd">        saveto : str, optional</span>
+<span class="sd">            The path to save the plot to.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 
 
@@ -414,24 +483,39 @@
 
 <div class="viewcode-block" id="LookupTableND"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">LookupTableND</span><span class="p">():</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	Same concept as the LookupTable class, but allowing for multi-dimensional (&gt;2) tables</span>
+<span class="sd">    A class for storing and interpolating N-dimensional lookup tables.</span>
 
-<span class="sd">	Parameters</span>
-<span class="sd">	----------</span>
-<span class="sd">	axes : tuple of np.array</span>
-<span class="sd">		The axes of the lookup table</span>
-<span class="sd">	values : np.ndarray(N,M,L,...,1)</span>
-<span class="sd">	info : str</span>
-<span class="sd">		A string field to store information about the lookup table. This is set as a class property</span>
-<span class="sd">		so it can be requested trhough instance.info</span>
-<span class="sd">	np.array : np.array</span>
-<span class="sd">		unset</span>
+<span class="sd">    Same concept as the LookupTable class, but allowing for multi-dimensional (&gt;2) tables</span>
 
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    axes : tuple of np.array</span>
+<span class="sd">        The axes of the lookup table</span>
+<span class="sd">    values : np.ndarray(N,M,L,...,1)</span>
+<span class="sd">    info : str</span>
+<span class="sd">        A string field to store information about the lookup table. This is set as a class property</span>
+<span class="sd">        so it can be requested trhough instance.info</span>
+<span class="sd">    np_array : np.array</span>
+<span class="sd">        unset</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
 
 
 <div class="viewcode-block" id="LookupTableND.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">info</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">np_array</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the LookupTableND object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        axes : tuple of numpy.ndarray, optional</span>
+<span class="sd">            The axes of the lookup table.</span>
+<span class="sd">        values : numpy.ndarray, optional</span>
+<span class="sd">            The values at the grid points.</span>
+<span class="sd">        info : str, optional</span>
+<span class="sd">            Information about the lookup table.</span>
+<span class="sd">        np_array : numpy.ndarray, optional</span>
+<span class="sd">            Unused.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">info</span>
@@ -442,34 +526,89 @@
 
 
 	<span class="k">def</span><span class="w"> </span><span class="nf">_set_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the default interpolation type to &#39;linear&#39;.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">interpType</span> <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>
 
 	<span class="k">def</span><span class="w"> </span><span class="nf">_interpolator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs the interpolation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        vals : tuple</span>
+<span class="sd">            A tuple of coordinates at which to interpolate.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            The interpolated values.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interpn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">vals</span><span class="p">,</span> <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;linear&#39;</span><span class="p">)</span> 
 
 
 <div class="viewcode-block" id="LookupTableND.set_interpType"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND.set_interpType">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">set_interpType</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interpType</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the interpolation type.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        interpType : str</span>
+<span class="sd">            The interpolation method to use (e.g., &#39;linear&#39;, &#39;cubic&#39;).</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">interpType</span> <span class="o">=</span> <span class="n">interpType</span></div>
 
 
 <div class="viewcode-block" id="LookupTableND.get_idx"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND.get_idx">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">get_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ind</span><span class="p">,</span> <span class="n">search_list</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the index of a value in a list.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ind : float</span>
+<span class="sd">            The value to search for.</span>
+<span class="sd">        search_list : list or numpy.ndarray</span>
+<span class="sd">            The list to search in.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            The index of the value.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">search_list</span> <span class="o">==</span> <span class="n">ind</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span></div>
 
 	
 <div class="viewcode-block" id="LookupTableND.interp_point"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND.interp_point">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">interp_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interpolates the lookup table at a single point.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        vals : tuple</span>
+<span class="sd">            A tuple of coordinates of the point.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            The interpolated value.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_interpolator</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="LookupTableND.__getitem__"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND.__getitem__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idxs</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Implement a getitem method.</span>
-<span class="sd">		Several usages are possible:</span>
+<span class="sd">        Allows indexing into the lookup table.</span>
 
-<span class="sd">		LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated</span>
-<span class="sd">		LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested</span>
-<span class="sd">		LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)</span>
-<span class="sd">		LUT[array-like, array-like]: return the lookup table interpolated in the array-like points</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        idxs : tuple</span>
+<span class="sd">            A tuple of indices for each dimension of the lookup table.</span>
 
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float or numpy.ndarray</span>
+<span class="sd">            The interpolated value(s) at the given indices.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 
 		
@@ -482,6 +621,14 @@
 			
 
 <div class="viewcode-block" id="LookupTableND.axisExtent"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND.axisExtent">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">axisExtent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the extent of each axis.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            A list of [min, max] pairs for each axis.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="n">extent</span> <span class="o">=</span> <span class="p">[]</span>
 		<span class="k">for</span> <span class="n">ax</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">:</span>
 			<span class="n">extent</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">ax</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">ax</span><span class="p">)])</span>
@@ -490,25 +637,24 @@
 
 <div class="viewcode-block" id="LookupTableND.quickPlot"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND.quickPlot">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">quickPlot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xlabel</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ylabel</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">conversion</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">clabel</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">saveto</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Produce a quick plot of the lookup table</span>
+<span class="sd">        Produces a quick plot of a 2D slice of the lookup table.</span>
 
-<span class="sd">		Parameters</span>
-<span class="sd">		----------</span>
-<span class="sd">		xlabel : str (Optional)</span>
-<span class="sd">			label for the x-axis</span>
-<span class="sd">		ylabel : str (Optional)</span>
-<span class="sd">			label for the y-axis</span>
-<span class="sd">		title : str (Optional)</span>
-<span class="sd">			title of the plot</span>
-<span class="sd">		conversion : float (Optional, default 1)</span>
-<span class="sd">			a conversion factor for the plotted values. This method will plot X*conversion, Y*conversion</span>
-<span class="sd">		clabel : str (Optional)</span>
-<span class="sd">			label of the color bar</span>
-<span class="sd">		cmap : str	(Optional, default &#39;viridis&#39;)</span>
-<span class="sd">			the colormap to use (matplotlib colormaps)</span>
-<span class="sd">		saveto : str (Optional, default None)</span>
-<span class="sd">			if not None: the path to save the plot to (the file extension defines the format)</span>
-
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        xlabel : str, optional</span>
+<span class="sd">            The label for the x-axis.</span>
+<span class="sd">        ylabel : str, optional</span>
+<span class="sd">            The label for the y-axis.</span>
+<span class="sd">        title : str, optional</span>
+<span class="sd">            The title of the plot.</span>
+<span class="sd">        conversion : float, default=1</span>
+<span class="sd">            A conversion factor for the plotted values.</span>
+<span class="sd">        clabel : str, optional</span>
+<span class="sd">            The label for the color bar.</span>
+<span class="sd">        cmap : str, default=&#39;viridis&#39;</span>
+<span class="sd">            The colormap to use.</span>
+<span class="sd">        saveto : str, optional</span>
+<span class="sd">            The path to save the plot to.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 
 
@@ -532,34 +678,39 @@
 
 <div class="viewcode-block" id="ScatterLookup"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.ScatterLookup">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ScatterLookup</span><span class="p">():</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	A class for dealing with zone-scattered lookup tables</span>
-<span class="sd">	Intended for creating a lookup table of sets of computed values that lie in distinct, DISJUNCT,</span>
-<span class="sd">	zones of the axes space.</span>
-<span class="sd">	Example: the value of a variable has been computed in X = [0,1] Y = [0,1] and X = [3,4] Y = [-2,-1]</span>
+<span class="sd">    A class for dealing with zone-scattered lookup tables.</span>
 
-<span class="sd">	After instantiating the empty class, the different zones are added. Example</span>
+<span class="sd">    Intended for creating a lookup table of sets of computed values that lie in distinct, DISJUNCT,</span>
+<span class="sd">    zones of the axes space.</span>
+<span class="sd">    Example: the value of a variable has been computed in X = [0,1] Y = [0,1] and X = [3,4] Y = [-2,-1]</span>
 
-<span class="sd">	sc = ScatterLookup()</span>
-<span class="sd">	zone1 = LookupTableND(*args, **kwargs)</span>
-<span class="sd">	zone2 = LookupTableND(*args, **kwargs)</span>
-<span class="sd">	sc.addZone(zone1)</span>
-<span class="sd">	sc.addZone(zone2)</span>
+<span class="sd">    After instantiating the empty class, the different zones are added. Example</span>
+
+<span class="sd">    sc = ScatterLookup()</span>
+<span class="sd">    zone1 = LookupTableND(*args, **kwargs)</span>
+<span class="sd">    zone2 = LookupTableND(*args, **kwargs)</span>
+<span class="sd">    sc.addZone(zone1)</span>
+<span class="sd">    sc.addZone(zone2)</span>
 
 
 
-<span class="sd">	The value retrieval follows the same rules of indexing as the LookupTable and LookupTableND classes</span>
+<span class="sd">    The value retrieval follows the same rules of indexing as the LookupTable and LookupTableND classes</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 <div class="viewcode-block" id="ScatterLookup.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.ScatterLookup.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the ScatterLookup object.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">zones</span> <span class="o">=</span> <span class="p">[]</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">zonedef</span> <span class="o">=</span> <span class="p">[]</span></div>
 
 <div class="viewcode-block" id="ScatterLookup.add_zone"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.ScatterLookup.add_zone">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">add_zone</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ZoneLookup</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Add a zone</span>
-<span class="sd">		Parameters</span>
-<span class="sd">		----------</span>
-<span class="sd">		ZoneLookup : pyRTX.core.analysis_utils.LookupTableND</span>
+<span class="sd">        Adds a zone to the lookup table.</span>
 
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ZoneLookup : pyRTX.core.analysis_utils.LookupTableND</span>
+<span class="sd">            The lookup table for the new zone.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ZoneLookup</span><span class="p">,</span> <span class="n">LookupTableND</span><span class="p">):</span>
 			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;The ZoneLookup argument must be of type class.LookupTableND&#39;</span><span class="p">)</span>
@@ -567,14 +718,40 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">zones</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ZoneLookup</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">zonedef</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ZoneLookup</span><span class="o">.</span><span class="n">axisExtent</span><span class="p">())</span></div>
 
-	<span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idxs</span><span class="p">):</span>
+<div class="viewcode-block" id="ScatterLookup.__getitem__"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.ScatterLookup.__getitem__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idxs</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Allows indexing into the lookup table.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        idxs : tuple</span>
+<span class="sd">            A tuple of indices for each dimension of the lookup table.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float or numpy.ndarray</span>
+<span class="sd">            The interpolated value(s) at the given indices.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="n">zone_no</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">zone_determination</span><span class="p">(</span><span class="n">idxs</span><span class="p">)</span>
-		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">zones</span><span class="p">[</span><span class="n">zone_no</span><span class="p">][</span><span class="n">idxs</span><span class="p">]</span>
+		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">zones</span><span class="p">[</span><span class="n">zone_no</span><span class="p">][</span><span class="n">idxs</span><span class="p">]</span></div>
 		
 
 
 <div class="viewcode-block" id="ScatterLookup.zone_determination"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.ScatterLookup.zone_determination">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">zone_determination</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">idxs</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Determines which zone the given indices belong to.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        idxs : tuple</span>
+<span class="sd">            A tuple of indices for each dimension of the lookup table.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            The index of the zone.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span>
 		<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">zonedef</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">zonedef</span><span class="p">):</span>
 			<span class="c1">#print(f&#39;Zone {zonedef}&#39;)  FOR DEBYG</span>
@@ -593,7 +770,20 @@
 
 
 <div class="viewcode-block" id="TiffInterpolator"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">TiffInterpolator</span><span class="p">():</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class for interpolating TIFF image data.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
 <div class="viewcode-block" id="TiffInterpolator.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the TiffInterpolator object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        axes : tuple of numpy.ndarray, optional</span>
+<span class="sd">            The axes of the TIFF image.</span>
+<span class="sd">        values : numpy.ndarray, optional</span>
+<span class="sd">            The pixel values of the TIFF image.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">values</span>
 		
@@ -601,7 +791,7 @@
 
 		<span class="c1"># Error control</span>
 		<span class="c1">#if len(self.axes) != len(values.shape[0:-1]):</span>
-		<span class="c1">#	raise ValueError(f&#39;The number of axes provided does not match with provided data\n Provided data has shape {len(values.shape)} while {len(self.axes)} axes have been provided&#39;)</span>
+		<span class="c1">#	raise ValueError(f&#39;The number of axes provided does not match with provided data\n Provided data has shape {len(values.shape)} while {len(self.axes)} have been provided&#39;)</span>
 
 
 
@@ -609,35 +799,90 @@
 
 
 	<span class="k">def</span><span class="w"> </span><span class="nf">_set_defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the default interpolation type to &#39;linear&#39;.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">interpType</span> <span class="o">=</span> <span class="s1">&#39;linear&#39;</span>
 
 <div class="viewcode-block" id="TiffInterpolator.interpolator"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator.interpolator">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">interpolator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Performs the interpolation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        vals : tuple</span>
+<span class="sd">            A tuple of coordinates at which to interpolate.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        numpy.ndarray</span>
+<span class="sd">            The interpolated values.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		
 		<span class="k">return</span> <span class="n">interpolate</span><span class="o">.</span><span class="n">interpn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">vals</span><span class="p">)</span> </div>
 
 
 <div class="viewcode-block" id="TiffInterpolator.set_interpType"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator.set_interpType">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">set_interpType</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">interpType</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the interpolation type.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        interpType : str</span>
+<span class="sd">            The interpolation method to use (e.g., &#39;linear&#39;, &#39;cubic&#39;).</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">interpType</span> <span class="o">=</span> <span class="n">interpType</span></div>
 
 
 <div class="viewcode-block" id="TiffInterpolator.get_idx"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator.get_idx">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">get_idx</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ind</span><span class="p">,</span> <span class="n">search_list</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Gets the index of a value in a list.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        ind : float</span>
+<span class="sd">            The value to search for.</span>
+<span class="sd">        search_list : list or numpy.ndarray</span>
+<span class="sd">            The list to search in.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            The index of the value.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">search_list</span> <span class="o">==</span> <span class="n">ind</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span></div>
 
 	
 <div class="viewcode-block" id="TiffInterpolator.interp_point"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator.interp_point">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">interp_point</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vals</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Interpolates the TIFF image at a single point.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        vals : tuple</span>
+<span class="sd">            A tuple of coordinates of the point.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            The interpolated value.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">interpolator</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="TiffInterpolator.__getitem__"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator.__getitem__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idxs</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">		Implement a getitem method.</span>
-<span class="sd">		Several usages are possible:</span>
+<span class="sd">        Allows indexing into the TIFF image.</span>
 
-<span class="sd">		LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated</span>
-<span class="sd">		LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested</span>
-<span class="sd">		LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)</span>
-<span class="sd">		LUT[array-like, array-like]: return the lookup table interpolated in the array-like points</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        idxs : tuple</span>
+<span class="sd">            A tuple of indices for each dimension of the TIFF image.</span>
 
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float or numpy.ndarray</span>
+<span class="sd">            The interpolated value(s) at the given indices.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
 
 		
@@ -651,6 +896,26 @@
 
 
 <div class="viewcode-block" id="getSunAngles"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.getSunAngles">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">getSunAngles</span><span class="p">(</span><span class="n">scName</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">scFrame</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">epoch</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">correction</span> <span class="o">=</span> <span class="s1">&#39;LT+S&#39;</span><span class="p">):</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the right ascension and declination of the Sun as seen from a</span>
+<span class="sd">    spacecraft.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    scName : str, optional</span>
+<span class="sd">        The name of the spacecraft.</span>
+<span class="sd">    scFrame : str, optional</span>
+<span class="sd">        The reference frame of the spacecraft.</span>
+<span class="sd">    epoch : float, optional</span>
+<span class="sd">        The epoch for the calculation.</span>
+<span class="sd">    correction : str, default=&#39;LT+S&#39;</span>
+<span class="sd">        The aberration correction to use.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        A tuple containing the right ascension and declination in radians.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
 	<span class="n">sunPos</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">spkezr</span><span class="p">(</span><span class="s1">&#39;Sun&#39;</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">scFrame</span><span class="p">,</span> <span class="n">correction</span><span class="p">,</span> <span class="n">scName</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
 	<span class="p">[</span><span class="n">_</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span><span class="p">]</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">recrad</span><span class="p">(</span><span class="n">sunPos</span><span class="p">)</span>
 
@@ -659,6 +924,23 @@
 	
 
 <div class="viewcode-block" id="epochRange"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.epochRange">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">epochRange</span><span class="p">(</span><span class="n">startEpoch</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">duration</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">100</span><span class="p">):</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates a range of epochs.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    startEpoch : str or float, optional</span>
+<span class="sd">        The start epoch in a format recognized by SPICE or as a float.</span>
+<span class="sd">    duration : float, optional</span>
+<span class="sd">        The duration of the epoch range in seconds.</span>
+<span class="sd">    step : int, default=100</span>
+<span class="sd">        The step size in seconds.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        An array of epochs.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
 	<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">startEpoch</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
 		<span class="n">startEp</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">str2et</span><span class="p">(</span><span class="n">startEpoch</span><span class="p">)</span>
 	<span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">startEpoch</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
@@ -673,6 +955,23 @@
 
 
 <div class="viewcode-block" id="epochRange2"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.epochRange2">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">epochRange2</span><span class="p">(</span><span class="n">startEpoch</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">endEpoch</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">100</span><span class="p">):</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates a range of epochs between a start and end epoch.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    startEpoch : str or float, optional</span>
+<span class="sd">        The start epoch in a format recognized by SPICE or as a float.</span>
+<span class="sd">    endEpoch : str or float, optional</span>
+<span class="sd">        The end epoch in a format recognized by SPICE or as a float.</span>
+<span class="sd">    step : int, default=100</span>
+<span class="sd">        The step size in seconds.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray</span>
+<span class="sd">        An array of epochs.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
 	<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">startEpoch</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
 		<span class="n">startEp</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">str2et</span><span class="p">(</span><span class="n">startEpoch</span><span class="p">)</span>
 	<span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">startEpoch</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
@@ -702,12 +1001,19 @@
 
 <div class="viewcode-block" id="computeRADEC"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.computeRADEC">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">computeRADEC</span><span class="p">(</span><span class="n">vecs</span><span class="p">,</span> <span class="n">periodicity</span> <span class="o">=</span> <span class="mi">360</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	From a ND array of shape (N, 3), compute RA/DEC</span>
+<span class="sd">    Computes the right ascension and declination for a set of vectors.</span>
 
-<span class="sd">	Parameters:</span>
-<span class="sd">	vecs: [ndarray (N,3)]</span>
-<span class="sd">	Returns:</span>
-<span class="sd">	RA, DEC</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vecs : numpy.ndarray</span>
+<span class="sd">        An array of shape (N, 3) containing the vectors.</span>
+<span class="sd">    periodicity : int, default=360</span>
+<span class="sd">        The periodicity of the right ascension in degrees.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tuple</span>
+<span class="sd">        A tuple containing the right ascension and declination in radians.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
 	<span class="n">n</span> <span class="o">=</span> <span class="n">block_normalize</span><span class="p">(</span><span class="n">vecs</span><span class="p">)</span>
@@ -729,18 +1035,34 @@
 
 <div class="viewcode-block" id="convertTIFtoMesh"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.convertTIFtoMesh">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">convertTIFtoMesh</span><span class="p">(</span><span class="n">tifFile</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">latSampling</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">inferSampling</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">lonSampling</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">planet</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">lat0</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">lat1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">lon0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">lon1</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	Convert a TIF map of emissivities to the format needed for assigning values to each face of a planetary 3D mesh</span>
+<span class="sd">    Converts a TIFF map to a format that can be used to assign values to a</span>
+<span class="sd">    planetary mesh.</span>
 
-<span class="sd">	Parameters:</span>
-<span class="sd">	tifFile : [str] the path to the TIFF file</span>
-<span class="sd">	latSampling: [float, in rad] sampling step of latitude</span>
-<span class="sd">	lonSampling: [float, in rad] sampling step of longitude</span>
-<span class="sd">	planet: [class.Planet] Planet object containing the mesh and the planetary frames</span>
-<span class="sd">	inferSampling: [bool] wether the importer shall infer the sampling or not</span>
-<span class="sd">	Returns:</span>
-<span class="sd">	emissivityInterpolator: [class.LookupTableND] an interpolator for mapping the temperatures on the mesh faces. This is intended to be passed</span>
-<span class="sd">				to the Planet class via the setter method: Planet.emissivity = emissivityInterpolator</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    tifFile : str, default=&#39;&#39;</span>
+<span class="sd">        The path to the TIFF file.</span>
+<span class="sd">    latSampling : float, default=&#39;&#39;</span>
+<span class="sd">        The latitude sampling step in radians.</span>
+<span class="sd">    inferSampling : bool, default=False</span>
+<span class="sd">        Whether to infer the sampling from the TIFF file.</span>
+<span class="sd">    lonSampling : float, default=&#39;&#39;</span>
+<span class="sd">        The longitude sampling step in radians.</span>
+<span class="sd">    planet : pyRTX.Planet, default=&#39;&#39;</span>
+<span class="sd">        The Planet object containing the mesh.</span>
+<span class="sd">    lat0 : float, default=-numpy.pi/2</span>
+<span class="sd">        The minimum latitude.</span>
+<span class="sd">    lat1 : float, default=numpy.pi/2</span>
+<span class="sd">        The maximum latitude.</span>
+<span class="sd">    lon0 : float, default=0</span>
+<span class="sd">        The minimum longitude.</span>
+<span class="sd">    lon1 : float, default=2*numpy.pi</span>
+<span class="sd">        The maximum longitude.</span>
 
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    TiffInterpolator</span>
+<span class="sd">        An interpolator for mapping the TIFF values to the mesh.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
 
@@ -839,26 +1161,27 @@
 
 
 <div class="viewcode-block" id="get_spacecraft_area"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.get_spacecraft_area">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_spacecraft_area</span><span class="p">(</span><span class="n">spacecraft</span><span class="p">,</span> <span class="n">rays</span><span class="p">,</span> <span class="n">ra</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">dec</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">epoch</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the apparent area of a spacecraft as seen from a given direction.</span>
 
-<span class="w">	</span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">	Compute a pyRTX.Spacecraft apparent area as seen by the direction specified </span>
-<span class="sd">	by a pair of right ascension - declination</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    spacecraft : pyRTX.Spacecraft</span>
+<span class="sd">        The spacecraft object.</span>
+<span class="sd">    rays : pyRTX.PixelPlane</span>
+<span class="sd">        The pixel plane for raytracing.</span>
+<span class="sd">    ra : float, default=0.0</span>
+<span class="sd">        The right ascension of the viewing direction in radians.</span>
+<span class="sd">    dec : float, default=0.0</span>
+<span class="sd">        The declination of the viewing direction in radians.</span>
+<span class="sd">    epoch : float, optional</span>
+<span class="sd">        The epoch for the computation.</span>
 
-<span class="sd">	Input:</span>
-<span class="sd">	spacecraft [pyRTX.Spacecraft] 	: the spacecraft object</span>
-<span class="sd">	rays [pyRTX.PixelPlane]			: the pixel plane for raytracing</span>
-<span class="sd">	ra [float] 						: right ascension (in rad)</span>
-<span class="sd">	dec [float] 					: declination (rad)</span>
-<span class="sd">	epoch [float or None]			: epoch for the computation (this is used when moving Spice</span>
-<span class="sd">										frames are used for the Spacecraft definition)</span>
-
-<span class="sd">	Output:</span>
-<span class="sd">	area [float] 					: the apparent area. The measurement units depend on the units of the</span>
-<span class="sd">				   						Spacecraft object</span>
-
-<span class="sd">	TODO: avoid hardcoded width/height but rather use an automated method</span>
-
-<span class="sd">	&#39;&#39;&#39;</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The apparent area of the spacecraft.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
 	<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.PixelPlane</span><span class="w"> </span><span class="kn">import</span> <span class="n">PixelPlane</span>
 	<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.RayTracer</span><span class="w">  </span><span class="kn">import</span> <span class="n">RayTracer</span>
 
@@ -884,25 +1207,23 @@
 
 <div class="viewcode-block" id="get_sun_exposed_area"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.get_sun_exposed_area">[docs]</a><span class="nd">@parallel</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_sun_exposed_area</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">rtx</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+<span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the sun-exposed area of a spacecraft.</span>
 
-<span class="w">	</span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">	Compute a pyRTX.Spacecraft apparent area as seen by the direction specified </span>
-<span class="sd">	by a pair of right ascension - declination</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    sc : pyRTX.Spacecraft</span>
+<span class="sd">        The spacecraft object.</span>
+<span class="sd">    rtx : pyRTX.RayTracer</span>
+<span class="sd">        The ray tracer object.</span>
+<span class="sd">    epoch : float</span>
+<span class="sd">        The epoch for the computation.</span>
 
-<span class="sd">	Input:</span>
-<span class="sd">	spacecraft [pyRTX.Spacecraft] 	: the spacecraft object</span>
-<span class="sd">	ra [float] 						: right ascension (in rad)</span>
-<span class="sd">	dec [float] 					: declination (rad)</span>
-<span class="sd">	epoch [float or None]			: epoch for the computation (this is used when moving Spice</span>
-<span class="sd">										frames are used for the Spacecraft definition)</span>
-
-<span class="sd">	Output:</span>
-<span class="sd">	area [float] 					: the apparent area. The measurement units depend on the units of the</span>
-<span class="sd">				   						Spacecraft object</span>
-
-<span class="sd">	TODO: avoid hardcoded width/height but rather use an automated method</span>
-
-<span class="sd">	&#39;&#39;&#39;</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    float</span>
+<span class="sd">        The sun-exposed area of the spacecraft.</span>
+<span class="sd">	&quot;&quot;&quot;</span>
 
 	<span class="c1"># Get ra, dec of the solar direction</span>
 	<span class="n">sundir</span>  <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">spkezr</span><span class="p">(</span> <span class="s1">&#39;Sun&#39;</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">sc</span><span class="o">.</span><span class="n">base_frame</span><span class="p">,</span> <span class="s1">&#39;LT+S&#39;</span><span class="p">,</span> <span class="n">sc</span><span class="o">.</span><span class="n">name</span> <span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
@@ -921,15 +1242,26 @@
 
 <div class="viewcode-block" id="compute_body_positions"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.compute_body_positions">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">compute_body_positions</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">abcorr</span> <span class="o">=</span> <span class="s1">&#39;LT + S&#39;</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	Functions to compute the relative positions of a target</span>
-<span class="sd">	body with respect to an observing body.</span>
+<span class="sd">    Computes the relative positions of a target body with respect to an</span>
+<span class="sd">    observing body.</span>
 
-<span class="sd">	Parameters:</span>
-<span class="sd">	-	target: target body name</span>
-<span class="sd">	-	epochs: list of epochs</span>
-<span class="sd">	-	frame: reference frame of output position vector</span>
-<span class="sd">	-	obs: observing body name</span>
-<span class="sd">	-	abcorr: aberration correction flag.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    target : str</span>
+<span class="sd">        The name of the target body.</span>
+<span class="sd">    epochs : list of float</span>
+<span class="sd">        A list of epochs.</span>
+<span class="sd">    frame : str</span>
+<span class="sd">        The reference frame of the output position vector.</span>
+<span class="sd">    obs : str</span>
+<span class="sd">        The name of the observing body.</span>
+<span class="sd">    abcorr : str, default=&#39;LT + S&#39;</span>
+<span class="sd">        The aberration correction flag.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        A list of position vectors.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="n">state</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">spkezr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">epochs</span><span class="p">),</span> <span class="n">frame</span><span class="p">,</span> <span class="n">abcorr</span><span class="p">,</span> <span class="n">obs</span><span class="p">)</span>
 
@@ -937,15 +1269,26 @@
 
 <div class="viewcode-block" id="compute_body_states"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.compute_body_states">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">compute_body_states</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">frame</span><span class="p">,</span> <span class="n">obs</span><span class="p">,</span> <span class="n">abcorr</span> <span class="o">=</span> <span class="s1">&#39;LT + S&#39;</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">	Functions to compute the relative position and velocity of a target</span>
-<span class="sd">	body with respect to an observing body.</span>
+<span class="sd">    Computes the relative position and velocity of a target body with respect</span>
+<span class="sd">    to an observing body.</span>
 
-<span class="sd">	Parameters:</span>
-<span class="sd">	-	target: target body name</span>
-<span class="sd">	-	epochs: list of epochs</span>
-<span class="sd">	-	frame: reference frame of output position vector</span>
-<span class="sd">	-	obs: observing body name</span>
-<span class="sd">	-	abcorr: aberration correction flag.</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    target : str</span>
+<span class="sd">        The name of the target body.</span>
+<span class="sd">    epochs : list of float</span>
+<span class="sd">        A list of epochs.</span>
+<span class="sd">    frame : str</span>
+<span class="sd">        The reference frame of the output state vector.</span>
+<span class="sd">    obs : str</span>
+<span class="sd">        The name of the observing body.</span>
+<span class="sd">    abcorr : str, default=&#39;LT + S&#39;</span>
+<span class="sd">        The aberration correction flag.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        A list of state vectors (position and velocity).</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 	<span class="n">state</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">spkezr</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">epochs</span><span class="p">),</span> <span class="n">frame</span><span class="p">,</span> <span class="n">abcorr</span><span class="p">,</span> <span class="n">obs</span><span class="p">)</span>
 

@@ -277,24 +277,29 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.classes.Radiation.Albedo" title="pyRTX.classes.Radiation.Albedo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Albedo</span></code></a>(spacecraft, lookup, Planet[, ...])</p></td>
-<td><p></p></td>
+<td><p>A class for computing the albedo acceleration on a spacecraft.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.classes.Radiation.Emissivity" title="pyRTX.classes.Radiation.Emissivity"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Emissivity</span></code></a>(spacecraft, lookup, Planet[, ...])</p></td>
-<td><p></p></td>
+<td><p>A class for computing the thermal emissivity acceleration on a spacecraft.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyRTX.classes.Radiation.Albedo">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.classes.Radiation.</span></span><span class="sig-name descname"><span class="pre">Albedo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Planet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precomputation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseflux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1361.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Radiation.html#Albedo"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Radiation.Albedo" title="Permalink to this definition"></a></dt>
-<dd><dl class="py method">
+<dd><p>A class for computing the albedo acceleration on a spacecraft.</p>
+<dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Radiation.Albedo.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Planet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precomputation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseflux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1361.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Radiation.html#Albedo.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Radiation.Albedo.__init__" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Initializes the Albedo object.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>Planet</strong> (<a class="reference internal" href="pyRTX.classes.Planet.html#module-pyRTX.classes.Planet" title="pyRTX.classes.Planet"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.classes.Planet</span></code></a>) – The planet object the Albedo is for</p></li>
-<li><p><strong>spacecraft</strong> (<a class="reference internal" href="pyRTX.classes.Spacecraft.html#module-pyRTX.classes.Spacecraft" title="pyRTX.classes.Spacecraft"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.classes.Spacecraft</span></code></a>) – The spacecraft object the Albedo is for</p></li>
+<li><p><strong>spacecraft</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.Spacecraft</span></code>) – The spacecraft object.</p></li>
+<li><p><strong>lookup</strong> (<a class="reference internal" href="pyRTX.classes.LookUpTable.html#module-pyRTX.classes.LookUpTable" title="pyRTX.classes.LookUpTable"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.classes.LookUpTable</span></code></a>) – A lookup table for the spacecraft’s albedo properties.</p></li>
+<li><p><strong>Planet</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.Planet</span></code>) – The planet object.</p></li>
+<li><p><strong>precomputation</strong> (<a class="reference internal" href="pyRTX.classes.Precompute.html#module-pyRTX.classes.Precompute" title="pyRTX.classes.Precompute"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.classes.Precompute</span></code></a>, <em>optional</em>) – A Precompute object with precomputed SPICE data.</p></li>
+<li><p><strong>baseflux</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">1361.5</span></code>) – The base solar flux at 1 AU in W/m^2.</p></li>
 </ul>
 </dd>
 </dl>
@@ -303,17 +308,17 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Radiation.Albedo.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Radiation.html#Albedo.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Radiation.Albedo.run" title="Permalink to this definition"></a></dt>
-<dd><p>Compute the fundamental quantities for the albedo force computation
-:param epoch: the epoch at which to compute the albedo (it can be either a string or a float)
-:type epoch: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></p>
+<dd><p>Computes the albedo acceleration at a single epoch.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p><ul class="simple">
-<li><p><strong>normalized_fluxes</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – (i.e. for each face that is responsible for albedo contribution  cos(alpha)*cos(theta)*dA/pi/r**2</p></li>
-<li><p><strong>dirs</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) – direction of each ray relative to the SC frame</p></li>
-<li><p><strong>vals</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.array</span></code>) – values of the albedo for each face of the planet</p></li>
-</ul>
-</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The epoch in TDB seconds past J2000.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the albedo acceleration vector, the normalized
+fluxes, the directions of the rays, and the albedo values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -321,7 +326,23 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Radiation.Albedo.compute">
 <span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Radiation.html#Albedo.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Radiation.Albedo.compute" title="Permalink to this definition"></a></dt>
-<dd><p>Method to perform the computations for albedo acceleration.</p>
+<dd><p>Computes the albedo acceleration for a series of epochs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – A list of epochs in TDB seconds past J2000.</p></li>
+<li><p><strong>n_cores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>optional</em>) – The number of CPU cores to use for parallel computation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the albedo acceleration vectors, the
+normalized fluxes, the directions of the rays, and the albedo
+values for each epoch.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -329,14 +350,19 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="pyRTX.classes.Radiation.Emissivity">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.classes.Radiation.</span></span><span class="sig-name descname"><span class="pre">Emissivity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Planet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precomputation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseflux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1361.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Radiation.html#Emissivity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Radiation.Emissivity" title="Permalink to this definition"></a></dt>
-<dd><dl class="py method">
+<dd><p>A class for computing the thermal emissivity acceleration on a spacecraft.</p>
+<dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Radiation.Emissivity.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lookup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Planet</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precomputation</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">baseflux</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1361.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Radiation.html#Emissivity.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Radiation.Emissivity.__init__" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Initializes the Emissivity object.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>Planet</strong> (<a class="reference internal" href="pyRTX.classes.Planet.html#module-pyRTX.classes.Planet" title="pyRTX.classes.Planet"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.classes.Planet</span></code></a>) – The planet object the Albedo is for</p></li>
-<li><p><strong>spacecraft</strong> (<a class="reference internal" href="pyRTX.classes.Spacecraft.html#module-pyRTX.classes.Spacecraft" title="pyRTX.classes.Spacecraft"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.classes.Spacecraft</span></code></a>) – The spacecraft object the Albedo is for</p></li>
+<li><p><strong>spacecraft</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.Spacecraft</span></code>) – The spacecraft object.</p></li>
+<li><p><strong>lookup</strong> (<a class="reference internal" href="pyRTX.classes.LookUpTable.html#module-pyRTX.classes.LookUpTable" title="pyRTX.classes.LookUpTable"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.classes.LookUpTable</span></code></a>) – A lookup table for the spacecraft’s emissivity properties.</p></li>
+<li><p><strong>Planet</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.Planet</span></code>) – The planet object.</p></li>
+<li><p><strong>precomputation</strong> (<a class="reference internal" href="pyRTX.classes.Precompute.html#module-pyRTX.classes.Precompute" title="pyRTX.classes.Precompute"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.classes.Precompute</span></code></a>, <em>optional</em>) – A Precompute object with precomputed SPICE data.</p></li>
+<li><p><strong>baseflux</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">1361.5</span></code>) – The base solar flux at 1 AU in W/m^2.</p></li>
 </ul>
 </dd>
 </dl>
@@ -345,17 +371,42 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Radiation.Emissivity.run">
 <span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Radiation.html#Emissivity.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Radiation.Emissivity.run" title="Permalink to this definition"></a></dt>
-<dd><p>Compute the fundamental quantities for the emissivity force computation
-returns
-1) normalized fluxes (i.e. for each face that is responsible for albedo contribution
-cos(theta)*dA/pi/r**2
-2) direction of each ray relative to the SC frame</p>
+<dd><p>Computes the emissivity acceleration at a single epoch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The epoch in TDB seconds past J2000.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the emissivity acceleration vector, the
+normalized fluxes, the directions of the rays, and the face
+emissivities.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.classes.Radiation.Emissivity.compute">
 <span class="sig-name descname"><span class="pre">compute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_cores</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/classes/Radiation.html#Emissivity.compute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.classes.Radiation.Emissivity.compute" title="Permalink to this definition"></a></dt>
-<dd><p>Method to perform the computations for albedo acceleration.</p>
+<dd><p>Computes the emissivity acceleration for a series of epochs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – A list of epochs in TDB seconds past J2000.</p></li>
+<li><p><strong>n_cores</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>optional</em>) – The number of CPU cores to use for parallel computation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the emissivity acceleration vectors, the
+normalized fluxes, the directions of the rays, and the face
+emissivities for each epoch.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

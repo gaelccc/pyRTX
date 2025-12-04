@@ -355,18 +355,19 @@ Should be in seconds past J2000 (SPICE ephemeris time format).</p></li>
 - Column definitions (Epoch in seconds past J2000, X, Y, Z components)
 - Units information if provided</p>
 <p>Example output file:
-<code class="docutils literal notranslate"><span class="pre">`</span>
-<span class="pre">#</span> <span class="pre">Acceleration</span> <span class="pre">file.</span> <span class="pre">Columns:</span> <span class="pre">Epoch</span> <span class="pre">(seconds</span> <span class="pre">past</span> <span class="pre">J2000),</span> <span class="pre">X,</span> <span class="pre">Y,</span> <span class="pre">Z.</span> <span class="pre">Units:</span> <span class="pre">km/s^2</span>
-<span class="pre">0.000000000000000000e+00,1.234567890123456789e-08,2.345678901234567890e-08,3.456789012345678901e-08</span>
-<span class="pre">6.000000000000000000e+01,1.234567890123456789e-08,2.345678901234567890e-08,3.456789012345678901e-08</span>
-<span class="pre">...</span>
-<span class="pre">`</span></code></p>
-<p>The output can be read back using:
-<code class="docutils literal notranslate"><span class="pre">`python</span>
-<span class="pre">data</span> <span class="pre">=</span> <span class="pre">np.loadtxt(filename,</span> <span class="pre">delimiter=',')</span>
-<span class="pre">epochs</span> <span class="pre">=</span> <span class="pre">data[:,</span> <span class="pre">0]</span>
-<span class="pre">accelerations</span> <span class="pre">=</span> <span class="pre">data[:,</span> <span class="pre">1:4]</span>
-<span class="pre">`</span></code></p>
+.. code-block:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Acceleration file. Columns: Epoch (seconds past J2000), X, Y, Z. Units: km/s^2</span>
+<span class="mf">0.000000000000000000e+00</span><span class="p">,</span><span class="mf">1.234567890123456789e-08</span><span class="p">,</span><span class="mf">2.345678901234567890e-08</span><span class="p">,</span><span class="mf">3.456789012345678901e-08</span>
+<span class="mf">6.000000000000000000e+01</span><span class="p">,</span><span class="mf">1.234567890123456789e-08</span><span class="p">,</span><span class="mf">2.345678901234567890e-08</span><span class="p">,</span><span class="mf">3.456789012345678901e-08</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>The output can be read back using:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">accelerations</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+</div>
 </div>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
@@ -381,7 +382,7 @@ Should be in seconds past J2000 (SPICE ephemeris time format).</p></li>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <dl class="simple">
-<dt><code class="xref py py-obj docutils literal notranslate"><span class="pre">exportEXAC</span></code></dt><dd><p>Export to GEODYN EXAC binary format</p>
+<dt><a class="reference internal" href="#pyRTX.utilities.export_exac" title="pyRTX.utilities.export_exac"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_exac</span></code></a></dt><dd><p>Export to GEODYN EXAC binary format</p>
 </dd>
 <dt><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.savetxt.html#numpy.savetxt" title="(in NumPy v2.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.savetxt</span></code></a></dt><dd><p>Underlying function for text output</p>
 </dd>
@@ -443,12 +444,42 @@ be accurately modeled.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.utilities.to_datetime">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.utilities.</span></span><span class="sig-name descname"><span class="pre">to_datetime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/utilities.html#to_datetime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.utilities.to_datetime" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Converts a SPICE epoch to a Python datetime object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The SPICE ephemeris time in seconds past J2000.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The corresponding datetime object.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime.datetime</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.utilities.getScPosVel">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.utilities.</span></span><span class="sig-name descname"><span class="pre">getScPosVel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyRTX/utilities.html#getScPosVel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.utilities.getScPosVel" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Retrieves the position and velocity of a spacecraft.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spacecraft</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The name of the spacecraft.</p></li>
+<li><p><strong>center</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The name of the center of motion.</p></li>
+<li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – A list of SPICE ephemeris times.</p></li>
+<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The reference frame.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing two numpy arrays: the position vectors and the
+velocity vectors.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-pyRTX">

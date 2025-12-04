@@ -286,62 +286,109 @@
 <td><p>Checks if the wrapped object is a method of a class.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.parallel_utils.parallel" title="pyRTX.core.parallel_utils.parallel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">parallel</span></code></a>(func)</p></td>
-<td><p>Decorator for parallel computations.</p></td>
+<td><p>A decorator for parallel computations.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.parallel_utils.get_ncores">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.parallel_utils.</span></span><span class="sig-name descname"><span class="pre">get_ncores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/parallel_utils.html#get_ncores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.parallel_utils.get_ncores" title="Permalink to this definition"></a></dt>
-<dd><p>Returns the number of cores for parallel computations.
-If not specified, the number of cores is set to the number available on your machine.</p>
+<dd><p>Returns the number of cores for parallel computations.</p>
+<p>If not specified, the number of cores is set to the number available on
+your machine minus one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lst</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – The list of items to be processed in parallel.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – Additional keyword arguments. If ‘n_cores’ is present, it will be
+used as the number of cores.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The number of cores to use for parallel computation.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.parallel_utils.is_method">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.parallel_utils.</span></span><span class="sig-name descname"><span class="pre">is_method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cls_inst</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/parallel_utils.html#is_method"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.parallel_utils.is_method" title="Permalink to this definition"></a></dt>
 <dd><p>Checks if the wrapped object is a method of a class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>func</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">function</span></code>) – The function to check.</p></li>
+<li><p><strong>cls_inst</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a>) – The class instance.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the function is a method of the class, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.parallel_utils.get_unwrapped">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.parallel_utils.</span></span><span class="sig-name descname"><span class="pre">get_unwrapped</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/parallel_utils.html#get_unwrapped"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.parallel_utils.get_unwrapped" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the unwrapped version of a class method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>) – The arguments to pass to the method.</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) – The keyword arguments to pass to the method. ‘method’ must be present
+and contain the name of the method to unwrap.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The result of the unwrapped method call.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.parallel_utils.parallel">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.parallel_utils.</span></span><span class="sig-name descname"><span class="pre">parallel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/parallel_utils.html#parallel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.parallel_utils.parallel" title="Permalink to this definition"></a></dt>
-<dd><p>Decorator for parallel computations.
-The decorated object can be a class method or a regular function.
-It applies the function to every item of an iterable performing the computations in parallel.
-The output will be an iterator which contains the return value of every function call.</p>
-<p>The decorated object can accept multiple arguments, but the last positional argument
-must be an item of the input iterable (e.g. an item of a list / numpy array / range object …).</p>
-<p>If the keyword argument ‘n_cores’ is specified, the decorated object will run on n_cores processes.
-Otherwise, the number of cores is set to the number available on your machine.</p>
-<p>Basic usage:</p>
-<ul class="simple">
-<li><p>Define the input iterable:</p></li>
-</ul>
-<p>iterable = [2,5,6,7,3,4,1]</p>
-<ul class="simple">
-<li><p>Define the function that will be applied to every item of the input iterable:</p></li>
-</ul>
-<p>&#64;parallel
-def target_func( some_inputs, item ):</p>
-<blockquote>
-<div><p>… perform tasks
-return result</p>
-</div></blockquote>
-<ul class="simple">
-<li><p>Apply the function to every item of the iterable using 5 cores in parallel:</p></li>
-</ul>
-<p>results = target_func( some_inputs, iterable, n_cores = 5 )</p>
-<p>NOTE: In its definition, the decorated object accepts the item of the iterable as last positional argument.
-However, in the function call, you must pass directly the iterable (the list of integers in this example)
-in place of the item. Every other positional argument before the iterable must be the same.
-In the function call it is possible to also pass the number of cores, but only as a keyword argument.</p>
+<dd><p>A decorator for parallel computations.</p>
+<p>The decorated object can be a class method or a regular function. It
+applies the function to every item of an iterable, performing the
+computations in parallel. The output will be an iterator which contains
+the return value of every function call.</p>
+<p>The decorated object can accept multiple arguments, but the last
+positional argument must be an item of the input iterable (e.g., an
+item of a list, numpy array, or range object).</p>
+<p>If the keyword argument ‘n_cores’ is specified, the decorated object
+will run on <cite>n_cores</cite> processes. Otherwise, the number of cores is set
+to the number available on your machine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">function</span></code>) – The function to be decorated.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The decorated function.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">function</span></code></p>
+</dd>
+</dl>
+<div class="admonition-examples admonition">
+<p class="admonition-title">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">iterable</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@parallel</span>
+<span class="gp">... </span><span class="k">def</span><span class="w"> </span><span class="nf">target_func</span><span class="p">(</span><span class="n">some_input</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">some_input</span> <span class="o">*</span> <span class="n">item</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">results</span> <span class="o">=</span> <span class="n">target_func</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">iterable</span><span class="p">,</span> <span class="n">n_cores</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </dd></dl>
 
 </section>

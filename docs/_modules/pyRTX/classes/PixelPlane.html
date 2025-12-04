@@ -280,31 +280,6 @@
 <span class="sd">	This class creates a planar grid of ray origins and directions, simulating a</span>
 <span class="sd">	uniform, parallel light source. It can be configured in a fixed orientation</span>
 <span class="sd">	or dynamically aligned with a celestial body (e.g., the Sun).</span>
-
-<span class="sd">	Parameters</span>
-<span class="sd">	----------</span>
-<span class="sd">	spacecraft : object, optional</span>
-<span class="sd">	    The spacecraft object, used for dynamic positioning.</span>
-<span class="sd">	source : str, optional</span>
-<span class="sd">	    The name of the celestial body to track (e.g., &#39;Sun&#39;).</span>
-<span class="sd">	mode : str, default=&#39;Fixed&#39;</span>
-<span class="sd">	    The operational mode (&#39;Fixed&#39; or &#39;Dynamic&#39;).</span>
-<span class="sd">	distance : float, default=1.0</span>
-<span class="sd">	    The distance of the plane from the origin.</span>
-<span class="sd">	lon : float, optional</span>
-<span class="sd">	    The longitude of the plane&#39;s center in a fixed orientation.</span>
-<span class="sd">	lat : float, optional</span>
-<span class="sd">	    The latitude of the plane&#39;s center in a fixed orientation.</span>
-<span class="sd">	width : float, optional</span>
-<span class="sd">	    The width of the ray grid.</span>
-<span class="sd">	height : float, optional</span>
-<span class="sd">	    The height of the ray grid.</span>
-<span class="sd">	ray_spacing : float, default=0.1</span>
-<span class="sd">	    The spacing between adjacent rays.</span>
-<span class="sd">	packets : int, default=1</span>
-<span class="sd">	    The number of packets to divide the rays into for processing.</span>
-<span class="sd">	units : str, default=&#39;m&#39;</span>
-<span class="sd">	    The units for all dimensional parameters.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
 
@@ -319,6 +294,34 @@
 			   <span class="n">ray_spacing</span> <span class="o">=</span> <span class="mf">.1</span><span class="p">,</span> 
 			   <span class="n">packets</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
 			   <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;m&#39;</span><span class="p">):</span>
+<span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the PixelPlane object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spacecraft : object, optional</span>
+<span class="sd">            The spacecraft object, used for dynamic positioning.</span>
+<span class="sd">        source : str, optional</span>
+<span class="sd">            The name of the celestial body to track (e.g., &#39;Sun&#39;).</span>
+<span class="sd">        mode : str, default=&#39;Fixed&#39;</span>
+<span class="sd">            The operational mode (&#39;Fixed&#39; or &#39;Dynamic&#39;).</span>
+<span class="sd">        distance : float, default=1.0</span>
+<span class="sd">            The distance of the plane from the origin.</span>
+<span class="sd">        lon : float, optional</span>
+<span class="sd">            The longitude of the plane&#39;s center in a fixed orientation.</span>
+<span class="sd">        lat : float, optional</span>
+<span class="sd">            The latitude of the plane&#39;s center in a fixed orientation.</span>
+<span class="sd">        width : float, optional</span>
+<span class="sd">            The width of the ray grid.</span>
+<span class="sd">        height : float, optional</span>
+<span class="sd">            The height of the ray grid.</span>
+<span class="sd">        ray_spacing : float, default=0.1</span>
+<span class="sd">            The spacing between adjacent rays.</span>
+<span class="sd">        packets : int, default=1</span>
+<span class="sd">            The number of packets to divide the rays into for processing.</span>
+<span class="sd">        units : str, default=&#39;m&#39;</span>
+<span class="sd">            The units for all dimensional parameters.</span>
+<span class="sd">		&quot;&quot;&quot;</span>
 
 		<span class="n">conversion_factor</span> <span class="o">=</span> <span class="n">constants</span><span class="o">.</span><span class="n">unit_conversions</span><span class="p">[</span><span class="n">units</span><span class="p">]</span>
 
@@ -497,8 +500,6 @@
 <span class="sd">		&quot;&quot;&quot;</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">lon</span> <span class="o">=</span> <span class="n">lon</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">lat</span> <span class="o">=</span> <span class="n">lat</span></div></div>
-
-
 </pre></div>
 
            </div>

@@ -277,34 +277,34 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.computeRADEC" title="pyRTX.core.analysis_utils.computeRADEC"><code class="xref py py-obj docutils literal notranslate"><span class="pre">computeRADEC</span></code></a>(vecs[, periodicity])</p></td>
-<td><p>From a ND array of shape (N, 3), compute RA/DEC</p></td>
+<td><p>Computes the right ascension and declination for a set of vectors.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.compute_body_positions" title="pyRTX.core.analysis_utils.compute_body_positions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_body_positions</span></code></a>(target, epochs, ...)</p></td>
-<td><p>Functions to compute the relative positions of a target body with respect to an observing body.</p></td>
+<td><p>Computes the relative positions of a target body with respect to an observing body.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.compute_body_states" title="pyRTX.core.analysis_utils.compute_body_states"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_body_states</span></code></a>(target, epochs, frame, obs)</p></td>
-<td><p>Functions to compute the relative position and velocity of a target body with respect to an observing body.</p></td>
+<td><p>Computes the relative position and velocity of a target body with respect to an observing body.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.convertEpoch" title="pyRTX.core.analysis_utils.convertEpoch"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convertEpoch</span></code></a>(monteEpoch)</p></td>
 <td><p>Convert a Monte epoch string to a spice epoch string</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.convertTIFtoMesh" title="pyRTX.core.analysis_utils.convertTIFtoMesh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convertTIFtoMesh</span></code></a>([tifFile, latSampling, ...])</p></td>
-<td><p>Convert a TIF map of emissivities to the format needed for assigning values to each face of a planetary 3D mesh</p></td>
+<td><p>Converts a TIFF map to a format that can be used to assign values to a planetary mesh.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.epochRange" title="pyRTX.core.analysis_utils.epochRange"><code class="xref py py-obj docutils literal notranslate"><span class="pre">epochRange</span></code></a>([startEpoch, duration, step])</p></td>
-<td><p></p></td>
+<td><p>Generates a range of epochs.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.epochRange2" title="pyRTX.core.analysis_utils.epochRange2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">epochRange2</span></code></a>([startEpoch, endEpoch, step])</p></td>
-<td><p></p></td>
+<td><p>Generates a range of epochs between a start and end epoch.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.getSunAngles" title="pyRTX.core.analysis_utils.getSunAngles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getSunAngles</span></code></a>([scName, scFrame, epoch, ...])</p></td>
-<td><p></p></td>
+<td><p>Computes the right ascension and declination of the Sun as seen from a spacecraft.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.get_spacecraft_area" title="pyRTX.core.analysis_utils.get_spacecraft_area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_spacecraft_area</span></code></a>(spacecraft, rays[, ra, ...])</p></td>
-<td><p>Compute a pyRTX.Spacecraft apparent area as seen by the direction specified by a pair of right ascension - declination</p></td>
+<td><p>Computes the apparent area of a spacecraft as seen from a given direction.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.get_sun_exposed_area" title="pyRTX.core.analysis_utils.get_sun_exposed_area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_sun_exposed_area</span></code></a>(sc, rtx, epoch)</p></td>
-<td><p>Compute a pyRTX.Spacecraft apparent area as seen by the direction specified by a pair of right ascension - declination</p></td>
+<td><p>Computes the sun-exposed area of a spacecraft.</p></td>
 </tr>
 </tbody>
 </table>
@@ -312,23 +312,24 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.LookupTable" title="pyRTX.core.analysis_utils.LookupTable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LookupTable</span></code></a>(linspace_x, linspace_y, values)</p></td>
-<td><p>This class is used to store results in the shape aof a lookup table.</p></td>
+<td><p>A class for storing and interpolating 2D lookup tables.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.LookupTableND" title="pyRTX.core.analysis_utils.LookupTableND"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LookupTableND</span></code></a>([axes, values, info, np_array])</p></td>
-<td><p>Same concept as the LookupTable class, but allowing for multi-dimensional (&gt;2) tables</p></td>
+<td><p>A class for storing and interpolating N-dimensional lookup tables.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.ScatterLookup" title="pyRTX.core.analysis_utils.ScatterLookup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ScatterLookup</span></code></a>()</p></td>
-<td><p>A class for dealing with zone-scattered lookup tables Intended for creating a lookup table of sets of computed values that lie in distinct, DISJUNCT, zones of the axes space.</p></td>
+<td><p>A class for dealing with zone-scattered lookup tables.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="#pyRTX.core.analysis_utils.TiffInterpolator" title="pyRTX.core.analysis_utils.TiffInterpolator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">TiffInterpolator</span></code></a>([axes, values])</p></td>
-<td><p></p></td>
+<td><p>A class for interpolating TIFF image data.</p></td>
 </tr>
 </tbody>
 </table>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTable">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">LookupTable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linspace_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linspace_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTable" title="Permalink to this definition"></a></dt>
-<dd><p>This class is used to store results in the shape aof a lookup table.
+<dd><p>A class for storing and interpolating 2D lookup tables.</p>
+<p>This class is used to store results in the shape aof a lookup table.
 This is mainly used to store the resultas of a set of raytracing results
 example: the solar pressure for a body is computed for a grid of RA/DEC values.
 these values can be stored in the LookupTable object and later retrieved.
@@ -354,43 +355,80 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTable.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linspace_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">linspace_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTable.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTable.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initializes the LookupTable object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>linspace_x</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – The x-coordinates of the grid.</p></li>
+<li><p><strong>linspace_y</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – The y-coordinates of the grid.</p></li>
+<li><p><strong>values</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – The values at the grid points.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTable.set_interpType">
 <span class="sig-name descname"><span class="pre">set_interpType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interpType</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTable.set_interpType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTable.set_interpType" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Sets the interpolation type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>interpType</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The interpolation method to use (e.g., ‘linear’, ‘cubic’).</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTable.interp_point">
 <span class="sig-name descname"><span class="pre">interp_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTable.interp_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTable.interp_point" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Interpolates the lookup table at a single point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The x-coordinate of the point.</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The y-coordinate of the point.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The interpolated value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTable.__getitem__">
 <span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idxs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTable.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTable.__getitem__" title="Permalink to this definition"></a></dt>
-<dd><p>Implement a getitem method.
-Several usages are possible:</p>
-<p>LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated
-LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested
-LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)
-LUT[array-like, array-like]: return the lookup table interpolated in the array-like points</p>
+<dd><p>Allows indexing into the lookup table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idxs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>) – A tuple of indices for each dimension of the lookup table.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The interpolated value(s) at the given indices.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTable.quickPlot">
 <span class="sig-name descname"><span class="pre">quickPlot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'viridis'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saveto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTable.quickPlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTable.quickPlot" title="Permalink to this definition"></a></dt>
-<dd><p>Produce a quick plot of the lookup table</p>
+<dd><p>Produces a quick plot of the lookup table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>xlabel</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional)</span></code>) – label for the x-axis</p></li>
-<li><p><strong>ylabel</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional)</span></code>) – label for the y-axis</p></li>
-<li><p><strong>title</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional)</span></code>) – title of the plot</p></li>
-<li><p><strong>conversion</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span> <span class="pre">(Optional</span></code>, <em>default</em> <code class="xref py py-class docutils literal notranslate"><span class="pre">1)</span></code>) – a conversion factor for the plotted values. This method will plot X*conversion, Y*conversion</p></li>
-<li><p><strong>clabel</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional)</span></code>) – label of the color bar</p></li>
-<li><p><strong>cmap</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">(Optional</span></code>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'viridis'</span></code><code class="xref py py-class docutils literal notranslate"><span class="pre">)</span></code>) – the colormap to use (matplotlib colormaps)</p></li>
-<li><p><strong>saveto</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional</span></code>, <em>default</em> <code class="xref py py-class docutils literal notranslate"><span class="pre">None)</span></code>) – if not None: the path to save the plot to (the file extension defines the format)</p></li>
+<li><p><strong>xlabel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – The label for the x-axis.</p></li>
+<li><p><strong>ylabel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – The label for the y-axis.</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – The title of the plot.</p></li>
+<li><p><strong>conversion</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">1</span></code>) – A conversion factor for the plotted values.</p></li>
+<li><p><strong>clabel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – The label for the color bar.</p></li>
+<li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'viridis'</span></code>) – The colormap to use.</p></li>
+<li><p><strong>saveto</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – The path to save the plot to.</p></li>
 </ul>
 </dd>
 </dl>
@@ -401,7 +439,8 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
 <dl class="py class">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTableND">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">LookupTableND</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">np_array</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTableND"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTableND" title="Permalink to this definition"></a></dt>
-<dd><p>Same concept as the LookupTable class, but allowing for multi-dimensional (&gt;2) tables</p>
+<dd><p>A class for storing and interpolating N-dimensional lookup tables.</p>
+<p>Same concept as the LookupTable class, but allowing for multi-dimensional (&gt;2) tables</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -409,60 +448,119 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
 <li><p><strong>values</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray(N,M,L,...,1)</span></code>) – </p></li>
 <li><p><strong>info</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – A string field to store information about the lookup table. This is set as a class property
 so it can be requested trhough instance.info</p></li>
-<li><p><strong>np.array</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.array</span></code>) – unset</p></li>
+<li><p><strong>np_array</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.array</span></code>) – unset</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTableND.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">np_array</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTableND.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTableND.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initializes the LookupTableND object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a> of <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, <em>optional</em>) – The axes of the lookup table.</p></li>
+<li><p><strong>values</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, <em>optional</em>) – The values at the grid points.</p></li>
+<li><p><strong>info</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – Information about the lookup table.</p></li>
+<li><p><strong>np_array</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, <em>optional</em>) – Unused.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTableND.set_interpType">
 <span class="sig-name descname"><span class="pre">set_interpType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interpType</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTableND.set_interpType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTableND.set_interpType" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Sets the interpolation type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>interpType</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The interpolation method to use (e.g., ‘linear’, ‘cubic’).</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTableND.get_idx">
 <span class="sig-name descname"><span class="pre">get_idx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTableND.get_idx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTableND.get_idx" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Gets the index of a value in a list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ind</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The value to search for.</p></li>
+<li><p><strong>search_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – The list to search in.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The index of the value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTableND.interp_point">
 <span class="sig-name descname"><span class="pre">interp_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTableND.interp_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTableND.interp_point" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Interpolates the lookup table at a single point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>vals</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>) – A tuple of coordinates of the point.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The interpolated value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTableND.__getitem__">
 <span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idxs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTableND.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTableND.__getitem__" title="Permalink to this definition"></a></dt>
-<dd><p>Implement a getitem method.
-Several usages are possible:</p>
-<p>LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated
-LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested
-LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)
-LUT[array-like, array-like]: return the lookup table interpolated in the array-like points</p>
+<dd><p>Allows indexing into the lookup table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idxs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>) – A tuple of indices for each dimension of the lookup table.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The interpolated value(s) at the given indices.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTableND.axisExtent">
 <span class="sig-name descname"><span class="pre">axisExtent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTableND.axisExtent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTableND.axisExtent" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Returns the extent of each axis.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of [min, max] pairs for each axis.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.LookupTableND.quickPlot">
 <span class="sig-name descname"><span class="pre">quickPlot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">conversion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'viridis'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saveto</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#LookupTableND.quickPlot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.LookupTableND.quickPlot" title="Permalink to this definition"></a></dt>
-<dd><p>Produce a quick plot of the lookup table</p>
+<dd><p>Produces a quick plot of a 2D slice of the lookup table.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>xlabel</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional)</span></code>) – label for the x-axis</p></li>
-<li><p><strong>ylabel</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional)</span></code>) – label for the y-axis</p></li>
-<li><p><strong>title</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional)</span></code>) – title of the plot</p></li>
-<li><p><strong>conversion</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span> <span class="pre">(Optional</span></code>, <em>default</em> <code class="xref py py-class docutils literal notranslate"><span class="pre">1)</span></code>) – a conversion factor for the plotted values. This method will plot X*conversion, Y*conversion</p></li>
-<li><p><strong>clabel</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional)</span></code>) – label of the color bar</p></li>
-<li><p><strong>cmap</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span>&#160;&#160;&#160;&#160;&#160; <span class="pre">(Optional</span></code>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'viridis'</span></code><code class="xref py py-class docutils literal notranslate"><span class="pre">)</span></code>) – the colormap to use (matplotlib colormaps)</p></li>
-<li><p><strong>saveto</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span> <span class="pre">(Optional</span></code>, <em>default</em> <code class="xref py py-class docutils literal notranslate"><span class="pre">None)</span></code>) – if not None: the path to save the plot to (the file extension defines the format)</p></li>
+<li><p><strong>xlabel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – The label for the x-axis.</p></li>
+<li><p><strong>ylabel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – The label for the y-axis.</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – The title of the plot.</p></li>
+<li><p><strong>conversion</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">1</span></code>) – A conversion factor for the plotted values.</p></li>
+<li><p><strong>clabel</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – The label for the color bar.</p></li>
+<li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'viridis'</span></code>) – The colormap to use.</p></li>
+<li><p><strong>saveto</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – The path to save the plot to.</p></li>
 </ul>
 </dd>
 </dl>
@@ -473,8 +571,8 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
 <dl class="py class">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.ScatterLookup">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">ScatterLookup</span></span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#ScatterLookup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.ScatterLookup" title="Permalink to this definition"></a></dt>
-<dd><p>A class for dealing with zone-scattered lookup tables
-Intended for creating a lookup table of sets of computed values that lie in distinct, DISJUNCT,
+<dd><p>A class for dealing with zone-scattered lookup tables.</p>
+<p>Intended for creating a lookup table of sets of computed values that lie in distinct, DISJUNCT,
 zones of the axes space.
 Example: the value of a variable has been computed in X = [0,1] Y = [0,1] and X = [3,4] Y = [-2,-1]</p>
 <p>After instantiating the empty class, the different zones are added. Example</p>
@@ -487,60 +585,154 @@ sc.addZone(zone2)</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.ScatterLookup.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#ScatterLookup.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.ScatterLookup.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initializes the ScatterLookup object.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.ScatterLookup.add_zone">
 <span class="sig-name descname"><span class="pre">add_zone</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ZoneLookup</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#ScatterLookup.add_zone"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.ScatterLookup.add_zone" title="Permalink to this definition"></a></dt>
-<dd><p>Add a zone
-:param ZoneLookup:
-:type ZoneLookup: <a class="reference internal" href="#pyRTX.core.analysis_utils.LookupTableND" title="pyRTX.core.analysis_utils.LookupTableND"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.core.analysis_utils.LookupTableND</span></code></a></p>
+<dd><p>Adds a zone to the lookup table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ZoneLookup</strong> (<a class="reference internal" href="#pyRTX.core.analysis_utils.LookupTableND" title="pyRTX.core.analysis_utils.LookupTableND"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.core.analysis_utils.LookupTableND</span></code></a>) – The lookup table for the new zone.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pyRTX.core.analysis_utils.ScatterLookup.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idxs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#ScatterLookup.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.ScatterLookup.__getitem__" title="Permalink to this definition"></a></dt>
+<dd><p>Allows indexing into the lookup table.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idxs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>) – A tuple of indices for each dimension of the lookup table.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The interpolated value(s) at the given indices.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.ScatterLookup.zone_determination">
 <span class="sig-name descname"><span class="pre">zone_determination</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idxs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#ScatterLookup.zone_determination"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.ScatterLookup.zone_determination" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Determines which zone the given indices belong to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idxs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>) – A tuple of indices for each dimension of the lookup table.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The index of the zone.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.TiffInterpolator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">TiffInterpolator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#TiffInterpolator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.TiffInterpolator" title="Permalink to this definition"></a></dt>
-<dd><dl class="py method">
+<dd><p>A class for interpolating TIFF image data.</p>
+<dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.TiffInterpolator.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#TiffInterpolator.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.TiffInterpolator.__init__" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Initializes the TiffInterpolator object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axes</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a> of <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, <em>optional</em>) – The axes of the TIFF image.</p></li>
+<li><p><strong>values</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, <em>optional</em>) – The pixel values of the TIFF image.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.TiffInterpolator.interpolator">
 <span class="sig-name descname"><span class="pre">interpolator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#TiffInterpolator.interpolator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.TiffInterpolator.interpolator" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Performs the interpolation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>vals</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>) – A tuple of coordinates at which to interpolate.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The interpolated values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.TiffInterpolator.set_interpType">
 <span class="sig-name descname"><span class="pre">set_interpType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">interpType</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#TiffInterpolator.set_interpType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.TiffInterpolator.set_interpType" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Sets the interpolation type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>interpType</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The interpolation method to use (e.g., ‘linear’, ‘cubic’).</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.TiffInterpolator.get_idx">
 <span class="sig-name descname"><span class="pre">get_idx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ind</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">search_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#TiffInterpolator.get_idx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.TiffInterpolator.get_idx" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Gets the index of a value in a list.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ind</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The value to search for.</p></li>
+<li><p><strong>search_list</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – The list to search in.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The index of the value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.TiffInterpolator.interp_point">
 <span class="sig-name descname"><span class="pre">interp_point</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vals</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#TiffInterpolator.interp_point"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.TiffInterpolator.interp_point" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Interpolates the TIFF image at a single point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>vals</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>) – A tuple of coordinates of the point.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The interpolated value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.TiffInterpolator.__getitem__">
 <span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">idxs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#TiffInterpolator.__getitem__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.TiffInterpolator.__getitem__" title="Permalink to this definition"></a></dt>
-<dd><p>Implement a getitem method.
-Several usages are possible:</p>
-<p>LUT[a,b]: if a, b are in the original lookup table, the original values are returned, otherwise they are interpolated
-LUT[:,:] or LUT[a:b, c:d]: return the original lut sliced as requested
-LUT[:,a]: return the original lut (all elements of first axis, integer-indexed elements of second axis)
-LUT[array-like, array-like]: return the lookup table interpolated in the array-like points</p>
+<dd><p>Allows indexing into the TIFF image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>idxs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a>) – A tuple of indices for each dimension of the TIFF image.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The interpolated value(s) at the given indices.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a> or <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -548,43 +740,114 @@ LUT[array-like, array-like]: return the lookup table interpolated in the array-l
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.getSunAngles">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">getSunAngles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scFrame</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">correction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'LT+S'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#getSunAngles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.getSunAngles" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Computes the right ascension and declination of the Sun as seen from a
+spacecraft.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scName</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – The name of the spacecraft.</p></li>
+<li><p><strong>scFrame</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>optional</em>) – The reference frame of the spacecraft.</p></li>
+<li><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – The epoch for the calculation.</p></li>
+<li><p><strong>correction</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'LT+S'</span></code>) – The aberration correction to use.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the right ascension and declination in radians.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.epochRange">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">epochRange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startEpoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#epochRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.epochRange" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Generates a range of epochs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>startEpoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – The start epoch in a format recognized by SPICE or as a float.</p></li>
+<li><p><strong>duration</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – The duration of the epoch range in seconds.</p></li>
+<li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">100</span></code>) – The step size in seconds.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An array of epochs.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.epochRange2">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">epochRange2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">startEpoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">endEpoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#epochRange2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.epochRange2" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><p>Generates a range of epochs between a start and end epoch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>startEpoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – The start epoch in a format recognized by SPICE or as a float.</p></li>
+<li><p><strong>endEpoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – The end epoch in a format recognized by SPICE or as a float.</p></li>
+<li><p><strong>step</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">100</span></code>) – The step size in seconds.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An array of epochs.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.computeRADEC">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">computeRADEC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vecs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">periodicity</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">360</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#computeRADEC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.computeRADEC" title="Permalink to this definition"></a></dt>
-<dd><p>From a ND array of shape (N, 3), compute RA/DEC</p>
-<p>Parameters:
-vecs: [ndarray (N,3)]
-Returns:
-RA, DEC</p>
+<dd><p>Computes the right ascension and declination for a set of vectors.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vecs</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v2.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – An array of shape (N, 3) containing the vectors.</p></li>
+<li><p><strong>periodicity</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">360</span></code>) – The periodicity of the right ascension in degrees.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the right ascension and declination in radians.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tuple</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.convertTIFtoMesh">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">convertTIFtoMesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tifFile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latSampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inferSampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lonSampling</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">planet</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1.5707963267948966</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.5707963267948966</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon0</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lon1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">6.283185307179586</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#convertTIFtoMesh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.convertTIFtoMesh" title="Permalink to this definition"></a></dt>
-<dd><p>Convert a TIF map of emissivities to the format needed for assigning values to each face of a planetary 3D mesh</p>
-<p>Parameters:
-tifFile : [str] the path to the TIFF file
-latSampling: [float, in rad] sampling step of latitude
-lonSampling: [float, in rad] sampling step of longitude
-planet: [class.Planet] Planet object containing the mesh and the planetary frames
-inferSampling: [bool] wether the importer shall infer the sampling or not
-Returns:
-emissivityInterpolator: [class.LookupTableND] an interpolator for mapping the temperatures on the mesh faces. This is intended to be passed</p>
-<blockquote>
-<div><p>to the Planet class via the setter method: Planet.emissivity = emissivityInterpolator</p>
-</div></blockquote>
+<dd><p>Converts a TIFF map to a format that can be used to assign values to a
+planetary mesh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tifFile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">''</span></code>) – The path to the TIFF file.</p></li>
+<li><p><strong>latSampling</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">''</span></code>) – The latitude sampling step in radians.</p></li>
+<li><p><strong>inferSampling</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>, <em>default</em> <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>) – Whether to infer the sampling from the TIFF file.</p></li>
+<li><p><strong>lonSampling</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">''</span></code>) – The longitude sampling step in radians.</p></li>
+<li><p><strong>planet</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.Planet</span></code>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">''</span></code>) – The Planet object containing the mesh.</p></li>
+<li><p><strong>lat0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>default</em> <code class="xref py py-class docutils literal notranslate"><span class="pre">-numpy.pi/2</span></code>) – The minimum latitude.</p></li>
+<li><p><strong>lat1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>default</em> <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.pi/2</span></code>) – The maximum latitude.</p></li>
+<li><p><strong>lon0</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">0</span></code>) – The minimum longitude.</p></li>
+<li><p><strong>lon1</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>default</em> <code class="xref py py-class docutils literal notranslate"><span class="pre">2*numpy.pi</span></code>) – The maximum longitude.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>An interpolator for mapping the TIFF values to the mesh.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pyRTX.core.analysis_utils.TiffInterpolator" title="pyRTX.core.analysis_utils.TiffInterpolator"><code class="xref py py-class docutils literal notranslate"><span class="pre">TiffInterpolator</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -596,70 +859,93 @@ emissivityInterpolator: [class.LookupTableND] an interpolator for mapping the te
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.get_spacecraft_area">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">get_spacecraft_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spacecraft</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rays</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ra</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#get_spacecraft_area"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.get_spacecraft_area" title="Permalink to this definition"></a></dt>
-<dd><p>Compute a pyRTX.Spacecraft apparent area as seen by the direction specified
-by a pair of right ascension - declination</p>
-<p>Input:
-spacecraft [pyRTX.Spacecraft]   : the spacecraft object
-rays [pyRTX.PixelPlane]                 : the pixel plane for raytracing
-ra [float]                                              : right ascension (in rad)
-dec [float]                                     : declination (rad)
-epoch [float or None]                   : epoch for the computation (this is used when moving Spice</p>
-<blockquote>
-<div><p>frames are used for the Spacecraft definition)</p>
-</div></blockquote>
-<p>Output:
-area [float]                                    : the apparent area. The measurement units depend on the units of the</p>
-<blockquote>
-<div><p>Spacecraft object</p>
-</div></blockquote>
-<p>TODO: avoid hardcoded width/height but rather use an automated method</p>
+<dd><p>Computes the apparent area of a spacecraft as seen from a given direction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spacecraft</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.Spacecraft</span></code>) – The spacecraft object.</p></li>
+<li><p><strong>rays</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.PixelPlane</span></code>) – The pixel plane for raytracing.</p></li>
+<li><p><strong>ra</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">0.0</span></code>) – The right ascension of the viewing direction in radians.</p></li>
+<li><p><strong>dec</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">0.0</span></code>) – The declination of the viewing direction in radians.</p></li>
+<li><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>, <em>optional</em>) – The epoch for the computation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The apparent area of the spacecraft.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.get_sun_exposed_area">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">get_sun_exposed_area</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sc</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rtx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epoch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#get_sun_exposed_area"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.get_sun_exposed_area" title="Permalink to this definition"></a></dt>
-<dd><p>Compute a pyRTX.Spacecraft apparent area as seen by the direction specified
-by a pair of right ascension - declination</p>
-<p>Input:
-spacecraft [pyRTX.Spacecraft]   : the spacecraft object
-ra [float]                                              : right ascension (in rad)
-dec [float]                                     : declination (rad)
-epoch [float or None]                   : epoch for the computation (this is used when moving Spice</p>
-<blockquote>
-<div><p>frames are used for the Spacecraft definition)</p>
-</div></blockquote>
-<p>Output:
-area [float]                                    : the apparent area. The measurement units depend on the units of the</p>
-<blockquote>
-<div><p>Spacecraft object</p>
-</div></blockquote>
-<p>TODO: avoid hardcoded width/height but rather use an automated method</p>
+<dd><p>Computes the sun-exposed area of a spacecraft.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sc</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.Spacecraft</span></code>) – The spacecraft object.</p></li>
+<li><p><strong>rtx</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">pyRTX.RayTracer</span></code>) – The ray tracer object.</p></li>
+<li><p><strong>epoch</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – The epoch for the computation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The sun-exposed area of the spacecraft.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.compute_body_positions">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">compute_body_positions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abcorr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'LT</span> <span class="pre">+</span> <span class="pre">S'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#compute_body_positions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.compute_body_positions" title="Permalink to this definition"></a></dt>
-<dd><p>Functions to compute the relative positions of a target
-body with respect to an observing body.</p>
-<p>Parameters:
--       target: target body name
--       epochs: list of epochs
--       frame: reference frame of output position vector
--       obs: observing body name
--       abcorr: aberration correction flag.</p>
+<dd><p>Computes the relative positions of a target body with respect to an
+observing body.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The name of the target body.</p></li>
+<li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – A list of epochs.</p></li>
+<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The reference frame of the output position vector.</p></li>
+<li><p><strong>obs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The name of the observing body.</p></li>
+<li><p><strong>abcorr</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'LT</span> <span class="pre">+</span> <span class="pre">S'</span></code>) – The aberration correction flag.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of position vectors.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyRTX.core.analysis_utils.compute_body_states">
 <span class="sig-prename descclassname"><span class="pre">pyRTX.core.analysis_utils.</span></span><span class="sig-name descname"><span class="pre">compute_body_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">epochs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abcorr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'LT</span> <span class="pre">+</span> <span class="pre">S'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/pyRTX/core/analysis_utils.html#compute_body_states"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyRTX.core.analysis_utils.compute_body_states" title="Permalink to this definition"></a></dt>
-<dd><p>Functions to compute the relative position and velocity of a target
-body with respect to an observing body.</p>
-<p>Parameters:
--       target: target body name
--       epochs: list of epochs
--       frame: reference frame of output position vector
--       obs: observing body name
--       abcorr: aberration correction flag.</p>
+<dd><p>Computes the relative position and velocity of a target body with respect
+to an observing body.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The name of the target body.</p></li>
+<li><p><strong>epochs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) – A list of epochs.</p></li>
+<li><p><strong>frame</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The reference frame of the output state vector.</p></li>
+<li><p><strong>obs</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The name of the observing body.</p></li>
+<li><p><strong>abcorr</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <em>default</em> <code class="docutils literal notranslate"><span class="pre">'LT</span> <span class="pre">+</span> <span class="pre">S'</span></code>) – The aberration correction flag.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of state vectors (position and velocity).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
