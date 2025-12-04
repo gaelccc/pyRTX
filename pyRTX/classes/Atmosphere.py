@@ -3,46 +3,35 @@ import os
 import spiceypy as sp
 
 class VenusGram():
-
 	"""
-	An utility class for providing a python interface to VenusGram2005
-	
-	Requirements:
-	- python3
-	- numpy
-	- spiceypy
-	- A compiled version of VenusGram2005	
+    A utility class for providing a Python interface to VenusGram2005.
 
-	Note: This version has been tested only on UNIX machines
+    This class allows users to compute atmospheric density and temperature at
+    Venus for a given epoch, latitude, longitude, and height.
 
-	The intended usage:
-	
-	vg = VenusGram()
-	rho, T = vg.compute(epoch, lat, lon, height, inputUnits = 'deg')
-
-	Parameters:
-	*all these patameters can be either float or numpy  arrays of floats
-	epoch: epoch output of spiceypy.str2et [The epoch must be provided in TDB. This can be changed modyfying 'epoch_converter' sub]
-	lat: latitude in the units specified in inputUnits
-	lon: longitude in the units specified in inputUnits
-	height: height above the reference ellipsoid [km]
-
-	Returns:
-	rho: density in kg/m3
-	T:   temperature in K
-
+    Parameters
+    ----------
+    dataFolder : str, default='/home/cascioli/VenusGram2005/'
+        The path to the data folder of VenusGram2005.
+    execFolder : str, default='/home/cascioli/VenusGram2005/'
+        The path to the VenusGram2005 executable.
+    tmpFolder : str, default='./tmp'
+        The path to a temporary folder for caching VenusGram inputs and outputs.
 	"""
-	
 
 	def __init__(self, dataFolder = '/home/cascioli/VenusGram2005/', execFolder = '/home/cascioli/VenusGram2005/', tmpFolder = './tmp' ):
 		"""
-		Initialize the istance of the class
-		
-		Parameters:
-		dataFolder: [str] the path to the data folder of VenusGram2005
-		execFolder: [str] the path to where the venusgrm_V05.x executable is
-		tmpFolder:  [str] the path to create a temporary convenience folder for Vgram input/output caching. Defaults to ./tmp
+        Initializes the VenusGram object.
 
+        Parameters
+        ----------
+        dataFolder : str, default='/home/cascioli/VenusGram2005/'
+            The path to the data folder of VenusGram2005.
+        execFolder : str, default='/home/cascioli/VenusGram2005/'
+            The path to the VenusGram2005 executable.
+        tmpFolder : str, default='./tmp'
+            The path to a temporary folder for caching VenusGram inputs and
+            outputs.
 		"""
 		
 		if not os.path.exists(tmpFolder):
@@ -66,6 +55,20 @@ class VenusGram():
 
 
 	def namelistWriter(self, epoch, lat, lon, height):
+		"""
+        Writes the input file for the VenusGram executable.
+
+        Parameters
+        ----------
+        epoch : float
+            The epoch in TDB seconds past J2000.
+        lat : float
+            The latitude.
+        lon : float
+            The longitude.
+        height : float
+            The height above the reference ellipsoid in km.
+		"""
 		f = open(self.tmpFolder + '/input.txt', 'w')
 
 		M,D,Y,H,m,S = self.epoch_converter( epoch)
@@ -115,6 +118,23 @@ $END
 
 
 	def epoch_converter(self, epoch, inputFormat = 'TDB', outputformat = 'UTC'):
+		"""
+        Converts a SPICE epoch to a calendar date.
+
+        Parameters
+        ----------
+        epoch : float
+            The epoch in TDB seconds past J2000.
+        inputFormat : str, default='TDB'
+            The format of the input epoch.
+        outputformat : str, default='UTC'
+            The format of the output date.
+
+        Returns
+        -------
+        tuple
+            A tuple containing the month, day, year, hour, minute, and second.
+		"""
 		outPicture = '01 01 2011 01:20:30.000 {}'.format(outputformat)
 		pic, ok, xerror = sp.tpictr(outPicture)
 		if isinstance(epoch, float):
@@ -133,6 +153,15 @@ $END
 
 
 	def readResults(self):
+		"""
+        Reads the output file from the VenusGram executable.
+
+        Returns
+        -------
+        tuple
+            A tuple containing the density, temperature, pressure, and
+            composition.
+		"""
 		with open(self.tmpFolder + '/OUTPUT.txt', 'r') as f:
 			dat = np.loadtxt(f, skiprows = 1)
 			rho = dat[4]
@@ -152,19 +181,20 @@ $END
 		return rho, T, P, composition
 
 	def readVariabilities(self, kind):
-		'''
-		Read results on variables with variabilities (e.g. Density)
+		"""
+        Reads the variability results from the VenusGram output.
 
-		Input:
-		kind : [str] The requested variable (available: Density)
+        Parameters
+        ----------
+        kind : str
+            The variable to read (e.g., 'Density').
 
-		Output:
-
-		low : [float] Variable low range
-		avg : [float] Variable average range
-		hig : [float] Variable high range
-
-		'''
+        Returns
+        -------
+        tuple
+            A tuple containing the low, average, and high values of the
+            variable.
+		"""
 
 		with open(os.getcwd() + '/Density.txt', 'r') as f:
 			dat = np.loadtxt(f, skiprows = 1)
@@ -174,6 +204,32 @@ $END
 		return low, avg, hig
 
 	def compute(self, epoch, lat, lon, height, inputUnits = 'deg', variabilities = None):
+		"""
+        Computes the atmospheric density and temperature.
+
+        Parameters
+        ----------
+        epoch : float or list of float
+            The epoch(s) in TDB seconds past J2000.
+        lat : float or list of float
+            The latitude(s).
+        lon : float or list of float
+            The longitude(s).
+        height : float or list of float
+            The height(s) above the reference ellipsoid in km.
+        inputUnits : str, default='deg'
+            The units of the input latitude and longitude ('deg' or 'rad').
+        variabilities : str, optional
+            If specified, returns the variabilities for the given variable
+            (e.g., 'Density').
+
+        Returns
+        -------
+        tuple
+            A tuple containing the density, temperature, pressure, and
+            composition. If `variabilities` is specified, the tuple also
+            contains the low, average, and high values of the variable.
+		"""
 
 
 		if isinstance(epoch, float):

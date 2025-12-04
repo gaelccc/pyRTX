@@ -2,8 +2,34 @@ from pyRTX.core.utils_rt import RTXkernel
 import timeit
 
 class RayTracer():
+	"""
+    A class for performing ray-tracing simulations.
+
+    This class orchestrates the ray-tracing process by taking a spacecraft
+    model and a set of rays (defined by a PixelPlane object) and using a
+    specified ray-tracing kernel to compute the intersections.
+	"""
 	
 	def __init__(self, spacecraft, rays, kernel = 'Embree', bounces = 1, diffusion = False, num_diffuse = None):
+		"""
+        Initializes the RayTracer object.
+
+        Parameters
+        ----------
+        spacecraft : pyRTX.Spacecraft
+            The spacecraft object to be ray-traced.
+        rays : pyRTX.PixelPlane
+            The PixelPlane object defining the rays.
+        kernel : str, default='Embree'
+            The ray-tracing kernel to use (e.g., 'Embree').
+        bounces : int, default=1
+            The number of bounces to simulate for each ray.
+        diffusion : bool, default=False
+            Whether to simulate diffuse reflections.
+        num_diffuse : int, optional
+            The number of diffuse rays to cast from each intersection point.
+            Required if `diffusion` is True.
+		"""
 
 		self.kernel = kernel
 		self.bounces = bounces
@@ -20,6 +46,20 @@ class RayTracer():
 
 
 	def trace(self, epoch = None):
+		"""
+        Performs the ray-tracing simulation.
+
+        This method computes the intersections of the rays with the spacecraft
+        mesh at a given epoch and stores the results in the object's
+        attributes.
+
+        Parameters
+        ----------
+        epoch : float, optional
+            The epoch in TDB seconds past J2000 for which to perform the
+            ray-tracing. This is necessary if the spacecraft's geometry or
+            orientation is time-dependent.
+		"""
 
 		mesh_obj = self.spacecraft.dump(epoch)
 		ray_origins, ray_directions = self.rays.dump(epoch)
@@ -67,12 +107,3 @@ class RayTracer():
 		self.ray_origins_container = d
 		self.ray_directions_container = e
 		self.diffusion_pack = f
-
-
-	
-
-
-
-		
-
-

@@ -11,7 +11,22 @@ A set of utilities focused on increasing the computational efficiency of numeric
 def get_ncores(lst, **kwargs):
     """
     Returns the number of cores for parallel computations.
-    If not specified, the number of cores is set to the number available on your machine.
+
+    If not specified, the number of cores is set to the number available on
+    your machine minus one.
+
+    Parameters
+    ----------
+    lst : list or numpy.ndarray
+        The list of items to be processed in parallel.
+    **kwargs : dict
+        Additional keyword arguments. If 'n_cores' is present, it will be
+        used as the number of cores.
+
+    Returns
+    -------
+    int
+        The number of cores to use for parallel computation.
     """
       
     if ('n_cores' in kwargs.keys()) and (isinstance(kwargs['n_cores'], int)) and (os.cpu_count() > kwargs['n_cores'] >= 1): 
@@ -27,6 +42,18 @@ def get_ncores(lst, **kwargs):
 def is_method(func, cls_inst):
     """
     Checks if the wrapped object is a method of a class.
+
+    Parameters
+    ----------
+    func : function
+        The function to check.
+    cls_inst : object
+        The class instance.
+
+    Returns
+    -------
+    bool
+        True if the function is a method of the class, False otherwise.
     """
     return (not inspect.isclass(cls_inst)) and (hasattr(cls_inst, func.__name__)) and ('self' in inspect.getargspec(func).args)
 
@@ -35,6 +62,19 @@ def is_method(func, cls_inst):
 def get_unwrapped(*args, **kwargs):
     """
     Returns the unwrapped version of a class method.
+
+    Parameters
+    ----------
+    *args : tuple
+        The arguments to pass to the method.
+    **kwargs : dict
+        The keyword arguments to pass to the method. 'method' must be present
+        and contain the name of the method to unwrap.
+
+    Returns
+    -------
+    object
+        The result of the unwrapped method call.
     """
     cls_inst = args[0]
     cls_attr = kwargs['method']
@@ -44,39 +84,38 @@ def get_unwrapped(*args, **kwargs):
 
 def parallel(func):
     """
-    Decorator for parallel computations.
-    The decorated object can be a class method or a regular function.
-    It applies the function to every item of an iterable performing the computations in parallel. 
-    The output will be an iterator which contains the return value of every function call.
-    
-    The decorated object can accept multiple arguments, but the last positional argument 
-    must be an item of the input iterable (e.g. an item of a list / numpy array / range object ...).
-    
-    If the keyword argument 'n_cores' is specified, the decorated object will run on n_cores processes. 
-    Otherwise, the number of cores is set to the number available on your machine.
-    
-    Basic usage:
-    
-    - Define the input iterable:
-    
-    iterable = [2,5,6,7,3,4,1] 
-    
-    - Define the function that will be applied to every item of the input iterable:
-    
-    @parallel
-    def target_func( some_inputs, item ): 
-        ... perform tasks 
-        return result
-    
-    - Apply the function to every item of the iterable using 5 cores in parallel:
-    
-    results = target_func( some_inputs, iterable, n_cores = 5 )   
+    A decorator for parallel computations.
 
-    NOTE: In its definition, the decorated object accepts the item of the iterable as last positional argument.
-    However, in the function call, you must pass directly the iterable (the list of integers in this example) 
-    in place of the item. Every other positional argument before the iterable must be the same.
-    In the function call it is possible to also pass the number of cores, but only as a keyword argument.
-    
+    The decorated object can be a class method or a regular function. It
+    applies the function to every item of an iterable, performing the
+    computations in parallel. The output will be an iterator which contains
+    the return value of every function call.
+
+    The decorated object can accept multiple arguments, but the last
+    positional argument must be an item of the input iterable (e.g., an
+    item of a list, numpy array, or range object).
+
+    If the keyword argument 'n_cores' is specified, the decorated object
+    will run on `n_cores` processes. Otherwise, the number of cores is set
+    to the number available on your machine.
+
+    Parameters
+    ----------
+    func : function
+        The function to be decorated.
+
+    Returns
+    -------
+    function
+        The decorated function.
+
+    Examples
+    --------
+    >>> iterable = [2, 5, 6, 7, 3, 4, 1]
+    >>> @parallel
+    ... def target_func(some_input, item):
+    ...     return some_input * item
+    >>> results = target_func(10, iterable, n_cores=5)
     """
 
     @wraps(func)
@@ -113,4 +152,3 @@ def parallel(func):
         return results
 
     return wrapper
-

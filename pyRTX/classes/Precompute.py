@@ -10,14 +10,23 @@ from pyRTX.constants import au
 
 class Precompute():
 	"""
-	A Class to perform calls to spiceypy in advance.
+    A class to perform and store SPICE computations in advance.
+
+    This class allows users to precompute and store various SPICE data, such
+    as position and state vectors, and rotation matrices, for a given set of
+    epochs. This can significantly speed up computations that require repeated
+    calls to SPICE.
 	"""	
  
 	def __init__(self, epochs: list,):
 		"""
-		Initialization method for the class.
-		Params:
-		- epochs (epochs of the precomputations)
+        Initializes the Precompute object.
+
+        Parameters
+        ----------
+        epochs : list
+            A list of epochs in TDB seconds past J2000 for which to perform
+            the precomputations.
 		"""
 
 		# Store inputs
@@ -27,13 +36,18 @@ class Precompute():
 
 	def addPosition(self, observer: str, target: str, frame: str, correction: str = 'CN'):
 		"""
-		Method to precompute position vectors.
-  
-		Params:
-  		- observer body (str)
-		- target body (str)
-		- frame (str)
-		- aberration correction (str)
+        Adds a position vector computation to the precomputation list.
+
+        Parameters
+        ----------
+        observer : str
+            The name of the observing body.
+        target : str
+            The name of the target body.
+        frame : str
+            The reference frame for the computation.
+        correction : str, default='CN'
+            The aberration correction to use.
 		"""
     
 		if 'position' not in self._config.keys():
@@ -52,13 +66,18 @@ class Precompute():
 
 	def addState(self, observer: str, target: str, frame: str, correction: str = 'CN'):
 		"""
-		Method to precompute state vectors.
-  
-		Params:
-  		- observer body (str)
-		- target body (str)
-		- frame (str)
-		- aberration correction (str)
+        Adds a state vector computation to the precomputation list.
+
+        Parameters
+        ----------
+        observer : str
+            The name of the observing body.
+        target : str
+            The name of the target body.
+        frame : str
+            The reference frame for the computation.
+        correction : str, default='CN'
+            The aberration correction to use.
 		"""
     
 		if 'state' not in self._config.keys():
@@ -77,11 +96,14 @@ class Precompute():
    
 	def addRotation(self, base_frame: str, target_frame: str):
 		"""
-		Method to precompute position vectors.
-  
-		Params:
-  		- base_frame (str)
-		- target_frame (str)
+        Adds a rotation matrix computation to the precomputation list.
+
+        Parameters
+        ----------
+        base_frame : str
+            The base reference frame.
+        target_frame : str
+            The target reference frame.
 		"""
       
 		if 'rotation' not in self._config.keys():
@@ -100,11 +122,17 @@ class Precompute():
 
 	def precomputeSolarPressure(self, sc, planet, correction = 'LT+S'):
 		"""
-		Method to perform precalculation for solar radiation pressure.
-  
-		Params:
-		- sc: object of the class Spacecraft
-		- planet: object of the class Planet
+        Adds all necessary computations for solar radiation pressure to the
+        precomputation list.
+
+        Parameters
+        ----------
+        sc : pyRTX.Spacecraft
+            The spacecraft object.
+        planet : pyRTX.Planet
+            The planet object.
+        correction : str, default='LT+S'
+            The aberration correction to use.
 		"""
 
 		# Get data
@@ -134,12 +162,19 @@ class Precompute():
 
 	def precomputePlanetaryRadiation(self, sc, planet, moving_frames = [], correction = 'CN'):
 		"""
-		Method to perform precalculation for albedo and 
-  		thermal infrared acceleration.
-    
-		Params:
-		- sc: object of the class Spacecraft
-		- planet: object of the class Planet
+        Adds all necessary computations for planetary radiation to the
+        precomputation list.
+
+        Parameters
+        ----------
+        sc : pyRTX.Spacecraft
+            The spacecraft object.
+        planet : pyRTX.Planet
+            The planet object.
+        moving_frames : list, optional
+            A list of any additional moving frames to precompute.
+        correction : str, default='CN'
+            The aberration correction to use.
 		"""
 		
 		# Get data
@@ -167,12 +202,20 @@ class Precompute():
 
 	def precomputeDrag(self, sc, planet_name, moving_frames = [], accel_frame = '', correction = 'LT+S'):
 		"""
-		Method to perform precalculation for drag acceleration.
-    
-		Params:
-		- sc: object of the class Spacecraft
-		- planet_name: name of the body
-		- accel_frame: frame of the acceleration
+        Adds all necessary computations for drag to the precomputation list.
+
+        Parameters
+        ----------
+        sc : pyRTX.Spacecraft
+            The spacecraft object.
+        planet_name : str
+            The name of the planet.
+        moving_frames : list, optional
+            A list of any additional moving frames to precompute.
+        accel_frame : str, optional
+            The reference frame for the acceleration.
+        correction : str, default='LT+S'
+            The aberration correction to use.
 		"""
 		
 		# Get data
@@ -198,10 +241,8 @@ class Precompute():
   
 	def dump(self):
 		"""
-		Method to perform precalculation.
-  
-		Params:
-		- filename: path to xarray
+        Performs all the precomputations and stores the results in an xarray
+        Dataset.
 		"""
 
 		datavars    = {}
@@ -261,7 +302,25 @@ class Precompute():
 
 	def getPosition(self, epoch, observer: str, target: str, frame: str, correction: str):
 		"""
-		Method to get position vector.
+        Retrieves a precomputed position vector.
+
+        Parameters
+        ----------
+        epoch : float
+            The epoch for which to retrieve the position.
+        observer : str
+            The name of the observing body.
+        target : str
+            The name of the target body.
+        frame : str
+            The reference frame of the position vector.
+        correction : str
+            The aberration correction used.
+
+        Returns
+        -------
+        numpy.ndarray
+            The position vector.
 		"""
 		param = f'{observer} / {target} / {frame} / {correction}'
 		return self._dataset.position.sel(time = epoch, pos_param = param).data
@@ -269,7 +328,25 @@ class Precompute():
 
 	def getState(self, epoch, observer: str, target: str, frame: str, correction: str):
 		"""
-		Method to get state vector.
+        Retrieves a precomputed state vector.
+
+        Parameters
+        ----------
+        epoch : float
+            The epoch for which to retrieve the state.
+        observer : str
+            The name of the observing body.
+        target : str
+            The name of the target body.
+        frame : str
+            The reference frame of the state vector.
+        correction : str
+            The aberration correction used.
+
+        Returns
+        -------
+        numpy.ndarray
+            The state vector.
 		"""
 		param = f'{observer} / {target} / {frame} / {correction}'
 		return self._dataset.state.sel(time = epoch, state_param = param).data
@@ -277,7 +354,21 @@ class Precompute():
 
 	def getRotation(self, epoch, base_frame: str, target_frame: str):
 		"""
-		Method to get rotation matrix.
+        Retrieves a precomputed rotation matrix.
+
+        Parameters
+        ----------
+        epoch : float
+            The epoch for which to retrieve the rotation matrix.
+        base_frame : str
+            The base reference frame.
+        target_frame : str
+            The target reference frame.
+
+        Returns
+        -------
+        numpy.ndarray
+            The rotation matrix.
 		"""
 		param = f'{base_frame} / {target_frame}'
 		return self._dataset.rotation.sel(time = epoch, rot_param = param).data
@@ -285,20 +376,45 @@ class Precompute():
 
 	def getArray(self):
 		"""
-		Method to get precomputed array.
+        Returns the entire xarray Dataset of precomputed values.
+
+        Returns
+        -------
+        xarray.Dataset
+            The Dataset of precomputed values.
 		"""
 		return self._dataset
 
 
 	def save(self, filename: str, complev: int = 1):
 		"""
-		Method to save precomputed array.
+        Saves the precomputed data to a NetCDF file.
+
+        Parameters
+        ----------
+        filename : str
+            The path to the output file.
+        complev : int, default=1
+            The compression level for the output file.
 		"""
 		if os.path.exists(filename): os.remove(filename)
 		self._dataset.to_netcdf(filename, encoding = self._dataset.encoding.update({'zlib': True, 'complevel': complev}))
 
 
 	def pxform_convert(self, pxform):
+		"""
+        Converts a 3x3 SPICE rotation matrix to a 4x4 transformation matrix.
+
+        Parameters
+        ----------
+        pxform : numpy.ndarray
+            The 3x3 rotation matrix.
+
+        Returns
+        -------
+        numpy.ndarray
+            The 4x4 transformation matrix.
+		"""
      
 		pxform = np.array([pxform[0],pxform[1],pxform[2]])
 		p = np.append(pxform,[[0,0,0]],0)

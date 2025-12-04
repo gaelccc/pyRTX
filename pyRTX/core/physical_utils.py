@@ -21,7 +21,18 @@ from pyRTX.core.utils_rt import(get_centroids, get_surface_normals_and_face_area
 
 def preprocess_RTX_geometry(mesh_obj):
 	"""
-	Preprocess the RTX output to obtain the information required
+    Preprocesses the geometry of a mesh object for ray-tracing.
+
+    Parameters
+    ----------
+    mesh_obj : trimesh.Trimesh
+        The mesh object to preprocess.
+
+    Returns
+    -------
+    tuple
+        A tuple containing the vertices, faces, face normals, and face areas
+        of the mesh.
 	"""
 
 	V = np.array(mesh_obj.vertices, dtype=np.float64)
@@ -34,13 +45,29 @@ def preprocess_RTX_geometry(mesh_obj):
 
 def preprocess_materials(material_dict):
 	"""
-	Get the material properties and set up an array for handling
-	Parameters:
-	material_dict: a dictionary with the shape:
-		{'props': dictionary of properties for each material, 'idxs': indexes of faces associated with each material}
-	
-	Returns:
-	prop_container: a (len(mesh), 2) numpy array containing [specular, diffuse] coefficients for each face of the mesh
+    Preprocesses a dictionary of material properties into a numpy array.
+
+    Parameters
+    ----------
+    material_dict : dict
+        A dictionary with the following structure:
+        {
+            'props': {
+                'material_name_1': {'specular': float, 'diffuse': float},
+                ...
+            },
+            'idxs': [
+                [start_idx_1, end_idx_1],
+                ...
+            ]
+        }
+
+    Returns
+    -------
+    numpy.ndarray
+        A (N, 2) numpy array where N is the number of faces in the mesh.
+        Each row contains the [specular, diffuse] coefficients for the
+        corresponding face.
 	"""
 
 	properties = material_dict['props']
@@ -59,21 +86,37 @@ def preprocess_materials(material_dict):
 
 def srp_core(flux, indexes_tri, indexes_ray, N, S, norm_factor, mesh_obj, materials = 'None', diffusion = False, num_diffuse = None, diffusion_pack = None):
 	"""
-	Core of SRP computation.
-	Highly vectorized version. For explicit algorithm implementation refer to the old version
+    Core computation of the solar radiation pressure force (vectorized).
 
-	Parameters:
-	flux: solar flux (float, W/m^2)
-	indexes_tri: indexes of intersected triangles
-	indexes_ray: indexes of intersecting rays
-	N: normals
-	S: incident direction vectors
-	norm_factor: normalization factor computed from ray spacing (float)
-	mesh_obj: trimesh.Trimesh object [Not used for now, will be used when interrogating mesh
-				for surface properties]
+    Parameters
+    ----------
+    flux : float
+        The incident solar flux in W/m^2.
+    indexes_tri : numpy.ndarray
+        The indices of the intersected triangles.
+    indexes_ray : numpy.ndarray
+        The indices of the intersecting rays.
+    N : numpy.ndarray
+        The normal vectors of the mesh faces.
+    S : numpy.ndarray
+        The incident ray direction vectors.
+    norm_factor : float
+        The normalization factor computed from ray spacing.
+    mesh_obj : trimesh.Trimesh
+        The `trimesh` object representing the spacecraft.
+    materials : str or numpy.ndarray, default='None'
+        A (N, 2) numpy array of material properties for each face.
+    diffusion : bool, default=False
+        If True, computes diffuse reflection forces.
+    num_diffuse : int, optional
+        The number of diffuse rays to sample per intersection.
+    diffusion_pack : list, optional
+        A list containing data from the diffusion ray-tracing pass.
 
-	Returns:
-	force: np.array of SRP force
+    Returns
+    -------
+    tuple
+        A tuple containing the SRP force vector and the new flux for the next bounce.
 	"""
 
 	c = constants.c
@@ -156,16 +199,41 @@ def srp_core(flux, indexes_tri, indexes_ray, N, S, norm_factor, mesh_obj, materi
 def compute_srp(flux, mesh_obj, index_tri, index_ray, location, ray_origins, ray_directions, pixel_spacing, materials = 'None', grouped = True,
 		diffusion = False, num_diffuse = None, diffusion_pack = None):
 	"""
-	Compute the SRP force
+    Computes the total solar radiation pressure force on a spacecraft.
 
-	Parameters:
-	flux: Solar input flux [W/m^2]
-	A: areas of the mesh faces
-	s: incident ray directions
-	r: reflcted ray directions
-	n: normal unit vector to the faces
+    Parameters
+    ----------
+    flux : float
+        The incident solar flux in W/m^2.
+    mesh_obj : trimesh.Trimesh
+        The spacecraft's mesh model.
+    index_tri : list of numpy.ndarray
+        A list of arrays of intersected triangle indices for each bounce.
+    index_ray : list of numpy.ndarray
+        A list of arrays of intersecting ray indices for each bounce.
+    location : list of numpy.ndarray
+        A list of arrays of intersection locations for each bounce.
+    ray_origins : list of numpy.ndarray
+        A list of arrays of ray origins for each bounce.
+    ray_directions : list of numpy.ndarray
+        A list of arrays of ray directions for each bounce.
+    pixel_spacing : float
+        The spacing between rays, used for normalization.
+    materials : str or numpy.ndarray, default='None'
+        A (N, 2) numpy array of material properties for each face.
+    grouped : bool, default=True
+        If True, returns the total force vector.
+    diffusion : bool, default=False
+        If True, computes diffuse reflection forces.
+    num_diffuse : int, optional
+        The number of diffuse rays to sample per intersection.
+    diffusion_pack : list, optional
+        A list containing data from the diffusion ray-tracing pass.
 
-
+    Returns
+    -------
+    numpy.ndarray or list
+        The total SRP force vector, or a list of per-face forces if `grouped` is False.
 	"""
 
 	# Compute geometric quantities	

@@ -23,31 +23,35 @@ class SunShadow():
 
 	This class simulates the shadow cast by a celestial body on a spacecraft,
 	accounting for solar limb darkening effects to provide a precise solar flux ratio.
-
-	Parameters
-	----------
-	spacecraft : object, optional
-	    An object representing the spacecraft, containing position and orientation.
-	body : str, optional
-	    The name of the celestial body causing the eclipse (e.g., 'Moon').
-	bodyRadius : float, optional
-	    The radius of the occulting body in kilometers.
-	numrays : int, default=100
-	    The number of rays to trace across the Sun's diameter.
-	sunRadius : float, default=600e3
-	    The radius of the Sun in kilometers.
-	bodyShape : object or str, optional
-	    A `Planet` object or a path to a shape model file.
-	bodyFrame : str, optional
-	    The SPICE reference frame for the body's shape model.
-	limbDarkening : str, default='Standard'
-	    The solar limb darkening model to use ('Standard', 'Eddington', or None).
-	precomputation : object, optional
-	    A `Precompute` object with precomputed SPICE data.
-
 	"""
 
 	def __init__(self, spacecraft = None, body = None, bodyRadius = None, numrays = 100, sunRadius = 600e3, bodyShape = None, bodyFrame = None, limbDarkening = 'Standard', precomputation = None):
+		"""
+        Initializes the SunShadow object.
+
+        Parameters
+        ----------
+        spacecraft : object, optional
+            An object representing the spacecraft, containing position and
+            orientation.
+        body : str, optional
+            The name of the celestial body causing the eclipse (e.g., 'Moon').
+        bodyRadius : float, optional
+            The radius of the occulting body in kilometers.
+        numrays : int, default=100
+            The number of rays to trace across the Sun's diameter.
+        sunRadius : float, default=600e3
+            The radius of the Sun in kilometers.
+        bodyShape : object or str, optional
+            A `Planet` object or a path to a shape model file.
+        bodyFrame : str, optional
+            The SPICE reference frame for the body's shape model.
+        limbDarkening : str, default='Standard'
+            The solar limb darkening model to use ('Standard', 'Eddington',
+            or None).
+        precomputation : object, optional
+            A `Precompute` object with precomputed SPICE data.
+		"""
 		
 		self.sunRadius = sunRadius
 		self.spacecraft = spacecraft
@@ -182,27 +186,31 @@ class SolarPressure():
 	This class orchestrates the SRP calculation by using a ray-tracer to simulate
 	sunlight hitting a spacecraft model. It accounts for material properties,
 	self-shadowing, and eclipse conditions.
-
-	Parameters
-	----------
-	spacecraft : object
-	    The spacecraft model, containing geometry and material properties.
-	rayTracer : object, optional
-	    A `RayTracer` object to perform the ray-tracing simulation.
-	baseflux : float, default=1361.5
-	    The nominal solar flux at 1 AU in W/m^2.
-	grouped : bool, default=True
-	    If True, returns the total force vector; otherwise, returns forces per-face.
-	shadowObj : object, optional
-	    A `SunShadow` object to compute eclipse factors.
-	lookup : object, optional
-	    A lookup table for precomputed SRP values.
-	precomputation : object, optional
-	    A `Precompute` object with precomputed SPICE data.
 	"""
 
 	
 	def __init__(self, spacecraft, rayTracer = None, baseflux = 1361.5, grouped = True, shadowObj = None, lookup = None, precomputation = None):
+		"""
+        Initializes the SolarPressure object.
+
+        Parameters
+        ----------
+        spacecraft : object
+            The spacecraft model, containing geometry and material properties.
+        rayTracer : object, optional
+            A `RayTracer` object to perform the ray-tracing simulation.
+        baseflux : float, default=1361.5
+            The nominal solar flux at 1 AU in W/m^2.
+        grouped : bool, default=True
+            If True, returns the total force vector; otherwise, returns
+            forces per-face.
+        shadowObj : object, optional
+            A `SunShadow` object to compute eclipse factors.
+        lookup : object, optional
+            A lookup table for precomputed SRP values.
+        precomputation : object, optional
+            A `Precompute` object with precomputed SPICE data.
+		"""
 
 		self.spacecraft = spacecraft
 		self.rayTracer  = rayTracer
