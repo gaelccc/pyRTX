@@ -47,6 +47,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#step-0-create-an-environment">Step 0: Create an environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#step-1-system-and-c-dependencies">Step 1: System and C++ Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#step-2-python-package-installation">Step 2: Python Package Installation</a></li>
 </ul>
@@ -281,6 +282,13 @@
 <span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
 <p><cite>pyRTX</cite> requires a two-step installation process to handle both its Python and C++ dependencies. The use of a virtual environment (e.g., Conda or venv) is strongly recommended.</p>
 <p><strong>Note:</strong> The installation has been tested and is currently supported on Linux only.</p>
+<section id="step-0-create-an-environment">
+<h2>Step 0: Create an environment<a class="headerlink" href="#step-0-create-an-environment" title="Permalink to this heading"></a></h2>
+<p>Create an environment specific to pyRTX.
+<cite>conda create –name pyRTX-env python=3.8</cite></p>
+<p>After the environment is created, activate it
+<cite>conda activate pyRTX-env</cite></p>
+</section>
 <section id="step-1-system-and-c-dependencies">
 <h2>Step 1: System and C++ Dependencies<a class="headerlink" href="#step-1-system-and-c-dependencies" title="Permalink to this heading"></a></h2>
 <p>Before installing the Python package, you must install the necessary C++ libraries.</p>

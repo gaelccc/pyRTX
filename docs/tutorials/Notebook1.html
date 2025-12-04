@@ -50,6 +50,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#step-0-create-an-environment">Step 0: Create an environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#step-1-system-and-c-dependencies">Step 1: System and C++ Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../installation.html#step-2-python-package-installation">Step 2: Python Package Installation</a></li>
 </ul>
@@ -289,33 +290,33 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Imports</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">spiceypy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span><span class="o">,</span><span class="w"> </span><span class="nn">timeit</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Imports
+import spiceypy as sp
+import xarray as xr
+import matplotlib.pyplot as plt
+import logging, timeit
+import numpy as np
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.Spacecraft</span><span class="w"> </span><span class="kn">import</span> <span class="n">Spacecraft</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.Planet</span><span class="w"> </span><span class="kn">import</span> <span class="n">Planet</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.PixelPlane</span><span class="w"> </span><span class="kn">import</span> <span class="n">PixelPlane</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.RayTracer</span><span class="w"> </span><span class="kn">import</span> <span class="n">RayTracer</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.SRP</span><span class="w"> </span><span class="kn">import</span> <span class="n">SunShadow</span><span class="p">,</span> <span class="n">SolarPressure</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.Precompute</span><span class="w"> </span><span class="kn">import</span> <span class="n">Precompute</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.analysis_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">epochRange2</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.visual.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_mesh</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+from pyRTX.classes.Spacecraft import Spacecraft
+from pyRTX.classes.Planet import Planet
+from pyRTX.classes.PixelPlane import PixelPlane
+from pyRTX.classes.RayTracer import RayTracer
+from pyRTX.classes.SRP import SunShadow, SolarPressure
+from pyRTX.classes.Precompute import Precompute
+from pyRTX.core.analysis_utils import epochRange2
+from pyRTX.visual.utils import plot_mesh
+import logging
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">floor</span><span class="p">,</span> <span class="n">mod</span>
+from numpy import floor, mod
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+import warnings
+warnings.filterwarnings(&#39;ignore&#39;)
 
-<span class="c1"># Managing Error messages from trimesh</span>
-<span class="c1"># (when concatenating textures, in this case, withouth .mtl definition, trimesh returns a warning that</span>
-<span class="c1">#  would fill the stdout. Deactivate it for a clean output)</span>
-<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;trimesh&#39;</span><span class="p">)</span>
-<span class="n">log</span><span class="o">.</span><span class="n">disabled</span> <span class="o">=</span> <span class="kc">True</span>
+# Managing Error messages from trimesh
+# (when concatenating textures, in this case, withouth .mtl definition, trimesh returns a warning that
+#  would fill the stdout. Deactivate it for a clean output)
+log = logging.getLogger(&#39;trimesh&#39;)
+log.disabled = True
 </pre></div>
 </div>
 </div>
@@ -323,11 +324,11 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># For all calculations requiring geometry/astrodynamic data we use SPICE</span>
-<span class="c1"># Thus a metakernel containing attitude/trajectory information must be provided</span>
-<span class="c1"># See the one provided in the example_data for an example</span>
-<span class="n">METAKR</span> <span class="o">=</span> <span class="s1">&#39;../example_data/LRO/metakernel_lro.tm&#39;</span>     <span class="c1"># metakernel</span>
-<span class="n">sp</span><span class="o">.</span><span class="n">furnsh</span><span class="p">(</span><span class="n">METAKR</span><span class="p">)</span>  <span class="c1"># Load the metakernel containing references to the necessary SPICE frames</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># For all calculations requiring geometry/astrodynamic data we use SPICE
+# Thus a metakernel containing attitude/trajectory information must be provided
+# See the one provided in the example_data for an example
+METAKR = &#39;../example_data/LRO/metakernel_lro.tm&#39;     # metakernel
+sp.furnsh(METAKR)  # Load the metakernel containing references to the necessary SPICE frames
 </pre></div>
 </div>
 </div>
@@ -335,29 +336,29 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here we define some general inputs needed by subsequent calculations</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Here we define some general inputs needed by subsequent calculations
 
-<span class="c1"># Define the time span of the calculation</span>
-<span class="n">ref_epc</span> <span class="o">=</span> <span class="s2">&quot;2010 may 10 09:25:00&quot;</span>  <span class="c1"># Start epoch of the computation</span>
-<span class="n">duration</span> <span class="o">=</span> <span class="mi">10000</span>     <span class="c1"># Time span (seconds)</span>
-<span class="n">timestep</span> <span class="o">=</span> <span class="mi">100</span>      <span class="c1"># Time step (seconds)</span>
+# Define the time span of the calculation
+ref_epc = &quot;2010 may 10 09:25:00&quot;  # Start epoch of the computation
+duration = 10000     # Time span (seconds)
+timestep = 100      # Time step (seconds)
 
-<span class="n">epc_et0</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">str2et</span><span class="p">(</span><span class="n">ref_epc</span><span class="p">)</span>
-<span class="n">epc_et1</span> <span class="o">=</span> <span class="n">epc_et0</span> <span class="o">+</span> <span class="n">duration</span>
-<span class="n">epochs</span> <span class="o">=</span> <span class="n">epochRange2</span><span class="p">(</span><span class="n">startEpoch</span><span class="o">=</span><span class="n">epc_et0</span><span class="p">,</span> <span class="n">endEpoch</span><span class="o">=</span><span class="n">epc_et1</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">timestep</span><span class="p">)</span>  <span class="c1"># This is a utility function to create equally spaed epoche</span>
+epc_et0 = sp.str2et(ref_epc)
+epc_et1 = epc_et0 + duration
+epochs = epochRange2(startEpoch=epc_et0, endEpoch=epc_et1, step=timestep)  # This is a utility function to create equally spaed epoche
 
-<span class="c1"># Ray tracing options</span>
-<span class="n">spacing</span> <span class="o">=</span> <span class="mf">0.01</span>      <span class="c1"># Spacing between rays (meters)</span>
+# Ray tracing options
+spacing = 0.01      # Spacing between rays (meters)
 
-<span class="c1"># We use the 3D shape of the spacecraft, thus the 3D files must be provided</span>
-<span class="c1"># Here we always use .obj fles, but other formats can be used</span>
-<span class="c1"># (as long as they&#39;re readable by trimesh)</span>
-<span class="n">obj_path</span> <span class="o">=</span> <span class="s1">&#39;../example_data/LRO/&#39;</span>
+# We use the 3D shape of the spacecraft, thus the 3D files must be provided
+# Here we always use .obj fles, but other formats can be used
+# (as long as they&#39;re readable by trimesh)
+obj_path = &#39;../example_data/LRO/&#39;
 
-<span class="c1"># Some physical constants</span>
-<span class="n">base_flux</span> <span class="o">=</span> <span class="mf">1361.5</span>   <span class="c1"># Sun flux in W/m2</span>
-<span class="n">ref_radius</span> <span class="o">=</span> <span class="mf">1737.4</span>  <span class="c1"># Reference radius of the Moon for eclipse calculations</span>
-<span class="n">n_cores</span> <span class="o">=</span> <span class="mi">10</span>         <span class="c1"># number of cores for parallel calculations</span>
+# Some physical constants
+base_flux = 1361.5   # Sun flux in W/m2
+ref_radius = 1737.4  # Reference radius of the Moon for eclipse calculations
+n_cores = 10         # number of cores for parallel calculations
 <br/><br/><br/></pre></div>
 </div>
 </div>
@@ -368,67 +369,67 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># The spacecraft mass can be a float, int or a xarray with times and values [kg]</span>
-<span class="c1"># Here we use the simple case of a constant mass. See other examples for more details</span>
-<span class="c1"># on using a time-variable mass</span>
-<span class="n">sc_mass</span> <span class="o">=</span> <span class="mi">2000</span>  <span class="c1"># kg</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># The spacecraft mass can be a float, int or a xarray with times and values [kg]
+# Here we use the simple case of a constant mass. See other examples for more details
+# on using a time-variable mass
+sc_mass = 2000  # kg
 
 
-<span class="c1"># 3D shape definition</span>
+# 3D shape definition
 
-<span class="c1"># Define the Spacecraft Object</span>
-<span class="c1"># The spacecraft object is basically a dictionary</span>
-<span class="c1"># containing each component of the spacecraft.</span>
-<span class="c1"># Each component must have a 3d shape,  a reference frame,</span>
-<span class="c1"># a position and thermo-optical coeffiients (diffusive and specular)</span>
-<span class="c1">#</span>
-<span class="c1"># The reference frame of each object can be defined as the name</span>
-<span class="c1"># of a spice frame (frame_type = &#39;Spice&#39;) thus CK kernels must be provided</span>
-<span class="c1"># or as a User Defined frame (frame_type = &#39;UD&#39;). In this case the user must provide the</span>
-<span class="c1"># rotation matrix between the object frame and the base frame of the overall spaecraft.</span>
-<span class="c1"># Here we use the Spice frames defined for LRO. In another example we&#39;ll see how to</span>
-<span class="c1"># use custom frames to achieve different results.</span>
-
-
-<span class="c1">#(Refer to the class documentation for further details)</span>
-
-<span class="n">lro</span> <span class="o">=</span> <span class="n">Spacecraft</span><span class="p">(</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;LRO&#39;</span><span class="p">,</span>
-
-                              <span class="n">base_frame</span> <span class="o">=</span> <span class="s1">&#39;LRO_SC_BUS&#39;</span><span class="p">,</span>                                         <span class="c1"># Name of the spacecraft body-fixed frame</span>
-
-                  <span class="n">mass</span> <span class="o">=</span> <span class="n">sc_mass</span><span class="p">,</span>
-
-                              <span class="n">spacecraft_model</span> <span class="o">=</span> <span class="p">{</span>                                                   <span class="c1"># Define a spacecraft model</span>
-
-                                    <span class="s1">&#39;LRO_BUS&#39;</span><span class="p">:</span> <span class="p">{</span>
-                                                     <span class="s1">&#39;file&#39;</span> <span class="p">:</span> <span class="n">obj_path</span> <span class="o">+</span> <span class="s1">&#39;bus_rotated.obj&#39;</span><span class="p">,</span>  <span class="c1"># .obj file of the spacecraft component</span>
-                                                     <span class="s1">&#39;frame_type&#39;</span><span class="p">:</span> <span class="s1">&#39;Spice&#39;</span><span class="p">,</span>                              <span class="c1"># type of frame (can be &#39;Spice&#39; or &#39;UD&#39;)</span>
-                                                     <span class="s1">&#39;frame_name&#39;</span><span class="p">:</span> <span class="s1">&#39;LRO_SC_BUS&#39;</span><span class="p">,</span>                     <span class="c1"># Name of the frame</span>
-                                                     <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">],</span>                            <span class="c1"># Origin of the component in the S/C frame</span>
-                                                     <span class="s1">&#39;diffuse&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>                                         <span class="c1"># Diffuse reflect. coefficient</span>
-                                                     <span class="s1">&#39;specular&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>                                        <span class="c1"># Specular reflect. coefficient</span>
-                                                     <span class="p">},</span>
-
-                                    <span class="s1">&#39;LRO_SA&#39;</span><span class="p">:</span> <span class="p">{</span>
-                                                    <span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="n">obj_path</span> <span class="o">+</span> <span class="s1">&#39;SA_recentred.obj&#39;</span><span class="p">,</span>
-                                                    <span class="s1">&#39;frame_type&#39;</span><span class="p">:</span> <span class="s1">&#39;Spice&#39;</span><span class="p">,</span>
-                                                    <span class="s1">&#39;frame_name&#39;</span><span class="p">:</span> <span class="s1">&#39;LRO_SA&#39;</span><span class="p">,</span>
-                                                    <span class="s1">&#39;center&#39;</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.1</span><span class="p">],</span>
-                                                    <span class="s1">&#39;diffuse&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-                                                    <span class="s1">&#39;specular&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>
-                                                    <span class="p">},</span>
+# Define the Spacecraft Object
+# The spacecraft object is basically a dictionary
+# containing each component of the spacecraft.
+# Each component must have a 3d shape,  a reference frame,
+# a position and thermo-optical coeffiients (diffusive and specular)
+#
+# The reference frame of each object can be defined as the name
+# of a spice frame (frame_type = &#39;Spice&#39;) thus CK kernels must be provided
+# or as a User Defined frame (frame_type = &#39;UD&#39;). In this case the user must provide the
+# rotation matrix between the object frame and the base frame of the overall spaecraft.
+# Here we use the Spice frames defined for LRO. In another example we&#39;ll see how to
+# use custom frames to achieve different results.
 
 
-                                    <span class="s1">&#39;LRO_HGA&#39;</span><span class="p">:</span> <span class="p">{</span>
-                                                    <span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="n">obj_path</span> <span class="o">+</span> <span class="s1">&#39;HGA_recentred.obj&#39;</span><span class="p">,</span>
-                                                    <span class="s1">&#39;frame_type&#39;</span><span class="p">:</span> <span class="s1">&#39;Spice&#39;</span><span class="p">,</span>
-                                                    <span class="s1">&#39;frame_name&#39;</span><span class="p">:</span> <span class="s1">&#39;LRO_HGA&#39;</span><span class="p">,</span>
-                                                    <span class="s1">&#39;center&#39;</span><span class="p">:[</span><span class="o">-</span><span class="mf">0.99</span><span class="p">,</span>    <span class="o">-</span><span class="mf">0.3</span><span class="p">,</span>  <span class="o">-</span><span class="mf">3.1</span><span class="p">],</span>
-                                                    <span class="s1">&#39;diffuse&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span>
-                                                    <span class="s1">&#39;specular&#39;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
-                                                    <span class="p">},</span>
-                                    <span class="p">}</span>
-                            <span class="p">)</span>
+#(Refer to the class documentation for further details)
+
+lro = Spacecraft( name = &#39;LRO&#39;,
+
+                              base_frame = &#39;LRO_SC_BUS&#39;,                                         # Name of the spacecraft body-fixed frame
+
+                  mass = sc_mass,
+
+                              spacecraft_model = {                                                   # Define a spacecraft model
+
+                                    &#39;LRO_BUS&#39;: {
+                                                     &#39;file&#39; : obj_path + &#39;bus_rotated.obj&#39;,  # .obj file of the spacecraft component
+                                                     &#39;frame_type&#39;: &#39;Spice&#39;,                              # type of frame (can be &#39;Spice&#39; or &#39;UD&#39;)
+                                                     &#39;frame_name&#39;: &#39;LRO_SC_BUS&#39;,                     # Name of the frame
+                                                     &#39;center&#39;: [0.0,0.0,0.0],                            # Origin of the component in the S/C frame
+                                                     &#39;diffuse&#39;: 0.1,                                         # Diffuse reflect. coefficient
+                                                     &#39;specular&#39;: 0.3,                                        # Specular reflect. coefficient
+                                                     },
+
+                                    &#39;LRO_SA&#39;: {
+                                                    &#39;file&#39;: obj_path + &#39;SA_recentred.obj&#39;,
+                                                    &#39;frame_type&#39;: &#39;Spice&#39;,
+                                                    &#39;frame_name&#39;: &#39;LRO_SA&#39;,
+                                                    &#39;center&#39;: [-1,-1.1, -0.1],
+                                                    &#39;diffuse&#39;: 0,
+                                                    &#39;specular&#39;: 0.3,
+                                                    },
+
+
+                                    &#39;LRO_HGA&#39;: {
+                                                    &#39;file&#39;: obj_path + &#39;HGA_recentred.obj&#39;,
+                                                    &#39;frame_type&#39;: &#39;Spice&#39;,
+                                                    &#39;frame_name&#39;: &#39;LRO_HGA&#39;,
+                                                    &#39;center&#39;:[-0.99,    -0.3,  -3.1],
+                                                    &#39;diffuse&#39;: 0.2,
+                                                    &#39;specular&#39;: 0.1,
+                                                    },
+                                    }
+                            )
 <br/></pre></div>
 </div>
 </div>
@@ -436,19 +437,19 @@
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s visualize the spacecraft to make sure everything is set up properly</span>
-<span class="n">lro</span><span class="o">.</span><span class="n">info</span><span class="p">()</span> <span class="c1"># Print information about the spaceraft shape components</span>
-<span class="c1"># Get the mesh of the whole spacecraft at a certain time</span>
-<span class="c1"># The split option allows to retrieve the separate meshes for each component</span>
-<span class="n">mesh</span> <span class="o">=</span> <span class="n">lro</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">epc_et0</span><span class="p">,</span> <span class="n">split</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-<span class="n">mesh_names</span> <span class="o">=</span> <span class="n">lro</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Let&#39;s visualize the spacecraft to make sure everything is set up properly
+lro.info() # Print information about the spaceraft shape components
+# Get the mesh of the whole spacecraft at a certain time
+# The split option allows to retrieve the separate meshes for each component
+mesh = lro.dump(epc_et0, split = True)
+mesh_names = lro.spacecraft_model.keys()
 
-<span class="c1"># Use the visualization utility</span>
-<span class="n">plot_mesh</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span>
-          <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;LRO&#39;</span><span class="p">,</span>
-          <span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mesh_names</span><span class="p">),</span>
-          <span class="n">elev</span> <span class="o">=</span> <span class="mi">45</span><span class="p">,</span> <span class="n">azim</span> <span class="o">=</span> <span class="mi">140</span> <span class="c1"># These are the angles of the viewpoint</span>
-         <span class="p">)</span>
+# Use the visualization utility
+plot_mesh(mesh,
+          title = &#39;LRO&#39;,
+          labels = list(mesh_names),
+          elev = 45, azim = 140 # These are the angles of the viewpoint
+         )
 <br/></pre></div>
 </div>
 </div>
@@ -493,41 +494,41 @@ Spacecraft LRO composed of 3 elements:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># In pyRTX for most uses, the Sun is modeled as a rectangular</span>
-<span class="c1"># &quot;pixel plane&quot;. This is substantially a source plane for all</span>
-<span class="c1"># the rays that will be tracked (traced).</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># In pyRTX for most uses, the Sun is modeled as a rectangular
+# &quot;pixel plane&quot;. This is substantially a source plane for all
+# the rays that will be tracked (traced).
 
-<span class="c1"># Define the Sun rays object</span>
-<span class="n">rays</span> <span class="o">=</span> <span class="n">PixelPlane</span><span class="p">(</span> <span class="n">spacecraft</span>  <span class="o">=</span> <span class="n">lro</span><span class="p">,</span>         <span class="c1"># Spacecraft object</span>
-                           <span class="n">mode</span>        <span class="o">=</span> <span class="s1">&#39;Dynamic&#39;</span><span class="p">,</span>   <span class="c1"># Mode: can be &#39;Dynamic&#39; ( The sun orientation is computed from the kernels), or &#39;Fixed&#39;</span>
-                           <span class="n">distance</span>    <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>             <span class="c1"># Distance of the ray origin from the spacecraft (in meters)</span>
-                           <span class="n">source</span>      <span class="o">=</span> <span class="s1">&#39;Sun&#39;</span><span class="p">,</span>       <span class="c1"># Source body (used to compute the orientation of the rays wrt. spacecraft)</span>
-                           <span class="n">width</span>       <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>              <span class="c1"># Width of the pixel plane (in m)</span>
-                           <span class="n">height</span>      <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>          <span class="c1"># Height of the pixel plane (in m)</span>
-                           <span class="n">ray_spacing</span> <span class="o">=</span> <span class="n">spacing</span><span class="p">,</span>     <span class="c1"># Ray spacing (in m)</span>
-                               <span class="p">)</span>
-
-
-<span class="c1"># Define the ray tracer</span>
-<span class="n">rtx</span> <span class="o">=</span> <span class="n">RayTracer</span><span class="p">(</span> <span class="n">lro</span><span class="p">,</span>                    <span class="c1"># Spacecraft object</span>
-                 <span class="n">rays</span><span class="p">,</span>                   <span class="c1"># pixelPlane object</span>
-                 <span class="n">kernel</span> <span class="o">=</span> <span class="s1">&#39;Embree3&#39;</span><span class="p">,</span>     <span class="c1"># The RTX kernel to use (can be either Embree or Embree 3)</span>
-                 <span class="n">bounces</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>            <span class="c1"># The number of bounces to account for</span>
-                 <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>      <span class="c1"># Account for secondary diffusion</span>
-                <span class="p">)</span>
+# Define the Sun rays object
+rays = PixelPlane( spacecraft  = lro,         # Spacecraft object
+                           mode        = &#39;Dynamic&#39;,   # Mode: can be &#39;Dynamic&#39; ( The sun orientation is computed from the kernels), or &#39;Fixed&#39;
+                           distance    = 100,             # Distance of the ray origin from the spacecraft (in meters)
+                           source      = &#39;Sun&#39;,       # Source body (used to compute the orientation of the rays wrt. spacecraft)
+                           width       = 10,              # Width of the pixel plane (in m)
+                           height      = 10,          # Height of the pixel plane (in m)
+                           ray_spacing = spacing,     # Ray spacing (in m)
+                               )
 
 
+# Define the ray tracer
+rtx = RayTracer( lro,                    # Spacecraft object
+                 rays,                   # pixelPlane object
+                 kernel = &#39;Embree3&#39;,     # The RTX kernel to use (can be either Embree or Embree 3)
+                 bounces = 1,            # The number of bounces to account for
+                 diffusion = False,      # Account for secondary diffusion
+                )
 
-<span class="c1"># Define the solar pressure object</span>
-<span class="n">srp</span> <span class="o">=</span> <span class="n">SolarPressure</span><span class="p">(</span> <span class="n">lro</span><span class="p">,</span>
-                                 <span class="n">rtx</span><span class="p">,</span>
-                                 <span class="n">baseflux</span>       <span class="o">=</span> <span class="n">base_flux</span><span class="p">,</span>    <span class="c1"># Here we use the None option to obtain the generalized geometry vector, used also for the computation of albedo and thermal infrared</span>
-                                 <span class="n">shadowObj</span>      <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 
-                                 <span class="p">)</span>
-<span class="c1"># Compute the SRP acceleration</span>
-<span class="c1"># Note the default output of srp.compute is in km/s2</span>
-<span class="n">accel</span> <span class="o">=</span> <span class="n">srp</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e3</span>
+
+# Define the solar pressure object
+srp = SolarPressure( lro,
+                                 rtx,
+                                 baseflux       = base_flux,    # Here we use the None option to obtain the generalized geometry vector, used also for the computation of albedo and thermal infrared
+                                 shadowObj      = None,
+
+                                 )
+# Compute the SRP acceleration
+# Note the default output of srp.compute is in km/s2
+accel = srp.compute(epochs, n_cores = 1) * 1e3
 </pre></div>
 </div>
 </div>
@@ -535,20 +536,20 @@ Spacecraft LRO composed of 3 elements:
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s plot the results</span>
-<span class="n">eps</span>  <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span> <span class="n">epc</span> <span class="o">-</span> <span class="n">epc_et0</span><span class="p">)</span><span class="o">/</span><span class="mi">3600</span> <span class="k">for</span> <span class="n">epc</span> <span class="ow">in</span> <span class="n">epochs</span><span class="p">]</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Let&#39;s plot the results
+eps  = [float( epc - epc_et0)/3600 for epc in epochs]
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">sharex</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+fig, ax = plt.subplots(4, 1, figsize=(14,8), sharex = True)
 
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">eps</span><span class="p">,</span> <span class="n">accel</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;X [m/s^2]&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">eps</span><span class="p">,</span> <span class="n">accel</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y [m/s^2]&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">eps</span><span class="p">,</span> <span class="n">accel</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Z [m/s^2]&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">eps</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">accel</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Total Acceleration [m/s^2]&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Hours from t0&#39;</span><span class="p">)</span>
+ax[0].plot(eps, accel[:,0], linewidth = 2, color = &quot;tab:blue&quot;)
+ax[0].set_ylabel(&#39;X [m/s^2]&#39;)
+ax[1].plot(eps, accel[:,1], linewidth = 2, color = &quot;tab:blue&quot;)
+ax[1].set_ylabel(&#39;Y [m/s^2]&#39;)
+ax[2].plot(eps, accel[:,2], linewidth = 2, color = &quot;tab:blue&quot;)
+ax[2].set_ylabel(&#39;Z [m/s^2]&#39;)
+ax[3].plot(eps, np.linalg.norm(accel, axis = 1))
+ax[3].set_ylabel(&#39;Total Acceleration [m/s^2]&#39;)
+ax[3].set_xlabel(&#39;Hours from t0&#39;)
 </pre></div>
 </div>
 </div>
@@ -575,12 +576,12 @@ Text(0.5, 0, &#39;Hours from t0&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get four epochs from tspan</span>
-<span class="n">n_epochs</span> <span class="o">=</span> <span class="p">[</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">epochs</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span><span class="o">//</span><span class="mi">3</span><span class="p">],</span> <span class="n">epochs</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">epochs</span><span class="p">)</span><span class="o">//</span><span class="mi">3</span><span class="p">],</span> <span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
-<span class="c1"># Quickly plot them onto the previous plot just to make sure they&#39;re corret</span>
-<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">n_epochs</span><span class="p">:</span>
-    <span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span> <span class="n">e</span> <span class="o">-</span> <span class="n">epc_et0</span><span class="p">)</span><span class="o">/</span><span class="mi">3600</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">display</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Get four epochs from tspan
+n_epochs = [ epochs[0], epochs[len(epochs)//3], epochs[2*len(epochs)//3], epochs[-1]]
+# Quickly plot them onto the previous plot just to make sure they&#39;re corret
+for e in n_epochs:
+    ax[3].axvline(float( e - epc_et0)/3600, color = &#39;k&#39;, linewidth = 2)
+display(fig)
 </pre></div>
 </div>
 </div>
@@ -595,36 +596,36 @@ Text(0.5, 0, &#39;Hours from t0&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s get the Sun&#39;s diretion in the spacecraft frame at those epochs:</span>
-<span class="c1"># and look at the spacecraft shape from the Sun&#39;s viewpoint</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Let&#39;s get the Sun&#39;s diretion in the spacecraft frame at those epochs:
+# and look at the spacecraft shape from the Sun&#39;s viewpoint
 
-<span class="n">unit_vectors</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">directions</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">ep</span> <span class="ow">in</span> <span class="n">n_epochs</span><span class="p">:</span>
-    <span class="n">sunPos</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">spkezr</span><span class="p">(</span><span class="s1">&#39;Sun&#39;</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="s1">&#39;LRO_SC_BUS&#39;</span><span class="p">,</span> <span class="s1">&#39;LT+S&#39;</span><span class="p">,</span> <span class="s1">&#39;LRO&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
-    <span class="n">unit_vector</span> <span class="o">=</span>  <span class="n">sunPos</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">sunPos</span><span class="p">)</span>
-    <span class="n">_</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">dec</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">recrad</span><span class="p">(</span><span class="n">unit_vector</span><span class="p">)</span>
-    <span class="n">directions</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">ra</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">dec</span><span class="o">*</span><span class="mi">180</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">])</span>
+unit_vectors = []
+directions = []
+for ep in n_epochs:
+    sunPos = sp.spkezr(&#39;Sun&#39;, ep, &#39;LRO_SC_BUS&#39;, &#39;LT+S&#39;, &#39;LRO&#39;)[0][0:3]
+    unit_vector =  sunPos/np.linalg.norm(sunPos)
+    _, ra, dec = sp.recrad(unit_vector)
+    directions.append([ra*180/np.pi,dec*180/np.pi])
 
 
-<span class="c1"># Now plot the four attitudes</span>
-<span class="n">start_point</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="c1"># Origin of the sun direction arrow</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">)):</span>
-    <span class="n">mesh</span> <span class="o">=</span> <span class="n">lro</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">split</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-    <span class="c1"># Plot the spacecraft</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_mesh</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span>
-              <span class="n">title</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">et2utc</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-              <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span>
-              <span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mesh_names</span><span class="p">),</span>
-              <span class="n">elev</span> <span class="o">=</span> <span class="n">directions</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">azim</span> <span class="o">=</span> <span class="n">directions</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># These are the angles of the viewpoint</span>
+# Now plot the four attitudes
+start_point = [0, 0, 0] # Origin of the sun direction arrow
+for i in range(len(n_epochs)):
+    mesh = lro.dump(n_epochs[i], split = True)
+    # Plot the spacecraft
+    fig, ax = plot_mesh(mesh,
+              title = sp.et2utc(n_epochs[i], &#39;C&#39;, 1),
+              figsize = (5,5),
+              labels = list(mesh_names),
+              elev = directions[i][1], azim = directions[i][0] # These are the angles of the viewpoint
 
-                    <span class="p">)</span>
-    <span class="c1"># This is to add the direction of the sun as an arrow.</span>
-    <span class="c1"># Add the arrow</span>
-    <span class="c1"># direction = unit_vectors[i]</span>
-    <span class="c1"># ax.quiver(start_point[0], start_point[1], start_point[2],</span>
-    <span class="c1">#       direction[0], direction[1], direction[2],</span>
-    <span class="c1">#       color=&#39;red&#39;, arrow_length_ratio=0.2, linewidth=2)</span>
+                    )
+    # This is to add the direction of the sun as an arrow.
+    # Add the arrow
+    # direction = unit_vectors[i]
+    # ax.quiver(start_point[0], start_point[1], start_point[2],
+    #       direction[0], direction[1], direction[2],
+    #       color=&#39;red&#39;, arrow_length_ratio=0.2, linewidth=2)
 </pre></div>
 </div>
 </div>
@@ -665,51 +666,51 @@ Text(0.5, 0, &#39;Hours from t0&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the Moon object</span>
-<span class="c1"># This can be defined as a sphere with a set radius</span>
-<span class="c1"># or its shape can be loaded from an .obj 3D file.</span>
-<span class="c1">#</span>
-<span class="n">moon</span> <span class="o">=</span> <span class="n">Planet</span><span class="p">(</span>  <span class="n">fromFile</span>      <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="c1"># If None a sphere will be used</span>
-                <span class="n">radius</span>        <span class="o">=</span> <span class="n">ref_radius</span><span class="p">,</span> <span class="c1"># This is the radius of the sphere</span>
-                <span class="n">name</span>          <span class="o">=</span> <span class="s1">&#39;Moon&#39;</span><span class="p">,</span>
-                <span class="n">bodyFrame</span>     <span class="o">=</span> <span class="s1">&#39;MOON_ME&#39;</span><span class="p">,</span> <span class="c1"># Moon body-fixed frame</span>
-                <span class="n">sunFixedFrame</span> <span class="o">=</span> <span class="s1">&#39;GSE_MOON&#39;</span><span class="p">,</span> <span class="c1"># Sun-fixed frame (more details in the albedo example)</span>
-                <span class="n">units</span>         <span class="o">=</span> <span class="s1">&#39;km&#39;</span><span class="p">,</span>
-                <span class="n">subdivs</span>       <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="c1"># How detailed the sphere will be (this is an input to trimesh.creation.icosphere</span>
-                <span class="p">)</span>                  <span class="c1"># see trimesh documentation for more details)</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the Moon object
+# This can be defined as a sphere with a set radius
+# or its shape can be loaded from an .obj 3D file.
+#
+moon = Planet(  fromFile      = None, # If None a sphere will be used
+                radius        = ref_radius, # This is the radius of the sphere
+                name          = &#39;Moon&#39;,
+                bodyFrame     = &#39;MOON_ME&#39;, # Moon body-fixed frame
+                sunFixedFrame = &#39;GSE_MOON&#39;, # Sun-fixed frame (more details in the albedo example)
+                units         = &#39;km&#39;,
+                subdivs       = 5, # How detailed the sphere will be (this is an input to trimesh.creation.icosphere
+                )                  # see trimesh documentation for more details)
 
 
-<span class="n">shadow</span> <span class="o">=</span> <span class="n">SunShadow</span><span class="p">(</span> <span class="n">spacecraft</span>     <span class="o">=</span> <span class="n">lro</span><span class="p">,</span>
-                                <span class="n">body</span>           <span class="o">=</span> <span class="s1">&#39;Moon&#39;</span><span class="p">,</span>
-                                <span class="n">bodyShape</span>      <span class="o">=</span> <span class="n">moon</span><span class="p">,</span>
-                                <span class="n">limbDarkening</span>  <span class="o">=</span> <span class="s1">&#39;Eddington&#39;</span><span class="p">,</span>
-                            <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                                <span class="p">)</span>
+shadow = SunShadow( spacecraft     = lro,
+                                body           = &#39;Moon&#39;,
+                                bodyShape      = moon,
+                                limbDarkening  = &#39;Eddington&#39;,
+                            precomputation = None,
+                                )
 
-<span class="c1"># Define the solar pressure object</span>
-<span class="n">srp</span> <span class="o">=</span> <span class="n">SolarPressure</span><span class="p">(</span> <span class="n">lro</span><span class="p">,</span>
-                                 <span class="n">rtx</span><span class="p">,</span>
-                                 <span class="n">baseflux</span>       <span class="o">=</span> <span class="n">base_flux</span><span class="p">,</span>
-                                 <span class="n">shadowObj</span>      <span class="o">=</span> <span class="n">shadow</span><span class="p">,</span> <span class="c1"># Note the differene here</span>
+# Define the solar pressure object
+srp = SolarPressure( lro,
+                                 rtx,
+                                 baseflux       = base_flux,
+                                 shadowObj      = shadow, # Note the differene here
 
-                                 <span class="p">)</span>
+                                 )
 
-<span class="c1"># Compute the SRP acceleration</span>
-<span class="n">accel</span> <span class="o">=</span> <span class="n">srp</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e3</span>
- <span class="c1"># Let&#39;s plot the results</span>
-<span class="n">eps</span>  <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span> <span class="n">epc</span> <span class="o">-</span> <span class="n">epc_et0</span><span class="p">)</span><span class="o">/</span><span class="mi">3600</span> <span class="k">for</span> <span class="n">epc</span> <span class="ow">in</span> <span class="n">epochs</span><span class="p">]</span>
+# Compute the SRP acceleration
+accel = srp.compute(epochs, n_cores = 1) * 1e3
+ # Let&#39;s plot the results
+eps  = [float( epc - epc_et0)/3600 for epc in epochs]
 
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">sharex</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+fig, ax = plt.subplots(4, 1, figsize=(14,8), sharex = True)
 
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">eps</span><span class="p">,</span> <span class="n">accel</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;X [m/s^2]&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">eps</span><span class="p">,</span> <span class="n">accel</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Y [m/s^2]&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">eps</span><span class="p">,</span> <span class="n">accel</span><span class="p">[:,</span><span class="mi">2</span><span class="p">],</span> <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;tab:blue&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Z [m/s^2]&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">eps</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">accel</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Total Acceleration [m/s^2]&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Hours from t0&#39;</span><span class="p">)</span>
+ax[0].plot(eps, accel[:,0], linewidth = 2, color = &quot;tab:blue&quot;)
+ax[0].set_ylabel(&#39;X [m/s^2]&#39;)
+ax[1].plot(eps, accel[:,1], linewidth = 2, color = &quot;tab:blue&quot;)
+ax[1].set_ylabel(&#39;Y [m/s^2]&#39;)
+ax[2].plot(eps, accel[:,2], linewidth = 2, color = &quot;tab:blue&quot;)
+ax[2].set_ylabel(&#39;Z [m/s^2]&#39;)
+ax[3].plot(eps, np.linalg.norm(accel, axis = 1))
+ax[3].set_ylabel(&#39;Total Acceleration [m/s^2]&#39;)
+ax[3].set_xlabel(&#39;Hours from t0&#39;)
 <br/></pre></div>
 </div>
 </div>
@@ -739,49 +740,49 @@ Text(0.5, 0, &#39;Hours from t0&#39;)
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># First let&#39;s time the normal execution</span>
-<span class="n">tic</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span>
-<span class="n">accel</span> <span class="o">=</span> <span class="n">srp</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e3</span>
-<span class="n">toc</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time for single-core execution: </span><span class="si">{}</span><span class="s1"> sec&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">toc</span><span class="o">-</span><span class="n">tic</span><span class="p">))</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># First let&#39;s time the normal execution
+tic = timeit.default_timer()
+accel = srp.compute(epochs, n_cores = 1) * 1e3
+toc = timeit.default_timer()
+print(&#39;Time for single-core execution: {} sec&#39;.format(toc-tic))
 
 
-<span class="c1"># Let&#39;s now use the parallelization</span>
+# Let&#39;s now use the parallelization
 
-<span class="c1"># Precomputation object. This object performs all the calls to spiceypy before</span>
-<span class="c1"># calculating the acceleration. This is necessary when calculating the acceleration</span>
-<span class="c1"># with parallel cores.</span>
-<span class="n">prec</span> <span class="o">=</span> <span class="n">Precompute</span><span class="p">(</span><span class="n">epochs</span> <span class="o">=</span> <span class="n">epochs</span><span class="p">,)</span>
-<span class="n">prec</span><span class="o">.</span><span class="n">precomputeSolarPressure</span><span class="p">(</span><span class="n">lro</span><span class="p">,</span> <span class="n">moon</span><span class="p">,</span> <span class="n">correction</span><span class="o">=</span><span class="s1">&#39;LT+S&#39;</span><span class="p">)</span>
-<span class="n">prec</span><span class="o">.</span><span class="n">dump</span><span class="p">()</span>
+# Precomputation object. This object performs all the calls to spiceypy before
+# calculating the acceleration. This is necessary when calculating the acceleration
+# with parallel cores.
+prec = Precompute(epochs = epochs,)
+prec.precomputeSolarPressure(lro, moon, correction=&#39;LT+S&#39;)
+prec.dump()
 
-<span class="n">shadow</span> <span class="o">=</span> <span class="n">SunShadow</span><span class="p">(</span> <span class="n">spacecraft</span>     <span class="o">=</span> <span class="n">lro</span><span class="p">,</span>
-                                <span class="n">body</span>           <span class="o">=</span> <span class="s1">&#39;Moon&#39;</span><span class="p">,</span>
-                                <span class="n">bodyShape</span>      <span class="o">=</span> <span class="n">moon</span><span class="p">,</span>
-                                <span class="n">limbDarkening</span>  <span class="o">=</span> <span class="s1">&#39;Eddington&#39;</span><span class="p">,</span>
-                            <span class="n">precomputation</span> <span class="o">=</span> <span class="n">prec</span><span class="p">,</span> <span class="c1"># Note the difference here</span>
-                                <span class="p">)</span>
+shadow = SunShadow( spacecraft     = lro,
+                                body           = &#39;Moon&#39;,
+                                bodyShape      = moon,
+                                limbDarkening  = &#39;Eddington&#39;,
+                            precomputation = prec, # Note the difference here
+                                )
 
-<span class="c1"># Define the solar pressure object</span>
-<span class="n">srp</span> <span class="o">=</span> <span class="n">SolarPressure</span><span class="p">(</span> <span class="n">lro</span><span class="p">,</span>
-                                 <span class="n">rtx</span><span class="p">,</span>
-                                 <span class="n">baseflux</span>       <span class="o">=</span> <span class="n">base_flux</span><span class="p">,</span>
-                                 <span class="n">shadowObj</span>      <span class="o">=</span> <span class="n">shadow</span><span class="p">,</span>
-                     <span class="n">precomputation</span> <span class="o">=</span> <span class="n">prec</span><span class="p">,</span> <span class="c1"># Note the difference here</span>
-                                 <span class="p">)</span>
+# Define the solar pressure object
+srp = SolarPressure( lro,
+                                 rtx,
+                                 baseflux       = base_flux,
+                                 shadowObj      = shadow,
+                     precomputation = prec, # Note the difference here
+                                 )
 
-<span class="n">N_cores</span> <span class="o">=</span> <span class="mi">5</span>
-<span class="n">tic</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span>
-<span class="n">accel</span> <span class="o">=</span> <span class="n">srp</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="n">N_cores</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e3</span>
-<span class="n">toc</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time for multi-core execution (N cores </span><span class="si">{}</span><span class="s1">): </span><span class="si">{}</span><span class="s1"> sec&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">N_cores</span><span class="p">,</span> <span class="n">toc</span><span class="o">-</span><span class="n">tic</span><span class="p">))</span>
+N_cores = 5
+tic = timeit.default_timer()
+accel = srp.compute(epochs, n_cores = N_cores) * 1e3
+toc = timeit.default_timer()
+print(&#39;Time for multi-core execution (N cores {}): {} sec&#39;.format(N_cores, toc-tic))
 
 
-<span class="n">N_cores</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="n">tic</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span>
-<span class="n">accel</span> <span class="o">=</span> <span class="n">srp</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="n">N_cores</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e3</span>
-<span class="n">toc</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time for multi-core execution (N cores </span><span class="si">{}</span><span class="s1">): </span><span class="si">{}</span><span class="s1"> sec&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">N_cores</span><span class="p">,</span> <span class="n">toc</span><span class="o">-</span><span class="n">tic</span><span class="p">))</span>
+N_cores = 10
+tic = timeit.default_timer()
+accel = srp.compute(epochs, n_cores = N_cores) * 1e3
+toc = timeit.default_timer()
+print(&#39;Time for multi-core execution (N cores {}): {} sec&#39;.format(N_cores, toc-tic))
 </pre></div>
 </div>
 </div>
@@ -807,12 +808,12 @@ Time for multi-core execution (N cores 10): 15.889135109027848 sec
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_formatted</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pyRTX.utilities import export_formatted
 
-<span class="n">output_file</span> <span class="o">=</span> <span class="s1">&#39;outputs/exported_acceleration.csv&#39;</span>
-<span class="c1"># The unit input is optional. If provided it will print the units</span>
-<span class="c1"># of the acceleration in the output file header</span>
-<span class="n">export_formatted</span><span class="p">(</span><span class="n">accel</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span>  <span class="n">output_file</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;km/s2&#39;</span><span class="p">)</span>
+output_file = &#39;outputs/exported_acceleration.csv&#39;
+# The unit input is optional. If provided it will print the units
+# of the acceleration in the output file header
+export_formatted(accel, epochs,  output_file, units = &#39;km/s2&#39;)
 </pre></div>
 </div>
 </div>
@@ -820,19 +821,19 @@ Time for multi-core execution (N cores 10): 15.889135109027848 sec
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_exac</span><span class="p">,</span> <span class="n">to_datetime</span>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pyRTX.utilities import export_exac, to_datetime
 
-<span class="c1"># This format requires more inputs</span>
-<span class="c1"># See the function documentation for more information.</span>
-<span class="n">outfile</span> <span class="o">=</span> <span class="s1">&#39;outputs/exported_accelerations.ex&#39;</span>
-<span class="n">satelliteID</span> <span class="o">=</span> <span class="s1">&#39;075&#39;</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">accel</span>
-<span class="n">tstep</span> <span class="o">=</span> <span class="n">timestep</span>
-<span class="n">startTime</span> <span class="o">=</span> <span class="n">to_datetime</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">endTime</span> <span class="o">=</span> <span class="n">to_datetime</span><span class="p">(</span><span class="n">epochs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+# This format requires more inputs
+# See the function documentation for more information.
+outfile = &#39;outputs/exported_accelerations.ex&#39;
+satelliteID = &#39;075&#39;
+data = accel
+tstep = timestep
+startTime = to_datetime(epochs[0])
+endTime = to_datetime(epochs[-1])
 
 
-<span class="n">export_exac</span><span class="p">(</span><span class="n">satelliteID</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">tstep</span><span class="p">,</span> <span class="n">startTime</span><span class="p">,</span> <span class="n">endTime</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span>
+export_exac(satelliteID, data, tstep, startTime, endTime, outfile)
 <br/></pre></div>
 </div>
 </div>
