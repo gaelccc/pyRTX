@@ -308,68 +308,95 @@ class DependencyInstaller:
         
         self._mark_complete(component_name)
         log_info(f"Embree {version} installed successfully on {platform_name}")
-        
+
+
+
     def install_python_embree(self):
         """Install python-embree bindings with correct RPATH/install_name"""
         component_name = 'python-embree'
         if self._is_installed(component_name):
             log_info(f"{component_name} already installed, skipping")
             return
-        
+
         log_step("Installing python-embree")
         embree_dir = self.lib_dir / "python-embree"
-        
-        # Clone repository
+
+        # Clone repository with fallback
         if not embree_dir.exists():
             log_info("Cloning python-embree repository")
-            run_command(
-                ['git', 'clone', 'https://github.com/sampotter/python-embree.git'],
-                cwd=self.lib_dir
-            )
+            
+            # Try HTTPS first
+            https_url = 'https://github.com/sampotter/python-embree.git'
+            ssh_url = 'git@github.com:sampotter/python-embree.git'
+            
+            try:
+                log_info(f"Attempting clone via HTTPS: {https_url}")
+                run_command(
+                    ['git', 'clone', https_url],
+                    cwd=self.lib_dir
+                )
+                log_info("Successfully cloned via HTTPS")
+            except Exception as e:
+                log_warn(f"HTTPS clone failed: {e}")
+                log_info(f"Attempting clone via SSH: {ssh_url}")
+                try:
+                    run_command(
+                        ['git', 'clone', ssh_url],
+                        cwd=self.lib_dir
+                    )
+                    log_info("Successfully cloned via SSH")
+                except Exception as ssh_error:
+                    log_error(f"Both HTTPS and SSH clone methods failed")
+                    log_error(f"HTTPS error: {e}")
+                    log_error(f"SSH error: {ssh_error}")
+                    raise RuntimeError(
+                        "Failed to clone python-embree repository. "
+                        "Please check your Git installation and network connection."
+                    )
         else:
             log_info("python-embree repository already cloned")
-        
+
         # Apply compatibility fix
         log_info("Applying compatibility fix")
         embree_pyx = embree_dir / "embree.pyx"
-        
+
         if embree_pyx.exists():
             with open(embree_pyx, 'r') as f:
                 content = f.read()
-            
+
             if 'rtcSetDeviceErrorFunction' in content and '# rtcSetDeviceErrorFunction' not in content:
                 content = content.replace(
                     'rtcSetDeviceErrorFunction(self._device, simple_error_function, NULL);',
                     '# rtcSetDeviceErrorFunction(self._device, simple_error_function, NULL);  # Commented for compatibility'
                 )
-                
+
                 with open(embree_pyx, 'w') as f:
                     f.write(content)
                 log_info("Applied fix to embree.pyx")
             else:
                 log_info("Fix already applied or not needed")
-        
+
         # Get Embree paths (platform-aware)
         platform_suffix, platform_name = self._get_platform_suffix()
-        
+
         embree3_dir = self.lib_dir / f"embree-{self.config['embree3']}.{platform_suffix}"
         embree_lib_dir = embree3_dir / 'lib'
         embree_include_dir = embree3_dir / 'include'
         embree_vars_script = embree3_dir / "embree-vars.sh"
-        
+
         if not embree3_dir.exists():
             log_error(f"Embree directory not found: {embree3_dir}")
             log_error("Make sure Embree 3 is installed first")
             raise FileNotFoundError(f"Missing {embree3_dir}")
-        
+
         log_info(f"Using Embree from: {embree3_dir}")
         log_info(f"Embree lib directory: {embree_lib_dir}")
-        
+
         # Set up Embree environment
         if embree_vars_script.exists():
             log_info(f"Loading Embree environment from {embree_vars_script}")
             bash_command = f"source {embree_vars_script} && env"
-            
+
             try:
                 result = subprocess.run(
                     ['bash', '-c', bash_command],
@@ -377,7 +404,7 @@ class DependencyInstaller:
                     text=True,
                     check=True
                 )
-                
+
                 embree_env = {}
                 for line in result.stdout.split('\n'):
                     if '=' in line:
@@ -393,7 +420,7 @@ class DependencyInstaller:
             embree_env['EMBREE_ROOT_DIR'] = str(embree3_dir)
             embree_env['EMBREE_INCLUDE_DIR'] = str(embree_include_dir)
             embree_env['EMBREE_LIB_DIR'] = str(embree_lib_dir)
-        
+
         # Platform-specific linker flags
         if platform_name == 'darwin':
             # macOS uses install_name and rpath differently
@@ -401,7 +428,7 @@ class DependencyInstaller:
             install_name_flag = f"-Wl,-install_name,@rpath/libembree3.dylib"
             ldflags = embree_env.get('LDFLAGS', '')
             embree_env['LDFLAGS'] = f"{rpath_flag} {install_name_flag} {ldflags}".strip()
-            
+
             # Set DYLD_LIBRARY_PATH
             dyld_path = embree_env.get('DYLD_LIBRARY_PATH', '')
             embree_env['DYLD_LIBRARY_PATH'] = f"{embree_lib_dir}:{dyld_path}" if dyld_path else str(embree_lib_dir)
@@ -409,20 +436,20 @@ class DependencyInstaller:
             rpath_flag = f"-Wl,-rpath,{embree_lib_dir}"
             ldflags = embree_env.get('LDFLAGS', '')
             embree_env['LDFLAGS'] = f"{rpath_flag} {ldflags}".strip()
-            
+
             # Set LD_LIBRARY_PATH
             ld_path = embree_env.get('LD_LIBRARY_PATH', '')
             embree_env['LD_LIBRARY_PATH'] = f"{embree_lib_dir}:{ld_path}" if ld_path else str(embree_lib_dir)
-        
+
         # Show key Embree-related variables
         for key in ['EMBREE_ROOT_DIR', 'PATH', 'LD_LIBRARY_PATH', 'DYLD_LIBRARY_PATH', 'CPATH', 'LDFLAGS']:
             if key in embree_env:
                 value = embree_env[key]
                 log_info(f"{key}={value[:80]}{'...' if len(value) > 80 else ''}")
-        
+
         # Build and install
         log_info("Building python-embree with Embree environment and RPATH")
-        
+
         try:
             result = subprocess.run(
                 [sys.executable, 'setup.py', 'build_ext', '--inplace'],
@@ -442,7 +469,7 @@ class DependencyInstaller:
             if e.stderr:
                 log_error(f"Error: {e.stderr}")
             raise
-        
+
         log_info("Installing python-embree")
         try:
             result = subprocess.run(
@@ -463,12 +490,12 @@ class DependencyInstaller:
             if e.stderr:
                 log_error(f"Error: {e.stderr}")
             raise
-        
+
         # Verify RPATH/install_name
         self._verify_embree_rpath(embree_lib_dir, platform_name)
-        
+
         self._mark_complete(component_name)
-        log_info("python-embree installed successfully")
+        log_info("python-embree installed successfully")        
 
     def _verify_embree_rpath(self, expected_rpath, platform_name):
         """Verify that the installed embree module has the correct RPATH/install_name"""
