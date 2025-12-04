@@ -1,7 +1,5 @@
 ### ------------------------------------------------------------------------------------------------------- ###
 
-#									 MESSENGER SC OBJECT BUILDING
-
 # Example purpose:
 # Show the object-oriented interface of the pyRTX library
 #
