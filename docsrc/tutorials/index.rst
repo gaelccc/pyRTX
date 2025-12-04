@@ -3,6 +3,11 @@ Tutorials
 
 These tutorials demonstrate how to use pyRTX for various applications.
 
+Note that in order to have most tutorial properly running you'll need to 
+download some LRO-specific files. 
+You can do this by running ``python download_lro_kernels.py`` in the
+``examples`` folder.
+
 Tutorial 1: First Steps with pyRTX
 -----------------------------------
 
@@ -61,3 +66,14 @@ Where to go from here? Check the examples in the github repository.
 They show how to treat more complex cases, where the spacecraft has 
 moveable appendages. 
 
+
+.. toctree::
+   :maxdepth: 1
+
+   lro_mass.py
+   compute_lut.py
+   lro_srp.py
+   lro_srp_with_lut.py
+   lro_alb_ir_simple.py
+   lro_alb_ir_complex.py
+   
