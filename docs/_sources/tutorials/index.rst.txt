@@ -70,10 +70,10 @@ moveable appendages.
 .. toctree::
    :maxdepth: 1
 
-   lro_mass.py
-   compute_lut.py
-   lro_srp.py
-   lro_srp_with_lut.py
-   lro_alb_ir_simple.py
-   lro_alb_ir_complex.py
+   lro_mass
+   compute_lut
+   lro_srp
+   lro_srp_with_lut
+   lro_alb_ir_simple
+   lro_alb_ir_complex
    
