@@ -23,13 +23,6 @@ def test_block_normalize():
 
 	assert norms == pytest.approx(compare)
 
-def test_embree2():
-	# Test here that the three kernels work nominally
-	# Embree 2 test
-	load = importlib.find_spec('pyembree')
-	found = load is not None
-	assert found
-
 def test_embree3():
 	# Test here that the three kernels work nominally
 	# Embree 3 test

@@ -45,7 +45,7 @@ Before installing the Python package, you must install the necessary C++ librari
     ```
 
 2.  **Run the C++ Dependency Installer:**
-    The repository includes a script to download and build the C++ ray tracing libraries (Embree). Run this script from the root of the `pyRTX` directory:
+    The repository includes a script to download and build the C++ ray tracing libraries (Embree 3). Run this script from the root of the `pyRTX` directory:
     ```bash
     python install_deps.py
     ```
