@@ -19,3 +19,4 @@ coverage_report.txt
 docsrc/_build
 docsrc/build.log
 *.egg_info
+dist/
