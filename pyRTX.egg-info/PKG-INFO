@@ -1,4 +1,4 @@
-Metadata-Version: 2.4
+Metadata-Version: 2.1
 Name: pyRTX
 Version: 0.1.0
 Summary: Non grav. forces modelling for deep space probes using raytracing
@@ -28,9 +28,6 @@ Requires-Dist: flake8>=3.9; extra == "dev"
 Provides-Extra: docs
 Requires-Dist: sphinx>=4.0; extra == "docs"
 Requires-Dist: sphinx-rtd-theme>=0.5; extra == "docs"
-Dynamic: author
-Dynamic: home-page
-Dynamic: requires-python
 
 ![resized](https://github.com/gaelccc/pyRTX/assets/74771467/137f6c0a-197c-4139-862c-07b7d9a3ee78)
 # pyRTX v0.0.2
@@ -113,7 +110,3 @@ Download the data required for running the examples running in the `examples` fo
 # [Documentation](https://gaelccc.github.io/pyRTX)
 The API documentation can be found [here](https://gaelccc.github.io/pyRTX)  
 The user is strongly advised to look at the files contained in the `examples` folder and at the Notebooks contained in the `Notebooks` folder
-
-
-# Change log
-Version 0.0.2 implements the same functionalities as v0.0.1 but the code structure has been heavily restructured. Backwards compatibility is guaranteed for functions and classes call signs but not for imports syntax.

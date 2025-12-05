@@ -10,10 +10,10 @@ Installation
 Step 0: Create an environment
 -----------------------------
 Create an environment specific to pyRTX. 
-`conda create --name pyRTX-env python=3.8`
+``conda create --name=pyRTX-env python=3.8``
 
 After the environment is created, activate it
-`conda activate pyRTX-env`
+``conda activate pyRTX-env``
 
 Step 1: System and C++ Dependencies
 -----------------------------------

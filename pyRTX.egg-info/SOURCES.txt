@@ -30,8 +30,10 @@ pyRTX/core/parallel_utils.py
 pyRTX/core/physical_utils.py
 pyRTX/core/shadow_utils.py
 pyRTX/core/utils_rt.py
+pyRTX/visual/utils.py
 tests/test_constants.py
 tests/test_core_utils_rt.py
 tests/test_helpers.py
 tests/test_suite_core.py
 tests/test_utilities.py
+tests/test_visual_utils.py

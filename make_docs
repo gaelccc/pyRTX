@@ -65,7 +65,7 @@ if [ "$PUSH" = true ]; then
         git commit -m "$COMMIT_MSG"
         
         echo "Pushing to remote..."
-        git push origin test_for_deployment
+        git push origin master
         
         echo "Documentation pushed successfully!"
     fi
