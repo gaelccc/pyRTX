@@ -45,10 +45,6 @@ Homepage = "https://github.com/gaelccc/pyRTX"
 Repository = "https://github.com/gaelccc/pyRTX"
 Issues = "https://github.com/gaelccc/pyRTX/issues"
 
-[tool.setuptools]
-packages = ["pyRTX"]
-zip-safe = false
-
 [tool.setuptools.package-data]
 pyRTX = ["lib/*", "data/*"]
 
