@@ -152,7 +152,6 @@ class DependencyInstaller:
         self.state = self._load_state()
         
         self.config = {
-            'embree2': '2.17.7',
             'embree3': '3.13.5',
             'cgal': '5.6',
             'boost': '1.82.0'
@@ -743,7 +742,6 @@ class DependencyInstaller:
             log_info("Installing C++ Dependencies")
             log_info("=" * 60)
             
-            self.install_embree(self.config['embree2'], 'embree2')
             self.install_embree(self.config['embree3'], 'embree3')
             self.install_python_embree()
             

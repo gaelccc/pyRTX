@@ -1230,7 +1230,7 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
     bounces : int, default=1
         Number of reflection bounces to simulate.
     kernel : str, default='Embree3'
-        Ray tracing backend to use ('Embree3', 'Embree', 'CGAL', or 'Native').
+        Ray tracing backend to use ('Embree3', 'CGAL', or 'Native').
     diffusion : bool, default=False
         If True, compute diffuse reflections.
     num_diffuse : int, optional
@@ -1256,15 +1256,12 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
     diffusion_control = False
 
     # Select the kernel
-    if kernel in ['Embree', 'Native']:
+    if kernel in ['Native']:
         for i in range(bounces):
 
             ray_origins_container.append(ray_origins)
 
-            if kernel == 'Embree':
-                intersector = trimesh.ray.ray_pyembree.RayMeshIntersector(mesh_obj)
-
-            elif kernel == 'Native':
+            if kernel == 'Native':
                 intersector = trimesh.ray.ray_triangle.RayMeshIntersector(mesh_obj)
 
             # Avoid numerical problems

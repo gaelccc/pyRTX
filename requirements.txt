@@ -13,4 +13,3 @@ pathos
 cython
 pytest
 xarray
-pyembree

@@ -29,7 +29,7 @@ RTXresult  = RTXkernel(
 		 mesh, 			# Mesh object
 		 ray_origins, 		# Ray origins (output of pixel_plane_opt)
 		 ray_directions, 	# Ray directions (output of pixel_plane_opt)
-		 kernel = 'Embree', 	# The kernel to use (see the documentation)
+		 kernel = 'Embree3', 	# The kernel to use (see the documentation)
 		 bounces = 1		# Number of bounces to consider
 		 )
 
