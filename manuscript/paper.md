@@ -61,53 +61,20 @@ in the dynamical model will almost inevitably lead to systematic errors in the s
 In the recent years significant improvements in radiometric tracking system, have led
 to more and more precise measurements of the spacecraft position and velocity (the input to the OD), thus requiring increasingly more accurate dynamical models [@cappuccio_report_2020;@asmar_spacecraft_2005;@mazarico_europa_2023]. 
 One of the major limitations of current dynamical modelling of deep-space probes consists in the complex interaction between the spacecraft shape and the atmosphere, and with radiative forces (solar radiation pressure, albedo, thermal infrared radiation). We developed the pyRTX software package to address this limitation.
-Leveraging the ray-tracing technique, originally developed in computer graphics, instead of relying on simplified macro-models (flat plates, cylinders, etc) pyRTX is able to use the actual 3D shape of the spacecraft (provided as, for example, an .obj file). 
+Leveraging the ray-tracing technique, originally developed in computer graphics, instead of relying on simplified macro-models (flat plates, cylinders, etc) pyRTX is able to use the actual 3D shape of the spacecraft (provided as, for example, an .obj file), to compute several non-gravitational accelerations. 
 
+pyRTX addresses the gap in open source solutions for a comprehensive modelling of several, important, non-gravitational forces. Being built around the SPICE astrodynamic library [@annex_spiceypy_2020], pyRTX is intended to be a plug-in tool that can be used in existing OD codes, and applications.
 
+# Functionality
+In this section we describe the main functionalities of the pyRTX software. All of these functionalities are discussed in the example library included in the code distribution. Our companion paper [@zurria_refining_2026] discusses an actual application of the pyRTX library for ameliorating the OD of NASA's Lunar Reconnaissance Orbiter. 
 
-# Mathematics
+- *Solar Radiation Pressure Modeling*: pyRTX computes the acceleration due to solar photons by casting rays from a pixel plane representing the incoming solar flux. The engine inherently accounts for self-shadowing (where spacecraft components block light from reaching others) and multiple reflections. Users can specify optical properties for each mesh face, allowing the software to simulate both specular and diffuse (Lambertian) reflections.
 
-Single dollars ($) are required for inline mathematics e.g. $f(x) = e^{\pi/x}$
+- *Planetary Radiation Pressure*: The software models the effects of radiation reflected (albedo) and emitted (thermal infrared) by planetary bodies. This includes the ability to use complex planetary shape models (e.g., topography from digital elevation models, DEMs) and spatially variable maps for albedo, emissivity, and surface temperature.
 
-Double dollars make self-standing equations:
+- *Eclipse and Shadow Function Analysis*: pyRTX can compute precise shadow functions during eclipse transitions. It supports advanced modeling features such as solar limb darkening, where the variation in intensity across the solar disk is integrated into the flux calculation.
 
-$$\Theta(x) = \left\{\begin{array}{l}
-0\textrm{ if } x < 0\cr
-1\textrm{ else}
-\end{array}\right.$$
+- *Atmospheric Drag*: For low-altitude missions, the software calculates the effective aerodynamic cross-section of the spacecraft, providing inputs for atmospheric drag modeling.
 
-You can also use plain \LaTeX for equations
-\begin{equation}\label{eq:fourier}
-\hat f(\omega) = \int_{-\infty}^{\infty} f(x) e^{i\omega x} dx
-\end{equation}
-and refer to \autoref{eq:fourier} from text.
+- *Lookup Table (LUT) Generation*: To enable efficient integration with OD software, pyRTX can pre-compute accelerations over a grid of incident directions. This feature supports spacecraft with articulating components (e.g., solar arrays), allowing users to generate comprehensive LUTs that map acceleration vectors to specific spacecraft orientations and strongly reduce computation time. 
 
-# Citations
-
-Citations to entries in paper.bib should be in
-[rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
-format.
-
-If you want to cite a software repository URL (e.g. something on GitHub without a preferred
-citation) then you can do it with the example BibTeX entry below for @fidgit.
-
-For a quick reference, the following citation commands can be used:
-- `@author:2001`  ->  "Author et al. (2001)"
-- `[@author:2001]` -> "(Author et al., 2001)"
-- `[@author1:2001; @author2:2001]` -> "(Author1 et al., 2001; Author2 et al., 2002)"
-
-# Figures
-
-Figures can be included like this:
-![Caption for example figure.\label{fig:example}](figure.png)
-and referenced from text using \autoref{fig:example}.
-
-Figure sizes can be customized by adding an optional second parameter:
-![Caption for example figure.](figure.png){ width=20% }
-
-# Acknowledgements
-
-We acknowledge contributions from Brigitta Sipocz, Syrtis Major, and Semyeong
-Oh, and support from Kathryn Johnston during the genesis of this project.
-
-# References
