@@ -985,7 +985,7 @@ class EmbreeTrimeshShapeModel(TrimeshShapeModel):
         """
         device = embree.Device()
         geometry = device.make_geometry(embree.GeometryType.Triangle)
-        geometry.set_build_quality(embree.BuildQuality.High)
+        # geometry.set_build_quality(embree.BuildQuality.High)
 
         scene = device.make_scene()
         scene.set_build_quality(embree.BuildQuality.High)
