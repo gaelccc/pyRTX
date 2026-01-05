@@ -285,7 +285,13 @@
 <section id="step-0-create-an-environment">
 <h2>Step 0: Create an environment<a class="headerlink" href="#step-0-create-an-environment" title="Permalink to this heading"></a></h2>
 <p>Create an environment specific to pyRTX.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>--name<span class="o">=</span>pyRTX-env<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.8
+</pre></div>
+</div>
 <p>After the environment is created, activate it</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>activate<span class="w"> </span>pyRTX-env
+</pre></div>
+</div>
 </section>
 <section id="step-1-system-and-c-dependencies">
 <h2>Step 1: System and C++ Dependencies<a class="headerlink" href="#step-1-system-and-c-dependencies" title="Permalink to this heading"></a></h2>
@@ -317,7 +323,13 @@ Install the <cite>pyRTX</cite> package and its remaining Python dependencies usi
 <p><code class="docutils literal notranslate"><span class="pre">pyRTX</span></code> comes with a suite of tests to verify the successful installation.
 First of all, download the necessary files (SPICE kernels, needed also for the examples)
 by entering the <code class="docutils literal notranslate"><span class="pre">examples</span></code> folder and running</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>download_lro_kernels.py
+</pre></div>
+</div>
 <p>Then enter the <code class="docutils literal notranslate"><span class="pre">tests</span></code> folder and run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pytest
+</pre></div>
+</div>
 </section>
 </section>
 

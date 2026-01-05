@@ -12,13 +12,15 @@ Step 0: Create an environment
 Create an environment specific to pyRTX. 
 
 .. code-block:: bash
+
         conda create --name=pyRTX-env python=3.8
 
 
 After the environment is created, activate it
 
 .. code-block:: bash
-        conda activate pyRTX-env``
+
+        conda activate pyRTX-env
 
 Step 1: System and C++ Dependencies
 -----------------------------------
@@ -55,11 +57,13 @@ First of all, download the necessary files (SPICE kernels, needed also for the e
 by entering the ``examples`` folder and running
 
 .. code-block:: bash
+
    python download_lro_kernels.py
 
 Then enter the ``tests`` folder and run
 
 .. code-block:: bash
+
    pytest
 
 
