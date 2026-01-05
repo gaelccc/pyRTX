@@ -55,11 +55,11 @@ available for a complex shape. This software package aims to address this limita
 Several scientific investigations require high-precision reconstruction of 
 spacecraft trajectories. Among these, one of the most demanding is the determination
 of the gravity field of Solar System bodies (planets, moons). This task is accomplished
-by solving the so-called orbit determination (OD) problem [@tapley_statistical_2004,milani_theory_2009]. The solution of the OD in the adjustment of a dynamical model 
+by solving the so-called orbit determination (OD) problem [@tapley_statistical_2004;@milani_theory_2009]. The solution of the OD in the adjustment of a dynamical model 
 (a set of differential equations) describing the spacecraft motion. Systematic errors
 in the dynamical model will almost inevitably lead to systematic errors in the solution. 
 In the recent years significant improvements in radiometric tracking system, have led
-to more and more precise measurements of the spacecraft position and velocity (the input to the OD), thus requiring increasingly more accurate dynamical models [@cappuccio_report_2020,asmar_spacecraft_2005,mazarico_europa_2023]. 
+to more and more precise measurements of the spacecraft position and velocity (the input to the OD), thus requiring increasingly more accurate dynamical models [@cappuccio_report_2020;@asmar_spacecraft_2005;@mazarico_europa_2023]. 
 One of the major limitations of current dynamical modelling of deep-space probes consists in the complex interaction between the spacecraft shape and the atmosphere, and with radiative forces (solar radiation pressure, albedo, thermal infrared radiation). We developed the pyRTX software package to address this limitation.
 Leveraging the ray-tracing technique, originally developed in computer graphics, instead of relying on simplified macro-models (flat plates, cylinders, etc) pyRTX is able to use the actual 3D shape of the spacecraft (provided as, for example, an .obj file). 
 
