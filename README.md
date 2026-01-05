@@ -39,7 +39,7 @@ Set up a Conda environment and install the required dependencies from the `conda
 This step is needed to ensure that the most complex dependencies are properly managed.
 
 ```bash
-conda create --name pyRTX-env
+conda create --name pyRTX-env python=3.8
 conda activate pyRTX-env
 conda install -c conda-forge embree3 basemap
 ```
