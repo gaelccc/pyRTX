@@ -18,7 +18,7 @@ class TestLROSRP(unittest.TestCase):
     def test_lro_srp_computation(self):
         # Change to the examples directory to handle relative paths
         original_cwd = os.getcwd()
-        os.chdir('examples')
+        os.chdir('../examples')
 
         # Setup from lro_srp.py
         ref_epc = "2010 may 10 09:25:00"
