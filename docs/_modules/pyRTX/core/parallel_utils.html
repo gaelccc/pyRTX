@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyRTX.core.parallel_utils &mdash; pyRTX 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=51279e30" />
 
@@ -275,17 +275,17 @@
            <div itemprop="articleBody">
              
   <h1>Source code for pyRTX.core.parallel_utils</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span><span class="o">,</span><span class="w"> </span><span class="nn">inspect</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">multiprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pool</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pathos.multiprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProcessingPool</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">partial</span><span class="p">,</span> <span class="n">wraps</span>
+<span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span><span class="o">,</span> <span class="nn">inspect</span>
+<span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">Pool</span>
+<span class="kn">from</span> <span class="nn">pathos.multiprocessing</span> <span class="kn">import</span> <span class="n">ProcessingPool</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span><span class="p">,</span> <span class="n">wraps</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">A set of utilities focused on increasing the computational efficiency of numerical calculations.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="get_ncores"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.get_ncores">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_ncores</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="get_ncores"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.get_ncores">[docs]</a><span class="k">def</span> <span class="nf">get_ncores</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the number of cores for parallel computations.</span>
 
@@ -316,7 +316,7 @@
 
 
 
-<div class="viewcode-block" id="is_method"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.is_method">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">is_method</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">cls_inst</span><span class="p">):</span>
+<div class="viewcode-block" id="is_method"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.is_method">[docs]</a><span class="k">def</span> <span class="nf">is_method</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">cls_inst</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Checks if the wrapped object is a method of a class.</span>
 
@@ -336,7 +336,7 @@
 
 
 
-<div class="viewcode-block" id="get_unwrapped"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.get_unwrapped">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_unwrapped</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="get_unwrapped"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.get_unwrapped">[docs]</a><span class="k">def</span> <span class="nf">get_unwrapped</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Returns the unwrapped version of a class method.</span>
 
@@ -359,7 +359,7 @@
 
 
 
-<div class="viewcode-block" id="parallel"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.parallel">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">parallel</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+<div class="viewcode-block" id="parallel"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.parallel">[docs]</a><span class="k">def</span> <span class="nf">parallel</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A decorator for parallel computations.</span>
 
@@ -396,7 +396,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Wrapper for the target function.</span>
 <span class="sd">        It creates a multiprocessing pool to run the target function in parallel.</span>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyRTX.core.shadow_utils &mdash; pyRTX 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=51279e30" />
 
@@ -275,13 +275,13 @@
            <div itemprop="articleBody">
              
   <h1>Source code for pyRTX.core.shadow_utils</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span> 
-<span class="kn">from</span><span class="w"> </span><span class="nn">numba</span><span class="w"> </span><span class="kn">import</span> <span class="n">jit</span> 
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+<span class="kn">from</span> <span class="nn">numba</span> <span class="kn">import</span> <span class="n">jit</span> 
 
 
 
 
-<div class="viewcode-block" id="circular_mask"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_mask">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">circular_mask</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">origin</span><span class="p">):</span>
+<div class="viewcode-block" id="circular_mask"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_mask">[docs]</a><span class="k">def</span> <span class="nf">circular_mask</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">origin</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Identify points within a circular region of specified radius.</span>
 
@@ -314,7 +314,7 @@
 	<span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">maskIds</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dtype</span> <span class="o">=</span> <span class="s1">&#39;int32&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="circular_rim"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_rim">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">circular_rim</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">origin</span><span class="p">):</span>
+<div class="viewcode-block" id="circular_rim"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_rim">[docs]</a><span class="k">def</span> <span class="nf">circular_rim</span><span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">coords</span><span class="p">,</span> <span class="n">origin</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Identify points on the rim (boundary) of a circular region.</span>
 
@@ -352,7 +352,7 @@
 
 
 <div class="viewcode-block" id="compute_directions"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_directions">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">compute_directions</span><span class="p">(</span><span class="n">pixelCoords</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">compute_directions</span><span class="p">(</span><span class="n">pixelCoords</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Convert pixel coordinates to normalized direction unit vectors.</span>
 
@@ -388,7 +388,7 @@
 
 
 <div class="viewcode-block" id="compute_beta"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_beta">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">compute_beta</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="n">R</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">compute_beta</span><span class="p">(</span><span class="n">coords</span><span class="p">,</span> <span class="n">origin</span><span class="p">,</span> <span class="n">R</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Compute angular position (beta angle) of points on a spherical cap relative</span>
 <span class="sd">	to the cap center.</span>
@@ -444,7 +444,7 @@
 	<span class="k">return</span> <span class="n">betas</span></div>
 
 <div class="viewcode-block" id="compute_pixel_intensities"><a class="viewcode-back" href="../../../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_pixel_intensities">[docs]</a><span class="nd">@jit</span><span class="p">(</span><span class="n">nopython</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">compute_pixel_intensities</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;Standard&#39;</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">compute_pixel_intensities</span><span class="p">(</span><span class="n">beta</span><span class="p">,</span> <span class="n">Type</span> <span class="o">=</span> <span class="s1">&#39;Standard&#39;</span><span class="p">):</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Compute solar intensity at given angular positions using limb darkening models.</span>
 
