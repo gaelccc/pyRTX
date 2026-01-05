@@ -1,5 +1,5 @@
 ---
-title: 'pyRTX: a Python package for high precision computation of non gravitational forces on spacecraft'
+title: 'pyRTX: a Python package for high precision computation of non gravitational forces on deep space probes'
 tags:
   - Python
   - astrodynamics
@@ -40,12 +40,13 @@ aas-journal: The Planetary Science Journal
 
 With the constant improvement of radiometric tracking systems, inaccuracies
 in the non-gravitational force modeling have become one of the limiting factors
-to precise orbit determination, and the scientific products that it enables. 
+to deep space precise orbit determination, and the scientific products that it enables. 
 The main factor impacting the limited accuracy of non-gravitational force models
 is the complex 3D shape of the spacecraft. While fast, reliable,  analytical models
 are available for simple shapes (spheres, cubes, etc), no such model is generally
 available for a complex shape. This software package aims to address this limitation by legeraging ray-tracing to compute the complex interaction between the forcing environment (radiation, atmosphere) and the three dimensional shape of the spacecraft. 
-
+This software is specifically geared towards planetary OD where inaccuracies 
+of the model often cannot be overcome with continuous tracking as it is routinely done for Earth-orbiting spacecraft.
 
 
 
