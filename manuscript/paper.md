@@ -1,8 +1,8 @@
 ---
-title: 'pyRTX: a Python package high precision computation of non gravitational forces on deep space probes'
+title: 'pyRTX: a Python package for high precision computation of non gravitational forces on spacecraft'
 tags:
   - Python
-  - astodynamics
+  - astrodynamics
   - solar pressure
   - atmospheric drag
   - ray tracing
@@ -33,7 +33,7 @@ bibliography: paper.bib
 # Optional fields if submitting to a AAS journal too, see this blog post:
 # https://blog.joss.theoj.org/2018/12/a-new-collaboration-with-aas-publishing
 aas-doi: 10.3847/xxxxx <- update this with the DOI from AAS once you know it.
-aas-journal: The Planetary Science Journal <- The name of the AAS journal.
+aas-journal: The Planetary Science Journal
 ---
 
 # Summary
