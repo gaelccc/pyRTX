@@ -35,12 +35,13 @@ Handful classes for computing, storing and reading lookup tables for improved co
 
 ### Step 1: Install Dependencies with Conda
 
-Set up a Conda environment and install the required dependencies from the `conda-forge` channel. This is the simplest way to install `embree3`, its Python wrapper `python-embree`, and other libraries like `basemap`.
+Set up a Conda environment and install the required dependencies from the `conda-forge` channel. 
+This step is needed to ensure that the most complex dependencies are properly managed.
 
 ```bash
 conda create --name pyRTX-env
 conda activate pyRTX-env
-conda install -c conda-forge embree3 python-embree
+conda install -c conda-forge embree3 basemap
 ```
 
 ### Step 2: Install pyRTX
