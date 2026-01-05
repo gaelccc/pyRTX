@@ -123,7 +123,7 @@ class SunShadow():
 		rimCoords = coords[rimIds]
 		rimdirs = compute_directions(rimCoords)
 		rim_origins = np.zeros_like(rimdirs)
-		_, index_rim, _, _, _, _ = utils_rt.RTXkernel(shape, rim_origins, rimdirs, kernel = 'Embree', bounces = 1, errorMsg = False)
+		_, index_rim, _, _, _, _ = utils_rt.RTXkernel(shape, rim_origins, rimdirs, kernel = 'Embree3', bounces = 1, errorMsg = False)
 
 		if len(index_rim[0]) == 0: return 1.0
 
@@ -138,7 +138,7 @@ class SunShadow():
 		dirs = compute_directions(newCoord)
 		ray_origins = np.zeros_like(dirs)
 
-		_, index_ray, _, _, _, _ = utils_rt.RTXkernel(shape, ray_origins, dirs, kernel = 'Embree', bounces = 1, errorMsg = False)
+		_, index_ray, _, _, _, _ = utils_rt.RTXkernel(shape, ray_origins, dirs, kernel = 'Embree3', bounces = 1, errorMsg = False)
 
 		if np.shape(index_ray)[0] == 1:
 			index_ray = index_ray[0]
