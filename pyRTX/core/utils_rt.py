@@ -591,8 +591,8 @@ def Embree3_init_geometry(mesh_obj):
     EmbreeTrimeshShapeModel
         The Embree shape model.
     """
-    V = np.array(mesh_obj.vertices, dtype=np.float32, copy = False)
-    F = np.array(mesh_obj.faces, dtype=np.int32, copy = False)
+    V = np.asarray(mesh_obj.vertices, dtype=np.float32)
+    F = np.asarray(mesh_obj.faces, dtype=np.int32)
 
     # P = get_centroids(V, F)
     N, A = get_surface_normals_and_face_areas(V, F)
@@ -1368,6 +1368,14 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
             if n_hits == -1:
                 if errorMsg:
                     print('No intersections found for bounce {}. Results provided up to bounce {}'.format(i + 1, i))
+
+                # If no intersections are found, append empty lists to the containers
+                # to avoid index errors in the calling functions.
+                locations_container.append([])
+                index_tri_container.append([])
+                index_ray_container.append([])
+                ray_directions_container.append([])
+
                 break
 
             # Otherwise append results and proceed with next bounce
