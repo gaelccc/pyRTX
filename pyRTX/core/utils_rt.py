@@ -985,11 +985,11 @@ class EmbreeTrimeshShapeModel(TrimeshShapeModel):
         """
         device = embree.Device()
         geometry = device.make_geometry(embree.GeometryType.Triangle)
-        geometry.set_build_quality(embree.BuildQuality.High)
+        #geometry.set_build_quality(embree.BuildQuality.High)
 
         scene = device.make_scene()
-        scene.set_build_quality(embree.BuildQuality.High)
-        scene.set_flags(embree.SceneFlags.Robust)
+        #scene.set_build_quality(embree.BuildQuality.High)
+        #scene.set_flags(embree.SceneFlags.Robust)
 
         vertex_buffer = geometry.set_new_buffer(
             embree.BufferType.Vertex,  # buf_type
