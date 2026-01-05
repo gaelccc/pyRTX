@@ -44,34 +44,26 @@ to precise orbit determination, and the scientific products that it enables.
 The main factor impacting the limited accuracy of non-gravitational force models
 is the complex 3D shape of the spacecraft. While fast, reliable,  analytical models
 are available for simple shapes (spheres, cubes, etc), no such model is generally
-available for a complex shape. This software package aims to address this limitation. 
-By leveraging ray-tracing, the interaction of the complex spacecraft shape with 
-the forcing environment (radiation, atmosphere) can be accounted for.
+available for a complex shape. This software package aims to address this limitation by legeraging ray-tracing to compute the complex interaction between the forcing environment (radiation, atmosphere) and the three dimensional shape of the spacecraft. 
+
 
 
 
 
 # Statement of need
 
-`Gala` is an Astropy-affiliated Python package for galactic dynamics. Python
-enables wrapping low-level languages (e.g., C) for speed without losing
-flexibility or ease-of-use in the user-interface. The API for `Gala` was
-designed to provide a class-based and user-friendly interface to fast (C or
-Cython-optimized) implementations of common operations such as gravitational
-potential and force evaluation, orbit integration, dynamical transformations,
-and chaos indicators for nonlinear dynamics. `Gala` also relies heavily on and
-interfaces well with the implementations of physical units and astronomical
-coordinate systems in the `Astropy` package [@astropy] (`astropy.units` and
-`astropy.coordinates`).
+Several scientific investigations require high-precision reconstruction of 
+spacecraft trajectories. Among these, one of the most demanding is the determination
+of the gravity field of Solar System bodies (planets, moons). This task is accomplished
+by solving the so-called orbit determination (OD) problem [@tapley_statistical_2004,milani_theory_2009]. The solution of the OD in the adjustment of a dynamical model 
+(a set of differential equations) describing the spacecraft motion. Systematic errors
+in the dynamical model will almost inevitably lead to systematic errors in the solution. 
+In the recent years significant improvements in radiometric tracking system, have led
+to more and more precise measurements of the spacecraft position and velocity (the input to the OD), thus requiring increasingly more accurate dynamical models [@cappuccio_report_2020,asmar_spacecraft_2005,mazarico_europa_2023]. 
+One of the major limitations of current dynamical modelling of deep-space probes consists in the complex interaction between the spacecraft shape and the atmosphere, and with radiative forces (solar radiation pressure, albedo, thermal infrared radiation). We developed the pyRTX software package to address this limitation.
+Leveraging the ray-tracing technique, originally developed in computer graphics, instead of relying on simplified macro-models (flat plates, cylinders, etc) pyRTX is able to use the actual 3D shape of the spacecraft (provided as, for example, an .obj file). 
 
-`Gala` was designed to be used by both astronomical researchers and by
-students in courses on gravitational dynamics or astronomy. It has already been
-used in a number of scientific publications [@Pearson:2017] and has also been
-used in graduate courses on Galactic dynamics to, e.g., provide interactive
-visualizations of textbook material [@Binney:2008]. The combination of speed,
-design, and support for Astropy functionality in `Gala` will enable exciting
-scientific explorations of forthcoming data releases from the *Gaia* mission
-[@gaia] by students and experts alike.
+
 
 # Mathematics
 
