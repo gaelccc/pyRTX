@@ -64,7 +64,7 @@ One of the major limitations of current dynamical modelling of deep-space probes
 Leveraging the ray-tracing technique, originally developed in computer graphics, instead of relying on simplified macro-models (flat plates, cylinders, etc) pyRTX is able to use the actual 3D shape of the spacecraft (provided as, for example, an .obj file), to compute several non-gravitational accelerations. 
 
 pyRTX addresses the gap in open source solutions for a comprehensive modelling of several, important, non-gravitational forces. Being built around the SPICE astrodynamic library [@annex_spiceypy_2020], pyRTX is intended to be a plug-in tool that can be used in existing OD codes, and applications.
-
+v
 # Functionality
 In this section we describe the main functionalities of the pyRTX software. All of these functionalities are discussed in the example library included in the code distribution. Our companion paper [@zurria_refining_2026] discusses an actual application of the pyRTX library for ameliorating the OD of NASA's Lunar Reconnaissance Orbiter. 
 
@@ -78,3 +78,8 @@ In this section we describe the main functionalities of the pyRTX software. All 
 
 - *Lookup Table (LUT) Generation*: To enable efficient integration with OD software, pyRTX can pre-compute accelerations over a grid of incident directions. This feature supports spacecraft with articulating components (e.g., solar arrays), allowing users to generate comprehensive LUTs that map acceleration vectors to specific spacecraft orientations and strongly reduce computation time. 
 
+# Acknowledgements
+
+Work by G.C. was supported by NASA under award No. 80GSFC24M0006.
+
+# References
