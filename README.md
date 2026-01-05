@@ -38,7 +38,9 @@ Handful classes for computing, storing and reading lookup tables for improved co
 Set up a Conda environment and install the required dependencies from the `conda-forge` channel. This is the simplest way to install `embree3`, its Python wrapper `python-embree`, and other libraries like `basemap`.
 
 ```bash
-conda install -c conda-forge embree3 python-embree basemap
+conda create --name pyRTX-env
+conda activate pyRTX-env
+conda install -c conda-forge embree3 python-embree
 ```
 
 ### Step 2: Install pyRTX
@@ -46,7 +48,7 @@ conda install -c conda-forge embree3 python-embree basemap
 Once the main dependencies are installed via Conda, you can install the `pyRTX` package from this repository using `pip`:
 
 ```bash
-pip install .
+pip install -r requirements.txt .
 ```
 
 After completing these steps, the `pyRTX` library will be fully installed and ready to use.
@@ -55,7 +57,16 @@ After completing these steps, the `pyRTX` library will be fully installed and re
 # Quickstart and installation testing
 Download the data required for running the examples running in the `examples` folder:
 
-`python download_lro_kernels.py` 
+```bash
+python download_lro_kernels.py`
+```
+
+Once the test data (SPICE kernels) is downloaded you can test the installation.
+From the ``tests`` folder run
+
+```bash
+pytest
+```
 
 
 
