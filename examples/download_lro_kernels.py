@@ -28,11 +28,11 @@ todownload = [  'spk/lrorg_2010091_2010182_v01.bsp',
 
 for f in todownload:
         fname = os.path.basename(f)
-        if not os.path.exists(f'../example_data/kernels_lro/{fname}'):
+        if not os.path.exists(f'examples/example_data/kernels_lro/{fname}'):
                 if agent == 'wget':
-                        subprocess.run(f'wget -P ../example_data/kernels_lro/  https://naif.jpl.nasa.gov/pub/naif/pds/data/lro-l-spice-6-v1.0/lrosp_1000/data/{f}', shell = True)
+                        subprocess.run(f'wget -P examples/example_data/kernels_lro/  https://naif.jpl.nasa.gov/pub/naif/pds/data/lro-l-spice-6-v1.0/lrosp_1000/data/{f}', shell = True)
                 elif agent == 'curl':
-                        subprocess.run(f'curl https://naif.jpl.nasa.gov/pub/naif/pds/data/lro-l-spice-6-v1.0/lrosp_1000/data/{f} -o ../example_data/kernels_lro/{fname}', shell = True)
+                        subprocess.run(f'curl https://naif.jpl.nasa.gov/pub/naif/pds/data/lro-l-spice-6-v1.0/lrosp_1000/data/{f} -o examples/example_data/kernels_lro/{fname}', shell = True)
 
 
 # From NAIF
@@ -41,8 +41,8 @@ todownload = ['fk/lro_frames_2014049_v01.tf']
 
 for f in todownload:
         fname = os.path.basename(f)
-        if not os.path.exists(f'../example_data/kernels_lro/{fname}'):
+        if not os.path.exists(f'examples/example_data/kernels_lro/{fname}'):
                 if agent == 'wget':
-                        subprocess.run(f'wget -P ../example_data/kernels_lro/  https://naif.jpl.nasa.gov/pub/naif/LRO/kernels/{f}', shell = True)
+                        subprocess.run(f'wget -P examples/example_data/kernels_lro/  https://naif.jpl.nasa.gov/pub/naif/LRO/kernels/{f}', shell = True)
                 elif agent == 'curl':
-                        subprocess.run(f'curl https://naif.jpl.nasa.gov/pub/naif/LRO/kernels/{f} -o ../example_data/kernels_lro/{fname}', shell = True)
+                        subprocess.run(f'curl https://naif.jpl.nasa.gov/pub/naif/LRO/kernels/{f} -o examples/example_data/kernels_lro/{fname}', shell = True)

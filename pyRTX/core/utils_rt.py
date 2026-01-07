@@ -14,8 +14,7 @@ from pyRTX.defaults import dFloat, dInt
 from pyRTX import EMBREE_AVAILABLE
 
 if EMBREE_AVAILABLE:
-    import embree
-    
+    from pyRTX import embree
 else:
     # Provide fallback or informative error
     raise ImportError(

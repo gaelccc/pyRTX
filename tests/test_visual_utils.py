@@ -28,7 +28,7 @@ def test_visualize_planet_field():
             return np.full(self.numFaces, self._albedo)
 
     planet = MockPlanet(name='Earth', radius=6371)
-    sp.furnsh('../example_data/generic_kernels/naif0012.tls')
+    sp.furnsh('example_data/generic_kernels/naif0012.tls')
     epoch = sp.str2et('2024-01-01T12:00:00')
 
     # Test that the function runs without errors

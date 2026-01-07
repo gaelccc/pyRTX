@@ -6,6 +6,7 @@ import spiceypy as sp
 import matplotlib.pyplot as plt
 import matplotlib
 from pyRTX.classes.Spacecraft import Spacecraft
+from pyRTX.visual.utils import plot_mesh
 
 
 
@@ -72,26 +73,19 @@ lro = Spacecraft( name = 'LRO',
 
 
 ### Axes visualization
-# This code block shows a generic way of plotting arrays in trimesh
-# This can be used to represent forces, directions, etc. 
-xaxis = np.array([1,0,0])
-yaxis = np.array([0,1,0])
-zaxis = np.array([0,0,1])
-origin = np.array([0,0,0])
-xaxis = tm.load_path(np.hstack(( origin, origin + xaxis*0.01)).reshape(-1, 2, 3))
-yaxis = tm.load_path(np.hstack(( origin, origin + yaxis*0.01)).reshape(-1, 2, 3))
-zaxis = tm.load_path(np.hstack(( origin, origin + zaxis*0.01)).reshape(-1, 2, 3))
-
-xaxis.colors = np.full((1,4),matplotlib.colors.to_rgba_array('red')*255)
-yaxis.colors = np.full((1,4),matplotlib.colors.to_rgba_array('green')*255)
-zaxis.colors = np.full((1,4),matplotlib.colors.to_rgba_array('blue')*255)
-
 # Dumping the spacecraft mesh at a specific epoch (since the relative
 # position of the parts depend on SPICE frames)
 mesh = lro.dump(epc_et0) 
 
-scene = tm.Scene([mesh, xaxis, yaxis, zaxis])
-scene.show()
+# Plot the mesh using plot_mesh
+fig, ax = plot_mesh(mesh, title="LRO Spacecraft")
+
+# Add axes visualization
+origin = [0, 0, 0]
+axis_len = 2.5
+ax.quiver(origin[0], origin[1], origin[2], axis_len, 0, 0, color='r', arrow_length_ratio=0.1, label='X-axis')
+ax.quiver(origin[0], origin[1], origin[2], 0, axis_len, 0, color='g', arrow_length_ratio=0.1, label='Y-axis')
+ax.quiver(origin[0], origin[1], origin[2], 0, 0, axis_len, color='b', arrow_length_ratio=0.1, label='Z-axis')
 
 
 plt.show()

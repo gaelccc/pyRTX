@@ -46,7 +46,9 @@ def plot_mesh(mesh, title="3D Mesh", figsize=(10, 8), alpha=0.7,
     edge_color : str or list of str, default='k'
         The color of the mesh edges.
     face_color : str, list of str, or None, optional
-        The color of the mesh faces. If None, automatic colors are used.
+        The color of the mesh faces. If None, the function will first check
+        if `mesh.visual.face_colors` is set and use it for per-face coloring.
+        If not, automatic colors from a colormap are used for each mesh.
     labels : list of str, optional
         Labels for each mesh, for use in the legend.
     elev : float, default=30
@@ -92,22 +94,23 @@ def plot_mesh(mesh, title="3D Mesh", figsize=(10, 8), alpha=0.7,
     
     n_meshes = len(meshes)
     
-    # Handle face colors
+    # Pre-calculate legend colors, which will also serve as fallback face colors
+    legend_face_colors = []
     if face_color is None:
         # Use automatic colors from colormap
         colors = plt.cm.tab10.colors
-        face_colors = [colors[i % len(colors)] for i in range(n_meshes)]
+        legend_face_colors = [colors[i % len(colors)] for i in range(n_meshes)]
     elif isinstance(face_color, str):
         # Single color for all meshes
-        face_colors = [face_color] * n_meshes
+        legend_face_colors = [face_color] * n_meshes
     elif isinstance(face_color, list):
         # List of colors provided
         if len(face_color) != n_meshes:
             raise ValueError(f"Number of face_colors ({len(face_color)}) must match number of meshes ({n_meshes})")
-        face_colors = face_color
+        legend_face_colors = face_color
     else:
         raise ValueError("face_color must be None, a string, or a list of strings")
-    
+
     # Handle edge colors
     if isinstance(edge_color, str):
         edge_colors = [edge_color] * n_meshes
@@ -117,13 +120,25 @@ def plot_mesh(mesh, title="3D Mesh", figsize=(10, 8), alpha=0.7,
         edge_colors = edge_color
     else:
         raise ValueError("edge_color must be a string or a list of strings")
-    
+
     # Plot each mesh
     all_vertices = []
-    for i, (m, fc, ec) in enumerate(zip(meshes, face_colors, edge_colors)):
+    for i, (m, ec) in enumerate(zip(meshes, edge_colors)):
+
+        # Determine the colors for the faces of this mesh
+        poly_face_colors = legend_face_colors[i] # Default to the single color
+
+        # If no explicit face_color is given, check for trimesh's per-face colors
+        if face_color is None and hasattr(m.visual, 'face_colors') and m.visual.face_colors is not None:
+            if len(m.visual.face_colors) == len(m.faces):
+                if m.visual.face_colors.dtype == np.uint8:
+                    poly_face_colors = m.visual.face_colors / 255.0
+                else:
+                    poly_face_colors = m.visual.face_colors
+
         poly3d = Poly3DCollection(m.vertices[m.faces], 
                                   alpha=alpha,
-                                  facecolor=fc,
+                                  facecolor=poly_face_colors,
                                   edgecolor=ec,
                                   linewidths=0.1)
         
@@ -132,8 +147,8 @@ def plot_mesh(mesh, title="3D Mesh", figsize=(10, 8), alpha=0.7,
         
         # Add legend entry if labels provided
         if labels and i < len(labels):
-            ax.plot([], [], 'o', color=fc, label=labels[i], markersize=10)
-    
+            ax.plot([], [], 'o', color=legend_face_colors[i], label=labels[i], markersize=10)
+
     # Set axis limits based on all meshes
     all_vertices = np.vstack(all_vertices)
     scale = all_vertices.flatten()
