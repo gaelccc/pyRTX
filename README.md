@@ -59,7 +59,7 @@ Install the specific packages:
 
 ```bash
 conda install -c conda-forge embree3 python-embree basemap
-'''
+```
 
 ### Step 2: Install pyRTX
 
