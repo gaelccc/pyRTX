@@ -48,8 +48,10 @@ Create the environment for Intel architecture:
 
 ```bash
 CONDA_SUBDIR=osx-64 conda create --name pyRTX-env -c conda-forge python=3.8
-Activate and lock the architecture for this environment:
 ```
+
+Activate and lock the architecture for this environment:
+
 
 ```bash
 conda activate pyRTX-env
