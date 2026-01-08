@@ -17,7 +17,7 @@ if readme_path.exists():
 
 setup(
     name='pyRTX',
-    version='0.1.0',
+    version='1.0.0',
     author='Gael Cascioli',
     author_email='gael.cascioli@nasa.gov',
     description='Non grav. forces modelling for deep space probes using raytracing',
