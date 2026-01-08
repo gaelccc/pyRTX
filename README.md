@@ -7,6 +7,8 @@ This library is thought to help scientists and engineers working in orbit determ
 navigation, GNC, and similar applications, by providing a framework for precise computation
 of non-gravitational forces. 
 
+For a quick glance at `pyRTX` capabilities look at the gallery of [tutorials](Notebooks/)
+
 Main features of pyRTX currently supported:
 ### Spacecraft modeling
 Support for basic and complex, static and moveable spacecraft shapes. 
