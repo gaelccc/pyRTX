@@ -29,42 +29,47 @@ Handful classes for computing, storing and reading lookup tables for improved co
 
 # Installation
 
-`pyRTX` requires a two-step installation process to handle both its Python and C++ dependencies. The use of a virtual environment (e.g., Conda or venv) is strongly recommended.
+`pyRTX` requires a Conda environment to manage its dependencies, particularly the C++ ray tracing library, Embree.
 
-**Note:** The installation has been tested and is currently supported on Linux only.
 
-### Step 1: System and C++ Dependencies
+### Step 1: Install Dependencies with Conda
 
-Before installing the Python package, you must install the necessary C++ libraries.
+Set up a Conda environment and install the required dependencies from the `conda-forge` channel. 
+This step is needed to ensure that the most complex dependencies are properly managed.
 
-1.  **Install System Prerequisites:**
-    `pyRTX` requires the `GEOS` library for the `basemap` package. On Debian-based systems like Ubuntu, you can install this with:
-    ```bash
-    sudo apt-get update
-    sudo apt-get install libgeos-dev
-    ```
+```bash
+conda create --name pyRTX-env -c conda-forge python=3.8  embree3 python-embree basemap
+conda activate pyRTX-env
+```
 
-2.  **Run the C++ Dependency Installer:**
-    The repository includes a script to download and build the C++ ray tracing libraries (Embree 3). Run this script from the root of the `pyRTX` directory:
-    ```bash
-    python install_deps.py
-    ```
+NOTE: The above steps are compatible with a Linux installation. If you are using a macOS system, you should check if your system is using an Intel or ARM (Apple Silicon) processor. If Intel, you can follow the same steps as for Linux. Otherwise, you must ensure that your conda environment enforces the Intel architecture to remain compatible with python-embree:
 
-### Step 2: Python Package Installation
+Create the environment for Intel architecture:
 
-Once the C++ dependencies are in place, you can install the `pyRTX` Python package and its dependencies.
+```bash
+CONDA_SUBDIR=osx-64 conda create --name pyRTX-env -c conda-forge python=3.8
+```
 
-1.  **Install `basemap`:**
-    Install the `basemap` package separately using pip:
-    ```bash
-    pip install basemap
-    ```
+Activate and lock the architecture for this environment:
 
-2.  **Install `pyRTX`:**
-    Install the `pyRTX` package and its remaining Python dependencies using pip:
-    ```bash
-    pip install .
-    ```
+
+```bash
+conda activate pyRTX-env
+conda config --env --set subdir osx-64
+```
+Install the specific packages:
+
+```bash
+conda install -c conda-forge embree3 python-embree basemap
+```
+
+### Step 2: Install pyRTX
+
+Once the main dependencies are installed via Conda, you can install the `pyRTX` package from this repository using `pip`:
+
+```bash
+pip install -r requirements.txt .
+```
 
 After completing these steps, the `pyRTX` library will be fully installed and ready to use.
 
@@ -72,7 +77,16 @@ After completing these steps, the `pyRTX` library will be fully installed and re
 # Quickstart and installation testing
 Download the data required for running the examples running in the `examples` folder:
 
-`python download_lro_kernels.py` 
+```bash
+python download_lro_kernels.py`
+```
+
+Once the test data (SPICE kernels) is downloaded you can test the installation.
+From the ``tests`` folder run
+
+```bash
+pytest
+```
 
 
 

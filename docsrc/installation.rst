@@ -3,55 +3,46 @@
 Installation
 ============
 
-`pyRTX` requires a two-step installation process to handle both its Python and C++ dependencies. The use of a virtual environment (e.g., Conda or venv) is strongly recommended.
+`pyRTX` requires a Conda environment to manage its dependencies, particularly the C++ ray tracing library, Embree.
 
 **Note:** The installation has been tested and is currently supported on Linux only.
 
-Step 0: Create an environment
------------------------------
-Create an environment specific to pyRTX. 
-``conda create --name=pyRTX-env python=3.8``
+Step 1: Install Dependencies with Conda
+---------------------------------------
 
-After the environment is created, activate it
-``conda activate pyRTX-env``
+Set up a Conda environment and install the required dependencies from the `conda-forge` channel.
+This step is needed to ensure that the most complex dependencies are properly managed.
 
-Step 1: System and C++ Dependencies
------------------------------------
+.. code-block:: bash
 
-Before installing the Python package, you must install the necessary C++ libraries.
+    conda create --name pyRTX-env -c conda-forge python=3.8  embree3 python-embree basemap
+    conda activate pyRTX-env
 
-1.  **Install System Prerequisites:**
-    `pyRTX` requires the `GEOS` library for the `basemap` package. On Debian-based systems like Ubuntu, you can install this with:
+Step 2: Install pyRTX
+---------------------
 
-    .. code-block:: bash
+Once the main dependencies are installed via Conda, you can install the `pyRTX` package from this repository using `pip`:
 
-        sudo apt-get update
-        sudo apt-get install libgeos-dev
+.. code-block:: bash
 
-2.  **Run the C++ Dependency Installer:**
-    The repository includes a script to download and build the C++ ray tracing libraries (Embree 3). Run this script from the root of the `pyRTX` directory:
-
-    .. code-block:: bash
-
-        python install_deps.py
-
-Step 2: Python Package Installation
------------------------------------
-
-Once the C++ dependencies are in place, you can install the `pyRTX` Python package and its dependencies.
-
-1.  **Install `basemap`:**
-    Install the `basemap` package separately using pip:
-
-    .. code-block:: bash
-
-        pip install basemap
-
-2.  **Install `pyRTX`:**
-    Install the `pyRTX` package and its remaining Python dependencies using pip:
-
-    .. code-block:: bash
-
-        pip install .
+    pip install -r requirements.txt .
 
 After completing these steps, the `pyRTX` library will be fully installed and ready to use.
+
+
+Step 3: Testing the Installation
+--------------------------------
+
+``pyRTX`` comes with a suite of tests to verify the successful installation.
+First of all, download the necessary files (SPICE kernels, needed also for the examples)
+by entering the ``examples`` folder and running
+
+.. code-block:: bash
+
+   python download_lro_kernels.py
+
+Then enter the ``tests`` folder and run
+
+.. code-block:: bash
+
+   pytest
