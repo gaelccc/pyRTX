@@ -59,7 +59,7 @@ class LookUpTable():
 		self._eul_idxs      = {ax: idx for idx, ax in enumerate(self._eul_set)}
 		self._dims          = self._data.look_up_table.dims
 		self._axes          = [self._data.coords[key].data for key in list(self._dims[:-1])]
-		self._units         = self._data.units
+		self._type          = self._data.type
   
 		# Close
 		LUT.close()
@@ -174,16 +174,22 @@ class LookUpTable():
 		return self._dims[:-1]
 
 	@property
-	def units(self):
+	def type(self):
 		"""
-        Returns the units of the lookup table values.
+        Returns the type of the lookup table values.
+		- If type is 'accel', the LUT values represent the acceleration for a 
+			normalized radiation flux of 1 W/m**2 and a mass of 1 kg. 
+			The LUT values will be 3x1 vectors. This mode is for srp, albedo and 
+			thermal infrared acceleration.
+		- If type is 'cross-section', the LUT computes the cross-section for the
+			drag acceleration. The LUT values will be single float. 
 
         Returns
         -------
         str
-            The units of the lookup table values.
+            The type of the lookup table values.
 		"""
-		return self._units
+		return self._type
   
 
 	def query(self, epoch, ra, dec,):
@@ -226,8 +232,6 @@ class LookUpTable():
   
 		query  = tuple(query)
 	
-
-  
 		output = np.squeeze(interpolate.interpn(self.axes, self.data, query, method = 'linear'))
 
 		return output
