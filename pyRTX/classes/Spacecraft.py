@@ -33,6 +33,7 @@ class Spacecraft():
             A dictionary defining the spacecraft's components. Each key is the
             component name, and the value is another dictionary with the following
             keys:
+
             - 'file' (str): Path to the OBJ file for the component.
             - 'frame_type' (str): 'Spice' or 'UD' (User Defined).
             - 'frame_name' (str): The name of the SPICE or UD frame.
@@ -175,6 +176,7 @@ class Spacecraft():
 		Creates a new Spacecraft instance containing only a subset of the
         components of the current instance.
 
+
         Parameters
         ----------
         elem_names : list of str
@@ -211,6 +213,7 @@ class Spacecraft():
 		"""
 		Applies the rotations and translations to each component for a given
         epoch.
+
 
         Parameters
         ----------
@@ -261,6 +264,7 @@ class Spacecraft():
 		"""
 		Returns the combined or individual meshes of the spacecraft's components
         at a specific epoch.
+
 
         Parameters
         ----------
@@ -313,6 +317,7 @@ class Spacecraft():
 		"""
 		Generates and stores a dictionary of material properties for all
         components.
+
 		"""
 		counter = 0
 		stored_idxs = []
