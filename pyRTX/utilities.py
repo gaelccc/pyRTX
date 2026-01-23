@@ -115,35 +115,39 @@ def export_exac(satelliteID, data, tstep, startTime, endTime, outFileName):
         End time of the data series. Must be consistent with len(data) and tstep.
     outFileName : str
         Path to output EXAC file. Typically uses .exac or .bin extension.
-    
+
     Returns
     -------
     None
         Data is written to binary file at outFileName.
-    
+
     Notes
     -----
     EXAC File Structure:
+
     - Master header record: Control parameters and file type identifier
     - Satellite-specific header: Satellite ID, time step, start/end times
     - Data records: Time stamp + 3D acceleration vector + padding zeros
-    
+
     Time Format:
+
     - Stored as YYMMDDHHMMSSμμμμμμ (year-month-day-hour-minute-second-microsecond)
     - Year uses 2-digit format (YY)
-    
+
     Coordinate System:
+
     - Accelerations should be in the same reference frame as the GEODYN
       orbit integration (typically J2000 or ICRF)
-    
+
     Units:
+
     - Accelerations: km/s²
     - Time step: seconds
-    
+
     This format is used for high-precision orbit determination where external
     non-gravitational forces (solar pressure, atmospheric drag, etc.) need to
     be accurately modeled.
-    
+
     Requires scipy.io.FortranFile for binary I/O operations.
     """
 

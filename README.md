@@ -33,13 +33,6 @@ Handful classes for computing, storing and reading lookup tables for improved co
 
 `pyRTX` requires a Conda environment to manage its dependencies, particularly the C++ ray tracing library, Embree.
 
-### Step 0: Download/clone the code
-
-Download the latest version of the code 
-
-```bash
-git clone git@github.com:gaelccc/pyRTX.git
-```
 
 ### Step 1: Install Dependencies with Conda
 
@@ -88,6 +81,13 @@ Download the data required for running the examples running in the `examples` fo
 
 ```bash
 python download_lro_kernels.py`
+```
+
+Once the test data (SPICE kernels) is downloaded you can test the installation.
+From the ``tests`` folder run
+
+```bash
+pytest
 ```
 
 Once the test data (SPICE kernels) is downloaded you can test the installation.

@@ -415,13 +415,13 @@ class ScatterLookup():
     zones of the axes space.
     Example: the value of a variable has been computed in X = [0,1] Y = [0,1] and X = [3,4] Y = [-2,-1]
 
-    After instantiating the empty class, the different zones are added. Example
+    After instantiating the empty class, the different zones are added. Example::
 
-    sc = ScatterLookup()
-    zone1 = LookupTableND(*args, **kwargs)
-    zone2 = LookupTableND(*args, **kwargs)
-    sc.addZone(zone1)
-    sc.addZone(zone2)
+        sc = ScatterLookup()
+        zone1 = LookupTableND(*args, **kwargs)
+        zone2 = LookupTableND(*args, **kwargs)
+        sc.addZone(zone1)
+        sc.addZone(zone2)
 
 
 

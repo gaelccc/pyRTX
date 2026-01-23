@@ -50,17 +50,18 @@ def preprocess_materials(material_dict):
     Parameters
     ----------
     material_dict : dict
-        A dictionary with the following structure:
-        {
-            'props': {
-                'material_name_1': {'specular': float, 'diffuse': float},
-                ...
-            },
-            'idxs': [
-                [start_idx_1, end_idx_1],
-                ...
-            ]
-        }
+        A dictionary with the following structure::
+
+            {
+                'props': {
+                    'material_name_1': {'specular': float, 'diffuse': float},
+                    ...
+                },
+                'idxs': [
+                    [start_idx_1, end_idx_1],
+                    ...
+                ]
+            }
 
     Returns
     -------

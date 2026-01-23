@@ -24,7 +24,7 @@ with open('inputs/srp.pkl', 'rb') as f: srp = pkl.load(f)
 ref_epoch     =  attrs['ref_epoch']
 moving_frames =  attrs['moving_frames'].split(',')
 dims		  =  attrs['dims'].split(',')
-units	      =  attrs['units']
+type 	      =  attrs['type']
 eul_set       =  tuple([int(e) for e in attrs['eul_set'].split(',')])
 eul_idxs      =  {ax: idx for idx, ax in enumerate(eul_set)}
 sc_model      =  srp.rayTracer.spacecraft.spacecraft_model
@@ -43,7 +43,7 @@ sp.furnsh(METAKR)
 ref_epc  = sp.str2et(ref_epoch)
 
 IDX, SEQ = INPUTS[ID]
-shape = (len(SEQ),3) if 's**2' in units else (len(SEQ),)
+shape = (len(SEQ),3) if type == 'accel' else (len(SEQ),)
 OUTPUT  = np.zeros(shape)
 
 # Loop for every sequence
@@ -91,7 +91,7 @@ for n, tup in enumerate(zip(IDX,SEQ)):
 	srp.rayTracer.rays.update_latlon(lon = ra, lat = dec)
 
 	# Compute normalized accel
-	if 's**2' in units:
+	if type == 'accel':
 		value = np.squeeze(srp.compute(ref_epc))
 	else:
 		srp.rayTracer.trace(ref_epc)

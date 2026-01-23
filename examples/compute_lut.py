@@ -24,10 +24,11 @@
 # a range of euler angles in a specific euler set must be defined.
 
 # The LUT have two computational mode:
-# - If units is 'km/s**2', the LUT computes the acceleration for a 
-#   normalized radiation flux. The LUT values will be 3x1 vectors. This
-#	mode is for srp, albedo and thermal infrared acceleration.
-# - If units is 'km**2', the LUT computes the cross-section for the
+# - If type is 'accel', the LUT computes the acceleration for a 
+#   normalized radiation flux of 1 W/m**2 and a mass of 1 kg. 
+#   The LUT values will be 3x1 vectors. This mode is for srp, albedo and 
+#   thermal infrared acceleration.
+# - If type is 'cross-section', the LUT computes the cross-section for the
 #	drag acceleration. The LUT values will be single float. 
 
 # NOTE: Here we compute the lookup table for the Lunar Redonnaissance orbiter
@@ -78,9 +79,9 @@ obj_path = '../example_data/LRO/'		          # path for 3D shape elements
 
 METAKR = '../example_data/LRO/metakernel_lro.tm'  # metakernel
 
-units  = 'km/s**2'	                              # units for lookup table values: km/s**2 or km**2
+type = 'accel'	                                  # method: 'accel' or 'cross-section'
 
-lutfile =  'luts/lro_accel_lut.nc'	    		  # output file
+lutfile = 'luts/lro_accel_lut.nc'	    		  # output file
 
 ### --------------------------------------------------------------------------- ###
 ### LUT LIMITS
@@ -229,7 +230,7 @@ axes.append(DEC)
 attrs = {
 	'moving_frames': ",".join(moving_frames),
 	'base_frame': base_frame,
-	'units': units,
+	'type': type,
 	'ref_epoch': ref_epc,
 	'eul_set': ",".join([str(e) for e in eul_set]),
 	'dims': ",".join(dims),

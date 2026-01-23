@@ -16,6 +16,7 @@ pyRTX v1.0
    installation
    quickstart
    tutorials/index
+   next_steps
    api/index
 
 Introduction

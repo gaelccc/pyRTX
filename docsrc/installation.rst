@@ -12,27 +12,14 @@ Step 1: Install Dependencies with Conda
 Set up a Conda environment and install the required dependencies from the `conda-forge` channel.
 This step is needed to ensure that the most complex dependencies are properly managed.
 
-
-**Linux and macOS (Intel)**
-"""""""""""""""""""""""""""""
-
-For Linux and Intel-based macOS systems, you can create the conda environment with the following command:
-
 .. code-block:: bash
 
     conda create --name pyRTX-env -c conda-forge python=3.8  embree3 python-embree basemap
     conda activate pyRTX-env
 
-.. note::
-   The Linux installation instructions should also work for Windows Subsystem for Linux (WSL), but this has not been extensively tested.
+NOTE: The above steps are compatible with a Linux installation. If you are using a macOS system, you should check if your system is using an Intel or ARM (Apple Silicon) processor. If Intel, you can follow the same steps as for Linux. Otherwise, you must ensure that your conda environment enforces the Intel architecture to remain compatible with python-embree:
 
-
-**macOS (ARM, Apple Silicon)**
-""""""""""""""""""""""""""""""
-
-If you are using a macOS system with an ARM-based processor (Apple Silicon), you must ensure that your conda environment enforces the Intel architecture to remain compatible with `python-embree`.
-
-Create the environment for the Intel architecture:
+Create the environment for Intel architecture:
 
 .. code-block:: bash
 
@@ -51,7 +38,6 @@ Install the specific packages:
 
     conda install -c conda-forge embree3 python-embree basemap
 
-
 Step 2: Install pyRTX
 ---------------------
 
@@ -64,19 +50,17 @@ Once the main dependencies are installed via Conda, you can install the `pyRTX` 
 After completing these steps, the `pyRTX` library will be fully installed and ready to use.
 
 
-Step 3: Testing the Installation
---------------------------------
-
-``pyRTX`` comes with a suite of tests to verify the successful installation.
-First of all, download the necessary files (SPICE kernels, needed also for the examples)
-by entering the ``examples`` folder and running
+Quickstart and installation testing
+-----------------------------------
+Download the data required for running the examples running in the `examples` folder:
 
 .. code-block:: bash
 
-   python download_lro_kernels.py
+    python download_lro_kernels.py
 
-Then enter the ``tests`` folder and run
+Once the test data (SPICE kernels) is downloaded you can test the installation.
+From the ``tests`` folder run
 
 .. code-block:: bash
 
-   pytest
+    pytest
