@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyRTX.classes.SRP &mdash; pyRTX 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=51279e30" />
 
@@ -47,6 +47,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-0-create-an-environment">Step 0: Create an environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-1-system-and-c-dependencies">Step 1: System and C++ Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-2-python-package-installation">Step 2: Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-3-testing-the-installation">Step 3: Testing the Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start Guide</a><ul>
@@ -275,26 +276,26 @@
            <div itemprop="articleBody">
              
   <h1>Source code for pyRTX.classes.SRP</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">spiceypy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">spiceypy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">xarray</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX</span><span class="w"> </span><span class="kn">import</span> <span class="n">constants</span>
+<span class="kn">from</span> <span class="nn">pyRTX</span> <span class="kn">import</span> <span class="n">constants</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.PixelPlane</span><span class="w"> </span><span class="kn">import</span> <span class="n">PixelPlane</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.Planet</span><span class="w"> </span><span class="kn">import</span> <span class="n">Planet</span>
+<span class="kn">from</span> <span class="nn">pyRTX.classes.PixelPlane</span> <span class="kn">import</span> <span class="n">PixelPlane</span>
+<span class="kn">from</span> <span class="nn">pyRTX.classes.Planet</span> <span class="kn">import</span> <span class="n">Planet</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">utils_rt</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.shadow_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">circular_mask</span><span class="p">,</span> <span class="n">circular_rim</span><span class="p">,</span> <span class="n">compute_directions</span><span class="p">,</span> <span class="n">compute_beta</span><span class="p">,</span> <span class="n">compute_pixel_intensities</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.parallel_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">parallel</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.physical_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">preprocess_RTX_geometry</span><span class="p">,</span> <span class="n">preprocess_materials</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.utils_rt</span><span class="w"> </span><span class="kn">import</span> <span class="n">reflected</span>
+<span class="kn">from</span> <span class="nn">pyRTX.core</span> <span class="kn">import</span> <span class="n">utils_rt</span>
+<span class="kn">from</span> <span class="nn">pyRTX.core.shadow_utils</span> <span class="kn">import</span> <span class="n">circular_mask</span><span class="p">,</span> <span class="n">circular_rim</span><span class="p">,</span> <span class="n">compute_directions</span><span class="p">,</span> <span class="n">compute_beta</span><span class="p">,</span> <span class="n">compute_pixel_intensities</span>
+<span class="kn">from</span> <span class="nn">pyRTX.core.parallel_utils</span> <span class="kn">import</span> <span class="n">parallel</span>
+<span class="kn">from</span> <span class="nn">pyRTX.core.physical_utils</span> <span class="kn">import</span> <span class="n">preprocess_RTX_geometry</span><span class="p">,</span> <span class="n">preprocess_materials</span>
+<span class="kn">from</span> <span class="nn">pyRTX.core.utils_rt</span> <span class="kn">import</span> <span class="n">reflected</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">interpolate</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">interpolate</span>
 
 
 
-<div class="viewcode-block" id="SunShadow"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">SunShadow</span><span class="p">():</span>
+<div class="viewcode-block" id="SunShadow"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow">[docs]</a><span class="k">class</span> <span class="nc">SunShadow</span><span class="p">():</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Computes the solar flux ratio considering eclipse effects.</span>
 
@@ -302,7 +303,7 @@
 <span class="sd">	accounting for solar limb darkening effects to provide a precise solar flux ratio.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="SunShadow.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">bodyRadius</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">numrays</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">sunRadius</span> <span class="o">=</span> <span class="mf">600e3</span><span class="p">,</span> <span class="n">bodyShape</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">bodyFrame</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">limbDarkening</span> <span class="o">=</span> <span class="s1">&#39;Standard&#39;</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SunShadow.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">body</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">bodyRadius</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">numrays</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">sunRadius</span> <span class="o">=</span> <span class="mf">600e3</span><span class="p">,</span> <span class="n">bodyShape</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">bodyFrame</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">limbDarkening</span> <span class="o">=</span> <span class="s1">&#39;Standard&#39;</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the SunShadow object.</span>
 
@@ -355,7 +356,7 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">=</span> <span class="n">precomputation</span></div>
 
 
-	<span class="k">def</span><span class="w"> </span><span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Store precomputed SPICE data in relevant objects.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
@@ -365,7 +366,7 @@
 
 
 <div class="viewcode-block" id="SunShadow.run"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.run">[docs]</a>	<span class="nd">@parallel</span>
-	<span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Compute the eclipse ratio for a single epoch.</span>
 
@@ -430,7 +431,7 @@
 		<span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">numerator</span><span class="o">/</span><span class="n">denominator</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="SunShadow.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.compute">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SunShadow.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow.compute">[docs]</a>	<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Compute eclipse ratios for multiple epochs.</span>
 
@@ -456,7 +457,7 @@
 
 
 
-<div class="viewcode-block" id="SolarPressure"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">SolarPressure</span><span class="p">():</span>
+<div class="viewcode-block" id="SolarPressure"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure">[docs]</a><span class="k">class</span> <span class="nc">SolarPressure</span><span class="p">():</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Computes the solar radiation pressure (SRP) on a spacecraft.</span>
 
@@ -466,7 +467,7 @@
 <span class="sd">	&quot;&quot;&quot;</span>
 
 	
-<div class="viewcode-block" id="SolarPressure.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">rayTracer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">baseflux</span> <span class="o">=</span> <span class="mf">1361.5</span><span class="p">,</span> <span class="n">grouped</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">shadowObj</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">lookup</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SolarPressure.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">rayTracer</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">baseflux</span> <span class="o">=</span> <span class="mf">1361.5</span><span class="p">,</span> <span class="n">grouped</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">shadowObj</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">lookup</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the SolarPressure object.</span>
 
@@ -511,7 +512,7 @@
 			<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1"> *** WARNING: For LUT computation SC mass should be set to 1.0!&#39;</span><span class="p">)</span></div>
 
 
-	<span class="k">def</span><span class="w"> </span><span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Store precomputed SPICE data in relevant objects.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
@@ -531,7 +532,7 @@
 
 
 <div class="viewcode-block" id="SolarPressure.run"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.run">[docs]</a>	<span class="nd">@parallel</span>
-	<span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Compute the solar pressure acceleration for a single epoch.</span>
 
@@ -578,7 +579,7 @@
 		<span class="k">return</span> <span class="n">f_srp</span> <span class="o">/</span> <span class="n">mass</span></div>
   
   
-<div class="viewcode-block" id="SolarPressure.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.compute">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SolarPressure.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.compute">[docs]</a>	<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Compute the solar pressure acceleration for multiple epochs.</span>
 
@@ -606,7 +607,7 @@
 		<span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="n">n_cores</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="SolarPressure.lookupCompute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.lookupCompute">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">lookupCompute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">):</span>
+<div class="viewcode-block" id="SolarPressure.lookupCompute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.lookupCompute">[docs]</a>	<span class="k">def</span> <span class="nf">lookupCompute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Compute the solar pressure force using a lookup table.</span>
 
@@ -649,7 +650,7 @@
 		<span class="k">return</span> <span class="n">acc</span></div>
  
 
-<div class="viewcode-block" id="SolarPressure.get_flux"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.get_flux">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">get_flux</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+<div class="viewcode-block" id="SolarPressure.get_flux"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.get_flux">[docs]</a>	<span class="k">def</span> <span class="nf">get_flux</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Get the scaled solar flux at a given epoch.</span>
 
@@ -678,7 +679,7 @@
 		<span class="k">return</span> <span class="n">flux</span></div>
 
 
-<div class="viewcode-block" id="SolarPressure.get_force"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.get_force">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">get_force</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">mesh_obj</span><span class="p">,</span> <span class="n">index_tri</span><span class="p">,</span> <span class="n">index_ray</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">ray_origins</span><span class="p">,</span> <span class="n">ray_directions</span><span class="p">,</span> <span class="n">pixel_spacing</span><span class="p">,</span> <span class="n">materials</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">grouped</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<div class="viewcode-block" id="SolarPressure.get_force"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.get_force">[docs]</a>	<span class="k">def</span> <span class="nf">get_force</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">mesh_obj</span><span class="p">,</span> <span class="n">index_tri</span><span class="p">,</span> <span class="n">index_ray</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">ray_origins</span><span class="p">,</span> <span class="n">ray_directions</span><span class="p">,</span> <span class="n">pixel_spacing</span><span class="p">,</span> <span class="n">materials</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">grouped</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 		<span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">num_diffuse</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diffusion_pack</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span> 
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Compute the total SRP force from ray-tracing results.</span>
@@ -759,7 +760,7 @@
 		<span class="k">return</span> <span class="n">force</span></div>
 
 
-<div class="viewcode-block" id="SolarPressure.srp_core"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.srp_core">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">srp_core</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">indexes_tri</span><span class="p">,</span> <span class="n">indexes_ray</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">norm_factor</span><span class="p">,</span> <span class="n">mesh_obj</span><span class="p">,</span> <span class="n">materials</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">num_diffuse</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diffusion_pack</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="SolarPressure.srp_core"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure.srp_core">[docs]</a>	<span class="k">def</span> <span class="nf">srp_core</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flux</span><span class="p">,</span> <span class="n">indexes_tri</span><span class="p">,</span> <span class="n">indexes_ray</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">norm_factor</span><span class="p">,</span> <span class="n">mesh_obj</span><span class="p">,</span> <span class="n">materials</span> <span class="o">=</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">num_diffuse</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">diffusion_pack</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Core computation of the SRP force (vectorized).</span>
 

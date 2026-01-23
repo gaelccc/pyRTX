@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyRTX.utilities &mdash; pyRTX 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=51279e30" />
 
@@ -47,6 +47,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../installation.html#step-0-create-an-environment">Step 0: Create an environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../installation.html#step-1-system-and-c-dependencies">Step 1: System and C++ Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../installation.html#step-2-python-package-installation">Step 2: Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html#step-3-testing-the-installation">Step 3: Testing the Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../quickstart.html">Quick Start Guide</a><ul>
@@ -275,12 +276,12 @@
            <div itemprop="articleBody">
              
   <h1>Source code for pyRTX.utilities</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">spiceypy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">spiceypy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
 
-<div class="viewcode-block" id="export_formatted"><a class="viewcode-back" href="../../api/pyRTX.html#pyRTX.utilities.export_formatted">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">export_formatted</span><span class="p">(</span><span class="n">accelerations</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="export_formatted"><a class="viewcode-back" href="../../api/pyRTX.html#pyRTX.utilities.export_formatted">[docs]</a><span class="k">def</span> <span class="nf">export_formatted</span><span class="p">(</span><span class="n">accelerations</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Export acceleration data to formatted text file with epoch timestamps.</span>
 
@@ -368,7 +369,7 @@
     <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">todump</span><span class="p">,</span> <span class="n">delimiter</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="s1">&#39;Acceleration file. Columns: Epoch (seconds past J2000, X, Y, Z). &#39;</span> <span class="o">+</span> <span class="n">toadd</span><span class="p">)</span></div>
     
     
-<div class="viewcode-block" id="export_exac"><a class="viewcode-back" href="../../api/pyRTX.html#pyRTX.utilities.export_exac">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">export_exac</span><span class="p">(</span><span class="n">satelliteID</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">tstep</span><span class="p">,</span> <span class="n">startTime</span><span class="p">,</span> <span class="n">endTime</span><span class="p">,</span> <span class="n">outFileName</span><span class="p">):</span>
+<div class="viewcode-block" id="export_exac"><a class="viewcode-back" href="../../api/pyRTX.html#pyRTX.utilities.export_exac">[docs]</a><span class="k">def</span> <span class="nf">export_exac</span><span class="p">(</span><span class="n">satelliteID</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">tstep</span><span class="p">,</span> <span class="n">startTime</span><span class="p">,</span> <span class="n">endTime</span><span class="p">,</span> <span class="n">outFileName</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Export acceleration data to GEODYN EXAC (External Accelerations) file format.</span>
 <span class="sd">    </span>
@@ -424,8 +425,8 @@
 <span class="sd">    Requires scipy.io.FortranFile for binary I/O operations.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">FortranFile</span>
-    <span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+    <span class="kn">from</span> <span class="nn">scipy.io</span> <span class="kn">import</span> <span class="n">FortranFile</span>
+    <span class="kn">import</span> <span class="nn">datetime</span>
 
     <span class="n">satid</span> <span class="o">=</span> <span class="n">satelliteID</span>
     <span class="n">date0</span> <span class="o">=</span> <span class="n">startTime</span>
@@ -454,7 +455,7 @@
     
     
 
-<div class="viewcode-block" id="to_datetime"><a class="viewcode-back" href="../../api/pyRTX.html#pyRTX.utilities.to_datetime">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">to_datetime</span><span class="p">(</span><span class="n">epoch</span><span class="p">):</span>
+<div class="viewcode-block" id="to_datetime"><a class="viewcode-back" href="../../api/pyRTX.html#pyRTX.utilities.to_datetime">[docs]</a><span class="k">def</span> <span class="nf">to_datetime</span><span class="p">(</span><span class="n">epoch</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Converts a SPICE epoch to a Python datetime object.</span>
 
@@ -475,7 +476,7 @@
     
     
 
-<div class="viewcode-block" id="getScPosVel"><a class="viewcode-back" href="../../api/pyRTX.html#pyRTX.utilities.getScPosVel">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">getScPosVel</span><span class="p">(</span><span class="n">spacecraft</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+<div class="viewcode-block" id="getScPosVel"><a class="viewcode-back" href="../../api/pyRTX.html#pyRTX.utilities.getScPosVel">[docs]</a><span class="k">def</span> <span class="nf">getScPosVel</span><span class="p">(</span><span class="n">spacecraft</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Retrieves the position and velocity of a spacecraft.</span>
 

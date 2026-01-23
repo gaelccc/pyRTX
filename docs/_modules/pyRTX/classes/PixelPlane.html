@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyRTX.classes.PixelPlane &mdash; pyRTX 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=51279e30" />
 
@@ -47,6 +47,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-0-create-an-environment">Step 0: Create an environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-1-system-and-c-dependencies">Step 1: System and C++ Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-2-python-package-installation">Step 2: Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-3-testing-the-installation">Step 3: Testing the Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start Guide</a><ul>
@@ -275,13 +276,13 @@
            <div itemprop="articleBody">
              
   <h1>Source code for pyRTX.classes.PixelPlane</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">spiceypy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">spiceypy</span> <span class="k">as</span> <span class="nn">sp</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX</span><span class="w"> </span><span class="kn">import</span> <span class="n">constants</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.utils_rt</span><span class="w"> </span><span class="kn">import</span> <span class="n">fast_vector_build</span>
+<span class="kn">from</span> <span class="nn">pyRTX</span> <span class="kn">import</span> <span class="n">constants</span>
+<span class="kn">from</span> <span class="nn">pyRTX.core.utils_rt</span> <span class="kn">import</span> <span class="n">fast_vector_build</span>
 
-<div class="viewcode-block" id="PixelPlane"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">PixelPlane</span><span class="p">():</span>
+<div class="viewcode-block" id="PixelPlane"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane">[docs]</a><span class="k">class</span> <span class="nc">PixelPlane</span><span class="p">():</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	A class to generate a rectangular grid of rays for ray-tracing.</span>
 
@@ -291,7 +292,7 @@
 <span class="sd">	&quot;&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="PixelPlane.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
+<div class="viewcode-block" id="PixelPlane.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> 
 			   <span class="n">source</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 			   <span class="n">mode</span> <span class="o">=</span> <span class="s1">&#39;Fixed&#39;</span><span class="p">,</span> 
 			   <span class="n">distance</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> 
@@ -357,7 +358,7 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 
-<div class="viewcode-block" id="PixelPlane.dump"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane.dump">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="PixelPlane.dump"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane.dump">[docs]</a>	<span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Generate the ray origins and directions for a given epoch.</span>
 
@@ -397,7 +398,7 @@
 		<span class="k">return</span> <span class="n">basic_coords</span><span class="p">,</span> <span class="n">basic_dirs</span></div>
 
 
-	<span class="k">def</span><span class="w"> </span><span class="nf">_core_dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instantiate</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">_core_dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instantiate</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Core logic for generating the pixel plane coordinates and directions.</span>
 
@@ -495,7 +496,7 @@
 		<span class="k">return</span> <span class="n">basic_coords</span><span class="p">,</span> <span class="n">basic_dirs</span>
 
 
-<div class="viewcode-block" id="PixelPlane.update_latlon"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane.update_latlon">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">update_latlon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">lon</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">lat</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="PixelPlane.update_latlon"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane.update_latlon">[docs]</a>	<span class="k">def</span> <span class="nf">update_latlon</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">lon</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">lat</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Update the latitude and longitude for a fixed orientation.</span>
 

@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyRTX.classes.Radiation &mdash; pyRTX 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=51279e30" />
 
@@ -47,6 +47,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-0-create-an-environment">Step 0: Create an environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-1-system-and-c-dependencies">Step 1: System and C++ Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-2-python-package-installation">Step 2: Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-3-testing-the-installation">Step 3: Testing the Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start Guide</a><ul>
@@ -275,28 +276,28 @@
            <div itemprop="articleBody">
              
   <h1>Source code for pyRTX.classes.Radiation</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">spiceypy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.utils_rt</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_surface_normals_and_face_areas</span><span class="p">,</span> <span class="n">block_dot</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">timeit</span><span class="w"> </span><span class="kn">import</span> <span class="n">default_timer</span> <span class="k">as</span> <span class="n">dT</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">interpolate</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.parallel_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">parallel</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">stefan_boltzmann</span> <span class="k">as</span> <span class="n">sb</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">au</span> 
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.LookUpTable</span><span class="w"> </span><span class="kn">import</span> <span class="n">LookUpTable</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.analysis_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute_body_positions</span>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span>
+<span class="kn">import</span> <span class="nn">spiceypy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">from</span> <span class="nn">pyRTX.core.utils_rt</span> <span class="kn">import</span> <span class="n">get_surface_normals_and_face_areas</span><span class="p">,</span> <span class="n">block_dot</span>
+<span class="kn">from</span> <span class="nn">timeit</span> <span class="kn">import</span> <span class="n">default_timer</span> <span class="k">as</span> <span class="n">dT</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">interpolate</span>
+<span class="kn">from</span> <span class="nn">pyRTX.core.parallel_utils</span> <span class="kn">import</span> <span class="n">parallel</span>
+<span class="kn">from</span> <span class="nn">pyRTX.constants</span> <span class="kn">import</span> <span class="n">stefan_boltzmann</span> <span class="k">as</span> <span class="n">sb</span>
+<span class="kn">from</span> <span class="nn">pyRTX.constants</span> <span class="kn">import</span> <span class="n">au</span> 
+<span class="kn">from</span> <span class="nn">pyRTX.classes.LookUpTable</span> <span class="kn">import</span> <span class="n">LookUpTable</span>
+<span class="kn">from</span> <span class="nn">pyRTX.core.analysis_utils</span> <span class="kn">import</span> <span class="n">compute_body_positions</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Main class for Albedo computations.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Albedo"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Albedo</span><span class="p">():</span>
+<div class="viewcode-block" id="Albedo"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo">[docs]</a><span class="k">class</span> <span class="nc">Albedo</span><span class="p">():</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class for computing the albedo acceleration on a spacecraft.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Albedo.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">lookup</span><span class="p">,</span> <span class="n">Planet</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">baseflux</span> <span class="o">=</span> <span class="mf">1361.5</span><span class="p">,):</span>
+<div class="viewcode-block" id="Albedo.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">lookup</span><span class="p">,</span> <span class="n">Planet</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">baseflux</span> <span class="o">=</span> <span class="mf">1361.5</span><span class="p">,):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the Albedo object.</span>
 
@@ -333,7 +334,7 @@
 			<span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;Error: the input lookup table must be a classes.LookUpTable object&#39;</span><span class="p">)</span>
 		<span class="bp">self</span><span class="o">.</span><span class="n">lookup</span> <span class="o">=</span> <span class="n">lookup</span></div>
 
-	<span class="k">def</span><span class="w"> </span><span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Stores precomputed SPICE data in the Planet and lookup table objects.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
@@ -343,7 +344,7 @@
 
 
 <div class="viewcode-block" id="Albedo.run"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo.run">[docs]</a>	<span class="nd">@parallel</span>
-	<span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes the albedo acceleration at a single epoch.</span>
 
@@ -390,7 +391,7 @@
 		<span class="k">return</span> <span class="n">alb_accel</span><span class="p">,</span> <span class="n">normFluxes</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">albedoVals</span></div>
 
 
-<div class="viewcode-block" id="Albedo.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo.compute">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Albedo.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo.compute">[docs]</a>	<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes the albedo acceleration for a series of epochs.</span>
 
@@ -427,7 +428,7 @@
 		<span class="k">return</span> <span class="n">alb_accel</span><span class="p">,</span> <span class="n">norm_fluxes</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">albedoVals</span></div>
 
 
-	<span class="k">def</span><span class="w"> </span><span class="nf">_core_compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">_core_compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Core computation for the albedo acceleration.</span>
 
@@ -478,12 +479,12 @@
 		<span class="k">return</span> <span class="n">norm_fluxes</span><span class="p">,</span> <span class="o">-</span><span class="n">scRelative</span><span class="p">,</span> <span class="n">albedoIdxs</span><span class="p">,</span> <span class="n">albedoVals</span></div>
 
 
-<div class="viewcode-block" id="Emissivity"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Emissivity</span><span class="p">():</span>
+<div class="viewcode-block" id="Emissivity"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity">[docs]</a><span class="k">class</span> <span class="nc">Emissivity</span><span class="p">():</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class for computing the thermal emissivity acceleration on a spacecraft.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Emissivity.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">lookup</span><span class="p">,</span> <span class="n">Planet</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">baseflux</span> <span class="o">=</span> <span class="mf">1361.5</span><span class="p">):</span>
+<div class="viewcode-block" id="Emissivity.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">lookup</span><span class="p">,</span> <span class="n">Planet</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">baseflux</span> <span class="o">=</span> <span class="mf">1361.5</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the Emissivity object.</span>
 
@@ -521,7 +522,7 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">lookup</span> <span class="o">=</span> <span class="n">lookup</span></div>
 
 
-	<span class="k">def</span><span class="w"> </span><span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Stores precomputed SPICE data in the Planet and lookup table objects.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
@@ -531,7 +532,7 @@
 
 
 <div class="viewcode-block" id="Emissivity.run"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity.run">[docs]</a>	<span class="nd">@parallel</span>
-	<span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes the emissivity acceleration at a single epoch.</span>
 
@@ -574,7 +575,7 @@
 		<span class="k">return</span> <span class="n">ir_accel</span><span class="p">,</span> <span class="n">normFluxes</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">faceEmi</span></div>
 
 
-<div class="viewcode-block" id="Emissivity.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity.compute">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Emissivity.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity.compute">[docs]</a>	<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes the emissivity acceleration for a series of epochs.</span>
 
@@ -610,7 +611,7 @@
 		<span class="k">return</span> <span class="n">ir_accel</span><span class="p">,</span> <span class="n">norm_fluxes</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">faceEmi</span></div>
 
 
-	<span class="k">def</span><span class="w"> </span><span class="nf">_core_compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">_core_compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Core computation for the emissivity acceleration.</span>
 

@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyRTX.classes.Precompute &mdash; pyRTX 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=51279e30" />
 
@@ -47,6 +47,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-0-create-an-environment">Step 0: Create an environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-1-system-and-c-dependencies">Step 1: System and C++ Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-2-python-package-installation">Step 2: Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-3-testing-the-installation">Step 3: Testing the Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start Guide</a><ul>
@@ -275,17 +276,17 @@
            <div itemprop="articleBody">
              
   <h1>Source code for pyRTX.classes.Precompute</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">sys</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pkl</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">spiceypy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+<span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">pickle</span> <span class="k">as</span> <span class="nn">pkl</span>
+<span class="kn">import</span> <span class="nn">spiceypy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.analysis_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">compute_body_positions</span><span class="p">,</span> <span class="n">compute_body_states</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">au</span> 
+<span class="kn">from</span> <span class="nn">pyRTX.core.analysis_utils</span> <span class="kn">import</span> <span class="n">compute_body_positions</span><span class="p">,</span> <span class="n">compute_body_states</span>
+<span class="kn">from</span> <span class="nn">pyRTX.constants</span> <span class="kn">import</span> <span class="n">au</span> 
 
 
-<div class="viewcode-block" id="Precompute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Precompute</span><span class="p">():</span>
+<div class="viewcode-block" id="Precompute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute">[docs]</a><span class="k">class</span> <span class="nc">Precompute</span><span class="p">():</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class to perform and store SPICE computations in advance.</span>
 
@@ -295,7 +296,7 @@
 <span class="sd">    calls to SPICE.</span>
 <span class="sd">	&quot;&quot;&quot;</span>	
  
-<div class="viewcode-block" id="Precompute.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">:</span> <span class="nb">list</span><span class="p">,):</span>
+<div class="viewcode-block" id="Precompute.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">:</span> <span class="nb">list</span><span class="p">,):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the Precompute object.</span>
 
@@ -311,7 +312,7 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">_config</span> 	<span class="o">=</span> <span class="p">{}</span></div>
 
 
-<div class="viewcode-block" id="Precompute.addPosition"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.addPosition">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">addPosition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observer</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">correction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;CN&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Precompute.addPosition"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.addPosition">[docs]</a>	<span class="k">def</span> <span class="nf">addPosition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observer</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">correction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;CN&#39;</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds a position vector computation to the precomputation list.</span>
 
@@ -341,7 +342,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s1">&#39;position&#39;</span><span class="p">][</span><span class="s1">&#39;coordinates&#39;</span><span class="p">][</span><span class="s1">&#39;pos_param&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">param</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Precompute.addState"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.addState">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">addState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observer</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">correction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;CN&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Precompute.addState"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.addState">[docs]</a>	<span class="k">def</span> <span class="nf">addState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">observer</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">correction</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;CN&#39;</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds a state vector computation to the precomputation list.</span>
 
@@ -371,7 +372,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">][</span><span class="s1">&#39;coordinates&#39;</span><span class="p">][</span><span class="s1">&#39;state_param&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">param</span><span class="p">)</span></div>
    
    
-<div class="viewcode-block" id="Precompute.addRotation"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.addRotation">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">addRotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="Precompute.addRotation"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.addRotation">[docs]</a>	<span class="k">def</span> <span class="nf">addRotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds a rotation matrix computation to the precomputation list.</span>
 
@@ -397,7 +398,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="p">[</span><span class="s1">&#39;rotation&#39;</span><span class="p">][</span><span class="s1">&#39;coordinates&#39;</span><span class="p">][</span><span class="s1">&#39;rot_param&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">param</span><span class="p">)</span></div>
    
 
-<div class="viewcode-block" id="Precompute.precomputeSolarPressure"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.precomputeSolarPressure">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">precomputeSolarPressure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sc</span><span class="p">,</span> <span class="n">planet</span><span class="p">,</span> <span class="n">correction</span> <span class="o">=</span> <span class="s1">&#39;LT+S&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Precompute.precomputeSolarPressure"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.precomputeSolarPressure">[docs]</a>	<span class="k">def</span> <span class="nf">precomputeSolarPressure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sc</span><span class="p">,</span> <span class="n">planet</span><span class="p">,</span> <span class="n">correction</span> <span class="o">=</span> <span class="s1">&#39;LT+S&#39;</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds all necessary computations for solar radiation pressure to the</span>
 <span class="sd">        precomputation list.</span>
@@ -437,7 +438,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">addRotation</span><span class="p">(</span><span class="n">base_frame</span><span class="o">=</span><span class="n">base</span><span class="p">,</span> <span class="n">target_frame</span><span class="o">=</span><span class="n">target_frames</span><span class="p">[</span><span class="n">i</span><span class="p">])</span></div>
 
 
-<div class="viewcode-block" id="Precompute.precomputePlanetaryRadiation"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.precomputePlanetaryRadiation">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">precomputePlanetaryRadiation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sc</span><span class="p">,</span> <span class="n">planet</span><span class="p">,</span> <span class="n">moving_frames</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">correction</span> <span class="o">=</span> <span class="s1">&#39;CN&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Precompute.precomputePlanetaryRadiation"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.precomputePlanetaryRadiation">[docs]</a>	<span class="k">def</span> <span class="nf">precomputePlanetaryRadiation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sc</span><span class="p">,</span> <span class="n">planet</span><span class="p">,</span> <span class="n">moving_frames</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">correction</span> <span class="o">=</span> <span class="s1">&#39;CN&#39;</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds all necessary computations for planetary radiation to the</span>
 <span class="sd">        precomputation list.</span>
@@ -477,7 +478,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">addRotation</span><span class="p">(</span><span class="n">base_frame</span><span class="o">=</span><span class="n">base</span><span class="p">,</span> <span class="n">target_frame</span><span class="o">=</span><span class="n">target_frames</span><span class="p">[</span><span class="n">i</span><span class="p">])</span></div>
 
 
-<div class="viewcode-block" id="Precompute.precomputeDrag"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.precomputeDrag">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">precomputeDrag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sc</span><span class="p">,</span> <span class="n">planet_name</span><span class="p">,</span> <span class="n">moving_frames</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">accel_frame</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">correction</span> <span class="o">=</span> <span class="s1">&#39;LT+S&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="Precompute.precomputeDrag"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.precomputeDrag">[docs]</a>	<span class="k">def</span> <span class="nf">precomputeDrag</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sc</span><span class="p">,</span> <span class="n">planet_name</span><span class="p">,</span> <span class="n">moving_frames</span> <span class="o">=</span> <span class="p">[],</span> <span class="n">accel_frame</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">correction</span> <span class="o">=</span> <span class="s1">&#39;LT+S&#39;</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Adds all necessary computations for drag to the precomputation list.</span>
 
@@ -516,7 +517,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">addRotation</span><span class="p">(</span><span class="n">base_frame</span><span class="o">=</span><span class="n">base</span><span class="p">,</span> <span class="n">target_frame</span><span class="o">=</span><span class="n">target_frames</span><span class="p">[</span><span class="n">i</span><span class="p">])</span></div>
   
   
-<div class="viewcode-block" id="Precompute.dump"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.dump">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Precompute.dump"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.dump">[docs]</a>	<span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Performs all the precomputations and stores the results in an xarray</span>
 <span class="sd">        Dataset.</span>
@@ -577,7 +578,7 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span> <span class="n">datavars</span><span class="p">,</span> <span class="n">coordinates</span> <span class="p">)</span></div>
   
 
-<div class="viewcode-block" id="Precompute.getPosition"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.getPosition">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">getPosition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">observer</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">correction</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="Precompute.getPosition"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.getPosition">[docs]</a>	<span class="k">def</span> <span class="nf">getPosition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">observer</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">correction</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieves a precomputed position vector.</span>
 
@@ -603,7 +604,7 @@
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">pos_param</span> <span class="o">=</span> <span class="n">param</span><span class="p">)</span><span class="o">.</span><span class="n">data</span></div>
 
 
-<div class="viewcode-block" id="Precompute.getState"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.getState">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">getState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">observer</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">correction</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="Precompute.getState"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.getState">[docs]</a>	<span class="k">def</span> <span class="nf">getState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">observer</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">correction</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieves a precomputed state vector.</span>
 
@@ -629,7 +630,7 @@
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">state_param</span> <span class="o">=</span> <span class="n">param</span><span class="p">)</span><span class="o">.</span><span class="n">data</span></div>
 
 
-<div class="viewcode-block" id="Precompute.getRotation"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.getRotation">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">getRotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">base_frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="Precompute.getRotation"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.getRotation">[docs]</a>	<span class="k">def</span> <span class="nf">getRotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">base_frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_frame</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Retrieves a precomputed rotation matrix.</span>
 
@@ -651,7 +652,7 @@
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">rotation</span><span class="o">.</span><span class="n">sel</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">rot_param</span> <span class="o">=</span> <span class="n">param</span><span class="p">)</span><span class="o">.</span><span class="n">data</span></div>
 
 
-<div class="viewcode-block" id="Precompute.getArray"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.getArray">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">getArray</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Precompute.getArray"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.getArray">[docs]</a>	<span class="k">def</span> <span class="nf">getArray</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns the entire xarray Dataset of precomputed values.</span>
 
@@ -663,7 +664,7 @@
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span></div>
 
 
-<div class="viewcode-block" id="Precompute.save"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.save">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">complev</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+<div class="viewcode-block" id="Precompute.save"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.save">[docs]</a>	<span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">complev</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Saves the precomputed data to a NetCDF file.</span>
 
@@ -678,7 +679,7 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset</span><span class="o">.</span><span class="n">encoding</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;zlib&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;complevel&#39;</span><span class="p">:</span> <span class="n">complev</span><span class="p">}))</span></div>
 
 
-<div class="viewcode-block" id="Precompute.pxform_convert"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.pxform_convert">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">pxform_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pxform</span><span class="p">):</span>
+<div class="viewcode-block" id="Precompute.pxform_convert"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.pxform_convert">[docs]</a>	<span class="k">def</span> <span class="nf">pxform_convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pxform</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Converts a 3x3 SPICE rotation matrix to a 4x4 transformation matrix.</span>
 

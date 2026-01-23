@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyRTX.classes.Drag &mdash; pyRTX 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=51279e30" />
 
@@ -47,6 +47,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-0-create-an-environment">Step 0: Create an environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-1-system-and-c-dependencies">Step 1: System and C++ Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-2-python-package-installation">Step 2: Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-3-testing-the-installation">Step 3: Testing the Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start Guide</a><ul>
@@ -275,20 +276,20 @@
            <div itemprop="articleBody">
              
   <h1>Source code for pyRTX.classes.Drag</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">spiceypy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+<span></span><span class="kn">import</span> <span class="nn">xarray</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">spiceypy</span> <span class="k">as</span> <span class="nn">sp</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.LookUpTable</span><span class="w"> </span><span class="kn">import</span> <span class="n">LookUpTable</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.parallel_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">parallel</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">scipy</span><span class="w"> </span><span class="kn">import</span> <span class="n">interpolate</span>
+<span class="kn">from</span> <span class="nn">pyRTX.classes.LookUpTable</span> <span class="kn">import</span> <span class="n">LookUpTable</span>
+<span class="kn">from</span> <span class="nn">pyRTX.core.parallel_utils</span> <span class="kn">import</span> <span class="n">parallel</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">interpolate</span>
 
-<div class="viewcode-block" id="Drag"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Drag</span><span class="p">():</span>
+<div class="viewcode-block" id="Drag"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag">[docs]</a><span class="k">class</span> <span class="nc">Drag</span><span class="p">():</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class for computing the drag acceleration on a spacecraft.</span>
 <span class="sd">	&quot;&quot;&quot;</span>
     
-<div class="viewcode-block" id="Drag.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">crossectionLUT</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">CD</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,):</span>
+<div class="viewcode-block" id="Drag.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">crossectionLUT</span><span class="p">,</span> <span class="n">density</span><span class="p">,</span> <span class="n">CD</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">precomputation</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the Drag object.</span>
 
@@ -336,7 +337,7 @@
 				<span class="bp">self</span><span class="o">.</span><span class="n">scMass</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 
-	<span class="k">def</span><span class="w"> </span><span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">_store_precomputations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Stores precomputed SPICE data in the lookup table object.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
@@ -344,7 +345,7 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">LUT</span><span class="o">.</span><span class="n">sp_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp_data</span>
 			
 
-<div class="viewcode-block" id="Drag.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag.compute">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Drag.compute"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag.compute">[docs]</a>	<span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">frame</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">n_cores</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes the drag acceleration for a series of epochs.</span>
 
@@ -387,7 +388,7 @@
 
 
 <div class="viewcode-block" id="Drag.run"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag.run">[docs]</a>	<span class="nd">@parallel</span>
-	<span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Computes the drag acceleration at a single epoch.</span>
 

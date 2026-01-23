@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Compute Lookup Table &mdash; pyRTX 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51279e30" />
 
@@ -47,9 +47,13 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#step-0-create-an-environment">Step 0: Create an environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#step-1-system-and-c-dependencies">Step 1: System and C++ Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation.html#step-2-python-package-installation">Step 2: Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#step-1-install-dependencies-with-conda">Step 1: Install Dependencies with Conda</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation.html#linux-and-macos-intel"><strong>Linux and macOS (Intel)</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../installation.html#macos-arm-apple-silicon"><strong>macOS (ARM, Apple Silicon)</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#step-2-install-pyrtx">Step 2: Install pyRTX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#step-3-testing-the-installation">Step 3: Testing the Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start Guide</a><ul>
@@ -60,6 +64,7 @@
 <li class="toctree-l2"><a class="reference internal" href="index.html#tutorial-1-first-steps-with-pyrtx">Tutorial 1: First Steps with pyRTX</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="Notebook1.html">Notebook n. 1:</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="Notebook1.html#Spacecraft-shape-definition">Spacecraft shape definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Notebook1.html#Speeding-up-the-code">Speeding up the code</a></li>
 <li class="toctree-l4"><a class="reference internal" href="Notebook1.html#Exporting-the-data">Exporting the data</a></li>
 </ul>
 </li>
@@ -323,24 +328,24 @@ the spacecraft has moveable appendages</p>
 <span class="linenos"> 37</span><span class="c1">### -------------------------------------------------------------------- ###</span>
 <span class="linenos"> 38</span><span class="c1">### IMPORTS</span>
 <span class="linenos"> 39</span>
-<span class="linenos"> 40</span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-<span class="linenos"> 41</span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
-<span class="linenos"> 42</span><span class="kn">import</span><span class="w"> </span><span class="nn">spiceypy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
-<span class="linenos"> 43</span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="linenos"> 44</span><span class="kn">import</span><span class="w"> </span><span class="nn">pickle</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pkl</span>
+<span class="linenos"> 40</span><span class="kn">import</span> <span class="nn">time</span>
+<span class="linenos"> 41</span><span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+<span class="linenos"> 42</span><span class="kn">import</span> <span class="nn">spiceypy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="linenos"> 43</span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="linenos"> 44</span><span class="kn">import</span> <span class="nn">pickle</span> <span class="k">as</span> <span class="nn">pkl</span>
 <span class="linenos"> 45</span>
-<span class="linenos"> 46</span><span class="kn">from</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="kn">import</span> <span class="n">floor</span><span class="p">,</span> <span class="n">mod</span>
-<span class="linenos"> 47</span><span class="kn">from</span><span class="w"> </span><span class="nn">math</span><span class="w"> </span><span class="kn">import</span> <span class="n">ceil</span>
+<span class="linenos"> 46</span><span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">floor</span><span class="p">,</span> <span class="n">mod</span>
+<span class="linenos"> 47</span><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">ceil</span>
 <span class="linenos"> 48</span>
-<span class="linenos"> 49</span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.SRP</span><span class="w"> </span><span class="kn">import</span> <span class="n">SolarPressure</span>
-<span class="linenos"> 50</span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.Spacecraft</span><span class="w"> </span><span class="kn">import</span> <span class="n">Spacecraft</span>
-<span class="linenos"> 51</span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.PixelPlane</span><span class="w"> </span><span class="kn">import</span> <span class="n">PixelPlane</span>
-<span class="linenos"> 52</span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.RayTracer</span><span class="w"> </span><span class="kn">import</span> <span class="n">RayTracer</span>
-<span class="linenos"> 53</span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.analysis_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">epochRange2</span>
+<span class="linenos"> 49</span><span class="kn">from</span> <span class="nn">pyRTX.classes.SRP</span> <span class="kn">import</span> <span class="n">SolarPressure</span>
+<span class="linenos"> 50</span><span class="kn">from</span> <span class="nn">pyRTX.classes.Spacecraft</span> <span class="kn">import</span> <span class="n">Spacecraft</span>
+<span class="linenos"> 51</span><span class="kn">from</span> <span class="nn">pyRTX.classes.PixelPlane</span> <span class="kn">import</span> <span class="n">PixelPlane</span>
+<span class="linenos"> 52</span><span class="kn">from</span> <span class="nn">pyRTX.classes.RayTracer</span> <span class="kn">import</span> <span class="n">RayTracer</span>
+<span class="linenos"> 53</span><span class="kn">from</span> <span class="nn">pyRTX.core.analysis_utils</span> <span class="kn">import</span> <span class="n">epochRange2</span>
 <span class="linenos"> 54</span>
-<span class="linenos"> 55</span><span class="kn">import</span><span class="w"> </span><span class="nn">multiprocessing</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mproc</span>
+<span class="linenos"> 55</span><span class="kn">import</span> <span class="nn">multiprocessing</span> <span class="k">as</span> <span class="nn">mproc</span>
 <span class="linenos"> 56</span>
-<span class="linenos"> 57</span><span class="kn">import</span><span class="w"> </span><span class="nn">timeit</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span><span class="o">,</span><span class="w"> </span><span class="nn">itertools</span><span class="o">,</span><span class="w"> </span><span class="nn">logging</span>
+<span class="linenos"> 57</span><span class="kn">import</span> <span class="nn">timeit</span><span class="o">,</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">itertools</span><span class="o">,</span> <span class="nn">logging</span>
 <span class="linenos"> 58</span>
 <span class="linenos"> 59</span><span class="c1">### -------------------------------------------------------------------- ###</span>
 <span class="linenos"> 60</span><span class="c1">### INPUTS &amp; LUT CONFIG</span>
@@ -552,7 +557,7 @@ the spacecraft has moveable appendages</p>
 <span class="linenos">266</span><span class="c1">### -------------------------------------------------- ###</span>
 <span class="linenos">267</span><span class="c1">### Multiprocessing target function</span>
 <span class="linenos">268</span>
-<span class="linenos">269</span><span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="n">ID</span><span class="p">,</span> <span class="n">METAKR</span><span class="p">):</span>
+<span class="linenos">269</span><span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">ID</span><span class="p">,</span> <span class="n">METAKR</span><span class="p">):</span>
 <span class="linenos">270</span>	<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;python task_lut.py </span><span class="si">{</span><span class="n">ID</span><span class="si">}</span><span class="s1"> </span><span class="si">{</span><span class="n">METAKR</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="linenos">271</span>	<span class="k">return</span>
 <span class="linenos">272</span>

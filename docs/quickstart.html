@@ -7,7 +7,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quick Start Guide &mdash; pyRTX 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=51279e30" />
 
@@ -47,9 +47,13 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#step-0-create-an-environment">Step 0: Create an environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#step-1-system-and-c-dependencies">Step 1: System and C++ Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#step-2-python-package-installation">Step 2: Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#step-1-install-dependencies-with-conda">Step 1: Install Dependencies with Conda</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#linux-and-macos-intel"><strong>Linux and macOS (Intel)</strong></a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#macos-arm-apple-silicon"><strong>macOS (ARM, Apple Silicon)</strong></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#step-2-install-pyrtx">Step 2: Install pyRTX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#step-3-testing-the-installation">Step 3: Testing the Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start Guide</a><ul>
@@ -60,6 +64,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorials/index.html#tutorial-1-first-steps-with-pyrtx">Tutorial 1: First Steps with pyRTX</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/Notebook1.html">Notebook n. 1:</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tutorials/Notebook1.html#Spacecraft-shape-definition">Spacecraft shape definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/Notebook1.html#Speeding-up-the-code">Speeding up the code</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tutorials/Notebook1.html#Exporting-the-data">Exporting the data</a></li>
 </ul>
 </li>
@@ -284,7 +289,7 @@
 <li><p><strong>Load SPICE Kernels</strong></p></li>
 </ol>
 <p>All calculations requiring geometry or astrodynamic data rely on the SPICE toolkit. You must provide a “metakernel” that lists all the necessary SPICE kernels (trajectory, attitude, clock, etc.).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">spiceypy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spiceypy</span> <span class="k">as</span> <span class="nn">sp</span>
 
 <span class="n">METAKR</span> <span class="o">=</span> <span class="s1">&#39;path/to/your/metakernel.tm&#39;</span>
 <span class="n">sp</span><span class="o">.</span><span class="n">furnsh</span><span class="p">(</span><span class="n">METAKR</span><span class="p">)</span>
@@ -294,7 +299,7 @@
 <li><p><strong>Define the Spacecraft</strong></p></li>
 </ol>
 <p>A spacecraft is defined by its components (bus, solar arrays, antennas), each with its own 3D model, reference frame, and material properties.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes.Spacecraft</span><span class="w"> </span><span class="kn">import</span> <span class="n">Spacecraft</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyRTX.classes.Spacecraft</span> <span class="kn">import</span> <span class="n">Spacecraft</span>
 
 <span class="c1"># Component models are stored in a dictionary</span>
 <span class="n">model</span> <span class="o">=</span> <span class="p">{</span>
@@ -328,7 +333,7 @@
 <li><p><strong>Set Up the Ray Tracing Environment</strong></p></li>
 </ol>
 <p>To calculate SRP, you need to define a source for the sun’s rays (a <code class="docutils literal notranslate"><span class="pre">PixelPlane</span></code>) and a <code class="docutils literal notranslate"><span class="pre">RayTracer</span></code> to track their paths.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes</span><span class="w"> </span><span class="kn">import</span> <span class="n">PixelPlane</span><span class="p">,</span> <span class="n">RayTracer</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyRTX.classes</span> <span class="kn">import</span> <span class="n">PixelPlane</span><span class="p">,</span> <span class="n">RayTracer</span>
 
 <span class="c1"># Define the sun&#39;s ray source</span>
 <span class="n">rays</span> <span class="o">=</span> <span class="n">PixelPlane</span><span class="p">(</span>
@@ -353,9 +358,9 @@
 <li><p><strong>Calculate Solar Radiation Pressure</strong></p></li>
 </ol>
 <p>Finally, create a <code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code> object and use it to compute the acceleration over a desired time range.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.classes</span><span class="w"> </span><span class="kn">import</span> <span class="n">SolarPressure</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX.core.analysis_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">epochRange</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyRTX.classes</span> <span class="kn">import</span> <span class="n">SolarPressure</span>
+<span class="kn">from</span> <span class="nn">pyRTX.core.analysis_utils</span> <span class="kn">import</span> <span class="n">epochRange</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># Define time settings</span>
 <span class="n">start_epoch</span> <span class="o">=</span> <span class="s2">&quot;2024 JAN 01 12:00:00&quot;</span>

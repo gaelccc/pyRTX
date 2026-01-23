@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>pyRTX.classes.Spacecraft &mdash; pyRTX 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=51279e30" />
 
@@ -47,6 +47,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-0-create-an-environment">Step 0: Create an environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-1-system-and-c-dependencies">Step 1: System and C++ Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-2-python-package-installation">Step 2: Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../installation.html#step-3-testing-the-installation">Step 3: Testing the Installation</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quick Start Guide</a><ul>
@@ -276,17 +277,17 @@
              
   <h1>Source code for pyRTX.classes.Spacecraft</h1><div class="highlight"><pre>
 <span></span><span class="c1"># Spacecraft class</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">trimesh</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tm</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">trimesh.transformations</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tmt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">spiceypy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sp</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">copy</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyRTX</span><span class="w"> </span><span class="kn">import</span> <span class="n">constants</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pyRTX.core.utils_rt</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">utils_rt</span>
+<span class="kn">import</span> <span class="nn">trimesh</span> <span class="k">as</span> <span class="nn">tm</span>
+<span class="kn">import</span> <span class="nn">trimesh.transformations</span> <span class="k">as</span> <span class="nn">tmt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">spiceypy</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">from</span> <span class="nn">pyRTX</span> <span class="kn">import</span> <span class="n">constants</span>
+<span class="kn">import</span> <span class="nn">pyRTX.core.utils_rt</span> <span class="k">as</span> <span class="nn">utils_rt</span>
 
 
-<div class="viewcode-block" id="Spacecraft"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Spacecraft</span><span class="p">():</span>
+<div class="viewcode-block" id="Spacecraft"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft">[docs]</a><span class="k">class</span> <span class="nc">Spacecraft</span><span class="p">():</span>
 <span class="w">	</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">	Represents a spacecraft, including its geometry, materials, and orientation.</span>
 
@@ -296,7 +297,7 @@
 <span class="sd">	&quot;&quot;&quot;</span>
 
 
-<div class="viewcode-block" id="Spacecraft.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.__init__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">base_frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">spacecraft_model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="mf">0.</span><span class="p">):</span>
+<div class="viewcode-block" id="Spacecraft.__init__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.__init__">[docs]</a>	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">base_frame</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">spacecraft_model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="mf">0.</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Initializes the Spacecraft object.</span>
 
@@ -346,7 +347,7 @@
 		<span class="c1">#self._last_epoch = 0</span>
 
 
-	<span class="k">def</span><span class="w"> </span><span class="nf">_load_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">_load_obj</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fname</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Loads a mesh from an OBJ file and applies the specified unit conversion.</span>
 
@@ -366,7 +367,7 @@
 		<span class="k">return</span> <span class="n">mesh</span>
 
 
-	<span class="k">def</span><span class="w"> </span><span class="nf">_initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_model</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">_initialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_model</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the spacecraft model by loading meshes and setting up</span>
 <span class="sd">        transformations.</span>
@@ -393,7 +394,7 @@
 			<span class="c1">#print(tmt.translation_matrix(input_model[elem][&#39;center&#39;]))</span>
 
 
-	<span class="k">def</span><span class="w"> </span><span class="nf">_precompute_rot_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">convert</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">_precompute_rot_matrices</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">convert</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Pre-computes the rotation matrices for each component at a given set of</span>
 <span class="sd">        epochs.</span>
@@ -424,7 +425,7 @@
 				<span class="bp">self</span><span class="o">.</span><span class="n">_rot_matrices</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">tmatrix</span>
 
 
-<div class="viewcode-block" id="Spacecraft.add_parts"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.add_parts">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">add_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft_model</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Spacecraft.add_parts"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.add_parts">[docs]</a>	<span class="k">def</span> <span class="nf">add_parts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft_model</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Adds new parts to the spacecraft model.</span>
 
@@ -447,7 +448,7 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">_initialize</span><span class="p">(</span><span class="n">spacecraft_model</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Spacecraft.subset"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.subset">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">subset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elem_names</span><span class="p">):</span>
+<div class="viewcode-block" id="Spacecraft.subset"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.subset">[docs]</a>	<span class="k">def</span> <span class="nf">subset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elem_names</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Creates a new Spacecraft instance containing only a subset of the</span>
 <span class="sd">        components of the current instance.</span>
@@ -472,7 +473,7 @@
 		<span class="k">return</span> <span class="n">cself</span></div>
 
 
-<div class="viewcode-block" id="Spacecraft.remove_part"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.remove_part">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">remove_part</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<div class="viewcode-block" id="Spacecraft.remove_part"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.remove_part">[docs]</a>	<span class="k">def</span> <span class="nf">remove_part</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Removes a part from the spacecraft model.</span>
 
@@ -484,7 +485,7 @@
 		<span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">name</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="Spacecraft.apply_transforms"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.apply_transforms">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">apply_transforms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
+<div class="viewcode-block" id="Spacecraft.apply_transforms"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.apply_transforms">[docs]</a>	<span class="k">def</span> <span class="nf">apply_transforms</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Applies the rotations and translations to each component for a given</span>
 <span class="sd">        epoch.</span>
@@ -522,7 +523,7 @@
 			<span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;mesh&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply_transform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;translation&#39;</span><span class="p">])</span></div>
 
 
-<div class="viewcode-block" id="Spacecraft.materials"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.materials">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">materials</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Spacecraft.materials"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.materials">[docs]</a>	<span class="k">def</span> <span class="nf">materials</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Returns the material properties dictionary for the spacecraft.</span>
 
@@ -534,7 +535,7 @@
 		<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">material_dict</span></div>
 
 
-<div class="viewcode-block" id="Spacecraft.dump"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.dump">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Spacecraft.dump"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.dump">[docs]</a>	<span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">epoch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Returns the combined or individual meshes of the spacecraft&#39;s components</span>
 <span class="sd">        at a specific epoch.</span>
@@ -586,7 +587,7 @@
 		<span class="k">return</span> <span class="n">mesh</span></div>
 
 
-<div class="viewcode-block" id="Spacecraft.dump_materials"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.dump_materials">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">dump_materials</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Spacecraft.dump_materials"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.dump_materials">[docs]</a>	<span class="k">def</span> <span class="nf">dump_materials</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Generates and stores a dictionary of material properties for all</span>
 <span class="sd">        components.</span>
@@ -606,7 +607,7 @@
 		<span class="bp">self</span><span class="o">.</span><span class="n">material_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;idxs&#39;</span> <span class="p">:</span> <span class="n">stored_idxs</span><span class="p">,</span> <span class="s1">&#39;props&#39;</span><span class="p">:</span> <span class="n">props</span><span class="p">}</span></div>
 
 
-	<span class="k">def</span><span class="w"> </span><span class="nf">_elem_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elem</span><span class="p">):</span>
+	<span class="k">def</span> <span class="nf">_elem_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">elem</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Returns a formatted string with information about a specific component.</span>
 
@@ -624,7 +625,7 @@
 		<span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">elem</span><span class="si">}</span><span class="s2">: Proper Frame: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;frame_name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> | Frame Type: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">spacecraft_model</span><span class="p">[</span><span class="n">elem</span><span class="p">][</span><span class="s1">&#39;frame_type&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
 
 
-<div class="viewcode-block" id="Spacecraft.info"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.info">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Spacecraft.info"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.info">[docs]</a>	<span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Prints a summary of the spacecraft&#39;s components.</span>
 <span class="sd">		&quot;&quot;&quot;</span>
@@ -636,7 +637,7 @@
 		<span class="nb">print</span><span class="p">(</span><span class="n">printstr</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Spacecraft.__str__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.__str__">[docs]</a>	<span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Spacecraft.__str__"><a class="viewcode-back" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft.__str__">[docs]</a>	<span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">		Returns a string representation of the spacecraft&#39;s information.</span>
 
