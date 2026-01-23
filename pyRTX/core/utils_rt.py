@@ -1369,13 +1369,6 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
                 if errorMsg:
                     print('No intersections found for bounce {}. Results provided up to bounce {}'.format(i + 1, i))
 
-                # If no intersections are found, append empty lists to the containers
-                # to avoid index errors in the calling functions.
-                locations_container.append([])
-                index_tri_container.append([])
-                index_ray_container.append([])
-                ray_directions_container.append([])
-
                 break
 
             # Otherwise append results and proceed with next bounce
