@@ -7,12 +7,18 @@ from unittest.mock import MagicMock
 # -- Path setup --------------------------------------------------------------
 
 # Mock problematic imports that require C libraries
-#sys.modules['embree'] = MagicMock()
-#sys.modules['aabb'] = MagicMock()
-#sys.modules['trimesh'] = MagicMock()  # Add if needed
+class Mock(MagicMock):
+    @classmethod
+    def __getattr__(cls, name):
+        return MagicMock()
+
+MOCK_MODULES = ['embree', 'aabb', 'trimesh', 'trimesh.transformations']
+sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
+
 
 # Add project root to Python path
 sys.path.insert(0, os.path.abspath('..'))
+autodoc_mock_imports = MOCK_MODULES
 
 # -- Project information -----------------------------------------------------
 

@@ -1,13 +1,8 @@
-pyRTX.core.shadow\_utils
+﻿pyRTX.core.shadow\_utils
 ========================
 
 .. automodule:: pyRTX.core.shadow_utils
 
-   
-   
-   
-
-   
    
    .. rubric:: Functions
 
@@ -18,16 +13,3 @@ pyRTX.core.shadow\_utils
       compute_beta
       compute_directions
       compute_pixel_intensities
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-
