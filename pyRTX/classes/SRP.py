@@ -125,7 +125,8 @@ class SunShadow():
 		rim_origins = np.zeros_like(rimdirs)
 		_, index_rim, _, _, _, _ = utils_rt.RTXkernel(shape, rim_origins, rimdirs, kernel = 'Embree3', bounces = 1, errorMsg = False)
 
-		if len(index_rim[0]) == 0: return 1.0
+	
+		if index_rim == [] or len(index_rim[0]) == 0 : return 1.0
 
 		maskIds = circular_mask(self.sunRadius, -coords, origin)
 		newCoord = coords[maskIds]
