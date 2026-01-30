@@ -531,6 +531,7 @@ class SolarPressure():
 		counter = 0
 
 		dA = np.ones(len(indexes_ray))/norm_factor
+
 		s = S[indexes_ray]
 		n = N[indexes_tri]
 		r = reflected(s,n)
