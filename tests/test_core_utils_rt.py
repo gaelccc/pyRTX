@@ -98,6 +98,31 @@ def test_RTXkernel_cgal(mock_cgal_init_geometry):
     assert len(index_ray) == 1
     assert len(locations) == 1
 
+@patch('pyRTX.core.utils_rt.cgal_init_geometry')
+def test_RTXkernel_empty(mock_cgal_init_geometry):
+    # Test that RTXkernel returns consistent empty containers when no hits occur
+    mesh = trimesh.Trimesh(vertices=[[0, 0, 0], [1, 0, 0], [0, 1, 0]],
+                           faces=[[0, 1, 2]])
+    ray_origins = np.array([[0.5, 0.5, 1]])
+    ray_directions = np.array([[0, 0, -1]])
+
+    # Configure the mock intersector to return no hits for CGAL
+    # In CGAL implementation, intersect1_2d_with_coords returns index_tri with -1 for no hits
+    mock_cgal_init_geometry.return_value.intersect1_2d_with_coords.return_value = (
+        np.array([-1]),  # index_tri
+        np.array([[0, 0, 0]])  # location (doesn't matter)
+    )
+
+    # Call the function
+    index_tri, index_ray, locations, _, _, _ = utils.RTXkernel(
+        mesh, ray_origins, ray_directions, kernel='CGAL'
+    )
+
+    # Assert that containers are NOT empty but contain one empty element
+    assert len(index_tri) == 1
+    assert len(index_tri[0]) == 0
+    assert isinstance(index_tri[0], np.ndarray)
+
 def test_sample_lambert_dist():
     normal = np.array([0, 0, 1], dtype=np.float64)
     num_samples = 100

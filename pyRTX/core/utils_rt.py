@@ -674,7 +674,7 @@ def Embree3_dump_solution(rayhit, V, F):
         return hits, nhits, idh, Ph
 
     else:
-        return -1, -1, -1, -1
+        return np.array([], dtype=dInt), 0, np.array([], dtype=dInt), np.array([], dtype=dFloat)
 
 # Define utils specific to CGAL implementation
 # (from python-flux)
@@ -1292,29 +1292,31 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
             # Get the number of hits
             n_hits = len(index_tri)
 
+            # Always append results to containers
+            locations_container.append(location)
+            index_tri_container.append(index_tri)
+            index_ray_container.append(index_ray)
+            ray_directions_container.append(ray_directions)
+
             # Manage the possibility of no hits
-            if n_hits == 0 and errorMsg:
-                print('No intersections found for bounce {}. Results provided up to bounce {}'.format(i + 1, i))
+            if n_hits == 0:
+                if errorMsg:
+                    print('No intersections found for bounce {}. Results provided up to bounce {}'.format(i + 1, i))
                 break
-            else:
-                locations_container.append(location)
-                index_tri_container.append(index_tri)
-                index_ray_container.append(index_ray)
-                ray_directions_container.append(ray_directions)
 
-                if i != bounces - 1:
-                    # If at bounce number 1 compute the diffused directions:
-                    if diffusion and i == 0:
-                        diffusion_control = True
+            if i != bounces - 1:
+                # If at bounce number 1 compute the diffused directions:
+                if diffusion and i == 0:
+                    diffusion_control = True
 
-                    ray_origins, ray_directions, diffuse_directions = compute_secondary_bounce(location, index_tri,
-                                                                                               mesh_obj, ray_directions,
-                                                                                               index_ray,
-                                                                                               diffusion=diffusion_control,
-                                                                                               num_diffuse=num_diffuse)
+                ray_origins, ray_directions, diffuse_directions = compute_secondary_bounce(location, index_tri,
+                                                                                           mesh_obj, ray_directions,
+                                                                                           index_ray,
+                                                                                           diffusion=diffusion_control,
+                                                                                           num_diffuse=num_diffuse)
 
-                    # Set back to false the diffusion computation control flag
-                    diffusion_control = False
+                # Set back to false the diffusion computation control flag
+                diffusion_control = False
 
     elif kernel == 'Embree3':
 
@@ -1364,38 +1366,31 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
             # Post-process the results
             index_tri, n_hits, index_ray, location = Embree3_dump_solution(rayhit, shape_model.V, shape_model.F)
 
+            # Always append results to containers
+            locations_container.append(location)
+            index_tri_container.append(index_tri)
+            index_ray_container.append(index_ray)
+            ray_directions_container.append(ray_directions)
+
             # Handle: no bounces found
-            if n_hits == -1:
+            if n_hits == 0:
                 if errorMsg:
                     print('No intersections found for bounce {}. Results provided up to bounce {}'.format(i + 1, i))
 
-                # If no intersections are found, append empty lists to the containers
-                # to avoid index errors in the calling functions.
-                # locations_container.append([])
-                # index_tri_container.append([])
-                # index_ray_container.append([])
-                # ray_directions_container.append([])
-
                 break
 
-            # Otherwise append results and proceed with next bounce
-            else:
-                locations_container.append(location)
-                index_tri_container.append(index_tri)
-                index_ray_container.append(index_ray)
-                ray_directions_container.append(ray_directions)
+            # Otherwise proceed with next bounce
+            if i != bounces - 1:
+                # If at bounce number 1 compute the diffused directions:
+                if diffusion and i == 0:
+                    diffusion_control = True
 
-                if i != bounces - 1:
-                    # If at bounce number 1 compute the diffused directions:
-                    if diffusion and i == 0:
-                        diffusion_control = True
+                ray_origins, ray_directions, diffuse_directions = compute_secondary_bounce(
+                    location, index_tri, mesh_obj, ray_directions, index_ray,
+                    diffusion=diffusion_control, num_diffuse=num_diffuse)
 
-                    ray_origins, ray_directions, diffuse_directions = compute_secondary_bounce(
-                        location, index_tri, mesh_obj, ray_directions, index_ray,
-                        diffusion=diffusion_control, num_diffuse=num_diffuse)
-
-                    # Set back to false the diffusion computation control flag
-                    diffusion_control = False
+                # Set back to false the diffusion computation control flag
+                diffusion_control = False
 
         # Release memory
         # shape_model.scene.release() # Note: changed for performance optimization
@@ -1441,6 +1436,12 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
             location = location[np.where(index_tri > -1)]
             index_tri = index_tri[np.where(index_tri > -1)]
 
+            # Always append results to containers
+            locations_container.append(location)
+            index_tri_container.append(index_tri)
+            index_ray_container.append(index_ray)
+            ray_directions_container.append(ray_directions)
+
             # Handle: no bounces found
             if n_hits == 0:
                 if errorMsg:
@@ -1448,24 +1449,18 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
 
                 break
 
-            # Otherwise append results and proceed with next bounce
-            else:
-                locations_container.append(location)
-                index_tri_container.append(index_tri)
-                index_ray_container.append(index_ray)
-                ray_directions_container.append(ray_directions)
+            # Otherwise proceed with next bounce
+            if i != bounces - 1:
+                # If at bounce number 1 compute the diffused directions:
+                if diffusion and i == 0:
+                    diffusion_control = True
 
-                if i != bounces - 1:
-                    # If at bounce number 1 compute the diffused directions:
-                    if diffusion and i == 0:
-                        diffusion_control = True
+                ray_origins, ray_directions, diffuse_directions = compute_secondary_bounce(
+                    location, index_tri, mesh_obj, ray_directions, index_ray,
+                    diffusion=diffusion_control, num_diffuse=num_diffuse)
 
-                    ray_origins, ray_directions, diffuse_directions = compute_secondary_bounce(
-                        location, index_tri, mesh_obj, ray_directions, index_ray,
-                        diffusion=diffusion_control, num_diffuse=num_diffuse)
-
-                    # Set back to false the diffusion computation control flag
-                    diffusion_control = False
+                # Set back to false the diffusion computation control flag
+                diffusion_control = False
 
     else:
         print('No Recognized kernel')
