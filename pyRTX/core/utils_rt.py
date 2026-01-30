@@ -621,7 +621,7 @@ def Embree3_init_rayhit(ray_origins, ray_directions):
 
     # Initialize the ray structure
     # rayhit.tnear[:] = 0.001 #Avoid numerical problems
-    rayhit.tnear[:] = 1e-6  # Avoid numerical problems
+    rayhit.tnear[:] = 1e-3  # Avoid numerical problems
     rayhit.tfar[:] = np.inf
     rayhit.prim_id[:] = embree.INVALID_GEOMETRY_ID
     rayhit.geom_id[:] = embree.INVALID_GEOMETRY_ID
@@ -985,11 +985,11 @@ class EmbreeTrimeshShapeModel(TrimeshShapeModel):
         """
         device = embree.Device()
         geometry = device.make_geometry(embree.GeometryType.Triangle)
-        #geometry.set_build_quality(embree.BuildQuality.High)
+        # geometry.set_build_quality(embree.BuildQuality.HIGH)
 
         scene = device.make_scene()
-        #scene.set_build_quality(embree.BuildQuality.High)
-        #scene.set_flags(embree.SceneFlags.Robust)
+        # scene.set_build_quality(embree.BuildQuality.HIGH)
+        scene.set_flags(embree.SceneFlags.ROBUST)
 
         vertex_buffer = geometry.set_new_buffer(
             embree.BufferType.Vertex,  # buf_type
@@ -1371,10 +1371,10 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
 
                 # If no intersections are found, append empty lists to the containers
                 # to avoid index errors in the calling functions.
-                locations_container.append([])
-                index_tri_container.append([])
-                index_ray_container.append([])
-                ray_directions_container.append([])
+                # locations_container.append([])
+                # index_tri_container.append([])
+                # index_ray_container.append([])
+                # ray_directions_container.append([])
 
                 break
 
@@ -1445,6 +1445,7 @@ def RTXkernel(mesh_obj, ray_origins, ray_directions, bounces=1, kernel='Embree3'
             if n_hits == 0:
                 if errorMsg:
                     print('No intersections found for bounce {}. Results provided up to bounce {}'.format(i + 1, i))
+
                 break
 
             # Otherwise append results and proceed with next bounce
