@@ -28,6 +28,9 @@ warnings.filterwarnings('ignore')
 ### ------------------------------------------------------------------------------------------------------- ###
 ### INPUTS
 
+# NOTE: before running this script you should generate the input lutfile running the 
+# example 'compute_lut.py' using type = 'cross-section' instead of 'accel'.
+
 ref_epc 	=  "2010 may 10 09:25:00"
 duration    =  10000  									   # seconds
 timestep    =  100
@@ -98,8 +101,6 @@ lro = Spacecraft( name = 'LRO',
 
 
 # Load the Look up table
-# NOTE: before running this script you should generate the lutfile running the 
-# example 'compute_lut.py' using type = 'cross-section' instead of 'accel'.
 LUT  = LookUpTable(lutfile)
 
 # The computation of the drag requires to specify a density function [kg/m**3]

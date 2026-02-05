@@ -27,6 +27,9 @@ from numpy import floor, mod
 ### ------------------------------------------------------------------------------------------------------- ###
 ### INPUTS
 
+# NOTE: before running this script you should generate the input lutfile running the 
+# example 'compute_lut.py' using type = 'accel'.
+
 ref_epc		=  "2010 may 10 09:25:00"
 duration    =  10000  									  # seconds
 timestep    =  100
@@ -113,8 +116,6 @@ moon.dayside_temperature = 300
 moon.nightside_temperature = 200
 
 # Load the Look up table
-# NOTE: before running this script you should generate the lutfile running the 
-# example 'compute_lut.py' using type = 'accel'.
 LUT  = LookUpTable(lutfile)
 
 # Precomputation object

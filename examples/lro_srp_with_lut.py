@@ -29,6 +29,9 @@ warnings.filterwarnings('ignore')
 ### ------------------------------------------------------------------------------------------------------- ###
 ### INPUTS
 
+# NOTE: before running this script you should generate the input lutfile running the 
+# example 'compute_lut.py' using type = 'accel'.
+
 ref_epc 	= "2010 may 10 09:25:00"
 duration    = 10000  									  # seconds
 sc_mass		= 2000  									  # can be a float, int or xarray [kg]
@@ -120,8 +123,6 @@ shadow = SunShadow( spacecraft     = lro,
 				    )
 
 # Load the Look up table
-# NOTE: before running this script you should generate the lutfile running the 
-# example 'compute_lut.py' using type = 'accel'.
 LUT  = LookUpTable(lutfile)
 
 # Define the solar pressure object (LUT mode)
