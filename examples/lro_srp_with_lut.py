@@ -120,6 +120,8 @@ shadow = SunShadow( spacecraft     = lro,
 				    )
 
 # Load the Look up table
+# NOTE: before running this script you should generate the lutfile running the 
+# example 'compute_lut.py' using type = 'accel'.
 LUT  = LookUpTable(lutfile)
 
 # Define the solar pressure object (LUT mode)

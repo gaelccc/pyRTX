@@ -113,6 +113,8 @@ moon.dayside_temperature = 300
 moon.nightside_temperature = 200
 
 # Load the Look up table
+# NOTE: before running this script you should generate the lutfile running the 
+# example 'compute_lut.py' using type = 'accel'.
 LUT  = LookUpTable(lutfile)
 
 # Precomputation object

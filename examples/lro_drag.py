@@ -98,6 +98,8 @@ lro = Spacecraft( name = 'LRO',
 
 
 # Load the Look up table
+# NOTE: before running this script you should generate the lutfile running the 
+# example 'compute_lut.py' using type = 'cross-section' instead of 'accel'.
 LUT  = LookUpTable(lutfile)
 
 # The computation of the drag requires to specify a density function [kg/m**3]

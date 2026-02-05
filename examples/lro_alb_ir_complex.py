@@ -153,6 +153,8 @@ moon.albedo              = ALB
 moon.gridded_temperature = TEMP
 
 # Load the Look up table
+# NOTE: before running this script you should generate the lutfile running the 
+# example 'compute_lut.py' using type = 'accel'.
 LUT  = LookUpTable(lutfile)
 
 # Precomputation object
