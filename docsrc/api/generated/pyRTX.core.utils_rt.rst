@@ -1,8 +1,13 @@
-﻿pyRTX.core.utils\_rt
+pyRTX.core.utils\_rt
 ====================
 
 .. automodule:: pyRTX.core.utils_rt
 
+   
+   
+   
+
+   
    
    .. rubric:: Functions
 
@@ -33,6 +38,10 @@
       sample_lambert_dist
       save_for_visualization
    
+   
+
+   
+   
    .. rubric:: Classes
 
    .. autosummary::
@@ -41,3 +50,12 @@
       EmbreeTrimeshShapeModel
       ShapeModel
       TrimeshShapeModel
+   
+   
+
+   
+   
+   
+
+
+

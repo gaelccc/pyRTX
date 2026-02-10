@@ -1,8 +1,17 @@
-﻿pyRTX.classes.Radiation
+pyRTX.classes.Radiation
 =======================
 
 .. automodule:: pyRTX.classes.Radiation
 
+   
+   
+   
+
+   
+   
+   
+
+   
    
    .. rubric:: Classes
 
@@ -10,3 +19,12 @@
    
       Albedo
       Emissivity
+   
+   
+
+   
+   
+   
+
+
+

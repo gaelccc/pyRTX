@@ -4,14 +4,32 @@
 .. automodule:: pyRTX.core
 
    
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
+
+
+
 .. rubric:: Modules
 
 .. autosummary::
    :toctree:
    :recursive:
 
-   analysis_utils
-   parallel_utils
-   physical_utils
-   shadow_utils
-   utils_rt
+   pyRTX.core.analysis_utils
+   pyRTX.core.parallel_utils
+   pyRTX.core.physical_utils
+   pyRTX.core.shadow_utils
+   pyRTX.core.utils_rt
+
