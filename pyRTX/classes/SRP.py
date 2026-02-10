@@ -15,7 +15,15 @@ from pyRTX.core.utils_rt import reflected
 
 from scipy import interpolate
 
+import warnings
+warnings.filterwarnings('ignore')
 
+# Managing Error messages from trimesh
+# (when concatenating textures, in this case, withouth .mtl definition, trimesh returns a warning that
+#  would fill the stdout. Deactivate it for a clean output)
+import logging
+log = logging.getLogger('trimesh')
+log.disabled = True
 
 class SunShadow():
 	"""
