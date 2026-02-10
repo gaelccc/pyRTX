@@ -9,6 +9,10 @@ This section contains the complete API reference for pyRTX.
    core
    classes
    defaults
+   constants
+   helpers
+   utilities
+   pyRTX.visual
 
 Core Modules
 ------------
@@ -27,3 +31,12 @@ Classes
    :recursive:
 
    pyRTX.classes
+
+Visual
+------
+
+.. autosummary::
+  :toctree: generated
+  :recursive:
+
+  pyRTX.visual

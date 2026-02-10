@@ -6,8 +6,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Index &mdash; pyRTX 0.1.0 documentation</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/custom.css?v=51279e30" />
 
   
@@ -44,9 +44,9 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#step-0-create-an-environment">Step 0: Create an environment</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#step-1-system-and-c-dependencies">Step 1: System and C++ Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation.html#step-2-python-package-installation">Step 2: Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#step-1-install-dependencies-with-conda">Step 1: Install Dependencies with Conda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#step-2-install-pyrtx">Step 2: Install pyRTX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#quickstart-and-installation-testing">Quickstart and installation testing</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start Guide</a><ul>
@@ -57,6 +57,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tutorials/index.html#tutorial-1-first-steps-with-pyrtx">Tutorial 1: First Steps with pyRTX</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/Notebook1.html">Notebook n. 1:</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tutorials/Notebook1.html#Spacecraft-shape-definition">Spacecraft shape definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tutorials/Notebook1.html#Speeding-up-the-code">Speeding up the code</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tutorials/Notebook1.html#Exporting-the-data">Exporting the data</a></li>
 </ul>
 </li>
@@ -82,15 +83,21 @@
 <li class="toctree-l3"><a class="reference internal" href="tutorials/Notebook5.html">Atmospheric drag</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/Notebook5.html#Compute-the-cross-section-LUT">Compute the cross-section LUT</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/Notebook5.html#Computing-the-drag">Computing the drag</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorials/index.html#next-steps">Next Steps</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="tutorials/lro_mass.html">Generate the time-variable mass input</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tutorials/compute_lut.html">Compute Lookup Table</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tutorials/lro_srp.html">LRO Solar Radiation Pressure</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tutorials/lro_srp_with_lut.html">LRO Solar Radiation Pressure with Lookup Table</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tutorials/lro_alb_ir_simple.html">LRO Albedo and Thermal IR (Simple)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tutorials/lro_alb_ir_complex.html">LRO Albedo and Thermal IR (Complex)</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="next_steps.html">Next Steps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/lro_mass.html">Generate the time-variable mass input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/compute_lut.html">Compute Lookup Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/lro_srp.html">LRO Solar Radiation Pressure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/lro_srp_with_lut.html">LRO Solar Radiation Pressure with Lookup Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/lro_alb_ir_simple.html">LRO Albedo and Thermal IR (Simple)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorials/lro_alb_ir_complex.html">LRO Albedo and Thermal IR (Complex)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/lro_alb_ir_complex.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/lro_alb_ir_complex.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/lro_alb_ir_complex.html#when-to-use-this-approach">When to Use This Approach</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/lro_alb_ir_complex.html#code">Code</a></li>
 </ul>
 </li>
 </ul>
@@ -219,6 +226,29 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/defaults.html">Default Values and Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/helpers.html">Helpers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/helpers.html#pyRTX.helpers.get_download_agent"><code class="docutils literal notranslate"><span class="pre">get_download_agent()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/utilities.html#pyRTX.utilities.export_formatted"><code class="docutils literal notranslate"><span class="pre">export_formatted()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utilities.html#pyRTX.utilities.export_exac"><code class="docutils literal notranslate"><span class="pre">export_exac()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utilities.html#pyRTX.utilities.to_datetime"><code class="docutils literal notranslate"><span class="pre">to_datetime()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utilities.html#pyRTX.utilities.getScPosVel"><code class="docutils literal notranslate"><span class="pre">getScPosVel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/pyRTX.visual.html">pyRTX.visual package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/pyRTX.visual.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/pyRTX.visual.html#module-pyRTX.visual.utils">pyRTX.visual.utils module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/pyRTX.visual.html#pyRTX.visual.utils.color_convert"><code class="docutils literal notranslate"><span class="pre">color_convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/pyRTX.visual.html#pyRTX.visual.utils.plot_mesh"><code class="docutils literal notranslate"><span class="pre">plot_mesh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/pyRTX.visual.html#pyRTX.visual.utils.visualize_planet_field"><code class="docutils literal notranslate"><span class="pre">visualize_planet_field()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/pyRTX.visual.html#module-pyRTX.visual">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="api/index.html#core-modules">Core Modules</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/generated/pyRTX.core.html">pyRTX.core</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.core.analysis_utils.html">pyRTX.core.analysis_utils</a></li>
@@ -242,6 +272,13 @@
 <li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.classes.RayTracer.html">pyRTX.classes.RayTracer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.classes.SRP.html">pyRTX.classes.SRP</a></li>
 <li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.classes.Spacecraft.html">pyRTX.classes.Spacecraft</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/index.html#visual">Visual</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/generated/pyRTX.visual.html">pyRTX.visual</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/generated/pyRTX.visual.utils.html">pyRTX.visual.utils</a></li>
 </ul>
 </li>
 </ul>
@@ -440,7 +477,7 @@
 </li>
       <li><a href="api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_rim">circular_rim() (in module pyRTX.core.shadow_utils)</a>
 </li>
-      <li><a href="api/pyRTX.visual.html#pyRTX.visual.utils.color_convert">color_convert() (in module pyRTX.visual.utils)</a>
+      <li><a href="api/generated/pyRTX.visual.utils.html#pyRTX.visual.utils.color_convert">color_convert() (in module pyRTX.visual.utils)</a>, <a href="api/pyRTX.visual.html#pyRTX.visual.utils.color_convert">[1]</a>
 </li>
       <li><a href="api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram.compute">compute() (pyRTX.classes.Atmosphere.VenusGram method)</a>
 
@@ -546,9 +583,9 @@
 </li>
       <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable.eul_set">eul_set (pyRTX.classes.LookUpTable.LookUpTable property)</a>
 </li>
-      <li><a href="api/pyRTX.html#pyRTX.utilities.export_exac">export_exac() (in module pyRTX.utilities)</a>
+      <li><a href="api/utilities.html#pyRTX.utilities.export_exac">export_exac() (in module pyRTX.utilities)</a>
 </li>
-      <li><a href="api/pyRTX.html#pyRTX.utilities.export_formatted">export_formatted() (in module pyRTX.utilities)</a>
+      <li><a href="api/utilities.html#pyRTX.utilities.export_formatted">export_formatted() (in module pyRTX.utilities)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -578,7 +615,7 @@
 </li>
       <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid.get_data">get_data() (pyRTX.classes.Planet.PlanetGrid method)</a>
 </li>
-      <li><a href="api/pyRTX.html#pyRTX.helpers.get_download_agent">get_download_agent() (in module pyRTX.helpers)</a>
+      <li><a href="api/helpers.html#pyRTX.helpers.get_download_agent">get_download_agent() (in module pyRTX.helpers)</a>
 </li>
       <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.TemperatureGrid.get_emissivity">get_emissivity() (pyRTX.classes.Planet.TemperatureGrid method)</a>
 </li>
@@ -624,7 +661,7 @@
 </li>
       <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.getScPosSunFixed">getScPosSunFixed() (pyRTX.classes.Planet.Planet method)</a>
 </li>
-      <li><a href="api/pyRTX.html#pyRTX.utilities.getScPosVel">getScPosVel() (in module pyRTX.utilities)</a>
+      <li><a href="api/utilities.html#pyRTX.utilities.getScPosVel">getScPosVel() (in module pyRTX.utilities)</a>
 </li>
       <li><a href="api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.getState">getState() (pyRTX.classes.Precompute.Precompute method)</a>
 </li>
@@ -690,8 +727,6 @@
     module
 
       <ul>
-        <li><a href="api/pyRTX.html#module-pyRTX">pyRTX</a>
-</li>
         <li><a href="api/generated/pyRTX.classes.html#module-pyRTX.classes">pyRTX.classes</a>
 </li>
         <li><a href="api/generated/pyRTX.classes.Atmosphere.html#module-pyRTX.classes.Atmosphere">pyRTX.classes.Atmosphere</a>
@@ -714,7 +749,7 @@
 </li>
         <li><a href="api/generated/pyRTX.classes.SRP.html#module-pyRTX.classes.SRP">pyRTX.classes.SRP</a>
 </li>
-        <li><a href="api/pyRTX.html#module-pyRTX.constants">pyRTX.constants</a>
+        <li><a href="api/constants.html#module-pyRTX.constants">pyRTX.constants</a>
 </li>
         <li><a href="api/generated/pyRTX.core.html#module-pyRTX.core">pyRTX.core</a>
 </li>
@@ -728,15 +763,15 @@
 </li>
         <li><a href="api/generated/pyRTX.core.utils_rt.html#module-pyRTX.core.utils_rt">pyRTX.core.utils_rt</a>
 </li>
-        <li><a href="api/defaults.html#module-pyRTX.defaults">pyRTX.defaults</a>, <a href="api/pyRTX.html#module-pyRTX.defaults">[1]</a>
+        <li><a href="api/defaults.html#module-pyRTX.defaults">pyRTX.defaults</a>
 </li>
-        <li><a href="api/pyRTX.html#module-pyRTX.helpers">pyRTX.helpers</a>
+        <li><a href="api/helpers.html#module-pyRTX.helpers">pyRTX.helpers</a>
 </li>
-        <li><a href="api/pyRTX.html#module-pyRTX.utilities">pyRTX.utilities</a>
+        <li><a href="api/utilities.html#module-pyRTX.utilities">pyRTX.utilities</a>
 </li>
-        <li><a href="api/pyRTX.visual.html#module-pyRTX.visual">pyRTX.visual</a>
+        <li><a href="api/generated/pyRTX.visual.html#module-pyRTX.visual">pyRTX.visual</a>, <a href="api/pyRTX.visual.html#module-pyRTX.visual">[1]</a>
 </li>
-        <li><a href="api/pyRTX.visual.html#module-pyRTX.visual.utils">pyRTX.visual.utils</a>
+        <li><a href="api/generated/pyRTX.visual.utils.html#module-pyRTX.visual.utils">pyRTX.visual.utils</a>, <a href="api/pyRTX.visual.html#module-pyRTX.visual.utils">[1]</a>
 </li>
       </ul></li>
   </ul></td>
@@ -781,7 +816,7 @@
 </li>
       <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid.plot">plot() (pyRTX.classes.Planet.PlanetGrid method)</a>
 </li>
-      <li><a href="api/pyRTX.visual.html#pyRTX.visual.utils.plot_mesh">plot_mesh() (in module pyRTX.visual.utils)</a>
+      <li><a href="api/generated/pyRTX.visual.utils.html#pyRTX.visual.utils.plot_mesh">plot_mesh() (in module pyRTX.visual.utils)</a>, <a href="api/pyRTX.visual.html#pyRTX.visual.utils.plot_mesh">[1]</a>
 </li>
       <li><a href="api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute">Precompute (class in pyRTX.classes.Precompute)</a>
 </li>
@@ -801,13 +836,6 @@
         <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.pxform_convert">(pyRTX.classes.Planet.Planet method)</a>
 </li>
         <li><a href="api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute.pxform_convert">(pyRTX.classes.Precompute.Precompute method)</a>
-</li>
-      </ul></li>
-      <li>
-    pyRTX
-
-      <ul>
-        <li><a href="api/pyRTX.html#module-pyRTX">module</a>
 </li>
       </ul></li>
       <li>
@@ -893,7 +921,7 @@
     pyRTX.constants
 
       <ul>
-        <li><a href="api/pyRTX.html#module-pyRTX.constants">module</a>
+        <li><a href="api/constants.html#module-pyRTX.constants">module</a>
 </li>
       </ul></li>
       <li>
@@ -942,35 +970,35 @@
     pyRTX.defaults
 
       <ul>
-        <li><a href="api/defaults.html#module-pyRTX.defaults">module</a>, <a href="api/pyRTX.html#module-pyRTX.defaults">[1]</a>
+        <li><a href="api/defaults.html#module-pyRTX.defaults">module</a>
 </li>
       </ul></li>
       <li>
     pyRTX.helpers
 
       <ul>
-        <li><a href="api/pyRTX.html#module-pyRTX.helpers">module</a>
+        <li><a href="api/helpers.html#module-pyRTX.helpers">module</a>
 </li>
       </ul></li>
       <li>
     pyRTX.utilities
 
       <ul>
-        <li><a href="api/pyRTX.html#module-pyRTX.utilities">module</a>
+        <li><a href="api/utilities.html#module-pyRTX.utilities">module</a>
 </li>
       </ul></li>
       <li>
     pyRTX.visual
 
       <ul>
-        <li><a href="api/pyRTX.visual.html#module-pyRTX.visual">module</a>
+        <li><a href="api/generated/pyRTX.visual.html#module-pyRTX.visual">module</a>, <a href="api/pyRTX.visual.html#module-pyRTX.visual">[1]</a>
 </li>
       </ul></li>
       <li>
     pyRTX.visual.utils
 
       <ul>
-        <li><a href="api/pyRTX.visual.html#module-pyRTX.visual.utils">module</a>
+        <li><a href="api/generated/pyRTX.visual.utils.html#module-pyRTX.visual.utils">module</a>, <a href="api/pyRTX.visual.html#module-pyRTX.visual.utils">[1]</a>
 </li>
       </ul></li>
   </ul></td>
@@ -1079,23 +1107,21 @@
 </li>
       <li><a href="api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator">TiffInterpolator (class in pyRTX.core.analysis_utils)</a>
 </li>
+      <li><a href="api/utilities.html#pyRTX.utilities.to_datetime">to_datetime() (in module pyRTX.utilities)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/pyRTX.html#pyRTX.utilities.to_datetime">to_datetime() (in module pyRTX.utilities)</a>
-</li>
       <li><a href="api/generated/pyRTX.classes.RayTracer.html#pyRTX.classes.RayTracer.RayTracer.trace">trace() (pyRTX.classes.RayTracer.RayTracer method)</a>
 </li>
       <li><a href="api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel">TrimeshShapeModel (class in pyRTX.core.utils_rt)</a>
+</li>
+      <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable.type">type (pyRTX.classes.LookUpTable.LookUpTable property)</a>
 </li>
   </ul></td>
 </tr></table>
 
 <h2 id="U">U</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable.units">units (pyRTX.classes.LookUpTable.LookUpTable property)</a>
-</li>
-  </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane.update_latlon">update_latlon() (pyRTX.classes.PixelPlane.PixelPlane method)</a>
 </li>
@@ -1111,7 +1137,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet.VFNC">VFNC() (pyRTX.classes.Planet.Planet method)</a>
 </li>
-      <li><a href="api/pyRTX.visual.html#pyRTX.visual.utils.visualize_planet_field">visualize_planet_field() (in module pyRTX.visual.utils)</a>
+      <li><a href="api/generated/pyRTX.visual.utils.html#pyRTX.visual.utils.visualize_planet_field">visualize_planet_field() (in module pyRTX.visual.utils)</a>, <a href="api/pyRTX.visual.html#pyRTX.visual.utils.visualize_planet_field">[1]</a>
 </li>
   </ul></td>
 </tr></table>

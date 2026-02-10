@@ -60,20 +60,3 @@ Computing atmospheric drag on complex spacecraft shapes.
    Notebook5
 
 
-Next Steps
-___________
-Where to go from here? Check the examples in the github repository. 
-They show how to treat more complex cases, where the spacecraft has 
-moveable appendages. 
-
-
-.. toctree::
-   :maxdepth: 1
-
-   lro_mass
-   compute_lut
-   lro_srp
-   lro_srp_with_lut
-   lro_alb_ir_simple
-   lro_alb_ir_complex
-   
