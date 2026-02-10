@@ -16,16 +16,16 @@ Flexible definition of the thermo-optical properties of every spacecraft surface
 ### Solar radiation pressure 
 Precise computation of the solar radiation pressure force and acceleration on the spacecraft.
 Automatic computation of self-shadowing, secondary reflections and diffusive effects. 
-Eclipse times computation using user-defined planet shapes and solar limb darkening.  ([Example](Notebooks/Notebook1.ipynb))
+Eclipse times computation using user-defined planet shapes and solar limb darkening.  ([Example1](Notebooks/Notebook1.ipynb), [Example2](Notebooks/Notebook2.ipynb))
 ### Planetary radiation pressure
 Albedo and thermal infrared pressure computations based on user-defined planetary properties. 
 Easy implementation of planetary characteristics maps (e.g.,n albedo and temperature). Possibility of
-using planetary shapes based on digital terrain models for maximum accuracy. 
+using planetary shapes based on digital terrain models for maximum accuracy. ([Example](Notebooks/Notebook4.ipynb))
 ### Atmospheric drag
 Precise computation of effective area. User defined density models. Plug-in structure allowing to use complex
-density models (e.g., VenusGRAM, MCD, etc.). 
+density models (e.g., VenusGRAM, MCD, etc.). ([Example](Notebooks/Notebook5.ipynb))
 ### Lookup tables generation and handling
-Handful classes for computing, storing and reading lookup tables for improved computational performance. ([Example 1](examples/generate_lro_accel_lookup.py),[Example 2](examples/generate_crossection_lut.py))
+Handful classes for computing, storing and reading lookup tables for improved computational performance. ([Example](Notebooks/Notebook3.ipynb))
 
 # Installation
 
