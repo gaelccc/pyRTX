@@ -43,6 +43,7 @@ ref_radius  =  1737.4
 n_cores     =  10
 
 # The spacecraft mass can be a float, int or a xarray with times and values [kg]
+# You can generate the xarray by running the script 'lro_mass.py'.
 sc_mass = xr.open_dataset('mass/lro_mass.nc')
 sc_mass.load()
 sc_mass.close()

@@ -29,7 +29,7 @@ warnings.filterwarnings('ignore')
 ### INPUTS
 
 # NOTE: before running this script you should generate the input look up table running the 
-# example 'compute_cross_lut.py'.
+# example 'compute_cross_section_lut.py'.
 
 ref_epc 	=  "2010 may 10 09:25:00"
 duration    =  10000  									   # seconds
