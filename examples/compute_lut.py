@@ -199,6 +199,7 @@ tic = timeit.default_timer()
 # Refresh inputs and output directiories
 if not os.path.exists('inputs'): os.system('mkdir inputs/')
 if not os.path.exists('outputs'): os.system('mkdir outputs/')
+if not os.path.exists('luts'): os.system('mkdir luts/')
 os.system('rm inputs/*')
 os.system('rm outputs/*')
 

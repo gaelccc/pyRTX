@@ -29,7 +29,7 @@ from numpy import floor, mod
 ### ------------------------------------------------------------------------------------------------------- ###
 ### INPUTS
 
-# NOTE: before running this script you should generate the input lutfile running the 
+# NOTE: before running this script you must generate the input file 'luts/lro_accel_lut.nc' by running the 
 # example 'compute_lut.py' using type = 'accel'.
 
 ref_epc		= "2010 may 10 09:25:00"
