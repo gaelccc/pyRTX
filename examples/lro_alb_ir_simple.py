@@ -27,8 +27,8 @@ from numpy import floor, mod
 ### ------------------------------------------------------------------------------------------------------- ###
 ### INPUTS
 
-# NOTE: before running this script you should generate the input lutfile running the 
-# example 'compute_lut.py' using type = 'accel'.
+# NOTE: before running this script you should generate the input look up table running the 
+# example 'compute_accel_lut.py'.
 
 ref_epc		=  "2010 may 10 09:25:00"
 duration    =  10000  									  # seconds

@@ -8,6 +8,9 @@
 # The look up table is designed to store the "geometry vector" of a spacecraft.
 # This vector is representative of how the spacecraft’s shape and surface 
 # properties interact with radiation coming from a specific direction. 
+# Alternatively, the look up table can be generated to store the cross-section
+# of the spacecraft for atmospheric drag computation.
+
 
 # The lookup table helps to speed up the computation of non-gravitational
 # accelerations and is MANDATORY for albedo, thermal infrared and drag
@@ -79,9 +82,9 @@ obj_path = '../example_data/LRO/'		          # path for 3D shape elements
 
 METAKR = '../example_data/LRO/metakernel_lro.tm'  # metakernel
 
-type = 'accel'	                                  # method: 'accel' or 'cross-section'
+type = 'cross-section'	                          # method: 'accel' or 'cross-section'
 
-lutfile = 'luts/lro_accel_lut.nc'	    		  # output file
+lutfile = 'luts/lro_cross_lut.nc'	    		  # output file
 
 ### --------------------------------------------------------------------------- ###
 ### LUT LIMITS
