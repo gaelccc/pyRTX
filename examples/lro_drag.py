@@ -28,8 +28,8 @@ warnings.filterwarnings('ignore')
 ### ------------------------------------------------------------------------------------------------------- ###
 ### INPUTS
 
-# NOTE: before running this script you should generate the input look up table running the 
-# example 'compute_cross_section_lut.py'.
+# NOTE: before running this script you should generate the input lutfile running the 
+# example 'compute_lut.py' using type = 'cross-section' instead of 'accel'.
 
 ref_epc 	=  "2010 may 10 09:25:00"
 duration    =  10000  									   # seconds
