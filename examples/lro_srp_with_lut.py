@@ -9,6 +9,7 @@
 ### ------------------------------------------------------------------------------------------------------- ###
 ### IMPORTS
 
+import sys, os
 import spiceypy as sp
 import matplotlib.pyplot as plt
 import logging, timeit
@@ -42,6 +43,10 @@ lutfile     = 'luts/lro_accel_lut.nc'					  # lookup table file
 base_flux   =  1361.5
 ref_radius  =  1737.4
 
+if not os.path.exists(lutfile):
+    print(f"Before running this script you must generate the file '{lutfile}' by running the example 'compute_lut.py' setting type = 'accel'.")
+    sys.exit()
+    
 ### ------------------------------------------------------------------------------------------------------- ###
 ### OBJECTS DEFINITION
 

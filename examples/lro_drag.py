@@ -10,6 +10,7 @@
 ### ------------------------------------------------------------------------------------------------------- ###
 ### IMPORTS
 
+import sys, os
 import spiceypy as sp
 import xarray as xr
 import numpy as np
@@ -41,6 +42,10 @@ body	    =  'Moon'
 lutfile     =  'luts/lro_cross_lut.nc'					   # lookup table file
 n_cores	    =  10
 
+if not os.path.exists(lutfile):
+    print(f"Before running this script you must generate the file '{lutfile}' by running the example 'compute_lut.py' setting type = 'cross-section'.")
+    sys.exit()
+    
 # The spacecraft mass can be a float, int or a xarray with times and values [kg]
 sc_mass = xr.open_dataset('mass/lro_mass.nc')
 sc_mass.load()

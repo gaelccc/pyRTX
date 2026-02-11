@@ -10,6 +10,7 @@
 ### ------------------------------------------------------------------------------------------------------- ###
 ### IMPORTS
 
+import sys, os
 import numpy as np
 import spiceypy as sp
 import matplotlib.pyplot as plt
@@ -41,6 +42,10 @@ ref_radius  =  1737.4
 n_cores     =  10
 sc_mass		=  2000  									  # can be a float, int or xarray [kg]
 
+if not os.path.exists(lutfile):
+    print(f"Before running this script you must generate the file '{lutfile}' by running the example 'compute_lut.py' setting type = 'accel'.")
+    sys.exit()
+    
 ### ------------------------------------------------------------------------------------------------------- ###
 ### OBJECTS DEFINITION
 

@@ -11,6 +11,7 @@
 ### ------------------------------------------------------------------------------------------------------- ###
 ### IMPORTS
 
+import sys, os
 import numpy as np
 import spiceypy as sp
 import xarray as xr
@@ -42,6 +43,10 @@ base_flux   =  1361.5
 ref_radius  =  1737.4
 n_cores     =  10
 
+if not os.path.exists(lutfile):
+    print(f"Before running this script you must generate the file '{lutfile}' by running the example 'compute_lut.py' setting type = 'accel'.")
+    sys.exit()
+    
 # The spacecraft mass can be a float, int or a xarray with times and values [kg]
 # You can generate the xarray by running the script 'lro_mass.py'.
 sc_mass = xr.open_dataset('mass/lro_mass.nc')
