@@ -70,15 +70,15 @@ pyRTX addresses the gap in open source solutions for a comprehensive modelling o
 
 In this section we describe the main functionalities of the pyRTX software. All of these functionalities are discussed in the set of example scripts and notebooks included in the code distribution. Our companion paper [@zurria_refining_2026] discusses an actual application of the pyRTX library for ameliorating the OD of NASA's Lunar Reconnaissance Orbiter. 
 
-- *Solar Radiation Pressure Modeling*: pyRTX computes the acceleration due to solar photons by casting rays from a pixel plane representing the incoming solar flux. The engine inherently accounts for self-shadowing (where spacecraft components block light from reaching others) and multiple levels of reflections. Users can specify optical properties for each mesh face, allowing the software to simulate both specular and diffuse (Lambertian) reflections.
+- *Solar Radiation Pressure Modeling*: pyRTX computes the acceleration due to solar photons by casting rays from a pixel plane representing the incoming solar flux. The engine inherently accounts for self-shadowing (where spacecraft components block light from reaching others) and multiple levels of reflections. Users can specify optical properties for each mesh face, allowing the software to simulate both specular and diffuse (Lambertian) reflections. To enable efficient integration with OD software, pyRTX can pre-compute accelerations over a grid of incident directions (Lookup Table: LUT). This feature supports spacecraft with articulating components (e.g., solar arrays), allowing users to generate comprehensive LUTs that map acceleration vectors to specific spacecraft orientations and strongly reduce computation time. 
 
 - *Planetary Radiation Pressure*: The software models the effects of radiation reflected (albedo) and emitted (thermal infrared) by planetary bodies. This includes the ability to use complex planetary shape models (e.g., topography from digital elevation models, DEMs) and spatially variable maps for albedo, emissivity, and surface temperature.
 
 - *Eclipse and Shadow Function Analysis*: pyRTX can compute precise shadow functions during eclipse transitions. It supports advanced modeling features such as solar limb darkening, where the variation in intensity across the solar disk is accounted for in the flux calculation.
 
-- *Atmospheric Drag*: For low-altitude missions, the software calculates the effective aerodynamic cross-section of the spacecraft, providing inputs for atmospheric drag modeling.
+- *Atmospheric Drag*: For low-altitude missions, the software calculates the effective aerodynamic cross-section of the spacecraft, providing inputs for atmospheric drag modeling. A user-defined atmospheric density function can be defined to directly compute the drag acceleration. This flexible interface allows the user to interface the precise cross-section calculation with external atmospheric density models. 
 
-- *Lookup Table (LUT) Generation*: To enable efficient integration with OD software, pyRTX can pre-compute accelerations over a grid of incident directions. This feature supports spacecraft with articulating components (e.g., solar arrays), allowing users to generate comprehensive LUTs that map acceleration vectors to specific spacecraft orientations and strongly reduce computation time. 
+
 
 # Acknowledgements
 
