@@ -27,7 +27,7 @@ affiliations:
    index: 2
  - name: Sapienza University, Italy
    index: 3
-date: 3 December 2025
+date: 13 February 2026
 bibliography: paper.bib
 
 # Optional fields if submitting to a AAS journal too, see this blog post:
