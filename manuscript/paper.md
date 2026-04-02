@@ -30,60 +30,56 @@ affiliations:
 date: 13 February 2026
 bibliography: paper.bib
 
-# Optional fields if submitting to a AAS journal too, see this blog post:
-# https://blog.joss.theoj.org/2018/12/a-new-collaboration-with-aas-publishing
-aas-doi: 10.3847/xxxxx <- update this with the DOI from AAS once you know it.
-aas-journal: The Planetary Science Journal
 ---
 
 # Summary
 
-With the constant improvement of radiometric tracking systems, inaccuracies
-in the non-gravitational force modeling have become one of the limiting factors
-to deep space precise orbit determination, and the scientific products that it enables. 
-The main factor impacting the limited accuracy of non-gravitational force models
-is the complex 3D shape of the spacecraft. While fast, reliable,  analytical models
-are available for simple shapes (spheres, flat plates, etc), no such model is generally
-available for a complex shape. This software package aims to address this limitation by leveraging ray-tracing to compute the complex interaction between the forcing environment (radiation, atmosphere) and the three dimensional shape of the spacecraft. 
-This software is specifically geared towards planetary OD where inaccuracies 
-of the model often cannot be overcome with continuous tracking as it is routinely done for Earth-orbiting spacecraft.
+With the constant improvement of radiometric tracking systems, inaccuracies in non-gravitational force modeling have become one of the limiting factors in precise orbit determination for deep space missions and the scientific products that depend on it. A major source of modeling error arises from the complex 3D shape of spacecraft. While fast and reliable analytical models exist for simple geometries (e.g. spheres or flat plates), they are generally not available for more realistic spacecraft representations. We present pyRTX, a software package that addresses this limitation by leveraging ray-tracing techniques to model the interaction between the space environment (radiation and atmosphere) and detailed spacecraft geometries. By operating directly on accurate 3D mesh models, pyRTX enables high-fidelity computation of non-gravitational accelerations. The software is specifically geared towards planetary orbit determination where inaccuracies of the model often cannot be overcome with continuous tracking as it is routinely done for Earth-orbiting spacecraft.
 
 
 
 
 # Statement of need
 
-Several scientific investigations require high-precision reconstruction of 
-spacecraft trajectories. Among these, one of the most demanding is the determination
-of the gravity field of Solar System bodies (planets, moons). This task is accomplished
-by solving the so-called orbit determination (OD) problem [@tapley_statistical_2004;@milani_theory_2009]. The solution of the OD in the adjustment of a dynamical model 
-(a set of differential equations) describing the spacecraft motion. Systematic errors
-in the dynamical model will almost inevitably lead to systematic errors in the solution. 
-In the recent years significant improvements in radiometric tracking system, have led
-to more and more precise measurements of the spacecraft position and velocity (the input to the OD), thus requiring increasingly more accurate dynamical models [@cappuccio_report_2020;@asmar_spacecraft_2005;@mazarico_europa_2023;@cappuccio_analysis_2025]. 
-One of the major limitations of current dynamical modelling of deep-space probes consists in the complex interaction between the spacecraft shape and the atmosphere, and with radiative forces (solar radiation pressure, albedo, thermal infrared radiation). We developed the pyRTX software package to address this limitation.
-Leveraging the ray-tracing technique, originally developed in computer graphics, instead of relying on simplified macro-models (flat plates, cylinders, etc) pyRTX is able to use the actual 3D shape of the spacecraft (provided as, for example, an .obj file), to compute several non-gravitational accelerations. 
+Accurate reconstruction of spacecraft trajectories is essential for several scientific applications, including the determination of the gravity field of Solar System bodies. These tasks are accomplished by solving the orbit determination (OD) problem [@tapley_statistical_2004; @milani_theory_2009]. The solution is retrieved by minimizing the difference between observed data and predictions. This is accomplished through an iterative adjustment of a dynamical model (a set of differential equations) describing the spacecraft motion. Systematic errors in the dynamical model directly translate into biases in the estimated trajectory and derived geophysical parameters. In recent years, improvements in radiometric tracking systems have significantly increased measurement precision [@cappuccio_report_2020; @asmar_spacecraft_2005; @mazarico_europa_2023; @cappuccio_analysis_2025], placing tighter requirements on the accuracy of dynamical models.
 
-pyRTX addresses the gap in open source solutions for a comprehensive modelling of several, important, non-gravitational forces. Being built around the NAIF SPICE astrodynamic library [@acton_ancillary_1996] and its Python wrapper [@annex_spiceypy_2020], pyRTX is intended to be a plug-in tool that can be used in existing OD codes, and applications.
+One of the main limitation in the dynamical modeling of deep space probes, especially in the inner Solar System, is the simplified treatment of non-gravitational forces, such as radiation pressure or atmospheric drag. This occurs as photons or atmospheric particles interact with the probe's surfaces, leading to a momentum exchange and, thus, an acceleration. Existing approaches typically represent the spacecraft shape with simplified macro-models (e.g. flat plates or cylinders). While fast and efficient, these methods cannot fully capture effects such as self-shadowing (when parts of the spacecraft are shielded from the incoming flux by other structural elements) and multiple reflections (reflected particles which impact subsequent surfaces) [Mazarico et al. 2014; Li et al. 2014].
 
-# Functionality
+The pyRTX software package addresses this gap by implementing a ray-tracing-based approach for computing non-gravitational accelerations using realistic spacecraft geometries. Built around the NAIF SPICE library [@acton_ancillary_1996] and its Python interface [@annex_spiceypy_2020], pyRTX is designed to integrate with existing OD pipelines and provide improved dynamical modeling.
 
-In this section we describe the main functionalities of the pyRTX software. All of these functionalities are discussed in the set of example scripts and notebooks included in the code distribution. Our companion paper [@zurria_refining_2026] discusses an actual application of the pyRTX library for ameliorating the OD of NASA's Lunar Reconnaissance Orbiter. 
+# State of the field
 
-- *3D Spacecraft Modeling*: pyRTX relies on detailed 3D mesh models of the spacecraft. This approach inherently allows the software to take into account self-shadowing (where spacecraft components block light or flux from reaching others) and multiple reflections in the computation of accelerations. Users can specify optical properties for each mesh face, enabling the simulation of complex surface interactions such as specular and diffuse (Lambertian) reflections.
+Non-gravitational force modeling in orbit determination has traditionally relied on the simplified “plate model”, which consists in the discretization of the probe as a set of plates or 2D elementary shapes. This approach enables efficient computation but lacks the capability to fully capture the complex interaction between particles and complex spacecraft geometries. Ray-tracing techniques, widely used in computer graphics, have been explored to address this task [Darugna et al. 2018; Kenneally & Schaub 2020; Li et al. 2018]. However, to the best of our knowledge, there is currently no open-source software package that computes solar and planetary radiation pressure and atmospheric drag with a ray-tracing approach, allowing direct integration with standard astrodynamics libraries. pyRTX fills this gap by providing a flexible and open-source tool for high-fidelity non-gravitational force modeling, specifically designed for orbit determination applications. 
 
-- *Solar and Planetary Radiation Pressure Modeling*: pyRTX computes the accelerations due to radiation pressure by casting rays from a pixel plane representing the incoming flux towards the spacecraft. This unified ray-tracing engine calculates the momentum transfer from direct solar photons as well as radiation reflected (albedo) and emitted (thermal infrared) by planetary bodies.
+# Software design
 
-- *Eclipse and Shadow Function Analysis*: pyRTX can compute precise shadow functions during eclipse transitions. It supports advanced modeling features such as solar limb darkening, where the variation in intensity across the solar disk is accounted for in the flux calculation.
+pyRTX is designed as a modular and extensible library. The software operates on detailed 3D spacecraft models and computes non-gravitational accelerations by simulating the interaction between incoming fluxes and the spacecraft geometry. Built around the NAIF SPICE toolkit, it ensures compatibility with standard astrodynamics pipelines. At its core, pyRTX uses a ray-tracing engine [Reference a pyEmbree?] in which rays are cast from a discretized representation of the incoming flux toward the spacecraft. This approach has the advantage to account for multiple physical effects:
 
-- *Atmospheric Drag*: Ray-tracing is used to compute the effective aerodynamic cross-section of the spacecraft by casting rays from a pixel plane representing the incoming atmospheric flux. A user-defined atmospheric density function can be defined to directly compute the drag acceleration. This flexible interface allows the user to interface the precise cross-section calculation with external atmospheric density models.
+- *3D spacecraft modeling*: The software operates directly on high-resolution 3D mesh models (.obj files), allowing accurate representation of spacecraft geometry. This naturally accounts for self-shadowing and multiple reflections. Optical properties can be assigned for individual mesh elements.
 
-- *3D Planetary Modeling*: The software supports the use of complex planetary shape models (e.g., topography from digital elevation models, DEMs) and spatially variable maps for albedo, emissivity, and surface temperature. This capability refines not only the planetary radiation fluxes but also the computation of eclipse transitions by accounting for local topography.
+- *Radiation pressure computation*: Solar radiation pressure and planetary albedo and thermal infrared emission are computed by casting rays from a pixel plane representing the incoming flux towards the spacecraft [Ziebart et al. 2004]. Momentum transfer is evaluated through ray-surface interactions, capturing both specular and diffuse reflection components.
 
-- *Lookup Table (LUT) Generation*: Toe nable efficient integration with OD software, pyRTXc anpre-compute accelerations over a grid of incident directions. This feature supports spacecraft with articulating components (e.g., solar arrays), allowing users to generate comprehensive LUTs that mapa cceleration vectors to specific spacecraft orientations ands trongly reduce computation time.
+- *Eclipse and shadow modeling*: pyRTX computes shadow functions with high fidelity, including partial illumination conditions and solar limb darkening, improving the modeling of eclipse transitions.
+
+- *Atmospheric drag computation*: The effective aerodynamic cross-section is derived via ray tracing, with the possibility to define an atmospheric density model. This allows flexible and accurate drag modeling without relying on simplified geometric assumptions.
+
+- *Planetary surface modeling*: The software supports complex planetary shape models (e.g. digital elevation models) and spatially variable surface properties such as albedo, emissivity, and temperature. This capability refines not only the computation of planetary radiation fluxes but also the eclipse transitions by accounting for local topography.
+
+- *Lookup table generation*: The software can precompute accelerations over grids of incident directions and spacecraft orientations. This enables fast interpolation during the computation of non-gravitational accelerations, strongly reducing the computational times.
+
+
+# Research impact statement
+
+pyRTX enables a new level of accuracy in non-gravitational force modeling, addressing a major challenge in the orbit determination of deep space missions. By leveraging ray-tracing techniques and realistic spacecraft geometries, the software reduces modeling errors that can otherwise bias scientific results. By providing an open-source and extensible framework, pyRTX supports the scientific community across different missions and institutions.
+
+The package has already been applied to the orbit determination of NASA’s Lunar Reconnaissance Orbiter [@zurria_refining_2026], demonstrating its relevance and impact on the data analysis of a present mission. The software is expected to support future missions where non-gravitational effects are dominant and critical to the science objectives, including those to Mercury, Venus, Earth, the Moon, and Mars.
 
 # Acknowledgements
 
 Work by G.C. was supported by NASA under award No. 80GSFC24M0006.
+
+# AI Usage Disclosure
+
+Generative AI tools were used to support the preparation of the manuscript and the documentation of the the software. The development of the code, including its algorithms, implementation, and testing was carried out without AI assistance. All content produced with the support of AI has been carefully reviewed and verified by the authors to ensure its validity.
 
 # References
