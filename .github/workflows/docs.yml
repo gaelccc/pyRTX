@@ -1,5 +1,8 @@
 name: Documentation
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 on:
   push:
     branches:
@@ -51,9 +54,8 @@ jobs:
         run: |
           cd docsrc
           make html
-          # Sphinx build by default goes to _build/html
-          # We need to make sure the output is in a place the deploy action can find
-          # Alternatively, we can just use the path docsrc/_build/html
+          # Create .nojekyll to prevent GitHub Pages from ignoring folders starting with _
+          touch _build/html/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
