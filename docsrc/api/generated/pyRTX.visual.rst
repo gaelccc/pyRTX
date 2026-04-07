@@ -4,28 +4,10 @@
 .. automodule:: pyRTX.visual
 
    
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-
 .. rubric:: Modules
 
 .. autosummary::
    :toctree:
    :recursive:
 
-   pyRTX.visual.utils
-
+   utils

@@ -1,28 +1,20 @@
 #!/bin/bash
 
 # Default values
-PUSH=false
 CLEAN=false
-COMMIT_MSG="Updated documentation"
+# Sphinx build by default goes to docsrc/_build/html
+# Let's keep it that way for consistency
 
 # Parse arguments
-while getopts "pcm:" opt; do
+while getopts "c" opt; do
   case $opt in
-    p)
-      PUSH=true
-      ;;
     c)
       CLEAN=true
       ;;
-    m)
-      COMMIT_MSG="$OPTARG"
-      ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
-      echo "Usage: $0 [-p] [-c] [-m 'commit message']"
-      echo "  -p: Push changes to git after building"
-      echo "  -c: Clean build (remove old docs first)"
-      echo "  -m: Custom commit message (default: 'Updated documentation')"
+      echo "Usage: $0 [-c]"
+      echo "  -c: Clean build (remove old build files first)"
       exit 1
       ;;
   esac
@@ -31,13 +23,15 @@ done
 # Clean if requested
 if [ "$CLEAN" = true ]; then
     echo "Cleaning old documentation..."
-    rm -rf docs/*
+    cd docsrc
+    make clean
+    cd ..
 fi
 
 # Build documentation
-echo "Building documentation..."
+echo "Building documentation locally..."
 cd docsrc
-sphinx-build -b html . ../docs
+make html
 BUILD_STATUS=$?
 cd ..
 
@@ -48,28 +42,4 @@ if [ $BUILD_STATUS -ne 0 ]; then
 fi
 
 echo "Documentation built successfully!"
-
-# Only add, commit, and push if -p flag was provided
-if [ "$PUSH" = true ]; then
-    echo ""
-    echo "Checking for changes..."
-    
-    # Check if there are changes to commit
-    if git diff --quiet docs && git diff --cached --quiet docs; then
-        echo "No changes to commit."
-    else
-        echo "Adding documentation changes..."
-        git add docs
-        
-        echo "Committing changes..."
-        git commit -m "$COMMIT_MSG"
-        
-        echo "Pushing to remote..."
-        git push origin master
-        
-        echo "Documentation pushed successfully!"
-    fi
-else
-    echo ""
-    echo "To commit and push changes, run: $0 -p"
-fi
+echo "You can view the documentation by opening docsrc/_build/html/index.html in your browser."

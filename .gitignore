@@ -20,3 +20,4 @@ docsrc/_build
 docsrc/build.log
 *.egg-info
 dist/
+docs/

@@ -4,11 +4,6 @@ pyRTX.visual.utils
 .. automodule:: pyRTX.visual.utils
 
    
-   
-   
-
-   
-   
    .. rubric:: Functions
 
    .. autosummary::
@@ -16,16 +11,3 @@ pyRTX.visual.utils
       color_convert
       plot_mesh
       visualize_planet_field
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-
