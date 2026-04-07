@@ -1,0 +1,711 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solar Radiation Pressure: Various contributions &mdash; pyRTX 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/nbsphinx-code-cells.css?v=2aa19091" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=51279e30" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+      <script>window.MathJax = {"tex": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true}, "options": {"ignoreHtmlClass": "tex2jax_ignore|mathjax_ignore|document", "processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Lookup Tables" href="Notebook3.html" />
+    <link rel="prev" title="Notebook n. 1:" href="Notebook1.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            pyRTX
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#step-1-install-dependencies-with-conda">Step 1: Install Dependencies with Conda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#step-2-install-pyrtx">Step 2: Install pyRTX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#quickstart-and-installation-testing">Quickstart and installation testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quick Start Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#tutorial-1-first-steps-with-pyrtx">Tutorial 1: First Steps with pyRTX</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Notebook1.html">Notebook n. 1:</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="Notebook1.html#Spacecraft-shape-definition">Spacecraft shape definition</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Notebook1.html#Speeding-up-the-code">Speeding up the code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="Notebook1.html#Exporting-the-data">Exporting the data</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#tutorial-2-advanced-srp-calculations">Tutorial 2: Advanced SRP Calculations</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Solar Radiation Pressure: Various contributions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Effect-of-diffusion">Effect of diffusion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#tutorial-3-lookup-tables">Tutorial 3: Lookup Tables</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Notebook3.html">Lookup Tables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Notebook3.html#Computing-the-LUT">Computing the LUT</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#tutorial-4-planetary-radiation">Tutorial 4: Planetary Radiation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Notebook4.html">Planetary radiation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#tutorial-5-atmospheric-drag">Tutorial 5: Atmospheric Drag</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Notebook5.html">Atmospheric drag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Notebook5.html#Compute-the-cross-section-LUT">Compute the cross-section LUT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Notebook5.html#Computing-the-drag">Computing the drag</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../next_steps.html">Next Steps</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lro_mass.html">Generate the time-variable mass input</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compute_lut.html">Compute Lookup Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lro_srp.html">LRO Solar Radiation Pressure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lro_srp_with_lut.html">LRO Solar Radiation Pressure with Lookup Table</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lro_alb_ir_simple.html">LRO Albedo and Thermal IR (Simple)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lro_alb_ir_complex.html">LRO Albedo and Thermal IR (Complex)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lro_alb_ir_complex.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lro_alb_ir_complex.html#key-features">Key Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lro_alb_ir_complex.html#when-to-use-this-approach">When to Use This Approach</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lro_alb_ir_complex.html#code">Code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/core.html">Core Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html">pyRTX.core.analysis_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTable"><code class="docutils literal notranslate"><span class="pre">LookupTable</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.LookupTableND"><code class="docutils literal notranslate"><span class="pre">LookupTableND</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.ScatterLookup"><code class="docutils literal notranslate"><span class="pre">ScatterLookup</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.TiffInterpolator"><code class="docutils literal notranslate"><span class="pre">TiffInterpolator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.getSunAngles"><code class="docutils literal notranslate"><span class="pre">getSunAngles()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.epochRange"><code class="docutils literal notranslate"><span class="pre">epochRange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.epochRange2"><code class="docutils literal notranslate"><span class="pre">epochRange2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.computeRADEC"><code class="docutils literal notranslate"><span class="pre">computeRADEC()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.convertTIFtoMesh"><code class="docutils literal notranslate"><span class="pre">convertTIFtoMesh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.convertEpoch"><code class="docutils literal notranslate"><span class="pre">convertEpoch()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.get_spacecraft_area"><code class="docutils literal notranslate"><span class="pre">get_spacecraft_area()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.get_sun_exposed_area"><code class="docutils literal notranslate"><span class="pre">get_sun_exposed_area()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.compute_body_positions"><code class="docutils literal notranslate"><span class="pre">compute_body_positions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html#pyRTX.core.analysis_utils.compute_body_states"><code class="docutils literal notranslate"><span class="pre">compute_body_states()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.core.parallel_utils.html">pyRTX.core.parallel_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.get_ncores"><code class="docutils literal notranslate"><span class="pre">get_ncores()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.is_method"><code class="docutils literal notranslate"><span class="pre">is_method()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.get_unwrapped"><code class="docutils literal notranslate"><span class="pre">get_unwrapped()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.parallel_utils.html#pyRTX.core.parallel_utils.parallel"><code class="docutils literal notranslate"><span class="pre">parallel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.core.physical_utils.html">pyRTX.core.physical_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.preprocess_RTX_geometry"><code class="docutils literal notranslate"><span class="pre">preprocess_RTX_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.preprocess_materials"><code class="docutils literal notranslate"><span class="pre">preprocess_materials()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.srp_core"><code class="docutils literal notranslate"><span class="pre">srp_core()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.physical_utils.html#pyRTX.core.physical_utils.compute_srp"><code class="docutils literal notranslate"><span class="pre">compute_srp()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html">pyRTX.core.shadow_utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_mask"><code class="docutils literal notranslate"><span class="pre">circular_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.circular_rim"><code class="docutils literal notranslate"><span class="pre">circular_rim()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_directions"><code class="docutils literal notranslate"><span class="pre">compute_directions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_beta"><code class="docutils literal notranslate"><span class="pre">compute_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html#pyRTX.core.shadow_utils.compute_pixel_intensities"><code class="docutils literal notranslate"><span class="pre">compute_pixel_intensities()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html">pyRTX.core.utils_rt</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_cached_embree_scene"><code class="docutils literal notranslate"><span class="pre">get_cached_embree_scene()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.chunker"><code class="docutils literal notranslate"><span class="pre">chunker()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pxform_convert"><code class="docutils literal notranslate"><span class="pre">pxform_convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.block_normalize"><code class="docutils literal notranslate"><span class="pre">block_normalize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.block_dot"><code class="docutils literal notranslate"><span class="pre">block_dot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pixel_plane"><code class="docutils literal notranslate"><span class="pre">pixel_plane()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.fast_vector_build"><code class="docutils literal notranslate"><span class="pre">fast_vector_build()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.pixel_plane_opt"><code class="docutils literal notranslate"><span class="pre">pixel_plane_opt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.reflected"><code class="docutils literal notranslate"><span class="pre">reflected()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_orthogonal"><code class="docutils literal notranslate"><span class="pre">get_orthogonal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.sample_lambert_dist"><code class="docutils literal notranslate"><span class="pre">sample_lambert_dist()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.diffuse"><code class="docutils literal notranslate"><span class="pre">diffuse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.compute_secondary_bounce"><code class="docutils literal notranslate"><span class="pre">compute_secondary_bounce()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.save_for_visualization"><code class="docutils literal notranslate"><span class="pre">save_for_visualization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_init_geometry"><code class="docutils literal notranslate"><span class="pre">Embree3_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_init_rayhit"><code class="docutils literal notranslate"><span class="pre">Embree3_init_rayhit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.Embree3_dump_solution"><code class="docutils literal notranslate"><span class="pre">Embree3_dump_solution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.cgal_init_geometry"><code class="docutils literal notranslate"><span class="pre">cgal_init_geometry()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_centroids"><code class="docutils literal notranslate"><span class="pre">get_centroids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_cross_products"><code class="docutils literal notranslate"><span class="pre">get_cross_products()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_face_areas"><code class="docutils literal notranslate"><span class="pre">get_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_surface_normals"><code class="docutils literal notranslate"><span class="pre">get_surface_normals()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.get_surface_normals_and_face_areas"><code class="docutils literal notranslate"><span class="pre">get_surface_normals_and_face_areas()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.ShapeModel"><code class="docutils literal notranslate"><span class="pre">ShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.TrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">TrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.CgalTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">CgalTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.EmbreeTrimeshShapeModel"><code class="docutils literal notranslate"><span class="pre">EmbreeTrimeshShapeModel</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html#pyRTX.core.utils_rt.RTXkernel"><code class="docutils literal notranslate"><span class="pre">RTXkernel()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/classes.html">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.Atmosphere.html">pyRTX.classes.Atmosphere</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Atmosphere.html#pyRTX.classes.Atmosphere.VenusGram"><code class="docutils literal notranslate"><span class="pre">VenusGram</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.Drag.html">pyRTX.classes.Drag</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Drag.html#pyRTX.classes.Drag.Drag"><code class="docutils literal notranslate"><span class="pre">Drag</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.LookUpTable.html">pyRTX.classes.LookUpTable</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.LookUpTable.html#pyRTX.classes.LookUpTable.LookUpTable"><code class="docutils literal notranslate"><span class="pre">LookUpTable</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.PixelPlane.html">pyRTX.classes.PixelPlane</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.PixelPlane.html#pyRTX.classes.PixelPlane.PixelPlane"><code class="docutils literal notranslate"><span class="pre">PixelPlane</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html">pyRTX.classes.Planet</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.PlanetGrid"><code class="docutils literal notranslate"><span class="pre">PlanetGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.EmissivityGrid"><code class="docutils literal notranslate"><span class="pre">EmissivityGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.AlbedoGrid"><code class="docutils literal notranslate"><span class="pre">AlbedoGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.TemperatureGrid"><code class="docutils literal notranslate"><span class="pre">TemperatureGrid</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html#pyRTX.classes.Planet.Planet"><code class="docutils literal notranslate"><span class="pre">Planet</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.Precompute.html">pyRTX.classes.Precompute</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Precompute.html#pyRTX.classes.Precompute.Precompute"><code class="docutils literal notranslate"><span class="pre">Precompute</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.Radiation.html">pyRTX.classes.Radiation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Albedo"><code class="docutils literal notranslate"><span class="pre">Albedo</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Radiation.html#pyRTX.classes.Radiation.Emissivity"><code class="docutils literal notranslate"><span class="pre">Emissivity</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.RayTracer.html">pyRTX.classes.RayTracer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.RayTracer.html#pyRTX.classes.RayTracer.RayTracer"><code class="docutils literal notranslate"><span class="pre">RayTracer</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.SRP.html">pyRTX.classes.SRP</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SunShadow"><code class="docutils literal notranslate"><span class="pre">SunShadow</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.Spacecraft.html">pyRTX.classes.Spacecraft</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft"><code class="docutils literal notranslate"><span class="pre">Spacecraft</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/defaults.html">Default Values and Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/constants.html">Constants</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api/helpers.html">Helpers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/helpers.html#pyRTX.helpers.get_download_agent"><code class="docutils literal notranslate"><span class="pre">get_download_agent()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/utilities.html">Utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/utilities.html#pyRTX.utilities.export_formatted"><code class="docutils literal notranslate"><span class="pre">export_formatted()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utilities.html#pyRTX.utilities.export_exac"><code class="docutils literal notranslate"><span class="pre">export_exac()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utilities.html#pyRTX.utilities.to_datetime"><code class="docutils literal notranslate"><span class="pre">to_datetime()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utilities.html#pyRTX.utilities.getScPosVel"><code class="docutils literal notranslate"><span class="pre">getScPosVel()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/pyRTX.visual.html">pyRTX.visual package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/pyRTX.visual.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/pyRTX.visual.html#module-pyRTX.visual.utils">pyRTX.visual.utils module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/pyRTX.visual.html#pyRTX.visual.utils.color_convert"><code class="docutils literal notranslate"><span class="pre">color_convert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pyRTX.visual.html#pyRTX.visual.utils.plot_mesh"><code class="docutils literal notranslate"><span class="pre">plot_mesh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/pyRTX.visual.html#pyRTX.visual.utils.visualize_planet_field"><code class="docutils literal notranslate"><span class="pre">visualize_planet_field()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../api/pyRTX.visual.html#module-pyRTX.visual">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#core-modules">Core Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.core.html">pyRTX.core</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.analysis_utils.html">pyRTX.core.analysis_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.parallel_utils.html">pyRTX.core.parallel_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.physical_utils.html">pyRTX.core.physical_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.shadow_utils.html">pyRTX.core.shadow_utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.core.utils_rt.html">pyRTX.core.utils_rt</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#classes">Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.classes.html">pyRTX.classes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Atmosphere.html">pyRTX.classes.Atmosphere</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Drag.html">pyRTX.classes.Drag</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.LookUpTable.html">pyRTX.classes.LookUpTable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.PixelPlane.html">pyRTX.classes.PixelPlane</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Planet.html">pyRTX.classes.Planet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Precompute.html">pyRTX.classes.Precompute</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Radiation.html">pyRTX.classes.Radiation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.RayTracer.html">pyRTX.classes.RayTracer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.SRP.html">pyRTX.classes.SRP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.classes.Spacecraft.html">pyRTX.classes.Spacecraft</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/index.html#visual">Visual</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/generated/pyRTX.visual.html">pyRTX.visual</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../api/generated/pyRTX.visual.utils.html">pyRTX.visual.utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">pyRTX</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Solar Radiation Pressure: Various contributions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/Notebook2.ipynb.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="Solar-Radiation-Pressure:-Various-contributions">
+<h1>Solar Radiation Pressure: Various contributions<a class="headerlink" href="#Solar-Radiation-Pressure:-Various-contributions" title="Link to this heading"></a></h1>
+<p>In this example we will compute the solar radiation pressure on a simple object and analyze the different contributions</p>
+<ul class="simple">
+<li><p>Specular reflection</p></li>
+<li><p>Secondary specular reflection</p></li>
+<li><p>Diffusion</p></li>
+</ul>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pyRTX.classes.Spacecraft import Spacecraft
+from pyRTX.classes.RayTracer import RayTracer
+from pyRTX.classes.PixelPlane import PixelPlane
+from pyRTX.classes.SRP import SolarPressure
+from pyRTX.core.analysis_utils import get_spacecraft_area
+from pyRTX.visual.utils import plot_mesh
+import trimesh as tm
+import numpy as np
+import matplotlib.pyplot as plt
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Let&#39;s create a simple object that has an interesting shape for evaluating
+# advanced SRP effects
+mesh = tm.creation.annulus(0.5,1,height = 0.5)
+# mesh = tm.creation.icosphere()
+
+# Define some basic information
+flux = 1361 # W/m2
+mass = 100
+
+# Visualize the object
+plot_mesh(mesh)
+</pre></div>
+</div>
+</div>
+<p>Let’s now define a spaceraft object. The spacecraft uses the shape we have defined previously</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sc = Spacecraft(
+            name = &#39;My Spacecraft&#39;,
+            base_frame = &#39;SC Frame&#39;, # Name of the spacecraft body-fixed frame
+            mass = mass,
+            units = &#39;m&#39;,
+            spacecraft_model = {
+
+
+            &#39;Bus&#39;: {
+                &#39;file&#39; : mesh,  # Note that you can also input directly a mesh (it must be trimesh.Trimesh object)
+                &#39;frame_type&#39;: &#39;UD&#39;, # type of frame (can be &#39;Spice&#39; or &#39;UD&#39;= User Defined)
+                &#39;UD_rotation&#39; : tm.transformations.identity_matrix(), # If UD is chosen, the rotation matrix between the element and the base frame must be defined
+                &#39;frame_name&#39;: &#39;SC Bus&#39;, # Name of the frame
+                &#39;center&#39;: [0.0,0.0,0.0], # Origin of the component
+                &#39;diffuse&#39;: 0.3, # Diffuse reflect. coefficient
+                &#39;specular&#39;: 0.3, # Specular reflect. coefficient
+
+
+            },
+            },
+
+
+            )
+<br/></pre></div>
+</div>
+</div>
+<p>In this case we will use a fixed location for the pixel plane (i.e., the origin of the rays). We choose on purpose a direction that will likely generate reflections inside the annulus, so we’ll be able to assess the importance of secondary reflections</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the origin direction of the pixel plane in the spacecraft frame
+RA = 0 # rad
+DEC = 5* np.pi/180 #rad
+
+# And visualize the direction
+x = np.cos(DEC)*np.cos(RA)
+y = np.cos(DEC)*np.sin(RA)
+z = np.sin(DEC)
+start_point = [0,0,0]
+direction = 0.0015*np.array([x,y,z])
+
+fig, ax = plot_mesh(mesh, azim = 90, elev = 10)
+ax.quiver(start_point[0], start_point[1], start_point[2],
+          direction[0], direction[1], direction[2],
+          color=&#39;red&#39;, arrow_length_ratio=0.15, linewidth=2, zorder = 10)
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Initialize the pixel plane
+pixelPlane = PixelPlane(
+        spacecraft = &#39;None&#39;,
+        mode = &#39;Fixed&#39;,
+        distance = 30,
+        width = 5,
+        height = 5,
+        ray_spacing = 0.01,
+        lon = RA,
+        lat = DEC,
+        units = &#39;m&#39;,
+)
+
+# Initialize the ray-tracer explicitly requesting to compute
+# up to the fourth bounce.
+rtx = RayTracer(sc,
+                pixelPlane,
+                kernel = &#39;Embree3&#39;,
+                bounces = 4,
+                diffusion = False,
+                num_diffuse = 10)
+
+
+# Asking for grouped=False allows to retrieve
+# the results for each bounce individually
+# Note that in this case we have to set the baseflux to None
+# this is because we don&#39;t have a real spacecraft
+# so no trajectory is known for this object
+# if we tried to set the baseflux to some value
+# the solar pressure object would try to find
+# the location of the spacecraft to rescale the flux
+# at the correct distance
+srp = SolarPressure(sc, rtx,
+                    baseflux = None,
+                    grouped = False,
+
+                   )
+# This will raise a warning, because tupically this setting
+# is used for computing a lookup table (LUT)
+# (See more details in the LUT example)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># To compute the acceleration we need to provide an epoch
+# Since there are no moving parts, &quot;None&quot; works
+# as well.
+accel = np.array(srp.compute([None], n_cores = 1)) * flux * 1000
+print(accel)
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(f&#39;Found bounces {len(accel[0])}&#39;)
+
+fig, ax = plt.subplots()
+ax.bar(np.arange(1, len(accel[0])+1), np.linalg.norm(accel[0], axis = 1))
+ax.set_yscale(&#39;log&#39;)
+ax.set_ylabel(&#39;Acceleration [m/s2]&#39;)
+ax.set_xlabel(&#39;Bounce number&#39;)
+ax.set_xticks(np.arange(1, len(accel[0])+1));
+</pre></div>
+</div>
+</div>
+<p>With such a shallow angle, up to four bounces are found! This happens because the rays keep bouncing inside the inner part of the annulus. Let’s see what happens as the angle changes</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>angles = np.linspace(0, 90*np.pi/180, 30)
+n_found = np.zeros_like(angles)
+for i, DEC in enumerate(angles):
+
+    pixelPlane = PixelPlane(
+            spacecraft = &#39;None&#39;,
+            mode = &#39;Fixed&#39;,
+            distance = 30,
+            width = 5,
+            height = 5,
+            ray_spacing = 0.01,
+            lon = RA,
+            lat = DEC,
+            units = &#39;m&#39;,
+    )
+
+    rtx = RayTracer(sc,
+                    pixelPlane,
+                    kernel = &#39;Embree3&#39;,
+                    bounces = 15, # Let&#39;s set a large number to see how many we get
+                    diffusion = False,
+                    num_diffuse = 10)
+
+    srp = SolarPressure(sc, rtx,
+                        baseflux = None,
+                        grouped = False,
+                       )
+
+    accel = np.array(srp.compute([None], n_cores = 1)) * flux
+    n_found[i] = len(accel[0])
+
+fig, ax = plt.subplots()
+ax.plot(angles*180/np.pi, n_found)
+ax.set_ylabel(&#39;Number of effective bounces&#39;)
+ax.set_xlabel(&#39;Sun rays incoming angle&#39;)
+</pre></div>
+</div>
+</div>
+<p>Interesting! There is a range of angles for which the light gets almost trapped indefinitely inside the inner ring. Let’s analyze in this case how the magnitude of the acceleration decreases with subsequent bounces.</p>
+<p>At the end we will plot the relative acceleration (i.e., we will normalize by the magnitude of the acceleration of the first bounce)</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Find the angle where we have the maximum number of reflections
+amax = angles[np.argmax(n_found)]
+
+pixelPlane = PixelPlane(
+            spacecraft = &#39;None&#39;,
+            mode = &#39;Fixed&#39;,
+            distance = 30,
+            width = 5,
+            height = 5,
+            ray_spacing = 0.01,
+            lon = RA,
+            lat = amax,
+            units = &#39;m&#39;,
+    )
+
+rtx = RayTracer(sc,
+                pixelPlane,
+                kernel = &#39;Embree3&#39;,
+                bounces = 15, # Let&#39;s set a large number to see how many we get
+                diffusion = False,
+                num_diffuse = 10)
+
+srp = SolarPressure(sc, rtx,
+                    baseflux = None,
+                    grouped = False,
+                   )
+
+accel = np.array(srp.compute([None], n_cores = 1)) * flux
+print(f&#39;Found bounces {len(accel[0])}&#39;)
+print(accel)
+
+fig, ax = plt.subplots()
+ax.bar(np.arange(1, len(accel[0])+1), np.linalg.norm(accel[0], axis = 1)/np.linalg.norm(accel[0][0]))
+ax.set_yscale(&#39;log&#39;)
+ax.set_ylabel(&#39;Normalized Acceleration&#39;)
+ax.set_xlabel(&#39;Bounce number&#39;)
+ax.set_xticks(np.arange(1, len(accel[0])+1));
+</pre></div>
+</div>
+</div>
+<section id="Effect-of-diffusion">
+<h2>Effect of diffusion<a class="headerlink" href="#Effect-of-diffusion" title="Link to this heading"></a></h2>
+<p>Until now we have accounted for the sole effect of specular reflection. This can be a very good approximation for smooth material, however it starts failing when rough materials, behaving like lambertian surfaces, are present.</p>
+<p>pyRTX can account for diffusion. This is done by considering each point where a ray is initially reflected (an impact point) as a source of diffusion. Thus for each impact point we can sample a number of rays from a Lambertian distribution and follow these rays in their subsequent interactions.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Let&#39;s see the difference between reflection only and reflection + diffusion
+RA = 0
+DEC = 20 * np.pi/180
+pixelPlane = PixelPlane(
+            spacecraft = &#39;None&#39;,
+            mode = &#39;Fixed&#39;,
+            distance = 30,
+            width = 5,
+            height = 5,
+            ray_spacing = 0.01,
+            lon = RA,
+            lat = DEC,
+            units = &#39;m&#39;,
+    )
+
+rtx_diffuse = RayTracer(sc,
+                pixelPlane,
+                kernel = &#39;Embree3&#39;,
+                bounces = 2, # The diffusion is computed as a second bounce
+                diffusion = True,
+                num_diffuse = 10, # This is the number of the rays diffused from the impact point
+               )
+
+rtx_specular = RayTracer(sc,
+                pixelPlane,
+                kernel = &#39;Embree3&#39;,
+                bounces = 2, # One bounce only this time
+                diffusion = False,
+               )
+
+srp_diffuse = SolarPressure(sc, rtx_diffuse,
+                    baseflux = None,
+                    grouped = True,  # This time we are only interested in the total acceleration
+                   )
+
+srp_specular = SolarPressure(sc, rtx_specular,
+                    baseflux = None,
+                    grouped = True,  # This time we are only interested in the total acceleration
+                   )
+
+
+accel_diffuse = np.array(srp_diffuse.compute([None], n_cores = 1)) * flux
+accel_specular = np.array(srp_specular.compute([None], n_cores = 1)) * flux
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;Acceleration with only specular reflection:&#39;)
+print(accel_specular[0])
+
+print(&#39;Acceleration with diffusive effect&#39;)
+print(accel_diffuse[0])
+
+
+fig, ax= plt.subplots(1,3)
+for i in range(3):
+    # ax[i].bar( np.arange(0, 1), np.abs((accel_specular[0][i] - accel_diffuse[0][i] )/ accel_diffuse[0][i]) * 100, label = &#39;Specular only&#39;, width = 0.2)
+    ax[i].bar( np.arange(0, 1), np.abs((accel_specular[0][i] - accel_diffuse[0][i] )), label = &#39;Specular only&#39;, width = 0.2)
+
+    ax[i].set_xlabel(&#39;&#39;)
+    ax[i].set_xticklabels([])
+    # ax[i].set_yscale(&#39;log&#39;)
+ax[0].set_title(&#39;X&#39;)
+ax[1].set_title(&#39;Y&#39;)
+ax[2].set_title(&#39;Z&#39;)
+ax[0].set_ylabel(&#39;Total difference&#39;);
+plt.tight_layout()
+<br/></pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Notebook1.html" class="btn btn-neutral float-left" title="Notebook n. 1:" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Notebook3.html" class="btn btn-neutral float-right" title="Lookup Tables" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Gael Cascioli.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

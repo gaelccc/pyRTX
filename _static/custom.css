@@ -1,0 +1,52 @@
+/* Make parameter names bold and colored */
+dl.field-list > dt {
+    font-weight: bold;
+    color: #2980b9;
+    font-family: 'Monaco', 'Courier New', monospace;
+    background-color: #f0f0f0;
+    padding: 2px 6px;
+    border-radius: 3px;
+}
+
+/* Style parameter types */
+.classifier {
+    color: #27ae60;
+    font-style: italic;
+}
+
+/* Better spacing for parameters */
+dl.field-list > dd {
+    margin-left: 2em;
+    margin-bottom: 1em;
+}
+
+/* Style inline code/variables */
+code.docutils.literal {
+    background-color: #f8f8f8;
+    border: 1px solid #e1e4e5;
+    padding: 1px 5px;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+/* Make section headers more prominent */
+h1, h2, h3 {
+    color: #2c3e50;
+}
+
+/* Style admonitions (notes, warnings, etc.) */
+.admonition {
+    margin: 1em 0;
+    padding: 1em;
+    border-left: 4px solid #3498db;
+}
+
+.admonition.note {
+    border-left-color: #3498db;
+    background-color: #e7f2fa;
+}
+
+.admonition.warning {
+    border-left-color: #e67e22;
+    background-color: #fef5e7;
+}

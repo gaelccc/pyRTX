@@ -1,0 +1,404 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "f0f1f3a3-762b-427a-9c88-ea5353d73a8b",
+   "metadata": {},
+   "source": [
+    "## Planetary radiation\n",
+    "Now that we learned how to compute the SRP for complex shapes, accounting for secondary reflections, diffusion, eclipses, etc\n",
+    "it's time to learn how to set up the calculation of Albedo and Thermal Infrared pressure exerted by solar system bodies \n",
+    "on the spacecraft. \n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "ce6fa4eb-d199-4f83-a3de-df6d59808589",
+   "metadata": {},
+   "source": [
+    "First of all let's create a spacecraft and a planet. We'll use the same spacecraft (capsule) as the previous example\n",
+    "so that we can reuse the LUT we have already computed. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "72f0f03e-9e12-476c-9a26-7fc973907cce",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import trimesh as tm\n",
+    "import spiceypy as sp\n",
+    "import numpy as np\n",
+    "from pyRTX.classes.SRP import SolarPressure\n",
+    "from pyRTX.classes.Planet import Planet\n",
+    "from pyRTX.classes.Spacecraft import Spacecraft\n",
+    "\n",
+    "# We'll load some SPICE kernels for simplicity\n",
+    "METAKR = '../example_data/LRO/metakernel_lro.tm'     # metakernel\n",
+    "sp.furnsh(METAKR)  # Load the metakernel containing references to the necessary SPICE frames\n",
+    "\n",
+    "# Create a simple spacecraft (a capsule/cylinder)\n",
+    "sc = tm.creation.capsule(height = 3, radius = 1, count = [9,9], )\n",
+    "sc_model = {\n",
+    "    'BUS':{\n",
+    "    'file' : sc,\n",
+    "    'frame_type': 'Spice',\n",
+    "    'frame_name': 'LRO_SC_BUS',\n",
+    "    'center' : [0,0,0], \n",
+    "    'specular': 0.3, \n",
+    "    'diffuse' : 0,\n",
+    "    }}\n",
+    "\n",
+    "sc = Spacecraft(\n",
+    "                name = 'LRO', \n",
+    "                base_frame = 'LRO_SC_BUS', \n",
+    "                mass = 2000,\n",
+    "                spacecraft_model = sc_model, \n",
+    "                units = 'm')\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "0961d0ef-6e43-4866-9c9e-3c3fe7d7df9d",
+   "metadata": {},
+   "source": [
+    "There are different ways of creating a planet. \n",
+    "\n",
+    "For example we can create a spherical planet, or we can load an .obj of its elevation. \n",
+    "In case we provide an .obj, this should represent variations around a reference radius, that is an input. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "7314d469-cf9d-4491-a79e-666d5bf2afc5",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Create a simple spherical planet\n",
+    "ref_radius  =  1737.4\n",
+    "moon = Planet(  fromFile      = None, # If None a sphere will be used\n",
+    "                radius        = ref_radius, # This is the radius of the sphere\n",
+    "                name          = 'Moon', \n",
+    "                bodyFrame     = 'MOON_ME', # Moon body-fixed frame\n",
+    "                sunFixedFrame = 'GSE_MOON', # Sun-fixed frame (more details in the albedo example)\n",
+    "                units         = 'km',\n",
+    "                subdivs       = 6, # How detailed the sphere will be (this is an input to trimesh.creation.icosphere\n",
+    "                )                  # see trimesh documentation for more details)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "fb3d56b0-9bc8-43e6-a22f-6cc4db361bfd",
+   "metadata": {},
+   "source": [
+    "You'll have noticed that we had to define two frames:\n",
+    "1) The body fixed frame: this is the conventional body fixed frame that defines the orientation of the body in space.\n",
+    "   for the Moon we use the \"Mean Earth\" frame (MOON_ME)\n",
+    "2) Albedo calculations greatly simplify if performed in a reference frame where the Sun is fixed. We can easily define it and\n",
+    "   load it in the METAKR file.\n",
+    "\n",
+    "Here is how we defined it for the moon (GSE_MOON)\n",
+    "\n",
+    "```\n",
+    "KPL/FK\n",
+    "\n",
+    "\\begindata\n",
+    "\n",
+    "      FRAME_GSE_MOON                =  1500301\n",
+    "      FRAME_1500301_NAME            = 'GSE_MOON'\n",
+    "      FRAME_1500301_CLASS           =  5\n",
+    "      FRAME_1500301_CLASS_ID        =  1500301\n",
+    "      FRAME_1500301_CENTER          =  301\n",
+    "      FRAME_1500301_RELATIVE        = 'J2000'\n",
+    "      FRAME_1500301_DEF_STYLE       = 'PARAMETERIZED'\n",
+    "      FRAME_1500301_FAMILY          = 'TWO-VECTOR'\n",
+    "      FRAME_1500301_PRI_AXIS        = 'X'\n",
+    "      FRAME_1500301_PRI_VECTOR_DEF  = 'OBSERVER_TARGET_POSITION'\n",
+    "      FRAME_1500301_PRI_OBSERVER    = 'MOON'\n",
+    "      FRAME_1500301_PRI_TARGET      = 'SUN'\n",
+    "      FRAME_1500301_PRI_ABCORR      = 'NONE'\n",
+    "      FRAME_1500301_SEC_AXIS        = 'Y'\n",
+    "      FRAME_1500301_SEC_VECTOR_DEF  = 'OBSERVER_TARGET_VELOCITY'\n",
+    "      FRAME_1500301_SEC_OBSERVER    = 'MOON'\n",
+    "      FRAME_1500301_SEC_TARGET      = 'SUN'\n",
+    "      FRAME_1500301_SEC_ABCORR      = 'NONE'\n",
+    "      FRAME_1500301_SEC_FRAME       = 'J2000'\n",
+    "\n",
+    "      NAIF_BODY_NAME += ( 'GSE_MOON' )\n",
+    "      NAIF_BODY_CODE += (  1500301   )\n",
+    "\n",
+    "\\begintext\n",
+    "```"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e2ad6dd8-c4e9-4f92-815a-68c72d348ec0",
+   "metadata": {},
+   "source": [
+    "Now we need to define the physical properties of the Moon, namely we must define \n",
+    "1) Albedo\n",
+    "2) Infrared emissivity\n",
+    "3) Temperature\n",
+    "\n",
+    "There are several ways for doing this in pyRTX and we will now look at all of them.\n",
+    "\n",
+    "We'll start with the simplest one, that is assigning constant properties:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "638dca9e-770d-4e3d-9111-bc724d4ad201",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "moon.albedo = 0.15\n",
+    "moon.emissivity = 0.9\n",
+    "moon.dayside_temperature = 300\n",
+    "moon.nightside_temperature = 200"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "e5ec1f18-ecfb-4a0b-bd70-37dd21eee8d8",
+   "metadata": {},
+   "source": [
+    "Pretty simple isn't it? \n",
+    "Let's visualize it (by default the mesh will be visualized in the body fixed frame)."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c4ccf4cf-9738-4a94-97e6-392a38b7bca8",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from pyRTX.visual.utils import visualize_planet_field\n",
+    "epoch = '01-JAN-2020 12:00'\n",
+    "epoch = sp.str2et(epoch)\n",
+    "\n",
+    "# Let's visualize the only interesting field, as the other ones are constant\n",
+    "visualize_planet_field(moon, field = 'temperature', epoch = epoch, show_sun = True);\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "fec5df08-bd12-4cc4-9ba1-46b9e6ab3ad1",
+   "metadata": {},
+   "source": [
+    "We can, however, do something more interesting, that is: we can define spatially variable fields of these quantities\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "cb659437-8cdd-4368-99b8-a635ea663392",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from pyRTX.classes.Planet import AlbedoGrid, TemperatureGrid\n",
+    "alb_grid = '../examples/grids/bond_albedo.npy'  \n",
+    "alb_lon  = '../examples/grids/ldam_4_lon.npy'\n",
+    "alb_lat  = '../examples/grids/ldam_4_lat.npy'\n",
+    "\n",
+    "temp_grid = '../examples/grids/temp.npy'  \n",
+    "temp_lon  = '../examples/grids/temp_lon.npy'\n",
+    "temp_lat  = '../examples/grids/temp_lat.npy'\n",
+    "\n",
+    "# Define the Albedo grid object\n",
+    "Lon = np.load(alb_lon)\n",
+    "Lat = np.load(alb_lat)\n",
+    "\n",
+    "ALB = AlbedoGrid(\n",
+    "\t\tradius      = ref_radius,\n",
+    "\t\tframe       = 'MOON_ME',\n",
+    "\t\tplanet_name = 'Moon',\n",
+    "\t\tfrom_array  = alb_grid,\n",
+    "\t\taxes        = (Lon, Lat),\n",
+    "\t\t)\n",
+    "\n",
+    "# Define the temperature grid object\n",
+    "Lon = np.load(temp_lon)\n",
+    "Lat = np.load(temp_lat)\n",
+    "\n",
+    "TEMP = TemperatureGrid(\n",
+    "\t\tradius      = ref_radius,\n",
+    "\t\tframe       = 'GSE_MOON',\n",
+    "\t\tplanet_name = 'Moon',\n",
+    "\t\tfrom_array  = temp_grid,\n",
+    "\t\taxes        = (Lon, Lat),\n",
+    "\t\t)\n",
+    "\n",
+    "\n",
+    "moon.emissivity          = 0.9\n",
+    "moon.albedo              = ALB\n",
+    "moon.gridded_temperature = TEMP"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "601e2886-b735-4aeb-a187-7f964989537e",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Now we can visualize the spatially varying temperature field\n",
+    "visualize_planet_field(moon, field = 'temperature', epoch = epoch, show_sun = True);"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "50b14c9b-35f5-4e1b-8797-f03fe5b4c0cc",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Now we can visualize the spatially varying albedo field\n",
+    "visualize_planet_field(moon, field = 'albedo', epoch = epoch, show_sun = True);"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "8724b293-6310-4010-8c88-70db08187ec0",
+   "metadata": {},
+   "source": [
+    "Now that we learned to input physical properties into the Planet object, we can use it to run calculations. \n",
+    "The way that Albedo and Thermal Infrared calculations are set up in pyRTX leverages ray tracing.\n",
+    "\n",
+    "The code first computes all the facets of the Planet that are in view of the spacecraft, then traces a ray\n",
+    "for every surface, directed to the spacecraft. \n",
+    "This mean that there will be thousands (or millions) of rays impacting the spacecraft from many different directions in the spacecraft body frame.\n",
+    "For this reason it would be very inefficient to run these computations \"live\". For these quantities we can use the **LUT** we have computed and saved in the previous example!"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "b24a730d-99fe-4d04-9cb6-820719f565ac",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "from pyRTX.classes.LookUpTable import LookUpTable \n",
+    "from pyRTX.classes.Radiation import Albedo, Emissivity\n",
+    "from pyRTX.classes.Precompute import Precompute\n",
+    "from pyRTX.core.analysis_utils import epochRange2\n",
+    "from pyRTX.classes.SRP import SolarPressure\n",
+    "\n",
+    "\n",
+    "# Define a set of epochs on which we want to perform the computation\n",
+    "ref_epc\t\t= \"2010 may 10 09:25:00\"\n",
+    "duration    = 5000  \t\t\t\t\t\t\t\t\n",
+    "timestep    = 50\n",
+    "epc_et0  = sp.str2et( ref_epc )\n",
+    "epc_et1  = epc_et0 + duration\n",
+    "epochs   = epochRange2(startEpoch = epc_et0, endEpoch = epc_et1, step = timestep)\n",
+    "\n",
+    "\n",
+    "LUT = LookUpTable('capsule_lut.nc')\n",
+    "base_flux = 1361.7\n",
+    "n_cores = 3\n",
+    "\n",
+    "# Precomputation object. This object performs all the calls to spiceypy before \n",
+    "# calculating the acceleration. This is necessary when calculating the acceleration\n",
+    "# with parallel cores.\n",
+    "prec = Precompute(epochs = epochs,)\n",
+    "prec.precomputePlanetaryRadiation(sc, moon,)\n",
+    "prec.dump()\n",
+    "\n",
+    "\n",
+    "# Create the albedo object\n",
+    "albedo = Albedo(sc, LUT, moon, precomputation  = prec, baseflux  = base_flux,)\n",
+    "\n",
+    "# Create the thermal infrared object\n",
+    "thermal_ir = Emissivity(sc, LUT, moon, precomputation  = prec, baseflux  = base_flux,)\n",
+    "\n",
+    "\n",
+    "# Run the computations\n",
+    "alb_accel = albedo.compute(epochs, n_cores = n_cores)[0] * 1e3 \n",
+    "ir_accel  = thermal_ir.compute(epochs, n_cores = n_cores)[0] * 1e3 \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "fb52ba6c-772a-4e94-beea-b74fcae1f4b7",
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "# Plot it\n",
+    "import matplotlib.pyplot as plt\n",
+    "eps = [(e - epochs[0])/3600 for e in epochs]\n",
+    "fig, ax = plt.subplots(4, 1, figsize = (10,6))\n",
+    "labels = ['X [m/s2]', 'Y [m/s2]', 'Z [m/s2]', 'Norm [m/s2]']\n",
+    "for i in range(3):\n",
+    "    ax[i].plot(eps, alb_accel[:, i], label = 'Albedo', color = 'gray', lw = 2)\n",
+    "    ax[i].plot(eps, ir_accel[:, i], label = 'IR', color = 'red', lw = 2)\n",
+    "    ax[i].set_ylabel(labels[i])\n",
+    "    \n",
+    "ax[3].plot(eps, np.linalg.norm(alb_accel, axis = 1),color = 'gray', lw = 2)\n",
+    "ax[3].plot(eps, np.linalg.norm(ir_accel, axis = 1), color = 'red', lw = 2)\n",
+    "ax[3].set_ylabel(labels[3])\n",
+    "ax[0].legend()\n",
+    "ax[3].set_xlabel('Hours')\n",
+    "ax[3].set_yscale('log')\n",
+    "ax[3].grid()\n",
+    "ax[0].set_title('Acceleration in the spacecraft body frame')\n",
+    "plt.tight_layout()\n",
+    "\n",
+    "\n",
+    "# Let's visualize also the spacecraft trajectory on top of the temperature field\n",
+    "fig, ax = visualize_planet_field(moon, field = 'temperature', epoch = epc_et0, show_sun = True, azim = 80, elev = 0);\n",
+    "\n",
+    "# Get the spacecraft trajectory\n",
+    "from pyRTX.utilities import getScPosVel\n",
+    "pos, vel = getScPosVel('LRO','Moon', epochs, 'MOON_ME')\n",
+    "\n",
+    "ax.plot(pos[:, 0], pos[:, 1], pos[:, 2], color = 'k', linewidth = 2)\n",
+    "ax.plot(pos[0, 0], pos[0, 1], pos[0, 2], color = 'magenta', marker = 's', markersize = 10, label = 'Start')\n",
+    "ax.plot(pos[-1, 0], pos[-1, 1], pos[-1, 2], color = 'green', marker = 's', markersize = 10, label = 'Stop')\n",
+    "ax.legend()"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "1f86093d-4511-4bbb-9a45-83eb09adef09",
+   "metadata": {},
+   "source": [
+    "We can see that correctly, when the spacecrat is flying over the nightside (i.e., the albedo acceleration is 0), the thermal infrared emission continues to create pressure on the spacecraft. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "be7c6467-f931-4ce1-bb9a-d23e3371182b",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "pyRTX-env",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.8.20"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
