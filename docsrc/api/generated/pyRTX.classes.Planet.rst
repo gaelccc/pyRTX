@@ -4,15 +4,6 @@ pyRTX.classes.Planet
 .. automodule:: pyRTX.classes.Planet
 
    
-   
-   
-
-   
-   
-   
-
-   
-   
    .. rubric:: Classes
 
    .. autosummary::
@@ -22,12 +13,3 @@ pyRTX.classes.Planet
       Planet
       PlanetGrid
       TemperatureGrid
-   
-   
-
-   
-   
-   
-
-
-
