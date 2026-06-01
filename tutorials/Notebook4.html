@@ -323,7 +323,7 @@
 <p>Now that we learned how to compute the SRP for complex shapes, accounting for secondary reflections, diffusion, eclipses, etc it’s time to learn how to set up the calculation of Albedo and Thermal Infrared pressure exerted by solar system bodies on the spacecraft.</p>
 <p>First of all let’s create a spacecraft and a planet. We’ll use the same spacecraft (capsule) as the previous example so that we can reuse the LUT we have already computed.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import trimesh as tm
@@ -361,7 +361,7 @@ sc = Spacecraft(
 <p>There are different ways of creating a planet.</p>
 <p>For example we can create a spherical planet, or we can load an .obj of its elevation. In case we provide an .obj, this should represent variations around a reference radius, that is an input.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Create a simple spherical planet
@@ -421,8 +421,8 @@ moon = Planet(  fromFile      = None, # If None a sphere will be used
 </ol>
 <p>There are several ways for doing this in pyRTX and we will now look at all of them.</p>
 <p>We’ll start with the simplest one, that is assigning constant properties:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>moon.albedo = 0.15
@@ -432,9 +432,18 @@ moon.nightside_temperature = 200
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Setting a single value of albedo for all the faces
+Setting a single value of emissivity for all the faces
+</pre></div></div>
+</div>
 <p>Pretty simple isn’t it? Let’s visualize it (by default the mesh will be visualized in the body fixed frame).</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pyRTX.visual.utils import visualize_planet_field
@@ -446,9 +455,16 @@ visualize_planet_field(moon, field = &#39;temperature&#39;, epoch = epoch, show_
 <br/></pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook4_9_0.png" src="../_images/tutorials_Notebook4_9_0.png" />
+</div>
+</div>
 <p>We can, however, do something more interesting, that is: we can define spatially variable fields of these quantities</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pyRTX.classes.Planet import AlbedoGrid, TemperatureGrid
@@ -491,8 +507,16 @@ moon.gridded_temperature = TEMP
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Setting a single value of emissivity for all the faces
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Now we can visualize the spatially varying temperature field
@@ -500,8 +524,15 @@ visualize_planet_field(moon, field = &#39;temperature&#39;, epoch = epoch, show_
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook4_12_0.png" src="../_images/tutorials_Notebook4_12_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Now we can visualize the spatially varying albedo field
@@ -509,10 +540,17 @@ visualize_planet_field(moon, field = &#39;albedo&#39;, epoch = epoch, show_sun =
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook4_13_0.png" src="../_images/tutorials_Notebook4_13_0.png" />
+</div>
+</div>
 <p>Now that we learned to input physical properties into the Planet object, we can use it to run calculations. The way that Albedo and Thermal Infrared calculations are set up in pyRTX leverages ray tracing.</p>
 <p>The code first computes all the facets of the Planet that are in view of the spacecraft, then traces a ray for every surface, directed to the spacecraft. This mean that there will be thousands (or millions) of rays impacting the spacecraft from many different directions in the spacecraft body frame. For this reason it would be very inefficient to run these computations “live”. For these quantities we can use the <strong>LUT</strong> we have computed and saved in the previous example!</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pyRTX.classes.LookUpTable import LookUpTable
@@ -556,8 +594,8 @@ ir_accel  = thermal_ir.compute(epochs, n_cores = n_cores)[0] * 1e3
 <br/></pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Plot it
@@ -593,6 +631,29 @@ ax.plot(pos[0, 0], pos[0, 1], pos[0, 2], color = &#39;magenta&#39;, marker = &#3
 ax.plot(pos[-1, 0], pos[-1, 1], pos[-1, 2], color = &#39;green&#39;, marker = &#39;s&#39;, markersize = 10, label = &#39;Stop&#39;)
 ax.legend()
 </pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;matplotlib.legend.Legend at 0x1b04c64c0&gt;
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook4_16_1.png" src="../_images/tutorials_Notebook4_16_1.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook4_16_2.png" src="../_images/tutorials_Notebook4_16_2.png" />
 </div>
 </div>
 <p>We can see that correctly, when the spacecrat is flying over the nightside (i.e., the albedo acceleration is 0), the thermal infrared emission continues to create pressure on the spacecraft.</p>

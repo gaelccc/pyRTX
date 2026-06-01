@@ -334,8 +334,8 @@
 <p>Note that here the “attitude” concept is quite general. Say that you have a cylindrical spacecraft orbiting a planet and its long axis is nadir-oriented. Then the <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\delta\)</span> of the Sun in the body-fixed frame will change along the orbit. Thus one can pre-compute the expected range of <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\delta\)</span> and compute the LUT on this range</p>
 <p>There are, of course, more complex examples. Think, for example, of a spacecraft with moving parts. Then in that case one must create the LUT spanning not only the <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\delta\)</span> angles, but also all possible configurations of the moving appendages.</p>
 <p>Let’s start with a simple example (they cylindrical spacecraft)</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy as np
@@ -355,8 +355,15 @@ plot_mesh(sc, title = &#39;Spacecraft&#39;);
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook3_3_0.png" src="../_images/tutorials_Notebook3_3_0.png" />
+</div>
+</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># We need to create the spacecraft object
@@ -382,7 +389,7 @@ sc_object = Spacecraft(
 </div>
 <p>After having defined the spacecraft, we need to define the ranges of angles that we will be analyzing. For simplicity let’s say that we expect the spacecraft to “see” the Sun in every possible configuration: i.e., alpha in <span class="math notranslate nohighlight">\([0, 2\pi]\)</span> and delta in <span class="math notranslate nohighlight">\([-\pi/2, \pi/2]\)</span></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># One of the most important design parameters is the grid resolution
@@ -395,7 +402,7 @@ DEC = np.linspace(-np.pi/2, np.pi/2, int(np.pi/grid_res)+1)
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Now we have to define the pixel plane and the ray tracer
@@ -433,8 +440,8 @@ srp = SolarPressure(sc_object, rtx, baseflux = None)
 <center><p><span class="math notranslate nohighlight">\(\frac{\Phi}{mc} \mathbb{L}\)</span></p>
 </center><p>So, we need to set <span class="math notranslate nohighlight">\(m\)</span> and <span class="math notranslate nohighlight">\(\Phi\)</span> to unit values to get <span class="math notranslate nohighlight">\(\mathbb{L}\)</span>.</p>
 <p>Now, what is left to do is to compute the LUT!</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define an attribute dictionary for the LUT
@@ -468,8 +475,17 @@ lut = np.empty(shape)
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+ *** LUT size: (37, 19, 3) ...
+</pre></div></div>
+</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for ir, ra in enumerate(RA):
@@ -480,8 +496,8 @@ lut = np.empty(shape)
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># And transform it in an xarray for easier manipulation
@@ -493,8 +509,30 @@ print(LUT)
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;xarray.Dataset&gt;
+Dimensions:        (ra: 37, dec: 19, value: 3)
+Coordinates:
+  * ra             (ra) float64 0.0 0.1745 0.3491 0.5236 ... 5.934 6.109 6.283
+  * dec            (dec) float64 -1.571 -1.396 -1.222 ... 1.222 1.396 1.571
+Dimensions without coordinates: value
+Data variables:
+    look_up_table  (ra, dec, value) float64 -7.063e-15 -1.224e-14 ... -1.021e-11
+Attributes:
+    base_frame:     BUS_FRAME
+    type:           accel
+    ref_epoch:      None
+    dims:           ra,dec,value
+    eul_set:        1,2,3
+    moving_frames:
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># The LUT is computed! We can inspect it by plotting the acceleration over different directions
@@ -534,11 +572,18 @@ plt.tight_layout()
 <br/></pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook3_13_0.png" src="../_images/tutorials_Notebook3_13_0.png" />
+</div>
+</div>
 <p>Now that we have computed the LUT we can see how it can be useful.</p>
 <p><strong>Note</strong> that in this case the calculation was simple/fast on purpose (to make this example runnable in a reasonable amount of time). Typical cases (e.g., with complex shapes and moving appendages) require much more time, and some additional coding effort (e.g., parallelization). You can find a full, in-depth, example of the computation of the LUT for Lunar Reconnaissance Orbiter in the <code class="docutils literal notranslate"><span class="pre">examples</span></code> folder (<code class="docutils literal notranslate"><span class="pre">examples/compute_lut.py</span></code>)</p>
 <p>In a normal case one would save the LUT to a file for later use. The preferred format for pyRTX is NetCDF</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>LUT.to_netcdf(&#39;capsule_lut.nc&#39;, encoding = LUT.encoding.update({&#39;zlib&#39;: True, &#39;complevel&#39;: 1}))
@@ -547,7 +592,7 @@ plt.tight_layout()
 </div>
 <p>To make the example realistic, we will assume that the spacecraft for which we have computed the LUT is Lunar Reconnaissance Orbiter. This way we can take advantage of the kernels (trajectory, etc) that we have used in the previous examples.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Let&#39;s see how to use the LUT now!
@@ -568,7 +613,7 @@ lut = LookUpTable(&#39;capsule_lut.nc&#39;)
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define timespan
@@ -633,8 +678,8 @@ srp = SolarPressure( lro,
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Let&#39;s compute the SRP and time it
@@ -644,6 +689,14 @@ toc = timeit.default_timer()
 print(&#39;Elapsed time&#39;, toc-tic, &#39;sec&#39;)
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Elapsed time 2.4386342909999996 sec
+</pre></div></div>
 </div>
 <p>This is a huge improvement with respect to the non-LUT case (live computation) that we discussed in the first example.</p>
 </section>

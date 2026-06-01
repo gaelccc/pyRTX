@@ -327,7 +327,7 @@
 <li><p>Diffusion</p></li>
 </ul>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>from pyRTX.classes.Spacecraft import Spacecraft
@@ -342,8 +342,8 @@ import matplotlib.pyplot as plt
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Let&#39;s create a simple object that has an interesting shape for evaluating
@@ -360,9 +360,26 @@ plot_mesh(mesh)
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(&lt;Figure size 1000x800 with 1 Axes&gt;,
+ &lt;Axes3D: title={&#39;center&#39;: &#39;3D Mesh&#39;}, xlabel=&#39;X&#39;, ylabel=&#39;Y&#39;, zlabel=&#39;Z&#39;&gt;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook2_2_1.png" src="../_images/tutorials_Notebook2_2_1.png" />
+</div>
+</div>
 <p>Let’s now define a spaceraft object. The spacecraft uses the shape we have defined previously</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>sc = Spacecraft(
@@ -392,8 +409,8 @@ plot_mesh(mesh)
 </div>
 </div>
 <p>In this case we will use a fixed location for the pixel plane (i.e., the origin of the rays). We choose on purpose a direction that will likely generate reflections inside the annulus, so we’ll be able to assess the importance of secondary reflections</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the origin direction of the pixel plane in the spacecraft frame
@@ -414,8 +431,24 @@ ax.quiver(start_point[0], start_point[1], start_point[2],
 <br/></pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;mpl_toolkits.mplot3d.art3d.Line3DCollection at 0x1b6b6f580&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook2_6_1.png" src="../_images/tutorials_Notebook2_6_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Initialize the pixel plane
@@ -461,8 +494,17 @@ srp = SolarPressure(sc, rtx,
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># To compute the acceleration we need to provide an epoch
@@ -473,8 +515,19 @@ print(accel)
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[[[-6.67300569e-08 -3.96807165e-23 -5.84437961e-09]
+  [ 4.51658541e-10  4.17712943e-26 -5.43413563e-11]
+  [-3.91588316e-11 -5.36819846e-27 -1.63024069e-11]
+  [-7.80925477e-12  5.11721945e-26 -4.89072207e-12]]]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(f&#39;Found bounces {len(accel[0])}&#39;)
@@ -488,9 +541,24 @@ ax.set_xticks(np.arange(1, len(accel[0])+1));
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Found bounces 4
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook2_9_1.png" src="../_images/tutorials_Notebook2_9_1.png" />
+</div>
+</div>
 <p>With such a shallow angle, up to four bounces are found! This happens because the rays keep bouncing inside the inner part of the annulus. Let’s see what happens as the angle changes</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>angles = np.linspace(0, 90*np.pi/180, 30)
@@ -531,10 +599,123 @@ ax.set_xlabel(&#39;Sun rays incoming angle&#39;)
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 9. Results provided up to bounce 8
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 6. Results provided up to bounce 5
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 5. Results provided up to bounce 4
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 4. Results provided up to bounce 3
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 3. Results provided up to bounce 2
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 3. Results provided up to bounce 2
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 3. Results provided up to bounce 2
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 3. Results provided up to bounce 2
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 3. Results provided up to bounce 2
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 2. Results provided up to bounce 1
+</pre></div></div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 0, &#39;Sun rays incoming angle&#39;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook2_11_2.png" src="../_images/tutorials_Notebook2_11_2.png" />
+</div>
+</div>
 <p>Interesting! There is a range of angles for which the light gets almost trapped indefinitely inside the inner ring. Let’s analyze in this case how the magnitude of the acceleration decreases with subsequent bounces.</p>
 <p>At the end we will plot the relative acceleration (i.e., we will normalize by the magnitude of the acceleration of the first bounce)</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Find the angle where we have the maximum number of reflections
@@ -577,12 +758,38 @@ ax.set_xticks(np.arange(1, len(accel[0])+1));
 </pre></div>
 </div>
 </div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+No intersections found for bounce 9. Results provided up to bounce 8
+Found bounces 8
+[[[-6.32320031e-11  3.59702848e-27 -3.28606588e-12]
+  [ 3.08762165e-13 -1.03220391e-27 -2.20907257e-14]
+  [-3.98499439e-14  0.00000000e+00 -6.62721770e-15]
+  [-2.35193104e-15  4.93308081e-30 -1.98816531e-15]
+  [-1.21370317e-15  7.90551101e-30 -5.96449593e-16]
+  [ 1.08399379e-15  1.77176106e-30 -1.76426445e-16]
+  [-3.40538407e-16 -5.96320874e-32 -3.36529914e-17]
+  [ 3.32900374e-18  9.82946495e-34  5.02776299e-19]]]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook2_13_1.png" src="../_images/tutorials_Notebook2_13_1.png" />
+</div>
+</div>
 <section id="Effect-of-diffusion">
 <h2>Effect of diffusion<a class="headerlink" href="#Effect-of-diffusion" title="Link to this heading"></a></h2>
 <p>Until now we have accounted for the sole effect of specular reflection. This can be a very good approximation for smooth material, however it starts failing when rough materials, behaving like lambertian surfaces, are present.</p>
 <p>pyRTX can account for diffusion. This is done by considering each point where a ray is initially reflected (an impact point) as a source of diffusion. Thus for each impact point we can sample a number of rays from a Lambertian distribution and follow these rays in their subsequent interactions.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Let&#39;s see the difference between reflection only and reflection + diffusion
@@ -631,8 +838,19 @@ accel_specular = np.array(srp_specular.compute([None], n_cores = 1)) * flux
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+
+ *** WARNING: For LUT computation SC mass should be set to 1.0!
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&#39;Acceleration with only specular reflection:&#39;)
@@ -656,6 +874,24 @@ ax[2].set_title(&#39;Z&#39;)
 ax[0].set_ylabel(&#39;Total difference&#39;);
 plt.tight_layout()
 <br/></pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Acceleration with only specular reflection:
+[-8.86880131e-11  8.31567493e-28 -3.68837208e-11]
+Acceleration with diffusive effect
+[-8.79510930e-11 -4.80540104e-15 -3.69583598e-11]
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook2_16_1.png" src="../_images/tutorials_Notebook2_16_1.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">

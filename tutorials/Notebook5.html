@@ -322,8 +322,8 @@
 <h1>Atmospheric drag<a class="headerlink" href="#Atmospheric-drag" title="Link to this heading"></a></h1>
 <p>Another non gravitational force that requires precise shape calculations is the atmospheric drag. Especially when a spacecraft has a time-changing attitude, which can be related to pointing operations or to moveable appendages (e.g., solar panels, antennas) one has to precisely compute the cross section in the velocity direction over time.</p>
 <p><code class="docutils literal notranslate"><span class="pre">pyRTX</span></code> can handle precise shape calculations. This notebook will show how to calculate the cross section, and how to compute the atmospheric drag from it.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import spiceypy as sp
@@ -355,10 +355,19 @@ sp.furnsh(METAKR)
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+/opt/homebrew/Caskroom/miniforge/base/envs/pyRTX-mac/lib/python3.8/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm
+</pre></div></div>
+</div>
 <p>Let’s define the spacecraft. In this example we will a simple shape and pretend it’s LRO. We do this for simplicity since we already have the SPICE kernels for it. We use a simple shape and not the full LRO shape (with moveable appendages) to simplify this example. A full example on how to compute drag on a time-varying shape is provided in the <code class="docutils literal notranslate"><span class="pre">examples</span></code> folder in the <code class="docutils literal notranslate"><span class="pre">lro_drag.py</span></code> example.</p>
 <p>Clearly the Moon is an airless body. Again, for simplicity we will assume this is not true and define an atmosphere for the Moon.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the spacecraft
@@ -395,12 +404,19 @@ plot_mesh(mesh);
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook5_3_0.png" src="../_images/tutorials_Notebook5_3_0.png" />
+</div>
+</div>
 </section>
 <section id="Compute-the-cross-section-LUT">
 <h1>Compute the cross-section LUT<a class="headerlink" href="#Compute-the-cross-section-LUT" title="Link to this heading"></a></h1>
 <p>First of all we’ll need to compute a lookup table for the cross-section.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Let&#39;s define a grid for the calculation
@@ -443,8 +459,16 @@ for ira, ra in enumerate(RA):
 <br/></pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area stderr docutils container">
+<div class="highlight"><pre>
+RA×DEC total: 100%|██████████| 111/111 [01:16&lt;00:00,  1.25it/s]
+</pre></div></div>
+</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Let&#39;s save the LUT. This way we can just re-load it instead of recomputing it
@@ -488,7 +512,7 @@ LUT.to_netcdf(&#39;area_lut.nc&#39;, encoding = LUT.encoding.update({&#39;zlib&#
 <h1>Computing the drag<a class="headerlink" href="#Computing-the-drag" title="Link to this heading"></a></h1>
 <p>Now that we have computed the cross-section lookup table we can proceed to compute the atmospheric drag. To do so, we need to define an atmospheric model.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># The atmospheric density is user-defined. pyRTX enables the definition of custom atmospheric models.
@@ -509,7 +533,7 @@ def density(h):
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Define the epochs for computation
@@ -527,7 +551,7 @@ epochs   = epochRange2(startEpoch = epc_et0, endEpoch = epc_et1, step = timestep
 </div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>lut = LookUpTable(&#39;area_lut.nc&#39;)
@@ -554,8 +578,8 @@ accel, velocity = drag.compute(epochs, accel_frame, n_cores=1)
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># and to visualize it, let&#39;s plot the magnitude of the drag acceleration
@@ -574,6 +598,22 @@ ax.set_ylabel(&#39;Drag acceleration [km/s2]&#39;, color = &#39;blue&#39;)
 ax2.set_ylabel(&#39;Spacecraft altitude [km]&#39;)
 ax.set_xlabel(&#39;Hours&#39;)
 </pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Text(0.5, 0, &#39;Hours&#39;)
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_Notebook5_11_1.png" src="../_images/tutorials_Notebook5_11_1.png" />
 </div>
 </div>
 <div class="nbinput nblast docutils container">

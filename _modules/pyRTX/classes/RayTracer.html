@@ -328,7 +328,7 @@
 	
 <div class="viewcode-block" id="RayTracer.__init__">
 <a class="viewcode-back" href="../../../api/generated/pyRTX.classes.RayTracer.html#pyRTX.classes.RayTracer.RayTracer.__init__">[docs]</a>
-	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">rays</span><span class="p">,</span> <span class="n">kernel</span> <span class="o">=</span> <span class="s1">&#39;Embree&#39;</span><span class="p">,</span> <span class="n">bounces</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">num_diffuse</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+	<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">spacecraft</span><span class="p">,</span> <span class="n">rays</span><span class="p">,</span> <span class="n">kernel</span> <span class="o">=</span> <span class="s1">&#39;Embree3&#39;</span><span class="p">,</span> <span class="n">bounces</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">diffusion</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">num_diffuse</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">		</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the RayTracer object.</span>
 
@@ -338,8 +338,8 @@
 <span class="sd">            The spacecraft object to be ray-traced.</span>
 <span class="sd">        rays : pyRTX.PixelPlane</span>
 <span class="sd">            The PixelPlane object defining the rays.</span>
-<span class="sd">        kernel : str, default=&#39;Embree&#39;</span>
-<span class="sd">            The ray-tracing kernel to use (e.g., &#39;Embree&#39;).</span>
+<span class="sd">        kernel : str, default=&#39;Embree3&#39;</span>
+<span class="sd">            The ray-tracing kernel to use (&#39;Embree3&#39;, &#39;CGAL&#39;, or &#39;Native&#39;).</span>
 <span class="sd">        bounces : int, default=1</span>
 <span class="sd">            The number of bounces to simulate for each ray.</span>
 <span class="sd">        diffusion : bool, default=False</span>
