@@ -10,7 +10,7 @@ class RayTracer():
     specified ray-tracing kernel to compute the intersections.
 	"""
 	
-	def __init__(self, spacecraft, rays, kernel = 'Embree', bounces = 1, diffusion = False, num_diffuse = None):
+	def __init__(self, spacecraft, rays, kernel = 'Embree3', bounces = 1, diffusion = False, num_diffuse = None):
 		"""
         Initializes the RayTracer object.
 
@@ -20,8 +20,8 @@ class RayTracer():
             The spacecraft object to be ray-traced.
         rays : pyRTX.PixelPlane
             The PixelPlane object defining the rays.
-        kernel : str, default='Embree'
-            The ray-tracing kernel to use (e.g., 'Embree').
+        kernel : str, default='Embree3'
+            The ray-tracing kernel to use ('Embree3', 'CGAL', or 'Native').
         bounces : int, default=1
             The number of bounces to simulate for each ray.
         diffusion : bool, default=False

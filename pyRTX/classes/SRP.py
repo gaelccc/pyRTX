@@ -474,9 +474,9 @@ class SolarPressure():
 					diffusion_pack.append(flux)  # Append the original flux
 					diffusion_pack.append(index_ray[i])   # not needed??
 
-			idx_tri = index_tri[i]
-			idx_ray = index_ray[i]
-			S = ray_directions[i]
+			idx_tri = np.asarray(index_tri[i])
+			idx_ray = np.asarray(index_ray[i])
+			S = np.asarray(ray_directions[i])
 
 			if i == 1 and diffusion:
 				force_temp, flux = self.srp_core(flux, idx_tri, idx_ray, N, S, pixel_spacing, mesh_obj, materials = properties, diffusion = diffusion, num_diffuse = num_diffuse, diffusion_pack = diffusion_pack)
