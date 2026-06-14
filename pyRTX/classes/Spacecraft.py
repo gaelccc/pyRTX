@@ -394,14 +394,14 @@ class Spacecraft():
 
 	def info(self):
 		"""
-		Prints a summary of the spacecraft's components.
+		Returns a summary of the spacecraft's components.
 		"""
 		elems = self.spacecraft_model.keys()
 		n_parts = len(elems)
 		printstr = f"Spacecraft {self.name} composed of {n_parts} elements: \n"
 		for i,elem in enumerate(elems):
 			printstr += f'{i+1}) ' + self._elem_info(elem) + ' \n'
-		print(printstr)
+		return printstr
 
 
 	def __str__(self):
