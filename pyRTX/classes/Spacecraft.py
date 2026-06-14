@@ -7,6 +7,10 @@ import matplotlib
 import copy
 from pyRTX import constants
 import pyRTX.core.utils_rt as utils_rt
+import logging
+
+# Suppress verbose trimesh loading and concatenating warnings
+logging.getLogger("trimesh").setLevel(logging.ERROR)
 
 
 class Spacecraft():
