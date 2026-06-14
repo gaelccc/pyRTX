@@ -38,6 +38,7 @@ import threading
 # Thread-safe Embree scene cache
 _EMBREE_CACHE = {}
 _EMBREE_CACHE_LOCK = threading.Lock()
+_GLOBAL_EMBREE_DEVICE = None
 
 def _hash_mesh(mesh_obj):
     """
@@ -983,11 +984,13 @@ class EmbreeTrimeshShapeModel(TrimeshShapeModel):
         """
         Set up an Embree scene.
         """
-        device = embree.Device()
-        geometry = device.make_geometry(embree.GeometryType.Triangle)
-        # geometry.set_build_quality(embree.BuildQuality.HIGH)
+        global _GLOBAL_EMBREE_DEVICE
+        if _GLOBAL_EMBREE_DEVICE is None:
+            _GLOBAL_EMBREE_DEVICE = embree.Device()
+            
+        geometry = _GLOBAL_EMBREE_DEVICE.make_geometry(embree.GeometryType.Triangle)
 
-        scene = device.make_scene()
+        scene = _GLOBAL_EMBREE_DEVICE.make_scene()
         # scene.set_build_quality(embree.BuildQuality.HIGH)
         scene.set_flags(embree.SceneFlags.Robust)
         vertex_buffer = geometry.set_new_buffer(
@@ -1019,7 +1022,7 @@ class EmbreeTrimeshShapeModel(TrimeshShapeModel):
         # This is the only variable we need to retain a reference to
         # (I think)
         self.scene = scene
-        device.release()
+        # device.release() no longer needed for global device
 
 
     def _intersect1(self, x, d):
