@@ -989,8 +989,7 @@ class EmbreeTrimeshShapeModel(TrimeshShapeModel):
 
         scene = device.make_scene()
         # scene.set_build_quality(embree.BuildQuality.HIGH)
-        scene.set_flags(embree.SceneFlags.ROBUST)
-
+        scene.set_flags(embree.SceneFlags.Robust)
         vertex_buffer = geometry.set_new_buffer(
             embree.BufferType.Vertex,  # buf_type
             0,  # slot
