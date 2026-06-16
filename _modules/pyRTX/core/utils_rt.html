@@ -219,10 +219,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.SRP.html#pyRTX.classes.SRP.SolarPressure"><code class="docutils literal notranslate"><span class="pre">SolarPressure</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Spacecraft.html">pyRTX.classes.Spacecraft</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Spacecraft.html#pyRTX.classes.Spacecraft.Spacecraft"><code class="docutils literal notranslate"><span class="pre">Spacecraft</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Spacecraft.html">pyRTX.classes.Spacecraft</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/defaults.html">Default Values and Constants</a></li>
@@ -271,7 +268,6 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Radiation.html">pyRTX.classes.Radiation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.RayTracer.html">pyRTX.classes.RayTracer</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.SRP.html">pyRTX.classes.SRP</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../api/generated/pyRTX.classes.Spacecraft.html">pyRTX.classes.Spacecraft</a></li>
 </ul>
 </li>
 </ul>
@@ -352,6 +348,7 @@
 <span class="c1"># Thread-safe Embree scene cache</span>
 <span class="n">_EMBREE_CACHE</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="n">_EMBREE_CACHE_LOCK</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+<span class="n">_GLOBAL_EMBREE_DEVICE</span> <span class="o">=</span> <span class="kc">None</span>
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_hash_mesh</span><span class="p">(</span><span class="n">mesh_obj</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1395,14 +1392,15 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set up an Embree scene.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">device</span> <span class="o">=</span> <span class="n">embree</span><span class="o">.</span><span class="n">Device</span><span class="p">()</span>
-        <span class="n">geometry</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">make_geometry</span><span class="p">(</span><span class="n">embree</span><span class="o">.</span><span class="n">GeometryType</span><span class="o">.</span><span class="n">Triangle</span><span class="p">)</span>
-        <span class="c1"># geometry.set_build_quality(embree.BuildQuality.HIGH)</span>
+        <span class="k">global</span> <span class="n">_GLOBAL_EMBREE_DEVICE</span>
+        <span class="k">if</span> <span class="n">_GLOBAL_EMBREE_DEVICE</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">_GLOBAL_EMBREE_DEVICE</span> <span class="o">=</span> <span class="n">embree</span><span class="o">.</span><span class="n">Device</span><span class="p">()</span>
+            
+        <span class="n">geometry</span> <span class="o">=</span> <span class="n">_GLOBAL_EMBREE_DEVICE</span><span class="o">.</span><span class="n">make_geometry</span><span class="p">(</span><span class="n">embree</span><span class="o">.</span><span class="n">GeometryType</span><span class="o">.</span><span class="n">Triangle</span><span class="p">)</span>
 
-        <span class="n">scene</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">make_scene</span><span class="p">()</span>
+        <span class="n">scene</span> <span class="o">=</span> <span class="n">_GLOBAL_EMBREE_DEVICE</span><span class="o">.</span><span class="n">make_scene</span><span class="p">()</span>
         <span class="c1"># scene.set_build_quality(embree.BuildQuality.HIGH)</span>
-        <span class="n">scene</span><span class="o">.</span><span class="n">set_flags</span><span class="p">(</span><span class="n">embree</span><span class="o">.</span><span class="n">SceneFlags</span><span class="o">.</span><span class="n">ROBUST</span><span class="p">)</span>
-
+        <span class="n">scene</span><span class="o">.</span><span class="n">set_flags</span><span class="p">(</span><span class="n">embree</span><span class="o">.</span><span class="n">SceneFlags</span><span class="o">.</span><span class="n">Robust</span><span class="p">)</span>
         <span class="n">vertex_buffer</span> <span class="o">=</span> <span class="n">geometry</span><span class="o">.</span><span class="n">set_new_buffer</span><span class="p">(</span>
             <span class="n">embree</span><span class="o">.</span><span class="n">BufferType</span><span class="o">.</span><span class="n">Vertex</span><span class="p">,</span>  <span class="c1"># buf_type</span>
             <span class="mi">0</span><span class="p">,</span>  <span class="c1"># slot</span>
@@ -1432,7 +1430,7 @@
         <span class="c1"># This is the only variable we need to retain a reference to</span>
         <span class="c1"># (I think)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scene</span> <span class="o">=</span> <span class="n">scene</span>
-        <span class="n">device</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
+        <span class="c1"># device.release() no longer needed for global device</span>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_intersect1</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
