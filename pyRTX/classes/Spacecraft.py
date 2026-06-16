@@ -74,7 +74,7 @@ class Spacecraft():
 		#self._last_epoch = 0
 
 
-    def _load_mesh(self, fname):
+	def _load_mesh(self, fname, parts=None):
 		"""
 		Loads a mesh from a file (e.g., OBJ, GLB, USDZ) and applies the specified unit conversion.
 		Also extracts PBR material properties if available.
@@ -83,6 +83,8 @@ class Spacecraft():
         ----------
         fname : str
             The path to the file.
+        parts : list of str, optional
+            A list of geometry names to extract. If None, all geometry is loaded.
 
         Returns
         -------
@@ -93,14 +95,27 @@ class Spacecraft():
 		materials = []
 		
 		if isinstance(obj, tm.Scene):
-			for geom in obj.geometry.values():
-				if hasattr(geom.visual, 'material'):
-					materials.append(geom.visual.material)
-			mesh = obj.dump(concatenate = True)
+			if parts is not None:
+				meshes = []
+				for node_name in obj.graph.nodes_geometry:
+					transform, geometry_name = obj.graph.get(node_name)
+					if geometry_name in parts:
+						geom = obj.geometry[geometry_name].copy()
+						geom.apply_transform(transform)
+						if hasattr(geom.visual, 'material'):
+							materials.append(geom.visual.material)
+						meshes.append(geom)
+				mesh = tm.util.concatenate(meshes) if meshes else tm.Trimesh()
+			else:
+				for geom in obj.geometry.values():
+					if hasattr(geom.visual, 'material'):
+						materials.append(geom.visual.material)
+				mesh = obj.dump(concatenate = True)
 		else:
 			mesh = obj
 			if hasattr(mesh.visual, 'material'):
 				materials.append(mesh.visual.material)
+
 		mesh.apply_transform(tmt.scale_matrix(self.conversion_factor, [0,0,0]))
 		return mesh, materials
 
@@ -126,7 +141,8 @@ class Spacecraft():
 				self.spacecraft_model[elem]['base_mesh'] = input_model[elem]['file'].apply_transform(tmt.scale_matrix(self.conversion_factor, [0,0,0]))
 				materials = []
 			else:
-				mesh, materials = self._load_mesh(input_model[elem]['file'])
+				parts = input_model[elem].get('parts', None)
+				mesh, materials = self._load_mesh(input_model[elem]['file'], parts=parts)
 				self.spacecraft_model[elem]['base_mesh'] = mesh
 			
 			# Extract PBR parameters if available
