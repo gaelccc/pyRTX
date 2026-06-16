@@ -1,4 +1,4 @@
-pyRTX.classes.Spacecraft
+﻿pyRTX.classes.Spacecraft
 ========================
 
 .. automodule:: pyRTX.classes.Spacecraft
@@ -9,3 +9,4 @@ pyRTX.classes.Spacecraft
    .. autosummary::
    
       Spacecraft
+   
