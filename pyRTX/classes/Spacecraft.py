@@ -7,6 +7,10 @@ import matplotlib
 import copy
 from pyRTX import constants
 import pyRTX.core.utils_rt as utils_rt
+import logging
+
+# Suppress verbose trimesh loading and concatenating warnings
+logging.getLogger("trimesh").setLevel(logging.ERROR)
 
 
 class Spacecraft():
@@ -70,24 +74,35 @@ class Spacecraft():
 		#self._last_epoch = 0
 
 
-	def _load_obj(self, fname):
+    def _load_mesh(self, fname):
 		"""
-		Loads a mesh from an OBJ file and applies the specified unit conversion.
+		Loads a mesh from a file (e.g., OBJ, GLB, USDZ) and applies the specified unit conversion.
+		Also extracts PBR material properties if available.
 
         Parameters
         ----------
         fname : str
-            The path to the OBJ file.
+            The path to the file.
 
         Returns
         -------
-        trimesh.Trimesh
-            The loaded mesh, scaled according to the spacecraft's units.
+        tuple
+            (trimesh.Trimesh, list of materials)
 		"""
-		mesh = tm.load_mesh(fname, skip_texture = True)
-		#if isinstance(mesh, tm.Scene): mesh = mesh.dump(concatenate = True)
+		obj = tm.load(fname, skip_texture = False)
+		materials = []
+		
+		if isinstance(obj, tm.Scene):
+			for geom in obj.geometry.values():
+				if hasattr(geom.visual, 'material'):
+					materials.append(geom.visual.material)
+			mesh = obj.dump(concatenate = True)
+		else:
+			mesh = obj
+			if hasattr(mesh.visual, 'material'):
+				materials.append(mesh.visual.material)
 		mesh.apply_transform(tmt.scale_matrix(self.conversion_factor, [0,0,0]))
-		return mesh
+		return mesh, materials
 
 
 	def _initialize(self, input_model):
@@ -109,8 +124,27 @@ class Spacecraft():
 
 			if isinstance(input_model[elem]['file'], tm.Trimesh):
 				self.spacecraft_model[elem]['base_mesh'] = input_model[elem]['file'].apply_transform(tmt.scale_matrix(self.conversion_factor, [0,0,0]))
+				materials = []
 			else:
-				self.spacecraft_model[elem]['base_mesh'] = self._load_obj(input_model[elem]['file'])
+				mesh, materials = self._load_mesh(input_model[elem]['file'])
+				self.spacecraft_model[elem]['base_mesh'] = mesh
+			
+			# Extract PBR parameters if available
+			if len(materials) > 0 and hasattr(materials[0], 'metallicFactor'):
+				mat = materials[0]
+				self.spacecraft_model[elem]['metallicFactor'] = getattr(mat, 'metallicFactor', 0.0)
+				self.spacecraft_model[elem]['roughnessFactor'] = getattr(mat, 'roughnessFactor', 1.0)
+				self.spacecraft_model[elem]['baseColorFactor'] = getattr(mat, 'baseColorFactor', [1.0, 1.0, 1.0, 1.0])
+			else:
+				# Fallback defaults if not provided in user dict
+				self.spacecraft_model[elem]['metallicFactor'] = input_model[elem].get('metallicFactor', 0.0)
+				self.spacecraft_model[elem]['roughnessFactor'] = input_model[elem].get('roughnessFactor', 1.0)
+				self.spacecraft_model[elem]['baseColorFactor'] = input_model[elem].get('baseColorFactor', [1.0, 1.0, 1.0, 1.0])
+
+			# Set fallback for legacy specular/diffuse to ensure dict keys exist
+			self.spacecraft_model[elem]['specular'] = input_model[elem].get('specular', 0.0)
+			self.spacecraft_model[elem]['diffuse'] = input_model[elem].get('diffuse', 1.0)
+
 			self.spacecraft_model[elem]['translation'] = tmt.translation_matrix(np.array(input_model[elem]['center']) * self.conversion_factor)
 
 
@@ -329,7 +363,13 @@ class Spacecraft():
 				elemMesh = self.spacecraft_model[elem]['base_mesh']
 			stored_idxs.append([counter, counter + len(elemMesh.faces)-1])
 			counter += len(elemMesh.faces)
-			props[elem] = {'specular' : self.spacecraft_model[elem]['specular'] , 'diffuse' :self.spacecraft_model[elem]['diffuse'] }
+			props[elem] = {
+				'specular': self.spacecraft_model[elem].get('specular', 0.0), 
+				'diffuse': self.spacecraft_model[elem].get('diffuse', 1.0),
+				'metallicFactor': self.spacecraft_model[elem].get('metallicFactor', 0.0),
+				'roughnessFactor': self.spacecraft_model[elem].get('roughnessFactor', 1.0),
+				'baseColorFactor': self.spacecraft_model[elem].get('baseColorFactor', [1.0, 1.0, 1.0, 1.0])
+			}
 
 		self.material_dict = {'idxs' : stored_idxs, 'props': props}
 
@@ -354,14 +394,14 @@ class Spacecraft():
 
 	def info(self):
 		"""
-		Prints a summary of the spacecraft's components.
+		Returns a summary of the spacecraft's components.
 		"""
 		elems = self.spacecraft_model.keys()
 		n_parts = len(elems)
 		printstr = f"Spacecraft {self.name} composed of {n_parts} elements: \n"
 		for i,elem in enumerate(elems):
 			printstr += f'{i+1}) ' + self._elem_info(elem) + ' \n'
-		print(printstr)
+		return printstr
 
 
 	def __str__(self):
